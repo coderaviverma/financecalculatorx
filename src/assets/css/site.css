@@ -296,7 +296,7 @@ code { font-family: var(--font-mono); font-size: .92em; background: var(--surfac
 .breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; }
 .breadcrumbs li { display: flex; gap: .35rem; align-items: center; }
 .breadcrumbs li + li::before { content: "/"; color: var(--line-strong); }
-.breadcrumbs a { color: var(--ink-3); text-decoration: none; }
+.breadcrumbs a { color: var(--ink-3); text-decoration: none; padding: .35rem .15rem; margin: -.35rem -.15rem; }
 .breadcrumbs a:hover { color: var(--brand-ink); text-decoration: underline; }
 .breadcrumbs [aria-current] { color: var(--ink-2); font-weight: 500; }
 
@@ -304,7 +304,9 @@ code { font-family: var(--font-mono); font-size: .92em; background: var(--surfac
 .page-head { max-width: var(--prose-w); margin-bottom: 1.6rem; }
 .page-head .lede { font-size: 1.08rem; color: var(--ink-2); margin: 0; }
 .review-line { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; align-items: center; margin-top: .85rem; font-size: .8rem; color: var(--ink-3); }
-.review-line a { color: inherit; }
+.review-line a { color: inherit; display: inline-block; padding: .4rem .1rem; margin: -.4rem -.1rem; }
+/* enlarged tap targets for small in-article links (WCAG 2.2 target size) */
+.calc-article nav a, .prose .kicker a, .footer-legal a { display: inline-block; padding: .35rem .1rem; margin: -.35rem -.1rem; }
 
 /* ============================================================
    CALCULATOR LAYOUT

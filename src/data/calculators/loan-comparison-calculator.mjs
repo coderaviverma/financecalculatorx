@@ -19,30 +19,30 @@ export default {
   jumpExplainLabel: "Comparing offers fairly",
   sections: {
     howToHtml: `
-      <p>Enter one loan amount — both offers are priced on it, so every difference in the results comes from the offers themselves. Then fill in each offer's terms:</p>
+      <p>Enter one loan amount. Both offers are priced on it, so every difference in the results comes from the offers themselves. Then fill in each offer's terms:</p>
       <ul>
-        <li><strong>Interest rate</strong> — the nominal annual rate each lender quotes.</li>
-        <li><strong>Term</strong> — the offers don't have to match; the verdict flags what a term gap means.</li>
-        <li><strong>Upfront fees</strong> — origination, processing, documentation, or any mandatory charge to open the loan.</li>
+        <li><strong>Interest rate</strong>: the nominal annual rate each lender quotes.</li>
+        <li><strong>Term</strong>: the offers don't have to match, and the verdict flags what a term gap means.</li>
+        <li><strong>Upfront fees</strong>: origination, processing, documentation, or any mandatory charge to open the loan.</li>
       </ul>
       <p>You get each offer's payment, total interest, total cost (interest plus fees), an effective APR that folds the fees in, and a verdict naming the cheaper offer — plus the break-even month when a higher-fee offer only wins if you keep the loan long enough.</p>`,
     explanationHtml: `
       <h2>How to put two loan offers on equal footing</h2>
-      <p>Loan offers are engineered to look good on different axes: one advertises the lower rate, another the lower payment, a third "no fees". To compare them honestly you have to normalize. First, price both on the <strong>same amount</strong> — done here by design. Second, judge on <strong>total cost</strong> (all interest plus all mandatory fees) and on <strong>effective APR</strong>, never on the monthly payment alone. A payment can always be made smaller by stretching the term, which usually makes the loan more expensive in total — the cheapest-looking payment is routinely attached to the costliest offer.</p>
-      <p>Fees versus rate is the classic trap, and the defaults here show why it needs actual arithmetic. Offer A: 8.9% over 60 months, no fees — $414.20 a month, $4,851.83 of interest. Offer B: 7.4% with a $500 fee — $399.81 a month, $3,988.56 of interest, $4,488.56 all-in. B wins by <strong>$363.27</strong> despite the fee, and its effective APR (8.47%) prices the fee into a single comparable number. But the win is conditional: B starts $500 behind on day one and claws it back at $14.39 a month, drawing level only at <strong>month 35</strong>. Repay or refinance before then and the "more expensive" no-fee offer would have been the cheaper choice. A fee is, in effect, prepaid interest — worth paying only if you keep the loan past break-even.</p>
-      <p>Finally, watch for teaser rates. An advertised rate that applies for the first six or twelve months and then "reverts" is not the rate to type in here — this tool assumes each rate holds for the whole term. Ask every lender for the same short list in writing: amount financed, nominal rate and whether it's fixed, full term, every mandatory fee, any prepayment penalty, and the regulated APR disclosure. With those six numbers, this page settles the question in one screen.</p>`,
+      <p>Loan offers are engineered to look good on different axes: one advertises the lower rate, another the lower payment, a third "no fees". To compare them honestly you have to normalize. First, price both on the <strong>same amount</strong>, done here by design. Second, judge on <strong>total cost</strong> (all interest plus all mandatory fees) and on <strong>effective APR</strong>, never on the monthly payment alone. A payment can always be made smaller by stretching the term, which usually makes the loan more expensive in total — the cheapest-looking payment is routinely attached to the costliest offer.</p>
+      <p>Fees versus rate is the classic trap, and the defaults here show why it needs actual arithmetic. Offer A: 8.9% over 60 months with no fees costs $414.20 a month, $4,851.83 of interest. Offer B: 7.4% with a $500 fee costs $399.81 a month, $3,988.56 of interest, $4,488.56 all-in. B wins by <strong>$363.27</strong> despite the fee, and its effective APR (8.47%) prices the fee into a single comparable number. But the win is conditional: B starts $500 behind on day one and claws it back at $14.39 a month, drawing level only at <strong>month 35</strong>. Repay or refinance before then and the "more expensive" no-fee offer would have been the cheaper choice. A fee is, in effect, prepaid interest, worth paying only if you keep the loan past break-even.</p>
+      <p>Finally, watch for teaser rates. An advertised rate that applies for the first six or twelve months and then "reverts" is not the rate to type in here; this tool assumes each rate holds for the whole term. Ask every lender for the same short list in writing: amount financed, nominal rate and whether it's fixed, full term, every mandatory fee, any prepayment penalty, and the regulated APR disclosure. With those six numbers, this page settles the question in one screen.</p>`,
     formulaHtml: `
       <p>Each offer is amortized normally; the comparison adds two derived figures. Total cost and effective APR are:</p>
       <div class="formula-block"><span class="fx">Total cost = total interest + upfront fees&nbsp;&nbsp;·&nbsp;&nbsp;PV(A, r<sub>eff</sub>, n) = amount − fees</span>
         <ul class="formula-vars">
           <li><code>A</code> the offer's monthly payment, <code>n</code> its term in months</li>
           <li><code>PV</code> present value of the payment stream at monthly rate r<sub>eff</sub> ÷ 12</li>
-          <li><code>r<sub>eff</sub></code> effective APR — solved numerically (bisection), since it has no closed form</li>
+          <li><code>r<sub>eff</sub></code> effective APR, solved numerically (bisection) since it has no closed form</li>
         </ul>
       </div>
-      <p>The effective APR uses the fees-deducted-from-proceeds convention: you repay a payment sized for the full amount but effectively receive only <code>amount − fees</code>, so the APR is the rate that makes those two sides balance. With zero fees it equals the nominal rate. The break-even month is the first <code>m</code> where <code>fees<sub>B</sub> + A<sub>B</sub>·m &lt; fees<sub>A</sub> + A<sub>A</sub>·m</code> — cumulative outlay, with fees counted upfront.</p>`,
+      <p>The effective APR uses the fees-deducted-from-proceeds convention: you repay a payment sized for the full amount but effectively receive only <code>amount − fees</code>, so the APR is the rate that makes those two sides balance. With zero fees it equals the nominal rate. The break-even month is the first <code>m</code> where <code>fees<sub>B</sub> + A<sub>B</sub>·m &lt; fees<sub>A</sub> + A<sub>A</sub>·m</code>: cumulative outlay, with fees counted upfront.</p>`,
     exampleHtml: `
-      <div class="example-block"><div class="ex-head">Example: $20,000 — 8.9% with no fees vs 7.4% with a $500 fee, both 60 months</div><div class="ex-body">
+      <div class="example-block"><div class="ex-head">Example: $20,000 at 8.9% with no fees vs 7.4% with a $500 fee, both 60 months</div><div class="ex-body">
         <p>Offer A pays <strong>$414.20</strong>/month; interest totals $4,851.83, and with no fees that is its total cost.</p>
         <p>Offer B pays <strong>$399.81</strong>/month; interest totals $3,988.56, plus the $500 fee → <strong>$4,488.56</strong> all-in. Effective APR: 8.9% for A vs <strong>8.47%</strong> for B.</p>
         <p>Verdict: B is cheaper by <strong>$363.27</strong> — but only after <strong>month 35</strong>, when its $14.39/month payment advantage has repaid the upfront $500. Exit the loan earlier and A wins.</p>
@@ -57,9 +57,9 @@ export default {
       </ul>`,
     limitationsHtml: `
       <ul>
-        <li>Fees are modeled as paid upfront and, for the effective APR, deducted from proceeds. A lender that finances fees into the balance produces slightly different figures — add financed fees to the amount instead.</li>
+        <li>Fees are modeled as paid upfront and, for the effective APR, deducted from proceeds. A lender that finances fees into the balance produces slightly different figures; add financed fees to the amount instead.</li>
         <li>Both rates are assumed fixed for their full terms; teaser periods and variable resets are not modeled.</li>
-        <li>Optional add-ons (payment insurance, service plans) are excluded — include them in fees if they're mandatory to get the rate.</li>
+        <li>Optional add-ons (payment insurance, service plans) are excluded. Include them in fees if they're mandatory to get the rate.</li>
         <li>Exactly two offers are compared; for three or more, run the tool pairwise against the current leader.</li>
         <li>The regulated APR your lender must disclose may use a slightly different convention than the one documented here.</li>
       </ul>`,
@@ -67,7 +67,7 @@ export default {
   faq: [
     {
       q: "Why not just pick the offer with the lower monthly payment?",
-      aHtml: `<p>Because the payment mixes price with time. Stretching a term shrinks the payment while adding months of interest, so the cheaper-feeling payment is often the dearer loan. The verdict here calls this out explicitly whenever the payment winner and the total-cost winner are different offers — that split is exactly the trap.</p>`,
+      aHtml: `<p>Because the payment mixes price with time. Stretching a term shrinks the payment while adding months of interest, so the cheaper-feeling payment is often the dearer loan. The verdict here calls this out explicitly whenever the payment winner and the total-cost winner are different offers, and that split is exactly the trap.</p>`,
     },
     {
       q: "What does the effective APR in the results mean?",
@@ -75,7 +75,7 @@ export default {
     },
     {
       q: "Which fees should I type in, and which should I ignore?",
-      aHtml: `<p>Include every charge you must pay to get the loan: origination, processing, documentation, mandatory broker fees. Exclude genuinely optional extras, but be skeptical — if declining the "optional" insurance changes the offered rate, it isn't optional and belongs in the fee box for that offer.</p>`,
+      aHtml: `<p>Include every charge you must pay to get the loan: origination, processing, documentation, mandatory broker fees. Exclude genuinely optional extras, but be skeptical: if declining the "optional" insurance changes the offered rate, it isn't optional and belongs in the fee box for that offer.</p>`,
     },
     {
       q: "I might repay the loan early. How does that change the comparison?",
@@ -87,7 +87,7 @@ export default {
     },
     {
       q: "Can I compare two offers with different terms, like 48 and 72 months?",
-      aHtml: `<p>Yes — the math handles it, and the verdict adds a caveat when terms differ. Just read the result in two parts: total cost tells you which loan is cheaper in absolute money, while the payoff-time row reminds you the longer offer occupies your budget for extra years. A shorter, slightly costlier-per-month offer is often the better deal overall.</p>`,
+      aHtml: `<p>Yes, the math handles it, and the verdict adds a caveat when terms differ. Just read the result in two parts: total cost tells you which loan is cheaper in absolute money, while the payoff-time row reminds you the longer offer occupies your budget for extra years. A shorter, slightly costlier-per-month offer is often the better deal overall.</p>`,
     },
   ],
 };

@@ -9,7 +9,7 @@ export default {
   bodyHtml: `
     <p>The fastest way to reach us is email:</p>
     <div class="callout note"><span class="c-title">Email</span>
-      <p><a href="mailto:coderaviverma@gmail.com">coderaviverma@gmail.com</a></p>
+      <p><a href="mailto:contact@financecalculatorx.com">contact@financecalculatorx.com</a></p>
       <p style="margin:0">We typically reply within a few business days. Reports of calculation errors are handled first — see the <a href="/corrections-policy/">corrections policy</a>.</p>
     </div>
 

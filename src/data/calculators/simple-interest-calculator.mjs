@@ -19,33 +19,33 @@ export default {
   related: ["compound-interest-calculator", "loan-interest-calculator", "savings-calculator", "future-value-calculator"],
   sections: {
     howToHtml: `
-      <p>Enter the principal, the annual rate, and the time in years — decimals work, so 18 months is 1.5. The calculator applies I = P × r × t and reports:</p>
+      <p>Three inputs drive everything here: the principal, the annual rate, and the time in years (decimals work, so 18 months is 1.5). The calculator applies I = P × r × t and reports:</p>
       <ul>
-        <li><strong>Interest earned</strong> — the flat total, plus what that is per year and per month.</li>
-        <li><strong>Equivalent compound result</strong> — what the same money would earn if interest were reinvested monthly instead of paid out, so you can price the difference.</li>
+        <li><strong>Interest earned</strong>: the flat total, plus what that is per year and per month.</li>
+        <li><strong>Equivalent compound result</strong>: what the same money would earn if interest were reinvested monthly instead of paid out, so you can price the difference.</li>
       </ul>
       <p>The chart and table track both balances year by year. The gap column is the answer to a practical question: if you're offered interest as a payout (a coupon, a monthly-payout deposit), how much are you giving up versus letting it reinvest?</p>`,
     explanationHtml: `
-      <h2>Where simple interest is actually used</h2>
-      <p>Simple interest means the rate is only ever applied to the original principal. Earned interest is handed to you — or just tallied up — but never added to the base. That sounds like a textbook relic, yet it describes a lot of real money: most <strong>bond coupons</strong> pay a fixed percentage of face value each period, straight to your account; <strong>fixed deposits with a payout option</strong> send interest out monthly or quarterly instead of reinvesting it; <strong>promissory notes</strong> between private parties are conventionally written as simple interest; and most <strong>statutory interest</strong> — court judgments, late tax payments, delayed insurance settlements — is calculated as a flat annual percentage on the amount owed.</p>
-      <p>The structural difference from compounding is linear versus exponential growth. At 6%, $10,000 earns exactly $600 every single year — the default three-year result is $1,800, and year twenty's interest is the same $600 as year one's. Reinvested monthly at the same 6%, the three-year figure is $1,966.81 — only $166.81 more. But stretch to ten years and it's $16,000 simple versus $18,193.97 compounded; at twenty years, $22,000 versus $33,102.04. The two lines on the chart start out nearly touching and then peel apart, which is the whole story: over short periods simple and compound interest are near-twins, and over long periods they aren't even the same species.</p>
+      <h2>Where simple interest is used</h2>
+      <p>Simple interest means the rate is only ever applied to the original principal. Earned interest is handed to you, or simply tallied up, but never added to the base. That sounds like a textbook relic, yet it describes a lot of real money: most <strong>bond coupons</strong> pay a fixed percentage of face value each period, straight to your account; <strong>fixed deposits with a payout option</strong> send interest out monthly or quarterly instead of reinvesting it; <strong>promissory notes</strong> between private parties are conventionally written as simple interest; and most <strong>statutory interest</strong> (court judgments, late tax payments, delayed insurance settlements) is calculated as a flat annual percentage on the amount owed.</p>
+      <p>The structural difference from compounding is linear versus exponential growth. At 6%, $10,000 earns exactly $600 every single year: the default three-year result is $1,800, and year twenty's interest is the same $600 as year one's. Reinvested monthly at the same 6%, the three-year figure is $1,966.81, only $166.81 more. But stretch to ten years and it's $16,000 simple versus $18,193.97 compounded; at twenty years, $22,000 versus $33,102.04. The two lines on the chart start out nearly touching and then peel apart, which is the whole story: over short periods simple and compound interest are near-twins, and over long periods they aren't even the same species.</p>
       <p>A useful way to think about it: simple interest is what you get when interest is <em>paid out</em>, compound is what you get when it's <em>reinvested</em>. The money doesn't care about the label — a bond investor who takes each coupon and immediately reinvests it at the same rate has manufactured compound interest out of a simple-interest instrument. The gap this calculator shows is therefore not a defect of the product; it's the value of the reinvestment job that's been left to you.</p>
-      <p>One caution on language: people often call flat-fee personal loans "simple interest loans," but almost no amortizing loan is simple interest in this sense — each payment is split against an interest charge computed on the <em>declining</em> balance. If you're pricing a loan, use the <a href="/loan-interest-calculator/">Loan Interest Calculator</a> instead; this page is for money that earns, not money you owe.</p>`,
+      <p>One caution on language: people often call flat-fee personal loans "simple interest loans," but almost no amortizing loan is simple interest in this sense; each payment is split against an interest charge computed on the <em>declining</em> balance. If you're pricing a loan, use the <a href="/loan-interest-calculator/">Loan Interest Calculator</a> instead; this page is for money that earns, not money you owe.</p>`,
     formulaHtml: `
       <p>The entire model is one multiplication:</p>
       <div class="formula-block"><span class="fx">I = P × r × t</span>
         <ul class="formula-vars">
-          <li><code>P</code> principal — the base, which never changes</li>
+          <li><code>P</code> principal (the base, which never changes)</li>
           <li><code>r</code> annual rate as a decimal (6% → 0.06)</li>
           <li><code>t</code> time in years (fractions allowed: 9 months = 0.75)</li>
         </ul>
       </div>
-      <p>The final amount is simply <code>A = P + I = P(1 + rt)</code>. Because nothing feeds back into the base, interest scales in a straight line with both rate and time: doubling either exactly doubles the interest — something that is never true under compounding, where doubling time more than doubles the result.</p>
+      <p>The final amount is simply <code>A = P + I = P(1 + rt)</code>. Because nothing feeds back into the base, interest scales in a straight line with both rate and time: doubling either exactly doubles the interest, which is never true under compounding, where doubling time more than doubles the result.</p>
       <p>The comparison column uses the standard monthly-compounding formula <code>P(1 + r/12)<sup>12t</sup></code> on identical inputs, so the gap you see is purely the effect of reinvestment.</p>`,
     exampleHtml: `
       <div class="example-block"><div class="ex-head">Example: $10,000 at 6% for 3 years</div><div class="ex-body">
-        <p>I = 10,000 × 0.06 × 3 = <strong>$1,800</strong>, for a total of <strong>$11,800</strong>. That's $600 per year, or $50 per month — the same every month, first to last.</p>
-        <p>Compounded monthly instead, the balance would reach $11,966.81 — $166.81 more over the three years. Small. But run the same comparison out to 20 years: simple interest delivers $12,000 while monthly compounding delivers $23,102.04 — a gap of $11,102.04, more than the original interest itself.</p>
+        <p>I = 10,000 × 0.06 × 3 = <strong>$1,800</strong>, for a total of <strong>$11,800</strong>. That's $600 per year, or $50 per month, the same every month, first to last.</p>
+        <p>Compounded monthly instead, the balance would reach $11,966.81, some $166.81 more over the three years. Small. But run the same comparison out to 20 years: simple interest delivers $12,000 while monthly compounding delivers $23,102.04 — a gap of $11,102.04, more than the original interest itself.</p>
         <p>Doubling time makes the point sharply: at 6% simple, money doubles in 100 ÷ 6 ≈ 16.7 years. Compounded monthly, it doubles in about 11.6.</p>
       </div></div>`,
     factorsHtml: `
@@ -58,7 +58,7 @@ export default {
     limitationsHtml: `
       <ul>
         <li>The comparison column assumes <strong>monthly</strong> compounding; products that compound daily or yearly will land slightly above or below it. The flagship <a href="/compound-interest-calculator/">Compound Interest Calculator</a> lets you set the frequency exactly.</li>
-        <li>Results are gross of tax — payout interest is typically taxable as income in the year received, which can change the payout-vs-reinvest decision.</li>
+        <li>Results are gross of tax; payout interest is typically taxable as income in the year received, which can change the payout-vs-reinvest decision.</li>
         <li>A constant rate is assumed for the whole term; floating-rate notes and step-up deposits need a period-by-period calculation.</li>
         <li>This page models interest you <em>earn</em>. Amortizing loans, even ones marketed with "simple interest" language, follow declining-balance math instead.</li>
       </ul>`,

@@ -103,6 +103,7 @@ export function base(p) {
   <meta name="twitter:description" content="${esc(p.description)}">
   <meta name="twitter:image" content="${site.origin}/assets/img/og-image.png">
   <meta name="theme-color" content="#0B6B57">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
@@ -134,6 +135,8 @@ export const ldOrg = () => ({
   url: site.origin + "/",
   logo: site.origin + "/assets/img/apple-touch-icon.png",
   email: site.email,
+  founder: { "@type": "Person", name: "Avinash Verma", url: site.origin + "/about/" },
+  sameAs: ["https://github.com/coderaviverma", "https://gitlab.com/coderaviverma"],
 });
 export const ldWebsite = () => ({
   "@context": "https://schema.org",
@@ -188,7 +191,7 @@ export function calculatorPage(c, all, v) {
     <h1>${esc(c.h1 || c.title)}</h1>
     <p class="lede">${c.tagline}</p>
     <div class="review-line">
-      <span>By the <a href="/editorial-policy/">${site.shortName} editorial team</a></span>
+      <span>By <a href="/about/">Avinash Verma</a> · <a href="/editorial-policy/">editorial standards</a></span>
       <span>Last reviewed: <time datetime="${c.lastReviewed}">${new Date(c.lastReviewed + "T00:00:00Z").toLocaleDateString("en", { year: "numeric", month: "long", timeZone: "UTC" })}</time></span>
       <span>Formula v${c.version || "1.0"} · <a href="/methodology/">How we calculate</a></span>
     </div>
@@ -456,7 +459,7 @@ export function guidePage(g, all, calcs, v) {
       <h1>${esc(g.title)}</h1>
       <p class="lede">${esc(g.description)}</p>
       <div class="review-line">
-        <span>By the <a href="/editorial-policy/">${site.shortName} editorial team</a></span>
+        <span>By <a href="/about/">Avinash Verma</a> · <a href="/editorial-policy/">editorial standards</a></span>
         <span>Last reviewed: <time datetime="${g.lastReviewed}">${new Date(g.lastReviewed + "T00:00:00Z").toLocaleDateString("en", { year: "numeric", month: "long", timeZone: "UTC" })}</time></span>
       </div>
     </div>
@@ -499,6 +502,9 @@ export function guidesIndex(guides, v) {
   <div class="page-head">
     <h1>Finance guides</h1>
     <p class="lede">Short, precise explanations of the concepts behind the calculators — how interest really works, what the formulas assume, and how to compare your options.</p>
+  </div>
+  <div class="prose" style="margin-bottom:2rem">
+    <p>Every guide here exists to answer a question the calculators raise. If a tool told you that extra payments save $58,000, the matching guide explains the mechanics behind that number; if two loan offers look similar, the comparison guide shows which four figures actually decide it. Each article states its assumptions, works through at least one example with real arithmetic, and links to the calculator where you can test the idea with your own numbers. Start with the guide closest to the decision in front of you — they are written to stand alone.</p>
   </div>
   <div class="grid grid-3">
     ${guides.map((g) => `<a class="guide-card" href="/guides/${g.slug}/"><span class="k">Guide</span><span class="t">${esc(g.title)}</span><span class="d">${esc(g.cardDescription)}</span></a>`).join("")}

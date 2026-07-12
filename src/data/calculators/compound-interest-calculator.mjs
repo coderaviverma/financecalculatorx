@@ -19,19 +19,19 @@ export default {
   related: ["investment-calculator", "savings-calculator", "future-value-calculator", "sip-calculator", "simple-interest-calculator", "lump-sum-investment-calculator"],
   sections: {
     howToHtml: `
-      <p>Enter any combination of a starting amount and a regular contribution — either can be zero. Set the annual rate, how long the money grows, and how often interest compounds:</p>
+      <p>Enter any combination of a starting amount and a regular contribution (either can be zero). Set the annual rate, how long the money grows, and how often interest compounds:</p>
       <ul>
-        <li><strong>Starting amount</strong> — money invested today (a lump sum, an existing balance).</li>
-        <li><strong>Regular contribution</strong> — added at the end of each period; switch between monthly, quarterly and yearly.</li>
-        <li><strong>Compounding frequency</strong> — how often earned interest is credited and starts earning itself. Savings accounts commonly compound daily or monthly; bonds and some deposits yearly or half-yearly.</li>
+        <li><strong>Starting amount</strong>: money invested today (a lump sum, an existing balance).</li>
+        <li><strong>Regular contribution</strong>: added at the end of each period; switch between monthly, quarterly and yearly.</li>
+        <li><strong>Compounding frequency</strong>: how often earned interest is credited and starts earning itself. Savings accounts commonly compound daily or monthly; bonds and some deposits yearly or half-yearly.</li>
       </ul>
       <p>The chart stacks your starting amount, your contributions and the interest earned, so you can see the moment compounding overtakes your own deposits. The year-by-year table breaks down every year and exports to CSV. To compare two rates or contribution levels, save Scenario A, change the input, and save Scenario B.</p>`,
     explanationHtml: `
       <h2>How compound interest works</h2>
-      <p>Compound interest means interest is calculated on the <em>current</em> balance — including all interest already earned — rather than only on the amount you originally deposited. Each time interest is credited, the base for the next calculation gets larger, so growth accelerates over time. That's the difference from <a href="/simple-interest-calculator/">simple interest</a>, where the base never changes.</p>
-      <p>The effect is unremarkable over short periods and dramatic over long ones. At 7% compounded monthly, $10,000 grows to about $14,176 in five years (42% up) — but to $40,387 in twenty years (over 300% up). The pattern is exponential: in the final five years of that twenty-year run, the balance gains more than it did in the first ten combined.</p>
-      <p>When you add regular contributions, each contribution starts its own compounding clock. Early contributions do far more work than late ones — in the default example on this page ($10,000 start, $200/month, 7%, 20 years), the final balance is $144,572.72, and $86,572.72 of it — 60% — is interest rather than deposits.</p>
-      <p><strong>Compounding frequency</strong> matters less than people expect, but it isn't nothing. The same nominal 7% over 20 years on the default example produces $140,204.12 compounded yearly versus $144,572.72 compounded monthly. That gap is captured by the <em>effective annual rate</em> (shown in the results): 7% nominal compounded monthly is really 7.229% per year. When comparing real accounts, use the advertised APY/AER — it already includes compounding — with yearly frequency here.</p>`,
+      <p>Compound interest means interest is calculated on the <em>current</em> balance, including all interest already earned, rather than only on the amount you originally deposited. Each time interest is credited, the base for the next calculation gets larger, so growth accelerates over time. That's the difference from <a href="/simple-interest-calculator/">simple interest</a>, where the base never changes.</p>
+      <p>The effect is unremarkable over short periods and dramatic over long ones. At 7% compounded monthly, $10,000 grows to about $14,176 in five years (42% up), but to $40,387 in twenty years (over 300% up). The pattern is exponential: in the final five years of that twenty-year run, the balance gains more than it did in the first ten combined.</p>
+      <p>When you add regular contributions, each contribution starts its own compounding clock. Early contributions do far more work than late ones. In the default example on this page ($10,000 start, $200/month, 7%, 20 years), the final balance is $144,572.72, and $86,572.72 of it (60%) is interest rather than deposits.</p>
+      <p><strong>Compounding frequency</strong> matters less than people expect, but it isn't nothing. The same nominal 7% over 20 years on the default example produces $140,204.12 compounded yearly versus $144,572.72 compounded monthly. That gap is captured by the <em>effective annual rate</em> (shown in the results): 7% nominal compounded monthly is really 7.229% per year. When comparing real accounts, use the advertised APY/AER with yearly frequency here, since that figure already includes compounding.</p>`,
     formulaHtml: `
       <p>For a lump sum, the future value after <code>t</code> years is:</p>
       <div class="formula-block"><span class="fx">FV = P × (1 + r ⁄ m)<sup>m·t</sup></span>
@@ -55,7 +55,7 @@ export default {
         <p>Here r ⁄ m = 0.06 ⁄ 12 = 0.005 and m·t = 120 periods.</p>
         <p>FV = 5,000 × (1.005)<sup>120</sup> = 5,000 × 1.81940 = <strong>$9,096.98</strong>.</p>
         <p>The money nearly doubles: $4,096.98 of interest on $5,000 invested. A quick sanity check with the Rule of 72: 72 ÷ 6 = 12, so at 6% money doubles in roughly 12 years — consistent with being <em>almost</em> doubled at year 10.</p>
-        <p>Adding just $50/month to the same account would push the 10-year result to $17,289 — the contributions add $6,000 of deposits but $2,192 of extra interest on top.</p>
+        <p>Adding just $50/month to the same account would push the 10-year result to $17,289: the contributions add $6,000 of deposits but $2,192 of extra interest on top.</p>
       </div></div>`,
     factorsHtml: `
       <ul>

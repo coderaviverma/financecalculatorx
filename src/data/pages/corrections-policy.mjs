@@ -8,7 +8,7 @@ export default {
   lastUpdated: "2026-07-12",
   bodyHtml: `
     <h2>Reporting an error</h2>
-    <p>Email <a href="mailto:coderaviverma@gmail.com">coderaviverma@gmail.com</a> with the calculator's address and — ideally — the shareable link produced by the <em>Copy link</em> button, which captures your exact inputs. Error reports are prioritized ahead of all other work; we aim to investigate within 7 days and usually much sooner.</p>
+    <p>Email <a href="mailto:contact@financecalculatorx.com">contact@financecalculatorx.com</a> with the calculator's address and — ideally — the shareable link produced by the <em>Copy link</em> button, which captures your exact inputs. Error reports are prioritized ahead of all other work; we aim to investigate within 7 days and usually much sooner.</p>
 
     <h2>How reports are verified</h2>
     <ol>

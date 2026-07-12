@@ -19,18 +19,18 @@ export default {
   jumpExplainLabel: "How prepayment works",
   sections: {
     howToHtml: `
-      <p>Set up the loan as it was written — amount, rate and term — then experiment with three kinds of extra payment, alone or combined:</p>
+      <p>Set up the loan as it was written (amount, rate and term), then experiment with three kinds of extra payment, alone or combined:</p>
       <ul>
-        <li><strong>Extra per month</strong> — a fixed top-up on every payment. The steadiest and, dollar for dollar, most effective pattern.</li>
-        <li><strong>Extra per year</strong> — a once-a-year amount such as a bonus or tax refund, applied every twelfth month.</li>
-        <li><strong>One-time payment</strong> — a single lump sum; a month field appears so you can place it anywhere in the schedule and test timing.</li>
+        <li><strong>Extra per month</strong> adds a fixed top-up to every payment. The steadiest and, dollar for dollar, most effective pattern.</li>
+        <li><strong>Extra per year</strong> models a once-a-year amount such as a bonus or tax refund, applied every twelfth month.</li>
+        <li><strong>One-time payment</strong> covers a single lump sum; a month field appears so you can place it anywhere in the schedule and test timing.</li>
       </ul>
       <p>The headline figure is the interest you avoid versus making no extra payments, alongside the new payoff date and the months removed. The chart overlays both balance curves so you can watch them separate.</p>`,
     explanationHtml: `
       <h2>What an extra payment actually buys</h2>
-      <p>Your required payment is fixed by contract, and interest gets first claim on it — only the remainder reduces principal. An extra payment is different in kind, not just size: because the required payment has already covered the month's interest, <strong>every unit of the extra lands on principal</strong>. And principal removed today stops generating interest for every month the loan has left. Prepaying is often described as "earning" the loan's rate, risk-free, on the amount prepaid — that framing is accurate, and it's why prepayment beats most savings accounts whenever the loan rate exceeds the savings rate.</p>
-      <p>Timing and rhythm matter more than most people expect. Consider the default loan here — $250,000 at 6.5% over 30 years, which costs $318,861 in interest if left alone — and two plans that commit the same $1,200 of cash per year. Paid as <strong>$100 every month</strong>, the loan ends 56 months early and saves <strong>$58,860</strong>. Paid as <strong>one $1,200 lump each year</strong>, it ends 54 months early and saves <strong>$56,592</strong>. Identical money, a $2,268 difference — purely because the monthly drip reaches the balance sooner on average, so each dollar spends more months not accruing interest.</p>
-      <p>The same logic makes early lump sums far more powerful than late ones. A one-time $10,000 against this loan in month 12 saves <strong>$49,273</strong> of interest; the same $10,000 in month 180 saves only <strong>$15,380</strong>. Nothing about the loan changed — the later payment simply has fewer remaining months over which to suppress interest. If you're expecting a windfall and intend to prepay, the arithmetic argues for applying it when it arrives rather than holding it for a round-number occasion.</p>`,
+      <p>Your required payment is fixed by contract, and interest gets first claim on it; only the remainder reduces principal. An extra payment is different in kind, not just size: because the required payment has already covered the month's interest, <strong>every unit of the extra lands on principal</strong>. And principal removed today stops generating interest for every month the loan has left. Prepaying is often described as "earning" the loan's rate, risk-free, on the amount prepaid. That framing is accurate, and it's why prepayment beats most savings accounts whenever the loan rate exceeds the savings rate.</p>
+      <p>Timing and rhythm matter more than most people expect. Consider the default loan here ($250,000 at 6.5% over 30 years, which costs $318,861 in interest if left alone) and two plans that commit the same $1,200 of cash per year. Paid as <strong>$100 every month</strong>, the loan ends 56 months early and saves <strong>$58,860</strong>. Paid as <strong>one $1,200 lump each year</strong>, it ends 54 months early and saves <strong>$56,592</strong>. Identical money, a $2,268 difference, purely because the monthly drip reaches the balance sooner on average, so each dollar spends more months not accruing interest.</p>
+      <p>The same logic makes early lump sums far more powerful than late ones. A one-time $10,000 against this loan in month 12 saves <strong>$49,273</strong> of interest; the same $10,000 in month 180 saves only <strong>$15,380</strong>. Nothing about the loan changed; the later payment simply has fewer remaining months over which to suppress interest. If you're expecting a windfall and intend to prepay, the arithmetic argues for applying it when it arrives rather than holding it for a round-number occasion.</p>`,
     formulaHtml: `
       <p>With a required payment <code>A</code> and a recurring extra <code>E</code>, the balance evolves month by month as:</p>
       <div class="formula-block"><span class="fx">B<sub>m</sub> = B<sub>m−1</sub> × (1 + r) − (A + E)</span>
@@ -41,24 +41,24 @@ export default {
           <li><code>E</code> extra amount that month (monthly, yearly and one-time extras all enter here)</li>
         </ul>
       </div>
-      <p>The loan ends at the first month where <code>B<sub>m</sub></code> reaches zero, with the final payment trimmed to close it exactly. Interest saved is the baseline schedule's total interest minus the accelerated schedule's — there is no separate "savings formula", because the saving <em>is</em> the difference between the two simulations. A single prepaid dollar in month t avoids roughly <code>(1 + r)<sup>n−t</sup> − 1</code> dollars of future interest, which is why earlier dollars save more.</p>`,
+      <p>The loan ends at the first month where <code>B<sub>m</sub></code> reaches zero, with the final payment trimmed to close it exactly. Interest saved is the baseline schedule's total interest minus the accelerated schedule's. There is no separate "savings formula", because the saving <em>is</em> the difference between the two simulations. A single prepaid dollar in month t avoids roughly <code>(1 + r)<sup>n−t</sup> − 1</code> dollars of future interest, which is why earlier dollars save more.</p>`,
     exampleHtml: `
       <div class="example-block"><div class="ex-head">Example: $100/month extra on $250,000 at 6.5% over 30 years</div><div class="ex-body">
         <p>The required payment is <strong>$1,580.17</strong>; left untouched, the loan costs <strong>$318,861.22</strong> in interest over 360 months.</p>
-        <p>With $100 extra each month, the balance reaches zero in <strong>304 months</strong> — 25 years 4 months, or 4 years 8 months early.</p>
-        <p>Total interest falls to <strong>$260,001.34</strong>, a saving of <strong>$58,859.88</strong>. Roughly $49 is avoided for every $100 prepaid — and the earlier dollars do most of that work.</p>
+        <p>With $100 extra each month, the balance reaches zero in <strong>304 months</strong>: 25 years 4 months, or 4 years 8 months early.</p>
+        <p>Total interest falls to <strong>$260,001.34</strong>, a saving of <strong>$58,859.88</strong>. Roughly $49 is avoided for every $100 prepaid, and the earlier dollars do most of that work.</p>
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>When the extra money arrives.</strong> The dominant factor. The same $10,000 saves $49,273 in month 12 of the default loan but $15,380 in month 180 — a 3.2× difference on identical cash.</li>
+        <li><strong>When the extra money arrives.</strong> The dominant factor. The same $10,000 saves $49,273 in month 12 of the default loan but $15,380 in month 180, a 3.2× difference on identical cash.</li>
         <li><strong>Frequency at equal cash.</strong> Monthly drips edge out annual lumps ($58,860 vs $56,592 on $1,200/year here) because money reaches principal sooner on average.</li>
         <li><strong>The loan's rate.</strong> Prepaying "earns" the loan rate risk-free. At 6.5% it competes well with safe savings; on a 3% loan, a high-yield account may beat it.</li>
-        <li><strong>How your lender applies extras.</strong> Savings assume the extra posts to principal immediately. If it's held as a credit toward next month's installment, the effect largely evaporates — see the FAQ.</li>
+        <li><strong>How your lender applies extras.</strong> Savings assume the extra posts to principal immediately. If it's held as a credit toward next month's installment, the effect largely evaporates; see the FAQ.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
         <li>Extras are assumed to post to principal on the same day as the regular payment; a lender that holds funds or applies them at cycle end will produce slightly smaller savings.</li>
-        <li>The required payment is held constant. Some lenders offer to recast (re-amortize) after a large lump sum, which lowers the payment instead of shortening the term — different goal, different math.</li>
+        <li>The required payment is held constant. Some lenders offer to recast (re-amortize) after a large lump sum, which lowers the payment instead of shortening the term: different goal, different math.</li>
         <li>Prepayment penalties are not modeled; a few loan types charge them, so check your agreement.</li>
         <li>The rate is assumed fixed for the whole comparison, and both schedules assume no missed payments.</li>
       </ul>`,

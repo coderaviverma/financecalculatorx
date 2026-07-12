@@ -25,6 +25,16 @@ export default {
     <h2>Simulation-based tools</h2>
     <p>Three calculators use explicit month-by-month or year-by-year simulation rather than a single formula, because their questions have no closed-form answer: the <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> (multiple debts with rolling minimums), the <a href="/rent-vs-buy-calculator/">Rent vs Buy Calculator</a> (interacting growth rates and transaction costs), and goal-timing calculations in the savings tools. Their pages document each simulation step in order, and the same honesty applies: assumptions you can see, defaults you can change.</p>
 
+    <h2>Reference sources</h2>
+    <p>The formulas here are not ours — they are the standard results of financial mathematics, and you can check them against independent sources:</p>
+    <ul>
+      <li><strong>Time-value-of-money and annuity formulas</strong> (payment, future value, present value) follow the closed forms published in standard corporate-finance texts such as Ross, Westerfield &amp; Jordan, <em>Fundamentals of Corporate Finance</em>, and Brealey, Myers &amp; Allen, <em>Principles of Corporate Finance</em>.</li>
+      <li><strong>Amortization and APR concepts</strong> match the definitions used by the U.S. Consumer Financial Protection Bureau — for example its explainer on <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">interest rate vs APR</a>.</li>
+      <li><strong>Compound-interest results</strong> can be cross-checked against the U.S. SEC's <a href="https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator" rel="noopener">Investor.gov compound interest calculator</a>.</li>
+      <li><strong>Reducing-balance (EMI) conventions</strong> for Indian lending follow the practices of banks regulated by the <a href="https://www.rbi.org.in/" rel="noopener">Reserve Bank of India</a>.</li>
+    </ul>
+    <p>Where a guide or calculator page relies on a specific external rule or definition, that page links its own source in context.</p>
+
     <h2>Versioning and review</h2>
     <p>Every calculator page shows a <strong>formula version</strong> and a <strong>last reviewed</strong> date. If a formula, assumption or default changes materially, the version increments and the review date updates. Corrections follow the <a href="/corrections-policy/">corrections policy</a>.</p>
 

@@ -18,19 +18,19 @@ export default {
   related: ["loan-amortization-calculator", "extra-payment-calculator", "loan-payoff-calculator", "loan-comparison-calculator", "personal-loan-calculator", "emi-calculator"],
   sections: {
     howToHtml: `
-      <p>Enter three things: how much you want to borrow, the annual interest rate your lender quotes, and the repayment term. The calculator immediately shows the required monthly payment, the total interest over the life of the loan, and a full month-by-month amortization schedule.</p>
+      <p>Three inputs are all it takes: how much you want to borrow, the annual interest rate your lender quotes, and the repayment term. The calculator immediately shows the required monthly payment, the total interest over the life of the loan, and a full month-by-month amortization schedule.</p>
       <ul>
-        <li><strong>Loan amount</strong> — the principal you receive, before any fees are deducted.</li>
-        <li><strong>Interest rate</strong> — the annual nominal rate. If your lender charges origination fees, the true cost (APR) is slightly higher; the <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> handles fees explicitly.</li>
-        <li><strong>Term</strong> — switch between years and months with the toggle. Car loans commonly run 36–72 months, personal loans 12–84 months.</li>
-        <li><strong>Extra monthly payment</strong> — optional. Anything you add is applied directly to principal, and the schedule, payoff date and interest figures update to show the effect.</li>
+        <li><strong>Loan amount</strong> is the principal you receive, before any fees are deducted.</li>
+        <li><strong>Interest rate</strong> is the annual nominal rate. If your lender charges origination fees, the true cost (APR) is slightly higher; the <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> handles fees explicitly.</li>
+        <li><strong>Term</strong> switches between years and months with the toggle. Car loans commonly run 36–72 months, personal loans 12–84 months.</li>
+        <li><strong>Extra monthly payment</strong> is optional. Anything you add is applied directly to principal, and the schedule, payoff date and interest figures update to show the effect.</li>
       </ul>
-      <p>Use <em>Copy link</em> to share a calculation — the link reproduces your exact inputs — and the schedule can be exported to CSV or printed as a report.</p>`,
+      <p>Use <em>Copy link</em> to share a calculation (the link reproduces your exact inputs), and the schedule can be exported to CSV or printed as a report.</p>`,
     explanationHtml: `
       <h2>How loan payments actually work</h2>
-      <p>Almost every mainstream loan — personal, car, education, home — is an <strong>amortizing loan</strong>: you repay it in equal monthly installments, and each installment is split between interest and principal. The split is not fixed. Interest is charged only on the balance you still owe, so in month one, when the balance is highest, the interest share is at its peak. As the balance falls, the interest portion of each payment shrinks and the principal portion grows, month after month, until the final payment clears the balance exactly.</p>
+      <p>Almost every mainstream loan (personal, car, education, home) is an <strong>amortizing loan</strong>: you repay it in equal monthly installments, and each installment is split between interest and principal. The split is not fixed. Interest is charged only on the balance you still owe, so in month one, when the balance is highest, the interest share is at its peak. As the balance falls, the interest portion of each payment shrinks and the principal portion grows, month after month, until the final payment clears the balance exactly.</p>
       <p>This is why the early years of a loan feel unproductive: on a 5-year, ${"$"}20,000 loan at 7.5%, about ${"$"}125 of the first ${"$"}400.76 payment is interest. By the final year, interest is only a few dollars per payment. The amortization table below the calculator shows this crossover explicitly for your numbers.</p>
-      <p>Two consequences follow from this structure. First, <strong>the term drives total cost more than most people expect</strong> — stretching the same amount and rate over a longer term lowers the payment but raises the number of months on which interest accrues, so the total interest climbs sharply. Second, <strong>extra principal payments are disproportionately powerful early on</strong>, because money paid against principal in month 6 stops accruing interest for the entire remaining term.</p>
+      <p>Two consequences follow from this structure. First, <strong>the term drives total cost more than most people expect</strong>. Stretching the same amount and rate over a longer term lowers the payment but raises the number of months on which interest accrues, so the total interest climbs sharply. Second, <strong>extra principal payments are disproportionately powerful early on</strong>, because money paid against principal in month 6 stops accruing interest for the entire remaining term.</p>
       <p>The calculator assumes the reducing-balance method with monthly compounding, which is how virtually all regulated consumer lenders in the US, UK, EU and India charge interest. If you've seen "flat rate" loans advertised (interest charged on the original balance for the whole term), be careful: a 7.5% flat rate is roughly equivalent to a 13–14% reducing-balance rate on a 5-year loan.</p>`,
     formulaHtml: `
       <p>The monthly payment on a fixed-rate amortizing loan is:</p>
@@ -47,13 +47,13 @@ export default {
       <div class="example-block"><div class="ex-head">Example: $20,000 over 5 years at 7.5%</div><div class="ex-body">
         <p>Monthly rate <code>r</code> = 0.075 ÷ 12 = 0.00625, term <code>n</code> = 60 payments.</p>
         <p>(1 + 0.00625)<sup>60</sup> = 1.45329, so M = 20,000 × 0.00625 × 1.45329 ÷ 0.45329 = <strong>$400.76 per month</strong>.</p>
-        <p>Over 60 payments the total repaid is $24,045.54, of which <strong>$4,045.54 is interest</strong> — about 20% on top of the amount borrowed.</p>
-        <p>Adding a $100 extra payment each month clears the loan in <strong>47 months instead of 60</strong> and cuts interest to $3,080.99 — a saving of <strong>$964.55</strong> for a modest monthly top-up.</p>
+        <p>Over 60 payments the total repaid is $24,045.54, of which <strong>$4,045.54 is interest</strong>, about 20% on top of the amount borrowed.</p>
+        <p>Adding a $100 extra payment each month clears the loan in <strong>47 months instead of 60</strong> and cuts interest to $3,080.99, a saving of <strong>$964.55</strong> for a modest monthly top-up.</p>
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Interest rate.</strong> The payment moves less than you might think (on the example above, 1% more rate adds about $9/month), but total interest moves a lot — each extra point on the rate adds roughly $550 of interest per $20,000 borrowed over 5 years.</li>
-        <li><strong>Term length.</strong> The single biggest lever on total cost. The same $20,000 at 7.5% costs $4,046 in interest over 5 years but $6,842 over 8 years — a 69% increase in cost for a $105 lower payment.</li>
+        <li><strong>Interest rate.</strong> The payment moves less than you might think (on the example above, 1% more rate adds about $9/month), but total interest moves a lot: each extra point on the rate adds roughly $550 of interest per $20,000 borrowed over 5 years.</li>
+        <li><strong>Term length.</strong> The single biggest lever on total cost. The same $20,000 at 7.5% costs $4,046 in interest over 5 years but $6,842 over 8 years, a 69% increase in cost for a $105 lower payment.</li>
         <li><strong>Extra payments.</strong> Every unit of currency paid early is removed from the balance for all remaining months. Earlier is better; even irregular extra payments help.</li>
         <li><strong>Fees.</strong> Origination or processing fees don't change the payment math but raise the true cost of borrowing. Compare loans on APR, not the nominal rate, when fees differ.</li>
       </ul>`,
@@ -63,7 +63,7 @@ export default {
         <li>Interest is compounded <strong>monthly on the reducing balance</strong>. A few lenders use daily accrual, which produces totals a fraction of a percent different.</li>
         <li>Fees, insurance add-ons, taxes and late-payment charges are <strong>not included</strong>.</li>
         <li>The payoff date assumes the first payment is one month from today and no payments are missed.</li>
-        <li>Figures are estimates for planning and education — your lender's official quote and amortization statement govern the actual loan.</li>
+        <li>Figures are estimates for planning and education. Your lender's official quote and amortization statement govern the actual loan.</li>
       </ul>`,
   },
   faq: [

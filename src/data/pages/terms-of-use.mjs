@@ -38,6 +38,6 @@ export default {
     <p>These terms are governed by the laws of India, without regard to conflict-of-law rules. Courts at Gurugram, Haryana shall have exclusive jurisdiction over disputes, to the extent permitted by applicable consumer law.</p>
 
     <h2>9. Contact</h2>
-    <p>Questions about these terms: <a href="mailto:coderaviverma@gmail.com">coderaviverma@gmail.com</a>.</p>
+    <p>Questions about these terms: <a href="mailto:contact@financecalculatorx.com">contact@financecalculatorx.com</a>.</p>
   `,
 };

@@ -19,19 +19,19 @@ export default {
   jumpExplainLabel: "Reading the schedule",
   sections: {
     howToHtml: `
-      <p>Alongside the usual amount, rate and term, this calculator asks when the first payment falls due — month and year — so every row in the schedule carries a real calendar date instead of "payment 137". That makes the output directly comparable with lender statements and useful for planning around specific dates.</p>
+      <p>Alongside the usual amount, rate and term, this calculator asks when the first payment falls due (month and year), so every row in the schedule carries a real calendar date instead of "payment 137". That makes the output directly comparable with lender statements and useful for planning around specific dates.</p>
       <ul>
-        <li><strong>Loan amount, rate, term</strong> — from your agreement or the offer you are evaluating.</li>
-        <li><strong>First payment month and year</strong> — typically one month after closing or disbursal.</li>
+        <li><strong>Loan amount, rate, term</strong> come from your agreement or the offer you are evaluating.</li>
+        <li><strong>First payment month and year</strong> is typically one month after closing or disbursal.</li>
         <li>Switch the table between <strong>Annual</strong> (one row per loan year, with the year-end date) and <strong>Monthly</strong> (every installment).</li>
         <li>Export to <strong>CSV</strong> to reconcile against your servicer's statement or to build projections in a spreadsheet.</li>
       </ul>`,
     explanationHtml: `
       <h2>How to read an amortization schedule</h2>
-      <p>An amortization schedule is the loan's complete flight plan: one row per payment, showing the date, the payment made, how much of it repaid <strong>principal</strong>, how much was consumed by <strong>interest</strong>, and the <strong>balance</strong> still owed afterwards. Two identities hold on every correct schedule: principal + interest = payment (for loans without escrow), and each row's balance = previous balance − that row's principal. If a schedule you've been given breaks either rule, some other charge is flowing through the payment.</p>
-      <p>Follow the default loan here — $200,000 at 6% over 20 years, first payment July 2026. The payment is <strong>$1,432.86</strong> every month, but the first row splits it as $1,000.00 interest / $432.86 principal: at the start, 70% of the payment is rent on the money. Scan down the schedule and the split migrates one notch each month. The <strong>crossover</strong> — the first row where principal exceeds interest — arrives at payment #103, January 2035, more than eight years in. Only from that point does the majority of each payment build equity rather than pay for time.</p>
-      <p>The balance column tells the same story from a different angle. At the schedule's halfway point, June 2036, the balance is still <strong>$129,062.84</strong> — after 120 of 240 payments, only 35.5% of the principal is gone. The balance curve is bowed, not straight: it sheds its last $100,000 in far less time than its first. This bow is why "I've paid for ten years, I must own half" is one of the most common misreadings in consumer finance, and why the schedule, not intuition, should drive decisions about selling, refinancing or prepaying.</p>
-      <p>Practical uses for the dated rows: find the balance on the date you plan to sell or refinance (that is your payoff figure, before per-diem interest); check when the balance crosses a threshold that releases you from collateral requirements; or confirm the final payment date — <strong>June 2046</strong> here — against your servicer's records. The CSV export mirrors the table exactly, so a spreadsheet VLOOKUP against your statement can flag any month where the servicer's applied principal drifts from the schedule.</p>`,
+      <p>An amortization schedule writes out the loan's entire future, one row per payment: the date, the payment made, how much of it repaid <strong>principal</strong>, how much was consumed by <strong>interest</strong>, and the <strong>balance</strong> still owed afterwards. Two identities hold on every correct schedule: principal + interest = payment (for loans without escrow), and each row's balance = previous balance − that row's principal. If a schedule you've been given breaks either rule, some other charge is flowing through the payment.</p>
+      <p>Follow the default loan here: $200,000 at 6% over 20 years, first payment July 2026. The payment is <strong>$1,432.86</strong> every month, but the first row splits it as $1,000.00 interest / $432.86 principal: at the start, 70% of the payment is rent on the money. Scan down the schedule and the split migrates one notch each month. The <strong>crossover</strong>, the first row where principal exceeds interest, arrives at payment #103, January 2035, more than eight years in. Only from that point does the majority of each payment build equity rather than pay for time.</p>
+      <p>The balance column tells the same story from a different angle. At the schedule's halfway point, June 2036, the balance is still <strong>$129,062.84</strong>: after 120 of 240 payments, only 35.5% of the principal is gone. The balance curve is bowed, not straight: it sheds its last $100,000 in far less time than its first. This bow is why "I've paid for ten years, I must own half" is one of the most common misreadings in consumer finance, and why the schedule, not intuition, should drive decisions about selling, refinancing or prepaying.</p>
+      <p>Practical uses for the dated rows: find the balance on the date you plan to sell or refinance (that is your payoff figure, before per-diem interest); check when the balance crosses a threshold that releases you from collateral requirements; or confirm the final payment date (<strong>June 2046</strong> here) against your servicer's records. The CSV export mirrors the table exactly, so a spreadsheet VLOOKUP against your statement can flag any month where the servicer's applied principal drifts from the schedule.</p>`,
     formulaHtml: `
       <p>The schedule is generated by iterating one rule from the first payment date:</p>
       <div class="formula-block"><span class="fx">I<sub>k</sub> = B<sub>k−1</sub> × r&nbsp;&nbsp;·&nbsp;&nbsp;P<sub>k</sub> = M − I<sub>k</sub>&nbsp;&nbsp;·&nbsp;&nbsp;B<sub>k</sub> = B<sub>k−1</sub> − P<sub>k</sub></span>
@@ -42,7 +42,7 @@ export default {
           <li><code>r</code> monthly rate = annual rate ÷ 12</li>
         </ul>
       </div>
-      <p>Dates advance one calendar month per row from the start month you choose. The crossover row is the first k where P<sub>k</sub> &gt; I<sub>k</sub>, which happens when the balance falls below M ÷ (2r) — the calculator finds it by inspection of the rows. The final payment is trimmed by a few cents where necessary so the balance lands on exactly zero.</p>`,
+      <p>Dates advance one calendar month per row from the start month you choose. The crossover row is the first k where P<sub>k</sub> &gt; I<sub>k</sub>, which happens when the balance falls below M ÷ (2r); the calculator finds it by inspection of the rows. The final payment is trimmed by a few cents where necessary so the balance lands on exactly zero.</p>`,
     exampleHtml: `
       <div class="example-block"><div class="ex-head">Example: $200,000 at 6% for 20 years, first payment July 2026</div><div class="ex-body">
         <p>Monthly rate <code>r</code> = 0.06 ÷ 12 = 0.005; (1.005)<sup>240</sup> = 3.31020, giving M = 200,000 × 0.005 × 3.31020 ÷ 2.31020 = <strong>$1,432.86</strong>.</p>
@@ -53,28 +53,28 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Rate sets the crossover.</strong> Higher rates push the principal/interest crossover later — at low rates principal dominates from the first payment; the 6% default crosses in year 9.</li>
+        <li><strong>Rate sets the crossover.</strong> Higher rates push the principal/interest crossover later. At low rates principal dominates from the first payment; the 6% default crosses in year 9.</li>
         <li><strong>Term stretches the bow.</strong> Longer schedules deepen the curve in the balance chart, concentrating equity growth into the final third of the loan.</li>
-        <li><strong>Start date shifts every row.</strong> Moving the first payment from July to a January makes year boundaries align with tax years — handy where loan interest is deductible.</li>
+        <li><strong>Start date shifts every row.</strong> Moving the first payment from July to a January makes year boundaries align with tax years, which is handy where loan interest is deductible.</li>
         <li><strong>Payment posting discipline.</strong> A servicer applying your payment days late alters each row's interest slightly; reconciling the CSV against statements catches this drift early.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
-        <li>The schedule assumes <strong>every payment posts on time and in full</strong> — missed or late payments re-shape all subsequent rows.</li>
+        <li>The schedule assumes <strong>every payment posts on time and in full</strong>; missed or late payments re-shape all subsequent rows.</li>
         <li>Fixed rate only; a rate reset invalidates the schedule from the reset date forward.</li>
-        <li>Rows show principal and interest only — <strong>escrow, insurance and fees</strong> that servicers often blend into the payment line are excluded.</li>
+        <li>Rows show principal and interest only. <strong>Escrow, insurance and fees</strong> that servicers often blend into the payment line are excluded.</li>
         <li>Payoff quotes from lenders add per-diem interest between your statement date and the payoff date, so they run slightly above the scheduled balance.</li>
-        <li>Extra payments are not modeled here — pair this schedule with the extra payment calculator to see a modified one.</li>
+        <li>Extra payments are not modeled here; pair this schedule with the extra payment calculator to see a modified one.</li>
       </ul>`,
   },
   faq: [
     {
       q: "What exactly do the columns in the schedule mean?",
-      aHtml: `<p><strong>Date</strong> is when the payment falls due. <strong>Payment</strong> is the cash out the door that month. <strong>Interest</strong> is the previous balance × the monthly rate — the cost of having the money. <strong>Principal</strong> is payment minus interest — the part that actually reduces the debt. <strong>Balance</strong> is what remains owed after the payment posts. Only the principal column builds equity; the interest column is pure cost.</p>`,
+      aHtml: `<p><strong>Date</strong> is when the payment falls due. <strong>Payment</strong> is the cash out the door that month. <strong>Interest</strong> is the previous balance × the monthly rate, the cost of having the money. <strong>Principal</strong> is payment minus interest, the part that actually reduces the debt. <strong>Balance</strong> is what remains owed after the payment posts. Only the principal column builds equity; the interest column is pure cost.</p>`,
     },
     {
       q: "Why is my balance so high after years of payments?",
-      aHtml: `<p>Because early payments are mostly interest. On the default schedule, 120 on-time payments — ten full years — still leave $129,062.84 of the original $200,000 owed. The balance falls on a bowed curve that steepens over time, so equity accumulates slowly at first and rapidly at the end. The remaining-balance chart above shows the exact shape for your inputs.</p>`,
+      aHtml: `<p>Because early payments are mostly interest. On the default schedule, 120 on-time payments (ten full years) still leave $129,062.84 of the original $200,000 owed. The balance falls on a bowed curve that steepens over time, so equity accumulates slowly at first and rapidly at the end. The remaining-balance chart above shows the exact shape for your inputs.</p>`,
     },
     {
       q: "What is the principal/interest crossover and does it matter?",

@@ -23,7 +23,7 @@ export default {
     <p>The site is served through Cloudflare's content delivery network. Like virtually all web infrastructure, Cloudflare may process technical request data (such as IP address, user-agent and requested URL) transiently for security, abuse prevention and performance. We do not use this data to identify visitors. Cloudflare's practices are described in the <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare Privacy Policy</a>.</p>
 
     <h2>Analytics</h2>
-    <p>We do not run identifying analytics. If we add usage measurement, we will prefer aggregate, cookieless approaches, and this policy will be updated first.</p>
+    <p>We use <strong>Cloudflare Web Analytics</strong> to understand aggregate traffic (page views, referrers, countries, device types). It is privacy-first by design: it sets <strong>no cookies</strong>, does not fingerprint visitors, and does not track people across sites or over time. We cannot identify you from it. Cloudflare's approach is described in the <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare Privacy Policy</a>. We do not use Google Analytics or any cross-site tracking analytics.</p>
 
     <h2>Advertising</h2>
     <p>To keep the site free, we may display advertising served by <strong>Google AdSense</strong>. When ads are shown, Google and its partners may use cookies or similar identifiers to serve and measure ads, including — where you've consented or as applicable law allows — personalized ads based on your visits to this and other websites.</p>
@@ -44,6 +44,6 @@ export default {
     <p>If our practices change — for example, when advertising or analytics are introduced — this page will be updated and the date above revised before the change takes effect.</p>
 
     <h2>Contact</h2>
-    <p>Privacy questions: <a href="mailto:coderaviverma@gmail.com">coderaviverma@gmail.com</a>.</p>
+    <p>Privacy questions: <a href="mailto:contact@financecalculatorx.com">contact@financecalculatorx.com</a>.</p>
   `,
 };
