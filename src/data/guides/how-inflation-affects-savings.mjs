@@ -5,7 +5,7 @@ export default {
   metaDescription:
     "Why a growing balance can still lose purchasing power: the real-return formula, computed examples at 3% inflation, and what savers can actually do about it.",
   description:
-    "Inflation quietly repriced every dollar you save. Here is the arithmetic of purchasing power, the real-return formula, and what savers can do about it.",
+    "Inflation reprices every dollar you save. Here is the math of purchasing power, the real-return formula, and what savers can do about it.",
   cardDescription: "The arithmetic of purchasing power: real returns, computed examples, and honest options for savers.",
   lastReviewed: "2026-07-12",
   published: "2026-07-12",

@@ -5,7 +5,7 @@ export default {
   metaDescription:
     "Rent versus mortgage payment is the wrong comparison. A checklist: transaction costs, down-payment opportunity cost, carry costs, rent growth and horizon.",
   description:
-    "Comparing rent to a mortgage payment misses most of the real costs on both sides. A checklist of what belongs in an honest comparison — and what decides it.",
+    "Comparing rent to a mortgage payment misses most of the real costs on both sides. A checklist of what belongs in a fair comparison — and what decides it.",
   cardDescription: "The complete cost checklist for an honest rent-vs-buy comparison, on both sides of the ledger.",
   lastReviewed: "2026-07-12",
   published: "2026-07-12",

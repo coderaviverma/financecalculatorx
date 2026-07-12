@@ -5,7 +5,7 @@ export default {
   h1: "House Affordability Calculator",
   metaTitle: "House Affordability Calculator — How Much Home Can I Buy?",
   metaDescription:
-    "Work backward from your income to a realistic home price using the 28/36 rule lenders apply, and see which constraint actually caps your budget.",
+    "Work backward from your income to a realistic home price using the 28/36 rule lenders apply, and see which constraint caps your budget.",
   tagline:
     "Start from your income and debts — the way a lender does — and get the home price the 28/36 debt-to-income rules support, plus what stricter or looser standards would allow.",
   cardDescription: "Home price your income supports under 28/36 DTI rules, with the binding constraint named.",
@@ -69,7 +69,7 @@ export default {
   },
   faq: [
     {
-      q: "What do 28/36 and the other ratio pairs actually mean?",
+      q: "What do 28/36 and the other ratio pairs really mean?",
       aHtml: `<p>They're percentage caps on your gross monthly income: the first number limits housing costs (payment, tax, insurance), the second limits housing plus every other debt payment. 28/36 is the long-standing conventional benchmark; 25/33 leaves margin; 31/43 approximates FHA ceilings. Lenders may stretch further with strong credit; the calculator's standards bracket the realistic range.</p>`,
     },
     {
