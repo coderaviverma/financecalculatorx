@@ -10,6 +10,10 @@ export const site = {
     "Free financial calculators for loans, mortgages, investments, savings, debt, retirement and everyday money decisions — with charts, amortization tables, worked examples and transparent methodology.",
   email: "contact@financecalculatorx.com",
   launched: "2026-07",
+  // Analytics & search-console integration. GA4 loads only when ga4 is a non-empty G-XXXX id.
+  ga4: "G-CB5GWN9DQ9",
+  // Site-verification meta tokens (used as a fallback to DNS/import verification).
+  verify: { google: "", bing: "" },
 };
 
 export const categories = [

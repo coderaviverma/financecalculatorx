@@ -103,6 +103,8 @@ export function base(p) {
   <meta name="twitter:description" content="${esc(p.description)}">
   <meta name="twitter:image" content="${site.origin}/assets/img/og-image.png">
   <meta name="theme-color" content="#0B6B57">
+  ${site.verify?.google ? `<meta name="google-site-verification" content="${esc(site.verify.google)}">` : ""}
+  ${site.verify?.bing ? `<meta name="msvalidate.01" content="${esc(site.verify.bing)}">` : ""}
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
@@ -113,6 +115,8 @@ export function base(p) {
   <link rel="preload" href="/assets/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=${p.v}">
   <!-- adsense: paste the Google AdSense verification/loader snippet here after approval -->
+  ${site.ga4 ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${esc(site.ga4)}"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${esc(site.ga4)}',{anonymize_ip:true});</script>` : ""}
   ${jsonld}
 </head>
 <body${p.suggestCurrency ? ` data-suggest-currency="${p.suggestCurrency}"` : ""}>

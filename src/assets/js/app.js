@@ -76,7 +76,10 @@
 
   /* ---------- analytics hooks (no external calls) ---------- */
   FCX.track = (event, props) => {
-    try { (window.dataLayer = window.dataLayer || []).push(Object.assign({ event }, props || {})); } catch {}
+    try {
+      (window.dataLayer = window.dataLayer || []).push(Object.assign({ event }, props || {}));
+      if (typeof window.gtag === "function") window.gtag("event", event, props || {});
+    } catch {}
   };
 
   /* ---------- toast ---------- */
