@@ -142,16 +142,17 @@
   function score(item, q) {
     const t = item.t.toLowerCase(), words = q.toLowerCase().split(/\s+/).filter(Boolean);
     if (!words.length) return 0;
-    let s = 0;
+    let s = 0, matched = 0;
     const hay = (item.t + " " + (item.a || []).join(" ") + " " + (item.k || []).join(" ") + " " + item.c).toLowerCase();
     for (const w of words) {
-      if (t === w) s += 60;
-      else if (t.startsWith(w)) s += 30;
-      else if (t.includes(w)) s += 18;
-      else if ((item.a || []).some((x) => x.toLowerCase().includes(w))) s += 14;
-      else if (hay.includes(w)) s += 7;
-      else return 0; // every word must match somewhere
+      if (t === w) { s += 60; matched++; }
+      else if (t.startsWith(w)) { s += 30; matched++; }
+      else if (t.includes(w)) { s += 18; matched++; }
+      else if ((item.a || []).some((x) => x.toLowerCase().includes(w))) { s += 14; matched++; }
+      else if (hay.includes(w)) { s += 7; matched++; }
     }
+    // most words must match somewhere; stray words ("faster", "my") don't zero the result
+    if (!matched || matched / words.length < 0.6) return 0;
     return s + (item.p ? 3 : 0);
   }
   function attachSearch(input, resultsBox) {
