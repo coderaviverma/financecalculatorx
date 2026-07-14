@@ -13,7 +13,7 @@ export const site = {
   // Analytics & search-console integration. GA4 loads only when ga4 is a non-empty G-XXXX id.
   ga4: "G-CB5GWN9DQ9",
   // Site-verification meta tokens (used as a fallback to DNS/import verification).
-  verify: { google: "", bing: "" },
+  verify: { google: "", bing: "3927796E5F967AB56978D556F0DA2418" },
 };
 
 export const categories = [

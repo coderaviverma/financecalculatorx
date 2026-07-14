@@ -16,6 +16,7 @@ export default {
   aliases: ["how much house can i afford", "home affordability", "dti calculator"],
   keywords: ["affordability", "dti", "28/36 rule", "front-end ratio", "back-end ratio", "home price"],
   related: ["mortgage-calculator", "down-payment-calculator", "mortgage-payment-calculator", "rent-vs-buy-calculator", "budget-calculator"],
+  jurisdiction: "The 28/36-style debt-to-income limits are US lending guidelines. Other countries use different affordability tests (for example loan-to-income caps or stress tests), so treat the result as a general guide and confirm with a local lender.",
   jumpExplainLabel: "How lenders size loans",
   sections: {
     howToHtml: `

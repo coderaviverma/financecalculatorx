@@ -164,6 +164,36 @@ export const ldBreadcrumbs = (items) => ({
   })),
 });
 
+// plain text from FAQ answer HTML (for FAQPage schema)
+const stripHtml = (s) =>
+  String(s || "").replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/\s+/g, " ").trim();
+
+// FAQPage — backed by the genuine, page-specific FAQ content shown on the page
+export const ldFaq = (faqs) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: (faqs || []).map((f) => ({
+    "@type": "Question",
+    name: stripHtml(f.q),
+    acceptedAnswer: { "@type": "Answer", text: stripHtml(f.aHtml) },
+  })),
+});
+
+// WebApplication — a free, browser-based finance tool. No rating/review markup (none exists).
+export const ldWebApp = (c) => ({
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: c.title,
+  url: site.origin + `/${c.slug}/`,
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Any (runs in a web browser)",
+  browserRequirements: "Requires JavaScript",
+  isAccessibleForFree: true,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  description: c.metaDescription,
+  publisher: { "@type": "Organization", name: site.name, url: site.origin + "/" },
+});
+
 export function breadcrumbs(items) {
   return `<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>
     ${items.map((it, i) => i === items.length - 1
@@ -212,6 +242,8 @@ export function calculatorPage(c, all, v) {
         <button type="button" class="btn btn-ghost btn-sm" id="act-share">Copy link</button>
         <button type="button" class="btn btn-ghost btn-sm" id="act-print">Print report</button>
       </div>
+      ${c.jurisdiction ? `<div class="callout note calc-note"><span class="c-title">Regional note</span><p>${c.jurisdiction}</p></div>` : ""}
+      <p class="calc-currency-note">Changing the currency updates number formatting and the displayed symbol only. It does not apply any country-specific tax, lending, insurance or regulatory rules.</p>
     </div>
     <div class="results">
       <div id="res-invalid" class="result-invalid" hidden></div>
@@ -279,7 +311,7 @@ export function calculatorPage(c, all, v) {
     path: `/${c.slug}/`,
     title: c.metaTitle,
     description: c.metaDescription,
-    jsonld: [ldBreadcrumbs(crumbs), ldOrg()],
+    jsonld: [ldBreadcrumbs(crumbs), ldOrg(), ldWebApp(c), ldFaq(c.faq)],
     suggestCurrency: c.suggestCurrency,
     scripts: ["/assets/js/finance.js", "/assets/js/charts.js", "/assets/js/engine.js", `/assets/js/calc/${c.slug}.js`],
     content,

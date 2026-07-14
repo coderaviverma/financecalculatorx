@@ -16,6 +16,7 @@ export default {
   aliases: ["p&i calculator", "monthly mortgage payment", "home loan payment"],
   keywords: ["mortgage payment", "principal and interest", "rate sensitivity", "monthly payment", "15 vs 30 year"],
   related: ["mortgage-calculator", "mortgage-amortization-calculator", "house-affordability-calculator", "refinance-calculator", "loan-payment-calculator"],
+  jurisdiction: "The principal-and-interest math is universal to any fixed-rate mortgage. Rate quoting and term conventions vary by country, so verify the figure against a local lender's quote before relying on it.",
   sections: {
     howToHtml: `
       <p>Enter the loan amount (the price minus whatever you're putting down), then the rate you've been quoted and a term. The payment updates instantly, and the chart shows what the same loan costs at rates 0.5% and 1% either side of your quote.</p>

@@ -16,6 +16,7 @@ export default {
   aliases: ["rent or buy", "should i buy a house", "renting vs owning"],
   keywords: ["rent vs buy", "break-even", "opportunity cost", "home equity", "net cost", "horizon"],
   related: ["house-affordability-calculator", "mortgage-calculator", "down-payment-calculator", "investment-calculator", "refinance-calculator"],
+  jurisdiction: "The default property-tax, insurance and transaction-cost assumptions follow US norms. The comparison logic is universal — adjust the tax, closing-cost and selling-cost percentages to match your market for a locally accurate answer.",
   jumpExplainLabel: "The model, step by step",
   sections: {
     howToHtml: `

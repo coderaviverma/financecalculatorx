@@ -16,6 +16,7 @@ export default {
   aliases: ["home loan", "house payment", "piti"],
   keywords: ["mortgage payment", "home loan", "property tax", "pmi", "piti", "house"],
   related: ["mortgage-payment-calculator", "house-affordability-calculator", "mortgage-amortization-calculator", "down-payment-calculator", "mortgage-payoff-calculator", "refinance-calculator"],
+  jurisdiction: "Property tax, home insurance, PMI and HOA fees here follow US mortgage conventions. The principal-and-interest math is universal, but PMI (private mortgage insurance) is specifically a US concept — elsewhere the equivalent is a lender's high loan-to-value premium or a higher rate. Set any line that doesn't apply where you live to 0.",
   sections: {
     howToHtml: `
       <p>Start with the home price and your planned down payment; the difference between them is the loan amount. Add the interest rate you've been quoted and the term (30 years is the default; try 15 to see the trade-off). Then refine the estimate with the costs lenders add to your escrow:</p>

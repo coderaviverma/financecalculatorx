@@ -16,6 +16,7 @@ export default {
   aliases: ["refi calculator", "mortgage refinance", "rate and term refinance"],
   keywords: ["refinance", "break-even", "closing costs", "term reset", "monthly savings", "lifetime cost"],
   related: ["mortgage-payoff-calculator", "mortgage-payment-calculator", "mortgage-calculator", "loan-comparison-calculator", "mortgage-amortization-calculator"],
+  jurisdiction: "The break-even and lifetime-cost math is universal. Closing costs, prepayment penalties and refinancing norms vary by country — US home loans rarely carry prepayment penalties, whereas many fixed-rate mortgages elsewhere do, which can change whether refinancing pays off.",
   jumpExplainLabel: "The two refinance wins",
   sections: {
     howToHtml: `

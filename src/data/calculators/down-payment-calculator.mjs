@@ -16,6 +16,7 @@ export default {
   aliases: ["house deposit", "down payment savings", "20 percent down"],
   keywords: ["down payment", "closing costs", "pmi threshold", "savings goal", "cash to close"],
   related: ["house-affordability-calculator", "mortgage-calculator", "savings-calculator", "rent-vs-buy-calculator", "monthly-investment-calculator"],
+  jurisdiction: "The 20%-to-avoid-PMI threshold and the default closing-cost estimate follow US conventions. The down-payment and savings-timeline math is universal; adjust the closing-cost percentage to match your market.",
   sections: {
     howToHtml: `
       <p>Set the home price you're targeting and slide the down payment percentage. The cash target updates instantly, including an estimated 3% of the price for closing costs, which most first-time buyers forget to plan for.</p>
