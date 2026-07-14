@@ -7,6 +7,21 @@ const CANONICAL_HOST = "financecalculatorx.com";
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    // Country detection for default-currency selection. Cloudflare resolves the
+    // country at the edge (request.cf.country) — no third-party geo-IP service,
+    // no IP leaves the edge, and only the 2-letter country code is returned.
+    if (url.pathname === "/geo") {
+      const country = (request.cf && request.cf.country) || "";
+      return new Response(JSON.stringify({ country }), {
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "x-robots-tag": "noindex",
+        },
+      });
+    }
+
     if (url.hostname !== CANONICAL_HOST || url.protocol !== "https:") {
       url.hostname = CANONICAL_HOST;
       url.protocol = "https:";

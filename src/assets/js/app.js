@@ -19,13 +19,14 @@
   FCX.CURRENCIES = CURRENCIES;
 
   function loadPrefs() {
-    try { return Object.assign({ theme: "auto", currency: "USD" }, JSON.parse(localStorage.getItem(PREF_KEY) || "{}")); }
-    catch { return { theme: "auto", currency: "USD" }; }
+    try { return Object.assign({ theme: "auto", currency: "USD", currencySet: false }, JSON.parse(localStorage.getItem(PREF_KEY) || "{}")); }
+    catch { return { theme: "auto", currency: "USD", currencySet: false }; }
   }
   let prefs = loadPrefs();
   FCX.prefs = () => prefs;
   FCX.setPref = (k, v) => {
     prefs[k] = v;
+    if (k === "currency") prefs.currencySet = true; // an explicit pick always wins over auto-detected/page defaults
     try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch {}
     if (k === "theme") applyTheme();
     if (k === "currency") { buildFmt(); document.dispatchEvent(new CustomEvent("fcx:currency")); }
@@ -41,12 +42,30 @@
   matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => { if (prefs.theme === "auto") applyTheme(); });
   applyTheme();
 
+  /* ---------- currency auto-detection (country → currency, resolved at the CF edge) ---------- */
+  // A visitor's country maps to one of the supported display currencies; anything
+  // unmapped falls through to the page suggestion or USD. Explicit choices always win.
+  const COUNTRY_CCY = {
+    US: "USD", GB: "GBP", IN: "INR", AU: "AUD", CA: "CAD", SG: "SGD", JP: "JPY",
+    AT: "EUR", BE: "EUR", HR: "EUR", CY: "EUR", EE: "EUR", FI: "EUR", FR: "EUR", DE: "EUR",
+    GR: "EUR", IE: "EUR", IT: "EUR", LV: "EUR", LT: "EUR", LU: "EUR", MT: "EUR", NL: "EUR",
+    PT: "EUR", SK: "EUR", SI: "EUR", ES: "EUR",
+  };
+  let geoCur = null, geoResolved = false;
+  try {
+    const cc = sessionStorage.getItem("fcx:geo"); // cached for the session — no refetch on navigation
+    if (cc !== null) { geoResolved = true; if (COUNTRY_CCY[cc]) geoCur = COUNTRY_CCY[cc]; }
+  } catch {}
+
   /* ---------- formatters ---------- */
   let _money, _money0, _compact, _num, _cur;
   function buildFmt() {
-    // per-page suggested currency applies until the visitor picks one themselves
     const pageCur = document.body?.dataset.suggestCurrency;
-    _cur = (!localStorage.getItem(PREF_KEY) && pageCur && CURRENCIES[pageCur]) ? pageCur : (CURRENCIES[prefs.currency] ? prefs.currency : "USD");
+    // precedence: explicit user choice → detected country → per-page suggestion → USD
+    _cur =
+      (prefs.currencySet && CURRENCIES[prefs.currency]) ? prefs.currency :
+      (geoCur && CURRENCIES[geoCur]) ? geoCur :
+      (pageCur && CURRENCIES[pageCur]) ? pageCur : "USD";
     const loc = CURRENCIES[_cur].locale;
     _money = new Intl.NumberFormat(loc, { style: "currency", currency: _cur });
     _money0 = new Intl.NumberFormat(loc, { style: "currency", currency: _cur, maximumFractionDigits: 0 });
@@ -72,7 +91,27 @@
     cur: () => _cur,
   };
   buildFmt();
-  document.addEventListener("DOMContentLoaded", () => { buildFmt(); syncMenus(); });
+
+  function applyGeo(country) {
+    const c = COUNTRY_CCY[String(country || "").toUpperCase()];
+    if (!c || !CURRENCIES[c]) return;
+    geoCur = c;
+    if (!prefs.currencySet) { buildFmt(); syncMenus(); document.dispatchEvent(new CustomEvent("fcx:currency")); }
+  }
+  function initGeo() {
+    if (prefs.currencySet || geoResolved) return; // user already chose, or already known this session
+    fetch("/geo", { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        const c = (d && d.country) || "";
+        try { sessionStorage.setItem("fcx:geo", c); } catch {}
+        geoResolved = true;
+        applyGeo(c);
+      })
+      .catch(() => {});
+  }
+
+  document.addEventListener("DOMContentLoaded", () => { buildFmt(); syncMenus(); initGeo(); });
 
   /* ---------- analytics hooks (no external calls) ---------- */
   FCX.track = (event, props) => {

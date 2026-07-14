@@ -16,11 +16,13 @@ export default {
       <li>Display preferences: theme (light/dark) and currency.</li>
       <li>Recently used calculators, to show shortcuts on the homepage.</li>
       <li>Saved scenarios (A/B comparisons) per calculator, if you use that feature.</li>
+      <li>For the current browser session only, the two-letter country code used to preselect a display currency (see below).</li>
     </ul>
     <p>You can clear all of it at any time via your browser's site-data settings; the site works fine without it.</p>
 
-    <h2>Hosting and server logs</h2>
+    <h2>Hosting, server logs and currency selection</h2>
     <p>The site is served through Cloudflare's content delivery network. Like virtually all web infrastructure, Cloudflare may process technical request data (such as IP address, user-agent and requested URL) transiently for security, abuse prevention and performance. We do not use this data to identify visitors. Cloudflare's practices are described in the <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare Privacy Policy</a>.</p>
+    <p>To choose a sensible default display currency, we ask Cloudflare's edge for your approximate <strong>country</strong> (a two-letter code such as US, GB or IN). This resolution happens at the network edge — your IP address is not sent to any third-party geolocation service and is not stored by us. We use only the country code, and only to pick a currency format; you can override it at any time from the currency menu in the header, and your choice then takes precedence.</p>
 
     <h2>Analytics</h2>
     <p>We use two analytics tools to understand aggregate traffic and improve the calculators:</p>
