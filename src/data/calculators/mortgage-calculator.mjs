@@ -66,6 +66,11 @@ export default {
         <li>Property tax and insurance are entered as flat annual amounts. In reality both tend to rise over time, and reassessments can be significant.</li>
         <li>Closing costs, points, and maintenance are not included here; the <a href="/rent-vs-buy-calculator/">Rent vs Buy Calculator</a> models the broader cost of ownership.</li>
         <li>All figures are planning estimates. The lender's Loan Estimate and closing disclosure are the authoritative numbers for any real offer.</li>
+      </ul>
+      <h3>Sources and references</h3>
+      <ul>
+        <li><a href="https://www.consumerfinance.gov/ask-cfpb/when-can-i-remove-private-mortgage-insurance-pmi-from-my-loan-en-202/" rel="noopener">CFPB: When can I remove private mortgage insurance (PMI)?</a> — basis for the 80% request / 78% automatic cancellation convention modeled here.</li>
+        <li><a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">CFPB: Interest rate vs APR</a> — why the quoted rate differs from the loan's true annual cost when fees exist.</li>
       </ul>`,
   },
   faq: [

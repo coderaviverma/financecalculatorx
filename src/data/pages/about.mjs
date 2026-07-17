@@ -8,11 +8,11 @@ export default {
   lastUpdated: "2026-07-12",
   bodyHtml: `
     <h2>What this site is</h2>
-    <p>Finance Calculator X is a collection of financial calculators for the money decisions most people actually face: taking a loan, buying a home, saving toward a goal, investing regularly, and paying off debt. Each calculator is built as a complete decision-support tool — a clear primary answer, the supporting numbers behind it, an interactive chart, a full exportable schedule, and a plain-English explanation of the mathematics, its assumptions and its limits.</p>
+    <p>Finance Calculator X is a collection of financial calculators for the money decisions most people actually face: taking a loan, buying a home, saving toward a goal, investing regularly, and paying off debt. Each calculator is built as a complete decision-support tool — a clear primary answer, the supporting numbers behind it, an interactive chart, a downloadable table or schedule where relevant, and a plain-English explanation of the mathematics, its assumptions and its limits.</p>
     <p>The site is free, requires no account, and runs every calculation directly in your browser. Your financial inputs are never sent to a server.</p>
 
     <h2>Who runs it</h2>
-    <p>Finance Calculator X is an independent project built and maintained by <strong>Avinash Verma</strong>, a software developer based in Gurgaon, India, who builds focused web tools. It is not owned by, affiliated with, or sponsored by any bank, lender, broker or financial product provider. Nobody pays to influence a formula, a default value, or a word of the content.</p>
+    <p>Finance Calculator X is an independent project built and maintained by <strong><a href="/authors/avinash-verma/">Avinash Verma</a></strong>, a software developer based in Gurgaon, India, who builds focused web tools. It is not owned by, affiliated with, or sponsored by any bank, lender, broker or financial product provider. Nobody pays to influence a formula, a default value, or a word of the content.</p>
     <p>We do not claim to be licensed financial advisers — and the site is deliberately designed so that it never needs to be one. Every page deals in published, verifiable financial mathematics: the same amortization, compounding and discounting formulas found in finance textbooks and used across the industry. Where a page depends on a rule of thumb or a debatable model (debt-to-income limits, rent-vs-buy assumptions), the page says so explicitly and shows the assumption so you can change it.</p>
 
     <h2>Principles</h2>

@@ -9,6 +9,7 @@ export default {
   tagline:
     "A fair fight between buying and renting: the buyer pays everything owners really pay and gets equity back on sale; the renter pays rent but keeps the down payment invested. The crossing point is your break-even.",
   cardDescription: "Net cost of buying vs renting year by year, with break-even and equity at your horizon.",
+  scenarioHint: "Save your assumptions as Scenario A, then change one driver — rent growth, appreciation or how long you'll stay — and save Scenario B to see which path wins under each view.",
   lastReviewed: "2026-07-12",
   version: "1.0",
   popular: true,
@@ -70,6 +71,10 @@ export default {
         <li>The buyer is assumed to sell at the horizon and pay selling costs then — if you'd keep the home as a rental, the comparison changes fundamentally.</li>
         <li>Fixed 30-year mortgage only, and all growth rates are constant; real markets deliver lumpy years in both directions.</li>
         <li>Lifestyle value (stability, customization, mobility) is deliberately unpriced. The model answers the money question only.</li>
+      </ul>
+      <h3>Sources and references</h3>
+      <ul>
+        <li><a href="https://www.consumerfinance.gov/owning-a-home/" rel="noopener">CFPB: Owning a Home</a> — official guidance on preparation, loan comparison and closing costs referenced by this model's cost assumptions.</li>
       </ul>`,
   },
   faq: [

@@ -63,6 +63,11 @@ export default {
         <li>Escrow items (tax, insurance) are unaffected by refinancing and excluded; PMI changes from a new appraisal are not modeled.</li>
         <li>Assumes both loans run to schedule. If you prepay aggressively, the term-reset penalty shrinks; model that with the <a href="/mortgage-payoff-calculator/">mortgage payoff calculator</a>.</li>
         <li>Your quoted rate depends on credit, loan-to-value and points; this tool compares offers, it doesn't predict them.</li>
+      </ul>
+      <h3>Sources and references</h3>
+      <ul>
+        <li><a href="https://www.consumerfinance.gov/ask-cfpb/what-is-a-prepayment-penalty-en-1957/" rel="noopener">CFPB: What is a prepayment penalty?</a> — background for the regional note on penalties that can change refinancing economics.</li>
+        <li><a href="https://www.consumerfinance.gov/owning-a-home/" rel="noopener">CFPB: Owning a Home</a> — official loan-comparison and closing-cost resources.</li>
       </ul>`,
   },
   faq: [

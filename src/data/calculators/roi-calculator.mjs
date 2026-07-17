@@ -9,6 +9,7 @@ export default {
   tagline:
     "Measure what an investment actually returned — total ROI, the annualized rate that makes it comparable, and the costs people forget to count.",
   cardDescription: "Total and annualized return on a completed or current investment.",
+  scenarioHint: "Save one investment's numbers as Scenario A, enter a second investment (or the same one with fees included), then save Scenario B to compare total and annualized returns side by side.",
   lastReviewed: "2026-07-12",
   version: "1.0",
   popular: false,

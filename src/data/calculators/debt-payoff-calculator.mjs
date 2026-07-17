@@ -9,6 +9,7 @@ export default {
   tagline:
     "Enter your real debts — balances, rates, minimums — add what extra you can pay, and see exactly when each one dies under snowball vs avalanche.",
   cardDescription: "Multi-debt payoff plan comparing snowball vs avalanche month by month.",
+  scenarioHint: "Save your plan as Scenario A, then change the extra monthly amount or switch strategy and save Scenario B — the table shows the difference in debt-free date and total interest.",
   lastReviewed: "2026-07-12",
   version: "1.0",
   popular: true,

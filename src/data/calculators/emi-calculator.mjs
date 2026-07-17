@@ -64,6 +64,11 @@ export default {
         <li>The prepayment model keeps the EMI constant and shortens the tenure; if you instead ask the bank to reduce the EMI and keep the tenure, the interest saving is smaller.</li>
         <li>Pre-EMI interest on under-construction property (paid before full disbursal) is outside the scope of this schedule.</li>
         <li>Figures are for planning. Your bank's sanction letter and repayment schedule are the binding documents.</li>
+      </ul>
+      <h3>Sources and references</h3>
+      <ul>
+        <li><a href="https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12878" rel="noopener">Reserve Bank of India: circular on foreclosure charges / prepayment penalties</a> — the regulatory basis for the note on prepaying floating-rate loans to individuals.</li>
+        <li><a href="https://www.rbi.org.in/" rel="noopener">Reserve Bank of India</a> — regulator of the reducing-balance lending conventions this calculator models.</li>
       </ul>`,
   },
   faq: [

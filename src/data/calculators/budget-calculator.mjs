@@ -9,6 +9,7 @@ export default {
   tagline:
     "Turn take-home pay into three concrete numbers — needs, wants, and savings & debt repayment — using the classic 50/30/20 split or percentages tuned to your situation.",
   cardDescription: "50/30/20 budget split with adjustable percentages and weekly amounts.",
+  scenarioHint: "Save your current split as Scenario A, adjust the percentages (say, needs down to 45% and savings up to 25%), then save Scenario B to see what the shift is worth per month and per year.",
   lastReviewed: "2026-07-12",
   version: "1.0",
   popular: false,

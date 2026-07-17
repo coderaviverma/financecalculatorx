@@ -64,6 +64,10 @@ export default {
         <li>The effective APR here covers the origination fee only; <strong>late fees, insurance add-ons and prepaid interest</strong> are excluded.</li>
         <li>Some lenders add the fee on top of the loan instead of deducting it from the disbursal. Check which structure your offer uses, as the APR math differs slightly.</li>
         <li>Quotes expire and rates move with your credit file; the numbers here reflect the inputs, not a live offer.</li>
+      </ul>
+      <h3>Sources and references</h3>
+      <ul>
+        <li><a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">CFPB: Interest rate vs APR</a> — the fee-inclusive APR concept behind this calculator's effective-APR figure.</li>
       </ul>`,
   },
   faq: [

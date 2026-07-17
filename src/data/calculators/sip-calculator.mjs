@@ -9,6 +9,7 @@ export default {
   tagline:
     "Estimate what a monthly SIP could grow into — with annual step-ups, an optional lump sum alongside, and an honest split between what you invested and what compounding added.",
   cardDescription: "SIP maturity value with annual step-up and invested-vs-gains breakdown.",
+  scenarioHint: "Save your SIP as Scenario A, then change the monthly amount, expected return or step-up percentage and save Scenario B to see the difference at maturity.",
   lastReviewed: "2026-07-12",
   version: "1.0",
   popular: true,

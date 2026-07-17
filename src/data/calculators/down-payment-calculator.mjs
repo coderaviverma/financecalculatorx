@@ -9,6 +9,7 @@ export default {
   tagline:
     "Turn a home price and a percentage into a real cash target — down payment plus closing costs — and see exactly how many months of saving stand between you and it.",
   cardDescription: "Cash needed at closing and the savings timeline to reach it, at any down payment percent.",
+  scenarioHint: "Save your plan as Scenario A, then try a different down-payment percentage or monthly saving amount and save Scenario B — the comparison shows the change in cash needed and time to ready.",
   lastReviewed: "2026-07-12",
   version: "1.0",
   popular: false,

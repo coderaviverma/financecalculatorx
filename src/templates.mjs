@@ -139,7 +139,7 @@ export const ldOrg = () => ({
   url: site.origin + "/",
   logo: site.origin + "/assets/img/apple-touch-icon.png",
   email: site.email,
-  founder: { "@type": "Person", name: "Avinash Verma", url: site.origin + "/about/" },
+  founder: { "@type": "Person", name: "Avinash Verma", url: site.origin + "/authors/avinash-verma/" },
   sameAs: ["https://github.com/coderaviverma", "https://gitlab.com/coderaviverma"],
 });
 export const ldWebsite = () => ({
@@ -225,7 +225,7 @@ export function calculatorPage(c, all, v) {
     <h1>${esc(c.h1 || c.title)}</h1>
     <p class="lede">${c.tagline}</p>
     <div class="review-line">
-      <span>By <a href="/about/">Avinash Verma</a> · <a href="/editorial-policy/">editorial standards</a></span>
+      <span>By <a href="/authors/avinash-verma/">Avinash Verma</a> · <a href="/editorial-policy/">editorial standards</a></span>
       <span>Last reviewed: <time datetime="${c.lastReviewed}">${new Date(c.lastReviewed + "T00:00:00Z").toLocaleDateString("en", { year: "numeric", month: "long", timeZone: "UTC" })}</time></span>
       <span>Formula v${c.version || "1.0"} · <a href="/methodology/">How we calculate</a></span>
     </div>
@@ -261,7 +261,7 @@ export function calculatorPage(c, all, v) {
       </div>
       <div class="card scenario-card" id="scenario-card" hidden>
         <h2>Compare two scenarios</h2>
-        <p class="scenario-intro">Save your current inputs as Scenario A, change something — a rate, a term, a monthly amount — then save Scenario B. The table shows exactly what the change is worth.</p>
+        <p class="scenario-intro">${c.scenarioHint || "Save your current inputs as Scenario A, change one assumption, then save Scenario B. The comparison table shows exactly what that change is worth."}</p>
         <div class="scenario-slots">
           ${["A", "B"].map((s) => `<div class="scenario-slot" data-slot="${s}">
             <div class="s-name">Scenario ${s}</div>
@@ -369,7 +369,7 @@ export function homePage(calcs, guides, v) {
 <div class="wrap">
   <section class="hero">
     <h1>${esc(site.tagline)}</h1>
-    <p class="sub">${esc(site.description.split("—")[0].trim())} — each one with charts, full schedules, worked examples and documented formulas.</p>
+    <p class="sub">${esc(site.description.split("—")[0].trim())} — with documented formulas, worked examples, interactive charts, and downloadable tables or schedules where they add value.</p>
     <div class="hero-search">
       <span class="s-icon">${I.search}</span>
       <input type="search" placeholder="Try “mortgage payment”, “EMI”, “pay off debt”…" aria-label="Search calculators" data-search-input aria-controls="hero-results" role="combobox" aria-expanded="false" autocomplete="off">
@@ -433,7 +433,7 @@ export function homePage(calcs, guides, v) {
 
   <section class="section prose">
     <h2 class="mt-0">About Finance Calculator X</h2>
-    <p>Finance Calculator X is an independent collection of financial calculators for the decisions most people actually face: borrowing, buying a home, saving, investing and paying off debt. Each calculator is built as a complete decision-support tool — a large, clear answer, the supporting numbers behind it, an interactive chart, a full schedule you can export, and a plain-English explanation of the mathematics involved. Calculations run instantly in your browser and are <a href="/methodology/">documented and tested</a>. The site is free to use and no account is ever required. <a href="/about/">More about the project →</a></p>
+    <p>Finance Calculator X is an independent collection of financial calculators for the decisions most people actually face: borrowing, buying a home, saving, investing and paying off debt. Each calculator is built as a complete decision-support tool — a large, clear answer, the supporting numbers behind it, an interactive chart, a downloadable table or schedule where relevant, and a plain-English explanation of the mathematics involved. Calculations run instantly in your browser and are <a href="/methodology/">documented and tested</a>. The site is free to use and no account is ever required. <a href="/about/">More about the project →</a></p>
   </section>
 </div>`;
   return base({
@@ -495,7 +495,7 @@ export function guidePage(g, all, calcs, v) {
       <h1>${esc(g.title)}</h1>
       <p class="lede">${esc(g.description)}</p>
       <div class="review-line">
-        <span>By <a href="/about/">Avinash Verma</a> · <a href="/editorial-policy/">editorial standards</a></span>
+        <span>By <a href="/authors/avinash-verma/">Avinash Verma</a> · <a href="/editorial-policy/">editorial standards</a></span>
         <span>Last reviewed: <time datetime="${g.lastReviewed}">${new Date(g.lastReviewed + "T00:00:00Z").toLocaleDateString("en", { year: "numeric", month: "long", timeZone: "UTC" })}</time></span>
       </div>
     </div>
@@ -575,7 +575,7 @@ export function staticPage(p, v) {
     path: `/${p.slug}/`,
     title: p.metaTitle || p.title,
     description: p.metaDescription,
-    jsonld: [ldBreadcrumbs(crumbs), ldOrg()],
+    jsonld: [ldBreadcrumbs(crumbs), ldOrg(), ...(p.extraJsonld || [])],
     content,
     v,
   });

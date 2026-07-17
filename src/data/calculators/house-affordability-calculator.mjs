@@ -9,6 +9,7 @@ export default {
   tagline:
     "Start from your income and debts — the way a lender does — and get the home price the 28/36 debt-to-income rules support, plus what stricter or looser standards would allow.",
   cardDescription: "Home price your income supports under 28/36 DTI rules, with the binding constraint named.",
+  scenarioHint: "Save your situation as Scenario A, then change income, monthly debts or the lending standard and save Scenario B to see how much house the difference buys.",
   lastReviewed: "2026-07-12",
   version: "1.0",
   popular: true,
@@ -66,6 +67,11 @@ export default {
         <li>PMI is not added when the implied down payment is under 20%. It would reduce the affordable price slightly, so treat sub-20%-down results as a touch optimistic.</li>
         <li>Ratios describe approval, not comfort. The <a href="/budget-calculator/">budget calculator</a> starts from your actual spending instead of gross-income rules.</li>
         <li>Assumes a fixed-rate, fully amortizing loan for the present-value step.</li>
+      </ul>
+      <h3>Sources and references</h3>
+      <ul>
+        <li><a href="https://www.consumerfinance.gov/ask-cfpb/what-is-a-debt-to-income-ratio-en-1791/" rel="noopener">CFPB: What is a debt-to-income ratio?</a> — the DTI concept behind the front-end/back-end limits this calculator applies.</li>
+        <li><a href="https://www.consumerfinance.gov/owning-a-home/" rel="noopener">CFPB: Owning a Home</a> — official homebuyer preparation and loan-comparison resources.</li>
       </ul>`,
   },
   faq: [
