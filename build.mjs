@@ -188,6 +188,8 @@ async function main() {
     .map((u) => `  <url><loc>${site.origin}${u.loc}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority></url>`)
     .join("\n")}\n</urlset>\n`);
   out("robots.txt", `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.xml\n`);
+  // IndexNow key file (Bing/Yandex/Seznam/Naver instant URL submission)
+  out("2c500c5de84a180001add41b8e832a2c.txt", "2c500c5de84a180001add41b8e832a2c\n");
   out("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n\n/assets/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
   out("llms.txt", `# ${site.name}\n\n> ${site.description}\n\nAll calculators run client-side, document their formulas and assumptions, and include worked examples.\n\n## Calculators\n\n${calcs.map((c) => `- [${c.title}](${site.origin}/${c.slug}/): ${c.cardDescription}`).join("\n")}\n\n## Guides\n\n${guides.map((g) => `- [${g.title}](${site.origin}/guides/${g.slug}/): ${g.cardDescription}`).join("\n")}\n\n## Policies\n\n- [Methodology](${site.origin}/methodology/)\n- [Editorial policy](${site.origin}/editorial-policy/)\n- [Disclaimer](${site.origin}/disclaimer/)\n`);
 
