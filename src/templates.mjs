@@ -6,7 +6,7 @@ export const esc = (s) =>
 
 /* ---------- icons ---------- */
 const I = {
-  loan: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12.5" rx="2.5"/><circle cx="12" cy="12.2" r="2.6"/><path d="M6 6v-1.5M18 6v-1.5"/></svg>',
+  loan: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="7" rx="6.5" ry="2.6"/><path d="M5.5 7v5c0 1.4 2.9 2.6 6.5 2.6s6.5-1.2 6.5-2.6V7"/><path d="M5.5 12v5c0 1.4 2.9 2.6 6.5 2.6s6.5-1.2 6.5-2.6v-5"/></svg>',
   home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5 12 3.5l8.5 7"/><path d="M5.5 9v10.5a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9"/><path d="M9.5 20.5v-6h5v6"/></svg>',
   chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 3.5v17h17"/><path d="M7.5 14.5 11 10l3 3 5.5-6.5"/></svg>',
   piggy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11.5c0-3.6 3.1-6 7.2-6 3.9 0 6.8 2.2 6.8 5.5 0 1.9-.9 3.4-2.3 4.4l.5 2.8h-2.6l-.6-1.4a9 9 0 0 1-3.6 0l-.6 1.4H7.2l.5-2.9C6 14.6 5 13.2 5 11.5Z"/><path d="M5.5 10.5c-1.3 0-2-.7-2-1.8"/><circle cx="15.4" cy="10.4" r=".4" fill="currentColor"/><path d="M10 5.8c.6-1 1.9-1.6 3.2-1.4"/></svg>',
@@ -202,8 +202,10 @@ export function breadcrumbs(items) {
   </ol></nav>`;
 }
 
-export const toolCard = (c, showCat) =>
-  `<a class="tool-card" href="/${c.slug}/"><span class="t">${esc(c.title)}</span><span class="d">${esc(c.cardDescription)}</span>${showCat ? `<span class="cat">${esc(categories.find((x) => x.id === c.category)?.short || "")}</span>` : ""}</a>`;
+export const toolCard = (c, showCat) => {
+  const ci = categories.find((x) => x.id === c.category);
+  return `<a class="tool-card" href="/${c.slug}/"><span class="ic">${icon(ci?.icon || "chart")}</span><span class="t">${esc(c.title)}</span><span class="d">${esc(c.cardDescription)}</span>${showCat ? `<span class="cat">${esc(ci?.short || "")}</span>` : ""}</a>`;
+};
 
 /* ---------- calculator page ---------- */
 export function calculatorPage(c, all, v) {
