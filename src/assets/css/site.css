@@ -241,8 +241,31 @@ code { font-family: var(--font-mono); font-size: .92em; background: var(--surfac
 .footer-about p { color: var(--ink-2); font-size: .93rem; max-width: 34ch; }
 .footer-legal { border-top: 1px solid var(--line); padding: 1.2rem 0 1.6rem; font-size: .84rem; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; align-items: center; }
 .footer-legal p { margin: 0; }
+.privacy-choice {
+  appearance: none; border: 0; background: none; color: var(--ink-2); font: inherit;
+  text-decoration: underline; text-underline-offset: 2px; cursor: pointer; padding: .35rem 0;
+}
+.privacy-choice:hover { color: var(--brand-ink); }
 @media (max-width: 880px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+/* Optional analytics consent. GA4 is not requested until the visitor opts in. */
+.consent-banner {
+  position: fixed; left: 50%; bottom: 18px; z-index: 110; transform: translateX(-50%);
+  width: min(760px, calc(100% - 32px)); padding: 1rem 1.1rem;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: center;
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-3);
+}
+.consent-banner[hidden] { display: none; }
+.consent-banner h2 { margin: 0 0 .25rem; font-family: var(--font-ui); font-size: 1rem; }
+.consent-banner p { margin: 0; color: var(--ink-2); font-size: .875rem; line-height: 1.5; }
+.consent-actions { display: flex; flex-wrap: wrap; gap: .55rem; justify-content: flex-end; }
+@media (max-width: 660px) {
+  .consent-banner { bottom: 10px; width: calc(100% - 20px); grid-template-columns: 1fr; }
+  .consent-actions { justify-content: stretch; }
+  .consent-actions .btn { flex: 1; }
+}
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -594,7 +617,7 @@ table.compare .diff-neg { color: var(--danger); font-weight: 600; }
 
 /* ---------- Print ---------- */
 @media print {
-  .site-header, .site-footer, .calc-actions, .table-tools, .scenario-card, .breadcrumbs,
+  .site-header, .site-footer, .consent-banner, .calc-actions, .table-tools, .scenario-card, .breadcrumbs,
   .related-grid, .faq, .hero-chips, .btn, .chart-note, #related, #faq { display: none !important; }
   body { background: #fff; color: #111; }
   .calc-layout { grid-template-columns: 1fr; gap: 1rem; }

@@ -416,7 +416,9 @@
         else if (state.values[def.id] != null && state.values[def.id] !== "" && isFinite(state.values[def.id])) p.set(def.id, String(+(+state.values[def.id]).toFixed(4)));
         else if (typeof state.values[def.id] === "string") p.set(def.id, state.values[def.id]);
       });
-      const url = location.origin + location.pathname + "?" + p.toString();
+      // Keep calculator inputs in the URL fragment. Fragments are not included in
+      // HTTP requests, referrer headers, analytics page locations or server logs.
+      const url = location.origin + location.pathname + "#calc=" + encodeURIComponent(p.toString());
       (navigator.clipboard?.writeText(url) || Promise.reject()).then(
         () => FCX.toast("Link copied — it reproduces this calculation"),
         () => { prompt("Copy this link:", url); }
@@ -424,7 +426,11 @@
       FCX.track("calculation_shared", { slug: cfg.slug });
     });
     function readShareParams() {
-      const p = new URLSearchParams(location.search);
+      // The head capture removes shared state from the address bar before any
+      // optional third-party script can load, then exposes it once in memory.
+      const raw = window.__FCX_SHARE_PARAMS || "";
+      window.__FCX_SHARE_PARAMS = "";
+      const p = new URLSearchParams(raw);
       if (![...p.keys()].length) return;
       const values = {};
       let any = false;

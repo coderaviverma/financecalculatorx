@@ -5,7 +5,7 @@ export default {
   metaDescription:
     "Avinash Verma builds and maintains Finance Calculator X: a software developer focused on transparent, tested browser-based financial calculators.",
   lede: "Builder and maintainer of Finance Calculator X.",
-  lastUpdated: "2026-07-15",
+  lastUpdated: "2026-07-19",
   extraJsonld: [
     {
       "@context": "https://schema.org",
@@ -24,7 +24,7 @@ export default {
     <p>You can verify my work directly: my open-source profiles are on <a href="https://github.com/coderaviverma" rel="noopener">GitHub</a> and <a href="https://gitlab.com/coderaviverma" rel="noopener">GitLab</a>, where I maintain several other browser-tool projects.</p>
 
     <h2>What I am — and what I'm not</h2>
-    <p><strong>I am not a licensed financial adviser, accountant or planner, and nothing on this site is personal financial advice.</strong> What I bring is engineering discipline applied to published financial mathematics: the amortization, compounding, discounting and simulation formulas documented in standard finance references. Every calculator states its formula and conventions, and the <a href="/methodology/">methodology page</a> explains exactly how results are computed and tested.</p>
+    <p><strong>I am not a licensed financial adviser, accountant or planner, and nothing on this site is personal financial advice.</strong> My role is technical author and software maintainer. What I bring is engineering discipline applied to published financial mathematics: the amortization, compounding, discounting and simulation formulas documented in standard finance references. Every calculator states its formula and conventions, and the <a href="/methodology/#verification">methodology page</a> explains exactly how results are computed and tested.</p>
     <p>That boundary is deliberate. Calculator math is verifiable — a $250,000 loan at 6.5% over 30 years has exactly one correct monthly payment, and an automated test suite checks results like that against known reference values before any release. Whether a particular loan or investment is right <em>for you</em> is a different kind of question, and one this site intentionally does not answer.</p>
 
     <h2>How I work on this site</h2>

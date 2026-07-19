@@ -32,8 +32,8 @@ node build.mjs --check    # validate content only (no writes)
 node build.mjs --strict   # final build: cross-reference errors are fatal
 node --test tests/*.test.mjs
 
-# deploy (Cloudflare account: coderaviverma@gmail.com / ae10d42d8c86347b750cdc91a1b828ae)
-CLOUDFLARE_ACCOUNT_ID=ae10d42d8c86347b750cdc91a1b828ae CLOUDFLARE_API_TOKEN=<token> npx wrangler deploy
+# deploy after authenticating Wrangler for the intended Cloudflare account
+npx wrangler deploy
 ```
 
 ## Content quality gates (enforced by build)
@@ -45,4 +45,18 @@ CLOUDFLARE_ACCOUNT_ID=ae10d42d8c86347b750cdc91a1b828ae CLOUDFLARE_API_TOKEN=<tok
 
 ## AdSense
 
-The `<head>` template ([src/templates.mjs](src/templates.mjs)) contains a marked comment where the AdSense verification/loader snippet goes. After approval: add the snippet there, create `ads.txt` in `src/assets/` root copy step with your `pub-` ID, rebuild, redeploy. Privacy policy already discloses AdSense cookies; ad placements should respect the spec: never inside calculator controls or adjacent to buttons.
+Monetization is fail-closed in `src/data/site.mjs`:
+
+- Leave `publisherId` blank, `certifiedCmp: false` and `adsEnabled: false` during AdSense review unless Google gives you a publisher ID.
+- After receiving the real 16-digit `pub-...` ID, add it to `publisherId`. The build will generate the verification meta tag and `ads.txt` entry.
+- Do not set `certifiedCmp: true` until a Google-certified consent management platform is actually integrated and tested for the EEA, UK and Switzerland.
+- Enable ad serving only after both prerequisites are real. A build with ads enabled but no publisher ID or certified-CMP confirmation fails.
+- Keep placements outside calculator inputs, result controls, navigation and copy/download buttons. Do not ask users to support the site by clicking ads.
+
+## Privacy architecture
+
+- Calculations and saved scenarios stay in the browser.
+- Shared calculations use a `#calc=` URL fragment, which browsers do not send in HTTP requests or referrer headers. The fragment is captured once and removed before optional third-party code can load.
+- Legacy query-string share links are accepted only for compatibility and scrubbed immediately; new links never use query strings.
+- Google Analytics loads only after an explicit “Allow analytics” choice. Sent page locations and referrers exclude query strings and fragments; custom events exclude calculator values and raw search terms.
+- The footer's **Privacy choices** control lets visitors withdraw or change that choice.

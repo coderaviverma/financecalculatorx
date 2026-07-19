@@ -5,10 +5,10 @@ export default {
   metaDescription:
     "How Finance Calculator X content is written, reviewed and kept honest: accuracy standards, attribution, independence from advertisers, and YMYL commitments.",
   lede: "Who writes this site, what standards the content must meet, and what we will never publish.",
-  lastUpdated: "2026-07-12",
+  lastUpdated: "2026-07-19",
   bodyHtml: `
     <h2>Who writes the content</h2>
-    <p>Calculator documentation, guides and examples are written and maintained by the Finance Calculator X editorial team — in practice, the site's operator (see <a href="/about/">About</a>) supported by systematic verification tooling. We use transparent organizational attribution rather than invented personas: you will never see a fabricated expert, a stock-photo "advisor", fake credentials, or testimonials on this site. If independent professional reviewers join the project, their real names and verifiable qualifications will appear on the pages they review.</p>
+    <p>Calculator documentation, guides and examples are written and maintained by <a href="/authors/avinash-verma/">Avinash Verma</a>, the site's operator and technical author. There is no unnamed editorial team and, as of the date above, no independent financial professional reviews the site. Automated tests verify calculation behavior, but they are not a substitute for professional editorial review. If a qualified independent reviewer joins the project, the pages they actually review will show their real name, role, review date and verifiable qualifications.</p>
 
     <h2>Standards every page must meet</h2>
     <ul>

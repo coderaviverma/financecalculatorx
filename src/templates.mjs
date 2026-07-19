@@ -28,6 +28,17 @@ const LOGO = `<svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect wid
 
 const THEME_INIT = `(function(){try{var p=JSON.parse(localStorage.getItem("fcx:prefs")||"{}");var t=p.theme||"auto";if(t==="auto"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.setAttribute("data-theme",t)}catch(e){document.documentElement.setAttribute("data-theme","light")}})();`;
 
+// Calculator share state is deliberately captured before analytics or ad code
+// can run. New links use a URL fragment (never sent in an HTTP request); legacy
+// query-string links are scrubbed before any third-party script loads.
+const SHARE_CAPTURE = `(function(){try{var raw="";if(location.hash.indexOf("#calc=")===0){raw=decodeURIComponent(location.hash.slice(6))}else if(location.search.length>1){raw=location.search.slice(1)}if(raw){window.__FCX_SHARE_PARAMS=raw;history.replaceState(null,"",location.pathname)}}catch(e){history.replaceState(null,"",location.pathname)}})();`;
+
+const adsenseClient = () => {
+  const id = String(site.adsense?.publisherId || "").trim();
+  if (!id) return "";
+  return id.startsWith("ca-pub-") ? id : `ca-${id}`;
+};
+
 /* ---------- chrome ---------- */
 function header(path) {
   const cur = (href) => (path === href || (href !== "/" && path.startsWith(href)) ? ' aria-current="true"' : "");
@@ -72,15 +83,32 @@ function footerHtml() {
     </div>
     <div class="footer-legal">
       <p>© ${new Date().getFullYear()} ${esc(site.name)}. All calculators produce estimates for education and information — not financial, investment, tax or legal advice. <a href="/disclaimer/">Read the full disclaimer</a>.</p>
+      ${site.ga4 ? `<button type="button" class="privacy-choice" data-privacy-settings>Privacy choices</button>` : ""}
     </div>
   </div>
 </footer>`;
 }
 
+function consentHtml() {
+  if (!site.ga4) return "";
+  return `<aside class="consent-banner" id="analytics-consent" role="dialog" aria-labelledby="consent-title" aria-describedby="consent-copy" hidden>
+  <div>
+    <h2 id="consent-title">Optional analytics</h2>
+    <p id="consent-copy">Allow optional Google Analytics cookies to help us understand which calculators are useful. Calculator inputs are never included, and page URLs are stripped of query strings and fragments. <a href="/privacy-policy/">Privacy policy</a>.</p>
+  </div>
+  <div class="consent-actions">
+    <button type="button" class="btn btn-ghost btn-sm" data-consent="denied">Decline</button>
+    <button type="button" class="btn btn-ghost btn-sm" data-consent="granted">Allow analytics</button>
+  </div>
+</aside>`;
+}
+
 /* ---------- base document ---------- */
 export function base(p) {
-  const title = p.rawTitle ? p.title : `${p.title} | ${site.name}`;
+  const brandedTitle = `${p.title} | ${site.name}`;
+  const title = p.rawTitle ? p.title : (brandedTitle.length <= 70 ? brandedTitle : p.title);
   const url = site.origin + p.path;
+  const adClient = adsenseClient();
   const jsonld = (p.jsonld || []).map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n  ");
   return `<!doctype html>
 <html lang="en">
@@ -89,6 +117,7 @@ export function base(p) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(p.description)}">
+  ${p.noindex ? `<meta name="robots" content="noindex, follow">` : ""}
   <link rel="canonical" href="${url}">
   <meta property="og:site_name" content="${esc(site.name)}">
   <meta property="og:type" content="${p.ogType || "website"}">
@@ -105,26 +134,27 @@ export function base(p) {
   <meta name="theme-color" content="#0B6B57">
   ${site.verify?.google ? `<meta name="google-site-verification" content="${esc(site.verify.google)}">` : ""}
   ${site.verify?.bing ? `<meta name="msvalidate.01" content="${esc(site.verify.bing)}">` : ""}
+  ${adClient ? `<meta name="google-adsense-account" content="${esc(adClient)}">` : ""}
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  ${p.captureShare ? `<script>${SHARE_CAPTURE}</script>` : ""}
   <script>${THEME_INIT}</script>
   <link rel="preload" href="/assets/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/inter-latin-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=${p.v}">
-  <!-- adsense: paste the Google AdSense verification/loader snippet here after approval -->
-  ${site.ga4 ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${esc(site.ga4)}"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${esc(site.ga4)}',{anonymize_ip:true});</script>` : ""}
+  ${site.adsense?.adsEnabled && site.adsense?.certifiedCmp && adClient ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(adClient)}" crossorigin="anonymous"></script>` : ""}
   ${jsonld}
 </head>
-<body${p.suggestCurrency ? ` data-suggest-currency="${p.suggestCurrency}"` : ""}>
+<body${p.suggestCurrency ? ` data-suggest-currency="${p.suggestCurrency}"` : ""}${site.ga4 ? ` data-ga4="${esc(site.ga4)}"` : ""}>
 ${header(p.path)}
 <main id="main">
 ${p.content}
 </main>
 ${footerHtml()}
+${consentHtml()}
 <script src="/assets/js/app.js?v=${p.v}" defer></script>
 ${(p.scripts || []).map((s) => `<script src="${s}?v=${p.v}" defer></script>`).join("\n")}
 </body>
@@ -191,6 +221,7 @@ export const ldWebApp = (c) => ({
   isAccessibleForFree: true,
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   description: c.metaDescription,
+  author: { "@type": "Person", name: "Avinash Verma", url: site.origin + "/authors/avinash-verma/" },
   publisher: { "@type": "Organization", name: site.name, url: site.origin + "/" },
 });
 
@@ -315,6 +346,7 @@ export function calculatorPage(c, all, v) {
     description: c.metaDescription,
     jsonld: [ldBreadcrumbs(crumbs), ldOrg(), ldWebApp(c), ldFaq(c.faq)],
     suggestCurrency: c.suggestCurrency,
+    captureShare: true,
     scripts: ["/assets/js/finance.js", "/assets/js/charts.js", "/assets/js/engine.js", `/assets/js/calc/${c.slug}.js`],
     content,
     v,
@@ -424,7 +456,7 @@ export function homePage(calcs, guides, v) {
       <li><span class="ck">${I.check}</span>Automated tests verify results against known reference values</li>
       <li><span class="ck">${I.check}</span>Assumptions and limitations stated on every calculator</li>
       <li><span class="ck">${I.check}</span>Estimates for education — never personalized financial advice</li>
-      <li><span class="ck">${I.check}</span>Runs in your browser: your numbers are never sent to a server</li>
+      <li><span class="ck">${I.check}</span>Runs in your browser: normal calculator inputs are not submitted</li>
     </ul>
   </div>
 
@@ -440,7 +472,7 @@ export function homePage(calcs, guides, v) {
 </div>`;
   return base({
     path: "/",
-    title: `${site.name} — Free Loan, Mortgage, Investment & Savings Calculators`,
+    title: `Free Financial Calculators | ${site.name}`,
     rawTitle: true,
     description: site.description,
     jsonld: [ldOrg(), ldWebsite()],
@@ -522,7 +554,7 @@ export function guidePage(g, all, calcs, v) {
         description: g.metaDescription,
         datePublished: g.published || g.lastReviewed,
         dateModified: g.lastReviewed,
-        author: { "@type": "Organization", name: site.name, url: site.origin + "/about/" },
+        author: { "@type": "Person", name: "Avinash Verma", url: site.origin + "/authors/avinash-verma/" },
         publisher: { "@type": "Organization", name: site.name, logo: { "@type": "ImageObject", url: site.origin + "/assets/img/apple-touch-icon.png" } },
         mainEntityOfPage: site.origin + `/guides/${g.slug}/`,
       },
@@ -606,6 +638,7 @@ export function notFound(calcs, v) {
     path: "/404.html",
     title: "Page not found",
     description: "The page you're looking for doesn't exist. Browse all Finance Calculator X calculators.",
+    noindex: true,
     jsonld: [],
     content,
     v,

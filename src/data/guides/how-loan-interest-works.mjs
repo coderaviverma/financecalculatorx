@@ -7,7 +7,7 @@ export default {
   description:
     "What a loan's interest rate actually does each month — how interest accrues on the balance, why early payments are interest-heavy, and how to read a rate quote.",
   cardDescription: "How interest accrues on a reducing balance, why early payments favor interest, and the flat-rate trap.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-19",
   published: "2026-07-12",
   categories: ["loans"],
   aliases: [],
@@ -17,7 +17,7 @@ export default {
 <p>Loan interest is rent charged on money you haven't returned yet. That single idea explains almost everything that confuses people about loans: why the first payments barely dent the balance, why a longer term costs so much more, and why two loans quoted at "9%" can have wildly different real costs. This guide walks through one real month of interest math, then uses it to decode the rate quotes lenders put in front of you.</p>
 
 <h2>Interest accrues on the balance, not the original loan</h2>
-<p>Nearly every regulated consumer loan uses the <strong>reducing-balance method</strong> (also called declining balance): each month, the lender multiplies your <em>current</em> balance by the monthly rate. The monthly rate is the annual rate divided by 12, so a 9% loan charges 0.75% of whatever you still owe. Nothing about the original loan amount matters after day one. The calculation only ever sees what remains.</p>
+<p>Many amortizing consumer loans use a <strong>reducing-balance method</strong> (also called declining balance), but the accrual interval and rate convention vary. In the monthly model used here, the lender multiplies the current balance by the annual rate divided by 12, so a 9% rate produces a 0.75% monthly rate on what remains. Daily-accrual products and flat-rate quotes follow different arithmetic.</p>
 <div class="example-block"><div class="ex-head">One month of a real loan: $15,000 at 9% over 48 months</div><div class="ex-body">
 <p>The fixed monthly payment on this loan is <strong>$373.28</strong>. Here is exactly what happens in month one:</p>
 <ul>
@@ -37,7 +37,7 @@ export default {
 <ul>
 <li><strong>Nominal annual rate</strong>: the quoted rate, e.g. 9%. Divided by 12, it produces the monthly rate used in the payment math above. It ignores fees and ignores compounding across the year.</li>
 <li><strong>APR (annual percentage rate)</strong>: the nominal rate <em>plus mandatory fees</em>, restated as a yearly cost of the money you received in hand. A 9% loan with an origination fee has an APR above 9%. When fees are zero, APR equals the nominal rate. The CFPB publishes a short <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-an-interest-rate-and-the-annual-percentage-rate-apr-in-an-auto-loan-en-733/" rel="noopener">explainer on the interest rate versus the APR</a> that draws the same line; the full mechanics are in <a href="/guides/apr-vs-interest-rate/">APR vs interest rate</a>.</li>
-<li><strong>Effective annual rate</strong>: what the rate compounds to over a year. A 9% nominal rate charged monthly compounds to 9.38% per year; charged daily, 9.42%. Most consumer loans accrue monthly, but some lenders accrue daily, as do most credit cards. The difference is small on an installment loan but real.</li>
+<li><strong>Effective annual rate</strong>: what the rate compounds to over a year. A 9% nominal rate charged monthly compounds to 9.38% per year; charged daily, 9.42%. Consumer-loan accrual conventions vary, while credit cards commonly use a daily periodic rate. The difference is small on an installment loan but real.</li>
 </ul>
 <div class="callout note"><span class="c-title">Daily accrual and your due date</span>
 <p>With daily-accrual loans, paying a few days early genuinely reduces interest, because the balance drops before more days of interest are charged. With monthly-accrual loans it usually doesn't, since the charge is computed once per cycle. Credit cards are the everyday case: the CFPB explains <a href="https://www.consumerfinance.gov/ask-cfpb/how-does-my-credit-card-issuer-calculate-the-amount-of-interest-i-owe-en-51/" rel="noopener">how card issuers compute interest from a daily rate</a>. Your loan agreement states which method applies.</p></div>
@@ -56,7 +56,7 @@ export default {
 <p>The 9% flat loan charges the same interest as a <strong>15.99% reducing-balance loan</strong> — nearly 1.8 times the quoted figure. The ratio isn't fixed, but for typical 3–5 year terms a flat rate corresponds to a reducing-balance rate roughly 1.8–2 times higher. The intuition: across an amortizing loan's life your average outstanding balance is only a bit more than half the original amount, yet a flat quote charges interest on the full amount for every month of the term. Doubling the effective rate on half the balance is roughly a wash, which is where the near-2× relationship comes from; it softens slightly because early balances run above the average. Whenever a quote seems suspiciously low, ask whether it's flat or reducing, or compute the true payment yourself with the <a href="/loan-interest-calculator/">Loan Interest Calculator</a>.</p>
 
 <h2>How lenders apply your payment</h2>
-<p>Standard payment application order is: <strong>accrued interest first, then fees and charges, then principal</strong>. This matters in two situations. If you underpay, the shortfall comes out of principal reduction: interest is always collected in full first, so a partial payment shrinks the balance less than you'd expect. If you overpay, ask how the excess is handled. It might be applied to principal immediately (what you want), held as a credit toward next month's payment, or, worst of all, treated as an early payment of future installments without reducing the balance. The same overpayment can save hundreds or nothing depending on this policy, so it's worth a call to your lender before setting up extra payments.</p>
+<p>Payment-application rules are contractual and jurisdiction-specific. A common order applies accrued interest and eligible charges before principal, so a partial payment may reduce principal less than expected. If you overpay, ask how the excess is handled: it may reduce principal immediately, sit as a credit toward the next installment, or be treated as an early future payment. The same overpayment can produce very different savings depending on this policy, so check the agreement or ask the servicer before setting up extra payments.</p>
 
 <h2>What makes total interest rise</h2>
 <p>Total interest is the sum of (balance × monthly rate) across every month of the loan, so it grows with anything that raises balances or adds months:</p>
@@ -71,6 +71,6 @@ export default {
 <p>Stretching the term from 4 to 6 years lowers the payment by about $103 but raises total interest by 53%: the balance stays higher for longer, and there are more months of accrual. Raising the rate from 9% to 12% adds about $22 to the payment but over $1,000 to the total. Term is the quieter lever, which is exactly why long terms are how expensive loans get made to look affordable.</p>
 <div class="callout warn"><span class="c-title">Compare totals, not payments</span>
 <p>A lower monthly payment is not a cheaper loan. When comparing offers, hold the amount constant and compare total interest (or APR when fees differ) over the actual term. The <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> does this side by side.</p></div>
-<p>Everything above describes fixed-rate, monthly-accrual loans — the standard for personal, car, and most home loans in the US, UK, EU, and India. Variable-rate loans follow the same monthly mechanics but re-run them whenever the rate resets, and rules on fees, prepayment, and rate disclosure differ by country. Your loan agreement, not any calculator, is the authoritative source for how your specific loan charges interest.</p>
+<p>Everything above describes a fixed-rate, monthly-accrual model commonly used for installment-loan examples. It does not cover every lender or jurisdiction: some products accrue daily, apply different day-count rules, capitalize fees, or round each payment differently. Variable-rate products also recalculate after rate changes, and rules on fees, prepayment and disclosure vary by country. Your loan agreement and lender statement, not any calculator, are the authoritative sources for how your specific loan charges interest.</p>
 `,
 };

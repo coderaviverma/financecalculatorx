@@ -7,14 +7,14 @@ export default {
   description:
     "The EMI formula looks intimidating and is actually three moving parts. A term-by-term dissection, a hand-computed ₹25 lakh example, and the flat-rate trap.",
   cardDescription: "The EMI formula dissected, a ₹25 lakh loan computed by hand, and the flat-vs-reducing rate trap.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-19",
   published: "2026-07-12",
   categories: ["loans"],
   aliases: [],
   keywords: ["emi formula", "emi calculation", "reducing balance", "flat rate vs reducing rate", "home loan emi"],
   relatedCalculators: ["emi-calculator", "loan-calculator", "loan-amortization-calculator", "personal-loan-calculator"],
   bodyHtml: `
-<p>Every loan quote in India leads to the same number: the EMI, or equated monthly instalment: the fixed amount that repays the loan, interest and all, in equal monthly steps. Banks compute it with one standard formula, and because the formula is standard, you can verify any quote yourself in a minute. This guide dissects the formula term by term, computes a real home-loan EMI by hand, and covers the places where quotes mislead: flat-rate pricing, processing fees, and what really happens to your EMI when floating rates move.</p>
+<p>Many Indian installment-loan quotes lead with an EMI, or equated monthly instalment: the scheduled amount intended to repay principal and interest over the stated tenure. When the quote uses the monthly reducing-balance convention, the formula below lets you reproduce the mathematical payment. Fees, daily accrual, floating-rate resets and lender rounding can still make the contractual schedule differ. This guide dissects the formula, computes a home-loan example by hand and explains flat-rate pricing.</p>
 
 <h2>The formula, term by term</h2>
 <div class="formula-block"><span class="fx">EMI = P × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]</span>
@@ -38,7 +38,7 @@ export default {
 </div></div>
 
 <h2>Reducing-balance vs flat-rate quotes</h2>
-<p>The formula above charges interest only on the <strong>outstanding balance</strong>, the reducing-balance method, used for home loans and most bank lending. But some personal, vehicle and informal loans are quoted at a <strong>flat rate</strong>: interest computed on the <em>original</em> principal for the entire tenure, ignoring the fact that you repay as you go. A flat rate is therefore not comparable to a reducing rate, and the gap is roughly a factor of 1.8 on a five-year loan.</p>
+<p>The formula above charges interest only on the <strong>outstanding balance</strong>. It applies when an offer uses this monthly reducing-balance convention. Some personal, vehicle and informal loans are instead quoted at a <strong>flat rate</strong>: interest computed on the original principal for the entire tenure. A flat rate is therefore not directly comparable with a reducing rate; the worked five-year example below shows the difference without assuming one fixed conversion factor.</p>
 <p>The reliable way to compare is to compute total interest both ways. On a ₹5,00,000 loan over 5 years at a 10% reducing rate, the EMI is ₹10,624 and total interest is ₹1,37,411. A flat rate producing the same interest would be 1,37,411 ÷ (5,00,000 × 5) = <strong>5.50% flat</strong>: the flat number is barely half the true rate.</p>
 
 <div class="table-scroll"><table>
@@ -70,11 +70,11 @@ export default {
 </table></div>
 
 <p>Read the tenure rows first: going from 15 to 25 years cuts the EMI by ₹4,487 a month but adds <strong>₹16,07,875</strong> of interest. Tenure is the most expensive comfort a borrower can buy. The rate rows show the exponent at work: each 0.5% adds roughly ₹800 to this EMI and about ₹1.9–2 lakh to lifetime interest, which is why negotiating even a small rate concession, or refinancing to one, is worth real money on long loans.</p>
-<p>The EMI also decides how much you can borrow in the first place. Lenders size loans so that all your EMIs together stay within roughly 40–50% of net monthly income (the FOIR, or fixed-obligation-to-income ratio). Since a longer tenure lowers the EMI, it raises the loan amount you qualify for, which is exactly how borrowers end up in the expensive bottom rows of the table above without ever choosing them deliberately.</p>
+<p>The EMI also affects how much a lender may offer. Some lenders use a fixed-obligation-to-income ratio (FOIR), but the income definition, threshold and underwriting adjustments vary by institution and borrower. A longer tenure lowers the modeled EMI and may raise the amount supportable under such a ratio, while also increasing total interest. Only a lender can determine an approval amount.</p>
 
 <h2>Floating rates: banks usually stretch your tenure, not your EMI</h2>
-<p>Most Indian home loans float against a benchmark (typically repo-linked since 2019). When the benchmark rises, the bank must recover more interest, and the default at most lenders is to <strong>keep your EMI unchanged and extend the tenure</strong>, because it avoids disturbing your monthly budget. The cost of that convenience is large: if the rate on the example loan rose from 8.5% to 9.5% at the outset with the EMI held at ₹21,695.58, full repayment would take about <strong>309 months instead of 240</strong>: 5 years and 9 months longer, all of it interest. Keeping the 20-year tenure instead would raise the EMI to ₹23,303, about ₹1,607 more per month.</p>
-<p><a href="https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12529" rel="noopener">RBI rules require lenders to offer you the choice</a> (higher EMI, longer tenure, a mix, or prepayment) when rates reset. If you can absorb the higher EMI, taking it is almost always cheaper; and note that the <a href="https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12878" rel="noopener">RBI now restricts foreclosure and pre-payment charges on floating-rate loans to individuals</a>, so partial prepayment is a free lever here (see <a href="/guides/how-extra-payments-reduce-interest/">how extra payments reduce interest</a>).</p>
+<p>Many Indian home loans use floating benchmark-linked rates. When the rate changes, the lender may alter the EMI, extend or shorten the tenure, or use a combination permitted by the agreement and applicable rules. The arithmetic can be large: if the rate on the example loan rose from 8.5% to 9.5% at the outset while the EMI stayed ₹21,695.58, modeled repayment would take about <strong>309 months instead of 240</strong>. Keeping the 20-year tenure instead would raise the modeled EMI to ₹23,303.</p>
+<p>The RBI's <a href="https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12529" rel="noopener">reset-of-floating-rate direction</a> describes options lenders must communicate, and its <a href="https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12878" rel="noopener">directions on pre-payment charges</a> define the products and borrowers within scope. Read those sources together with the current sanction letter; do not assume every floating-rate product receives identical treatment.</p>
 
 <h2>Fees, moratoriums and step-up products</h2>
 <p><strong>Processing fees raise your true cost above the quoted rate.</strong> A typical 1% fee on the ₹25,00,000 loan is ₹25,000 taken off the amount you effectively receive, while your EMI is computed on the full principal. Solving for the rate that matches what you really got, the loan's effective cost is about <strong>8.64%, not 8.5%</strong>. Small on a 20-year loan; on short loans the same fee distorts far more, which is why fee-inclusive comparison matters (see <a href="/guides/apr-vs-interest-rate/">APR vs interest rate</a>).</p>

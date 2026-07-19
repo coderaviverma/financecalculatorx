@@ -9,7 +9,7 @@ export default {
   tagline:
     "Work out the monthly payment for any fixed-rate loan, see exactly how much interest it costs, and test how extra payments change the schedule.",
   cardDescription: "Monthly payment, total interest and full amortization for any fixed-rate loan.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-19",
   version: "1.0",
   popular: true,
   featured: true,
@@ -28,10 +28,10 @@ export default {
       <p>Use <em>Copy link</em> to share a calculation (the link reproduces your exact inputs), and the schedule can be exported to CSV or printed as a report.</p>`,
     explanationHtml: `
       <h2>How loan payments actually work</h2>
-      <p>Almost every mainstream loan (personal, car, education, home) is an <strong>amortizing loan</strong>: you repay it in equal monthly installments, and each installment is split between interest and principal. The split is not fixed. Interest is charged only on the balance you still owe, so in month one, when the balance is highest, the interest share is at its peak. As the balance falls, the interest portion of each payment shrinks and the principal portion grows, month after month, until the final payment clears the balance exactly.</p>
+      <p>Many fixed-rate personal, car, education and home loans are <strong>amortizing loans</strong>: you repay them in scheduled installments, and each installment is split between interest and principal. The split is not fixed. In the monthly reducing-balance model used here, interest is charged on the balance you still owe, so in month one, when the balance is highest, the interest share is at its peak. As the balance falls, the interest portion of each payment shrinks and the principal portion grows until the final modeled payment clears the balance.</p>
       <p>This is why the early years of a loan feel unproductive: on a 5-year, ${"$"}20,000 loan at 7.5%, about ${"$"}125 of the first ${"$"}400.76 payment is interest. By the final year, interest is only a few dollars per payment. The amortization table below the calculator shows this crossover explicitly for your numbers.</p>
       <p>Two consequences follow from this structure. First, <strong>the term drives total cost more than most people expect</strong>. Stretching the same amount and rate over a longer term lowers the payment but raises the number of months on which interest accrues, so the total interest climbs sharply. Second, <strong>extra principal payments are disproportionately powerful early on</strong>, because money paid against principal in month 6 stops accruing interest for the entire remaining term.</p>
-      <p>The calculator assumes the reducing-balance method with monthly compounding, which is how virtually all regulated consumer lenders in the US, UK, EU and India charge interest. If you've seen "flat rate" loans advertised (interest charged on the original balance for the whole term), be careful: a 7.5% flat rate is roughly equivalent to a 13–14% reducing-balance rate on a 5-year loan.</p>`,
+      <p>The calculator assumes a reducing balance with the annual rate divided into monthly periods. This is a common fixed-payment convention, but lenders may instead use daily accrual, different day-count rules, fees or payment-rounding methods. If you've seen "flat rate" loans advertised (interest charged on the original balance for the whole term), compare the total repayment or legally disclosed APR rather than comparing the headline percentages directly.</p>`,
     formulaHtml: `
       <p>The monthly payment on a fixed-rate amortizing loan is:</p>
       <div class="formula-block"><span class="fx">M = P × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]</span>

@@ -4,6 +4,87 @@
   "use strict";
   const FCX = (window.FCX = window.FCX || {});
 
+  /* ---------- optional analytics consent ---------- */
+  const CONSENT_KEY = "fcx:analytics-consent-v1";
+  const ga4 = document.body?.dataset.ga4 || "";
+  let analyticsConsent = "";
+  let analyticsLoaded = false;
+  try { analyticsConsent = localStorage.getItem(CONSENT_KEY) || ""; } catch {}
+
+  function cleanPageLocation() {
+    return location.origin + location.pathname;
+  }
+
+  function cleanReferrer() {
+    if (!document.referrer) return "";
+    try {
+      const u = new URL(document.referrer);
+      return u.origin + u.pathname;
+    } catch { return ""; }
+  }
+
+  function loadAnalytics() {
+    if (!ga4 || analyticsConsent !== "granted") return;
+    window["ga-disable-" + ga4] = false;
+    if (analyticsLoaded) {
+      window.gtag?.("consent", "update", { analytics_storage: "granted" });
+      return;
+    }
+    analyticsLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    window.gtag("js", new Date());
+    window.gtag("config", ga4, {
+      page_location: cleanPageLocation(),
+      page_referrer: cleanReferrer(),
+    });
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(ga4);
+    document.head.appendChild(script);
+  }
+
+  function removeAnalyticsCookies() {
+    document.cookie.split(";").map((v) => v.trim().split("=")[0]).filter((name) => name === "_ga" || name.startsWith("_ga_")).forEach((name) => {
+      document.cookie = name + "=; Max-Age=0; Path=/; SameSite=Lax";
+      document.cookie = name + "=; Max-Age=0; Path=/; Domain=" + location.hostname + "; SameSite=Lax";
+      document.cookie = name + "=; Max-Age=0; Path=/; Domain=." + location.hostname + "; SameSite=Lax";
+    });
+  }
+
+  function setAnalyticsConsent(value) {
+    analyticsConsent = value === "granted" ? "granted" : "denied";
+    try { localStorage.setItem(CONSENT_KEY, analyticsConsent); } catch {}
+    document.getElementById("analytics-consent")?.setAttribute("hidden", "");
+    if (analyticsConsent === "granted") loadAnalytics();
+    else {
+      window["ga-disable-" + ga4] = true;
+      window.gtag?.("consent", "update", { analytics_storage: "denied" });
+      removeAnalyticsCookies();
+    }
+  }
+
+  function showConsent(focus) {
+    const banner = document.getElementById("analytics-consent");
+    if (!banner || !ga4) return;
+    banner.removeAttribute("hidden");
+    if (focus) banner.querySelector("[data-consent]")?.focus();
+  }
+
+  function initConsent() {
+    document.querySelectorAll("[data-consent]").forEach((button) => button.addEventListener("click", () => setAnalyticsConsent(button.dataset.consent)));
+    document.querySelectorAll("[data-privacy-settings]").forEach((button) => button.addEventListener("click", () => showConsent(true)));
+    if (analyticsConsent === "granted") loadAnalytics();
+    else {
+      // Remove cookies left by the pre-consent implementation for returning
+      // visitors, including when their stored choice is already "denied".
+      window["ga-disable-" + ga4] = true;
+      removeAnalyticsCookies();
+      if (!analyticsConsent) showConsent(false);
+    }
+  }
+
   /* ---------- preferences ---------- */
   const PREF_KEY = "fcx:prefs";
   const CURRENCIES = {
@@ -111,13 +192,13 @@
       .catch(() => {});
   }
 
-  document.addEventListener("DOMContentLoaded", () => { buildFmt(); syncMenus(); initGeo(); });
+  document.addEventListener("DOMContentLoaded", () => { buildFmt(); syncMenus(); initGeo(); initConsent(); });
 
-  /* ---------- analytics hooks (no external calls) ---------- */
+  /* ---------- analytics hooks (never queue pre-consent events) ---------- */
   FCX.track = (event, props) => {
+    if (analyticsConsent !== "granted" || typeof window.gtag !== "function") return;
     try {
-      (window.dataLayer = window.dataLayer || []).push(Object.assign({ event }, props || {}));
-      if (typeof window.gtag === "function") window.gtag("event", event, props || {});
+      window.gtag("event", event, props || {});
     } catch {}
   };
 
@@ -219,7 +300,7 @@
         active = -1;
         resultsBox.hidden = false;
         render();
-        FCX.track("calculator_search_used", { q });
+        FCX.track("calculator_search_used", { result_count: items.length });
       });
     };
     input.addEventListener("input", update);

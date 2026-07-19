@@ -15,6 +15,8 @@ const DIST = join(ROOT, "dist");
 const STRICT = process.argv.includes("--strict");
 const errors = [];
 const warnings = [];
+const renderedTitles = new Map();
+const renderedDescriptions = new Map();
 
 const BANNED = [
   "in today's fast-paced world", "in today’s fast-paced world", "fast-paced world",
@@ -101,9 +103,35 @@ function out(path, html) {
   const full = join(DIST, path);
   mkdirSync(dirname(full), { recursive: true });
   writeFileSync(full, html);
+  if (path.endsWith(".html")) validateRenderedPage(path, html);
 }
 
-const today = new Date().toISOString().slice(0, 10);
+function decodeHtml(s) {
+  return String(s || "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+}
+
+function validateRenderedPage(path, html) {
+  const title = decodeHtml(html.match(/<title>([\s\S]*?)<\/title>/)?.[1]);
+  const description = decodeHtml(html.match(/<meta name="description" content="([^"]*)">/)?.[1]);
+  if (!title || title.length > 70) errors.push(`dist/${path}: rendered title length ${title.length} (must be 1–70)`);
+  if (!description || description.length > 175) errors.push(`dist/${path}: rendered meta description length ${description.length} (must be 1–175)`);
+  if (renderedTitles.has(title)) errors.push(`dist/${path}: rendered title duplicates ${renderedTitles.get(title)}`);
+  else renderedTitles.set(title, path);
+  if (renderedDescriptions.has(description)) errors.push(`dist/${path}: rendered description duplicates ${renderedDescriptions.get(description)}`);
+  else renderedDescriptions.set(description, path);
+  for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    try { JSON.parse(match[1]); }
+    catch (e) { errors.push(`dist/${path}: invalid JSON-LD (${e.message})`); }
+  }
+  if (path === "404.html" && !html.includes('name="robots" content="noindex, follow"'))
+    errors.push(`dist/404.html: missing noindex directive`);
+  if (html.includes('id="calc-form"') && !html.includes("__FCX_SHARE_PARAMS"))
+    errors.push(`dist/${path}: calculator page lacks early shared-state capture`);
+  if (html.includes("googletagmanager.com"))
+    errors.push(`dist/${path}: analytics must not load before consent`);
+  if (!site.adsense?.adsEnabled && html.includes("adsbygoogle.js"))
+    errors.push(`dist/${path}: AdSense loader emitted while ads are disabled`);
+}
 
 async function main() {
   /* ---- load ---- */
@@ -114,6 +142,7 @@ async function main() {
   const guides = guideMods.map((m) => m.data);
   const pages = pageMods.map((m) => m.data);
   const calcSlugs = new Set(calcs.map((c) => c.slug));
+  const publisherId = String(site.adsense?.publisherId || "").trim();
 
   /* ---- validate ---- */
   calcMods.forEach((m) => validateCalc(m.data, m.file, calcSlugs));
@@ -121,6 +150,27 @@ async function main() {
   dedupe(calcMods, "metaTitle", "calculators");
   dedupe(calcMods, "metaDescription", "calculators");
   dedupe(guideMods, "metaTitle", "guides");
+  for (const m of pageMods) {
+    const p = m.data || {};
+    for (const k of ["slug", "title", "metaTitle", "metaDescription", "lede", "lastUpdated", "bodyHtml"])
+      if (!p[k]) errors.push(`pages/${m.file}: missing "${k}"`);
+    if (p.lastUpdated && !/^\d{4}-\d{2}-\d{2}$/.test(p.lastUpdated))
+      errors.push(`pages/${m.file}: lastUpdated must be YYYY-MM-DD`);
+    checkBanned(`pages/${m.file}`, p.bodyHtml);
+  }
+  dedupe(pageMods, "metaTitle", "pages");
+  dedupe(pageMods, "metaDescription", "pages");
+  for (const [label, date] of Object.entries(site.lastModified || {}))
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date || "")) errors.push(`site.lastModified.${label} must be YYYY-MM-DD`);
+  for (const category of categories)
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(category.lastModified || "")) errors.push(`category "${category.id}" needs a stable lastModified date`);
+  if (site.ga4 && !/^G-[A-Z0-9]+$/.test(site.ga4)) errors.push(`site.ga4 must be a valid GA4 measurement ID or blank`);
+  if (publisherId && !/^(?:ca-)?pub-\d{16}$/.test(publisherId))
+    errors.push(`site.adsense.publisherId must be pub- followed by 16 digits (optionally prefixed with ca-)`);
+  if (site.adsense?.adsEnabled && !publisherId)
+    errors.push(`site.adsense.adsEnabled requires a real publisherId`);
+  if (site.adsense?.adsEnabled && !site.adsense?.certifiedCmp)
+    errors.push(`site.adsense.adsEnabled requires certifiedCmp=true after a Google-certified CMP is actually integrated`);
   // duplicate content openers across calculators (first 90 chars of each section)
   const openers = new Map();
   for (const m of calcMods) {
@@ -176,26 +226,36 @@ async function main() {
 
   /* ---- sitemap / robots / headers / llms ---- */
   const urls = [
-    { loc: "/", pri: "1.0", mod: today },
-    { loc: "/calculators/", pri: "0.8", mod: today },
-    { loc: "/guides/", pri: "0.7", mod: today },
-    ...categories.map((c) => ({ loc: c.path, pri: "0.8", mod: today })),
-    ...calcs.map((c) => ({ loc: `/${c.slug}/`, pri: "0.9", mod: c.lastReviewed })),
-    ...guides.map((g) => ({ loc: `/guides/${g.slug}/`, pri: "0.7", mod: g.lastReviewed })),
-    ...pages.map((p) => ({ loc: `/${p.slug}/`, pri: "0.4", mod: p.lastUpdated || today })),
+    { loc: "/", mod: site.lastModified.home },
+    { loc: "/calculators/", mod: site.lastModified.calculators },
+    { loc: "/guides/", mod: site.lastModified.guides },
+    ...categories.map((c) => ({ loc: c.path, mod: c.lastModified })),
+    ...calcs.map((c) => ({ loc: `/${c.slug}/`, mod: c.lastReviewed })),
+    ...guides.map((g) => ({ loc: `/guides/${g.slug}/`, mod: g.lastReviewed })),
+    ...pages.map((p) => ({ loc: `/${p.slug}/`, mod: p.lastUpdated })),
   ];
   out("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
-    .map((u) => `  <url><loc>${site.origin}${u.loc}</loc><lastmod>${u.mod}</lastmod><priority>${u.pri}</priority></url>`)
+    .map((u) => `  <url><loc>${site.origin}${u.loc}</loc>${u.mod ? `<lastmod>${u.mod}</lastmod>` : ""}</url>`)
     .join("\n")}\n</urlset>\n`);
   out("robots.txt", `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.xml\n`);
+  if (publisherId) {
+    const sellerId = publisherId.replace(/^ca-/, "");
+    out("ads.txt", `google.com, ${sellerId}, DIRECT, f08c47fec0942fa0\n`);
+  }
   // IndexNow key file (Bing/Yandex/Seznam/Naver instant URL submission)
   out("2c500c5de84a180001add41b8e832a2c.txt", "2c500c5de84a180001add41b8e832a2c\n");
-  out("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n\n/assets/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
+  out("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n\n/assets/css/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/js/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/img/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/search-index.json\n  Cache-Control: public, max-age=3600, stale-while-revalidate=86400\n\n/assets/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
   out("llms.txt", `# ${site.name}\n\n> ${site.description}\n\nAll calculators run client-side, document their formulas and assumptions, and include worked examples.\n\n## Calculators\n\n${calcs.map((c) => `- [${c.title}](${site.origin}/${c.slug}/): ${c.cardDescription}`).join("\n")}\n\n## Guides\n\n${guides.map((g) => `- [${g.title}](${site.origin}/guides/${g.slug}/): ${g.cardDescription}`).join("\n")}\n\n## Policies\n\n- [Methodology](${site.origin}/methodology/)\n- [Editorial policy](${site.origin}/editorial-policy/)\n- [Disclaimer](${site.origin}/disclaimer/)\n`);
 
   // favicons at root
   if (existsSync(join(SRC, "assets/img/favicon.svg"))) cpSync(join(SRC, "assets/img/favicon.svg"), join(DIST, "favicon.svg"));
   if (existsSync(join(SRC, "assets/img/favicon.ico"))) cpSync(join(SRC, "assets/img/favicon.ico"), join(DIST, "favicon.ico"));
+
+  if (errors.length) {
+    console.error(`\n✗ GENERATED OUTPUT FAILED — ${errors.length} error(s):\n`);
+    errors.forEach((e) => console.error("  • " + e));
+    process.exit(1);
+  }
 
   const pageCount = urls.length + 1;
   console.log(`✓ Built ${pageCount} pages (${calcs.length} calculators, ${guides.length} guides, ${pages.length} static) → dist/  [v=${v}]`);

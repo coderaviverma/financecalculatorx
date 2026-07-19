@@ -7,11 +7,23 @@ export const site = {
   origin: "https://financecalculatorx.com",
   tagline: "Make Smarter Financial Decisions With Better Calculators",
   description:
-    "Free financial calculators for loans, mortgages, investments, savings, debt and everyday money decisions — with charts, amortization tables, worked examples and transparent methodology.",
+    "Free calculators for loans, mortgages, investing, savings and debt, with charts, schedules, worked examples and transparent formulas.",
   email: "contact@financecalculatorx.com",
   launched: "2026-07",
-  // Analytics & search-console integration. GA4 loads only when ga4 is a non-empty G-XXXX id.
+  lastModified: {
+    home: "2026-07-19",
+    calculators: "2026-07-12",
+    guides: "2026-07-12",
+  },
+  // GA4 is loaded only after the visitor explicitly allows optional analytics.
   ga4: "G-CB5GWN9DQ9",
+  // Monetization stays fail-closed. A build with ads enabled is rejected unless
+  // a real publisher ID and certified-CMP confirmation are both supplied.
+  adsense: {
+    publisherId: "",
+    certifiedCmp: false,
+    adsEnabled: false,
+  },
   // Site-verification meta tokens (used as a fallback to DNS/import verification).
   verify: { google: "", bing: "3927796E5F967AB56978D556F0DA2418" },
 };
@@ -22,6 +34,7 @@ export const categories = [
     short: "Loans",
     title: "Loan Calculators",
     path: "/loan-calculators/",
+    lastModified: "2026-07-19",
     icon: "loan",
     tagline: "Payments, interest, amortization and payoff strategies for any loan.",
     metaTitle: "Loan Calculators — Payments, Interest, Amortization & Payoff",
@@ -29,7 +42,7 @@ export const categories = [
       "Ten loan calculators covering monthly payments, EMI, total interest, amortization schedules, extra payments, early payoff and side-by-side loan comparison.",
     introHtml: `
       <p>Every loan in this section follows the same underlying mathematics — a fixed-rate, level-payment (amortizing) loan — but each calculator answers a different question about it. Use the <a href="/loan-calculator/">Loan Calculator</a> when you want the complete picture of a new loan: payment, total interest and a full amortization schedule. Use the goal-specific tools when you already know what you're trying to change: the <a href="/extra-payment-calculator/">Extra Payment Calculator</a> shows what paying more each month actually saves, the <a href="/loan-payoff-calculator/">Loan Payoff Calculator</a> works out how long your current balance will take to clear, and the <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> puts two offers side by side so the cheaper one is obvious.</p>
-      <p>All of these tools work for personal loans, car loans, education loans and most fixed-rate borrowing. They assume interest accrues monthly on the remaining balance — the reducing-balance method used by almost all mainstream lenders — and every page documents its formula, assumptions and a worked example so you can verify the numbers yourself.</p>`,
+      <p>All of these tools model fixed-rate borrowing with monthly reducing-balance interest. That is a common convention for personal, car, education and home loans, but some products accrue interest daily or use different fee and rounding rules. Every page documents the exact convention it uses so you can compare the estimate with your lender's agreement or statement.</p>`,
     eduHtml: `
       <h2>How to get the most out of these calculators</h2>
       <p>Start with the payment, but decide on the total cost. Two loans with similar monthly payments can differ by thousands in total interest once the term is taken into account — a longer term almost always means a smaller payment and a larger total cost. When comparing offers, keep the loan amount identical and let only the rate, term and fees vary; the comparison calculator does this for you and shows the break-even point when fees are involved.</p>
@@ -41,6 +54,7 @@ export const categories = [
     short: "Mortgage",
     title: "Mortgage & Home Calculators",
     path: "/mortgage-calculators/",
+    lastModified: "2026-07-19",
     icon: "home",
     tagline: "Payments, affordability, payoff, refinancing and rent-vs-buy decisions.",
     metaTitle: "Mortgage Calculators — Payment, Affordability, Payoff & Refinance",
@@ -51,7 +65,7 @@ export const categories = [
       <p>If you already own, the <a href="/mortgage-payoff-calculator/">Mortgage Payoff Calculator</a> and <a href="/refinance-calculator/">Refinance Calculator</a> quantify the two most common questions: what extra payments would save, and whether refinancing actually breaks even after closing costs. And if you're deciding whether to buy at all, the <a href="/rent-vs-buy-calculator/">Rent vs Buy Calculator</a> compares the true multi-year cost of both paths, including the opportunity cost of your down payment.</p>`,
     eduHtml: `
       <h2>What these calculators assume</h2>
-      <p>All mortgage tools here model fixed-rate, fully amortizing loans — the standard structure in most markets. Adjustable-rate products, interest-only periods and negative amortization are deliberately out of scope, because their outcomes depend on future rate paths no calculator can honestly predict. Property tax, insurance and maintenance inputs are annual estimates you control; the pages explain typical ranges, but your actual figures depend on location and property. Every result should be read as an estimate to structure your decision, then verified against a lender's official quote or amortization statement.</p>`,
+      <p>All mortgage tools here model fixed-rate, fully amortizing loans, a widely used structure but not the only one. Adjustable-rate products, interest-only periods and negative amortization are deliberately out of scope, because their outcomes depend on future rate paths no calculator can honestly predict. Property tax, insurance and maintenance inputs are annual estimates you control; the pages explain typical ranges, but your actual figures depend on location and property. Every result should be read as an estimate to structure your decision, then verified against a lender's official quote or amortization statement.</p>`,
     relatedCategories: ["loans", "savings"],
   },
   {
@@ -59,6 +73,7 @@ export const categories = [
     short: "Investing",
     title: "Investment Calculators",
     path: "/investment-calculators/",
+    lastModified: "2026-07-12",
     icon: "chart",
     tagline: "Compound growth, SIPs, future value, returns and investment planning.",
     metaTitle: "Investment Calculators — Compound Interest, SIP, ROI & Future Value",
@@ -77,6 +92,7 @@ export const categories = [
     short: "Savings",
     title: "Savings Calculators",
     path: "/savings-calculators/",
+    lastModified: "2026-07-12",
     icon: "piggy",
     tagline: "Savings growth, monthly deposits, goals and simple interest.",
     metaTitle: "Savings Calculators — Growth, Goals, Deposits & Simple Interest",
@@ -101,6 +117,7 @@ export const categories = [
     short: "Personal Finance",
     title: "Personal Finance Calculators",
     path: "/personal-finance-calculators/",
+    lastModified: "2026-07-12",
     icon: "wallet",
     tagline: "Budgeting and debt payoff strategies for everyday money decisions.",
     metaTitle: "Personal Finance Calculators — Budgeting & Debt Payoff",

@@ -9,7 +9,7 @@ export default {
   tagline:
     "Pick a payment frequency — monthly, biweekly or weekly — and see the payment per period, the number of payments, and how the schedules compare on total interest.",
   cardDescription: "Payment per period at monthly, biweekly or weekly frequency, with an interest comparison.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-19",
   version: "1.0",
   popular: false,
   featured: false,
@@ -21,7 +21,7 @@ export default {
     howToHtml: `
       <p>Set the amount, rate and term in years, then choose how often you want to pay. The calculator prices the loan at that frequency and, in the chart and table, prices it at the other two frequencies as well so you can see the difference side by side.</p>
       <ul>
-        <li><strong>Monthly</strong>: 12 payments a year, the default for almost every consumer loan.</li>
+        <li><strong>Monthly</strong>: 12 payments a year, a common schedule for consumer installment loans.</li>
         <li><strong>Biweekly</strong>: 26 payments a year, one every two weeks. Popular where salaries are paid fortnightly.</li>
         <li><strong>Weekly</strong>: 52 payments a year, common for small business and some auto lenders.</li>
       </ul>
@@ -41,7 +41,7 @@ export default {
           <li><code>n</code> = years × f, total number of payments</li>
         </ul>
       </div>
-      <p>The periodic rate is the <strong>nominal annual rate divided by the number of payments per year</strong>, the same convention lenders use when they quote "7% compounded to match the payment schedule". Note this makes the effective annual rate differ slightly across frequencies (7% ÷ 52 compounds to a touch more than 7% ÷ 12), which is why the interest differences shown here are small rather than zero. At 0% the payment is simply <code>P ÷ n</code>.</p>`,
+      <p>The model uses the <strong>nominal annual rate divided by the number of payments per year</strong>. Note this makes the effective annual rate differ slightly across frequencies (7% ÷ 52 compounds to a touch more than 7% ÷ 12), which is why the interest differences shown here are small rather than zero. A lender may instead preserve the effective rate, accrue daily, or hold partial payments until a full installment is available; use the documented convention from the actual offer. At 0% the payment is simply <code>P ÷ n</code>.</p>`,
     exampleHtml: `
       <div class="example-block"><div class="ex-head">Example: $25,000 at 7% over 5 years, three ways</div><div class="ex-body">
         <p><strong>Monthly:</strong> periodic rate 0.07 ÷ 12 = 0.0058333, n = 60; (1.0058333)<sup>60</sup> = 1.41763, so A = $495.03. Total paid $29,701.80, interest <strong>$4,701.80</strong>.</p>
