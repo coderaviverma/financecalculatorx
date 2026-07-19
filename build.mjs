@@ -107,7 +107,9 @@ function out(path, html) {
 }
 
 function decodeHtml(s) {
-  return String(s || "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+  // &amp; must decode last: decoding it first turns source text like "&lt;"
+  // (escaped to "&amp;lt;") into "<", mis-measuring lengths and dedupe keys.
+  return String(s || "").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 }
 
 function validateRenderedPage(path, html) {
@@ -171,6 +173,18 @@ async function main() {
     errors.push(`site.adsense.adsEnabled requires a real publisherId`);
   if (site.adsense?.adsEnabled && !site.adsense?.certifiedCmp)
     errors.push(`site.adsense.adsEnabled requires certifiedCmp=true after a Google-certified CMP is actually integrated`);
+  // The methodology page publishes exact verification counts; keep them true.
+  {
+    const methodology = pageMods.find((m) => m.file === "methodology.mjs")?.data?.bodyHtml || "";
+    const claimedChecks = +(methodology.match(/(\d+) automated calculation checks/)?.[1] || 0);
+    const claimedCalcs = +(methodology.match(/all (\d+) calculator configurations/)?.[1] || 0);
+    const actualChecks = readdirSync(join(ROOT, "tests")).filter((f) => f.endsWith(".test.mjs") && f !== "privacy-controls.test.mjs")
+      .reduce((n, f) => n + (readFileSync(join(ROOT, "tests", f), "utf8").match(/^test\(/gm) || []).length, 0);
+    if (claimedChecks !== actualChecks)
+      errors.push(`methodology.mjs claims ${claimedChecks} automated calculation checks but tests/ contains ${actualChecks} — update the page`);
+    if (claimedCalcs !== calcs.length)
+      errors.push(`methodology.mjs claims ${claimedCalcs} calculator configurations but there are ${calcs.length} — update the page`);
+  }
   // duplicate content openers across calculators (first 90 chars of each section)
   const openers = new Map();
   for (const m of calcMods) {

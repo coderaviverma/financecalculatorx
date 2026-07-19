@@ -75,8 +75,7 @@
   function initConsent() {
     document.querySelectorAll("[data-consent]").forEach((button) => button.addEventListener("click", () => setAnalyticsConsent(button.dataset.consent)));
     document.querySelectorAll("[data-privacy-settings]").forEach((button) => button.addEventListener("click", () => showConsent(true)));
-    if (analyticsConsent === "granted") loadAnalytics();
-    else {
+    if (analyticsConsent !== "granted") {
       // Remove cookies left by the pre-consent implementation for returning
       // visitors, including when their stored choice is already "denied".
       window["ga-disable-" + ga4] = true;
@@ -84,6 +83,12 @@
       if (!analyticsConsent) showConsent(false);
     }
   }
+
+  // Deferred scripts execute in document order, so this runs before engine.js
+  // boots any calculator. Loading here rather than at DOMContentLoaded means
+  // the gtag queue already exists when boot-time events (calculator_view, the
+  // initial calculation_completed) fire for visitors with stored consent.
+  if (analyticsConsent === "granted") loadAnalytics();
 
   /* ---------- preferences ---------- */
   const PREF_KEY = "fcx:prefs";

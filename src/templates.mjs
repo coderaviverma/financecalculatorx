@@ -30,8 +30,11 @@ const THEME_INIT = `(function(){try{var p=JSON.parse(localStorage.getItem("fcx:p
 
 // Calculator share state is deliberately captured before analytics or ad code
 // can run. New links use a URL fragment (never sent in an HTTP request); legacy
-// query-string links are scrubbed before any third-party script loads.
-const SHARE_CAPTURE = `(function(){try{var raw="";if(location.hash.indexOf("#calc=")===0){raw=decodeURIComponent(location.hash.slice(6))}else if(location.search.length>1){raw=location.search.slice(1)}if(raw){window.__FCX_SHARE_PARAMS=raw;history.replaceState(null,"",location.pathname)}}catch(e){history.replaceState(null,"",location.pathname)}})();`;
+// query-string links are scrubbed before any third-party script loads. Emitted
+// on every page so the guarantee holds even for share links that land on
+// non-calculator URLs. A malformed %-sequence keeps the raw payload rather
+// than dropping the shared state.
+const SHARE_CAPTURE = `(function(){try{var raw="";if(location.hash.indexOf("#calc=")===0){raw=location.hash.slice(6);try{raw=decodeURIComponent(raw)}catch(e){}}else if(location.search.length>1){raw=location.search.slice(1)}if(raw){window.__FCX_SHARE_PARAMS=raw;history.replaceState(null,"",location.pathname)}}catch(e){try{history.replaceState(null,"",location.pathname)}catch(e2){}}})();`;
 
 const adsenseClient = () => {
   const id = String(site.adsense?.publisherId || "").trim();
@@ -139,7 +142,7 @@ export function base(p) {
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-  ${p.captureShare ? `<script>${SHARE_CAPTURE}</script>` : ""}
+  <script>${SHARE_CAPTURE}</script>
   <script>${THEME_INIT}</script>
   <link rel="preload" href="/assets/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/inter-latin-600.woff2" as="font" type="font/woff2" crossorigin>
@@ -346,7 +349,6 @@ export function calculatorPage(c, all, v) {
     description: c.metaDescription,
     jsonld: [ldBreadcrumbs(crumbs), ldOrg(), ldWebApp(c), ldFaq(c.faq)],
     suggestCurrency: c.suggestCurrency,
-    captureShare: true,
     scripts: ["/assets/js/finance.js", "/assets/js/charts.js", "/assets/js/engine.js", `/assets/js/calc/${c.slug}.js`],
     content,
     v,
@@ -403,7 +405,7 @@ export function homePage(calcs, guides, v) {
 <div class="wrap">
   <section class="hero">
     <h1>${esc(site.tagline)}</h1>
-    <p class="sub">${esc(site.description.split("—")[0].trim())} — with documented formulas, worked examples, interactive charts, and downloadable tables or schedules where they add value.</p>
+    <p class="sub">Free calculators for loans, mortgages, investing, savings and debt — with documented formulas, worked examples, interactive charts, and downloadable tables or schedules where they add value.</p>
     <div class="hero-search">
       <span class="s-icon">${I.search}</span>
       <input type="search" placeholder="Try “mortgage payment”, “EMI”, “pay off debt”…" aria-label="Search calculators" data-search-input aria-controls="hero-results" role="combobox" aria-expanded="false" autocomplete="off">

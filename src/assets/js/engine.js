@@ -425,6 +425,9 @@
       );
       FCX.track("calculation_shared", { slug: cfg.slug });
     });
+    // A malformed %-sequence (crafted link, or a browser that pre-decodes
+    // location.hash) must degrade to the raw text, never throw out of boot.
+    const safeDecode = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
     function readShareParams() {
       // The head capture removes shared state from the address bar before any
       // optional third-party script can load, then exposes it once in memory.
@@ -440,7 +443,7 @@
         if (def.type === "debts") {
           values.debts = p.get("debts").split("_").map((s) => {
             const [name, balance, apr, min] = s.split("~");
-            return { name: decodeURIComponent(name || "Debt"), balance: +balance || 0, apr: +apr || 0, min: +min || 0 };
+            return { name: safeDecode(name || "Debt"), balance: +balance || 0, apr: +apr || 0, min: +min || 0 };
           });
         } else if (def.type === "toggle") values[def.id] = p.get(def.id) === "1";
         else if (def.type === "select" || def.type === "segment") values[def.id] = coerceOption(def, p.get(def.id));
@@ -448,6 +451,16 @@
       });
       if (any) loadValues(values, null);
     }
+    // Opening a share link in a tab that already shows this calculator is a
+    // same-document navigation: the head capture doesn't re-run, so apply and
+    // scrub the fragment here.
+    window.addEventListener("hashchange", () => {
+      if (location.hash.indexOf("#calc=") !== 0) return;
+      window.__FCX_SHARE_PARAMS = safeDecode(location.hash.slice(6));
+      history.replaceState(null, "", location.pathname);
+      try { readShareParams(); } catch {}
+      onChange();
+    });
     $("#act-reset")?.addEventListener("click", () => {
       const values = {};
       cfg.inputs.forEach((def) => {
@@ -525,7 +538,7 @@
       onChange();
     });
 
-    readShareParams();
+    try { readShareParams(); } catch {}
     FCX.pushRecent(cfg.slug);
     FCX.track("calculator_view", { slug: cfg.slug });
     onChange();

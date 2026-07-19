@@ -6,7 +6,8 @@ const FIN = loadFinance();
 const close = (a, b, tol = 0.02) => assert.ok(Math.abs(a - b) <= tol, `expected ${a} ≈ ${b} (±${tol})`);
 
 test("pmt matches known reference values", () => {
-  close(FIN.pmt(250000, 6.5, 360), 1580.17);
+  // The methodology page publishes this check as "within a one-cent tolerance".
+  close(FIN.pmt(250000, 6.5, 360), 1580.17, 0.01);
   close(FIN.pmt(100000, 6, 180), 843.86);
   close(FIN.pmt(20000, 7.5, 60), 400.76);
   close(FIN.pmt(280000, 6.5, 360), 1769.79);
