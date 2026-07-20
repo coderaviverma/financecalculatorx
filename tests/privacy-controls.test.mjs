@@ -68,7 +68,9 @@ test("analytics is consent-gated and strips sensitive URL components", () => {
 test("AdSense configuration is fail-closed", () => {
   const config = source("src/data/site.mjs");
   const build = source("build.mjs");
-  assert.match(config, /publisherId: ""/);
+  // publisherId may be blank (pre-signup) or a real pub- ID (verification),
+  // but ad serving stays off until a certified CMP is actually integrated.
+  assert.match(config, /publisherId: "(?:pub-\d{16})?"/);
   assert.match(config, /certifiedCmp: false/);
   assert.match(config, /adsEnabled: false/);
   assert.match(build, /adsEnabled requires a real publisherId/);

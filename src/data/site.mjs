@@ -20,7 +20,9 @@ export const site = {
   // Monetization stays fail-closed. A build with ads enabled is rejected unless
   // a real publisher ID and certified-CMP confirmation are both supplied.
   adsense: {
-    publisherId: "",
+    // Verification only: emits the google-adsense-account meta + ads.txt.
+    // The ad loader stays off until certifiedCmp and adsEnabled are both true.
+    publisherId: "pub-2380122589133794",
     certifiedCmp: false,
     adsEnabled: false,
   },
