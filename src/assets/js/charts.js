@@ -31,14 +31,17 @@
   }
   function hideTip() { if (tip) tip.style.display = "none"; }
 
-  function niceTicks(max, count) {
-    if (max <= 0) return [0, 1];
-    const raw = max / count;
+  function niceTicks(min, max, count) {
+    // The returned range must COVER [min, max]: the last tick is >= max (and
+    // the first <= min), otherwise data draws outside the plot area.
+    if (max <= min) max = min + 1;
+    const raw = (max - min) / count;
     const mag = Math.pow(10, Math.floor(Math.log10(raw)));
     const norm = raw / mag;
     const step = (norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 2.5 ? 2.5 : norm <= 5 ? 5 : 10) * mag;
     const ticks = [];
-    for (let v = 0; v <= max + step * 0.001; v += step) ticks.push(v);
+    let v = Math.floor(min / step) * step;
+    for (;;) { ticks.push(v); if (v >= max - step * 0.001) break; v += step; }
     return ticks;
   }
   const dflt = (v) => (Math.abs(v) >= 1000 ? (v / 1000).toFixed(0) + "K" : String(Math.round(v)));
@@ -81,20 +84,24 @@
     const n = cfg.x.length;
     if (!n) return;
 
-    let maxY;
+    let maxY, minY = 0;
     if (cfg.type === "area") {
       maxY = Math.max(...cfg.x.map((_, i) => cfg.series.reduce((s, sr) => s + Math.max(0, sr.values[i] || 0), 0)));
     } else {
-      maxY = Math.max(...cfg.series.flatMap((sr) => sr.values.map((v) => v || 0)));
+      const all = cfg.series.flatMap((sr) => sr.values.map((v) => v || 0));
+      maxY = Math.max(...all);
+      if (cfg.type === "lines") minY = Math.min(0, ...all);
     }
-    const ticks = niceTicks(maxY || 1, 4);
+    const ticks = niceTicks(minY, maxY || 1, 4);
+    minY = ticks[0];
     maxY = ticks[ticks.length - 1];
     const fmtA = cfg.fmtAxis || dflt;
     const X = (i) => padL + (n === 1 ? iw / 2 : (i / (n - 1)) * iw);
-    const Y = (v) => padT + ih - (v / maxY) * ih;
+    const Y = (v) => padT + ih - ((v - minY) / (maxY - minY)) * ih;
 
     ticks.forEach((t) => {
-      el("line", { x1: padL, x2: W - padR, y1: Y(t), y2: Y(t), stroke: "var(--line)", "stroke-width": 1 }, svg);
+      const zero = t === 0 && minY < 0;
+      el("line", { x1: padL, x2: W - padR, y1: Y(t), y2: Y(t), stroke: zero ? "var(--line-strong)" : "var(--line)", "stroke-width": 1 }, svg);
       el("text", { x: padL - 8, y: Y(t) + 4, "text-anchor": "end", "font-size": 11, fill: "var(--ink-3)", "font-family": "inherit" }, svg).textContent = fmtA(t);
     });
     const xStep = Math.max(1, Math.ceil(n / (W < 480 ? 5 : 9)));
