@@ -14,14 +14,14 @@ export default {
       url: "https://financecalculatorx.com/authors/avinash-verma/",
       jobTitle: "Software Developer",
       worksFor: { "@type": "Organization", name: "Finance Calculator X", url: "https://financecalculatorx.com/" },
-      sameAs: ["https://github.com/coderaviverma", "https://gitlab.com/coderaviverma"],
+      sameAs: ["https://github.com/coderaviverma", "https://gitlab.com/coderaviverma", "https://www.linkedin.com/in/avinashverma89/"],
       knowsAbout: ["financial calculators", "amortization", "compound interest", "web development"],
     },
   ],
   bodyHtml: `
     <h2>Who I am</h2>
     <p>I'm a software developer based in Gurgaon, India, and I build free, browser-based utilities — fast, no sign-up, privacy-conscious. Finance Calculator X is one of those projects: a set of financial calculators built the way I wished such tools worked, with the formula on the page, the assumptions stated, and the math verified by automated tests rather than taken on faith.</p>
-    <p>You can verify my work directly: my open-source profiles are on <a href="https://github.com/coderaviverma" rel="noopener">GitHub</a> and <a href="https://gitlab.com/coderaviverma" rel="noopener">GitLab</a>, where I maintain several other browser-tool projects.</p>
+    <p>You can verify my work directly: my open-source profiles are on <a href="https://github.com/coderaviverma" rel="noopener">GitHub</a> and <a href="https://gitlab.com/coderaviverma" rel="noopener">GitLab</a>, where I maintain several other browser-tool projects, and my professional profile is on <a href="https://www.linkedin.com/in/avinashverma89/" rel="noopener">LinkedIn</a>.</p>
 
     <h2>What I am — and what I'm not</h2>
     <p><strong>I am not a licensed financial adviser, accountant or planner, and nothing on this site is personal financial advice.</strong> My role is technical author and software maintainer. What I bring is engineering discipline applied to published financial mathematics: the amortization, compounding, discounting and simulation formulas documented in standard finance references. Every calculator states its formula and conventions, and the <a href="/methodology/#verification">methodology page</a> explains exactly how results are computed and tested.</p>
