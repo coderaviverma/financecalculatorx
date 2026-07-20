@@ -58,5 +58,5 @@ Monetization is fail-closed in `src/data/site.mjs`:
 - Calculations and saved scenarios stay in the browser.
 - Shared calculations use a `#calc=` URL fragment, which browsers do not send in HTTP requests or referrer headers. The fragment is captured once and removed before optional third-party code can load.
 - Legacy query-string share links are accepted only for compatibility and scrubbed immediately; new links never use query strings.
-- Google Analytics loads only after an explicit “Allow analytics” choice. Sent page locations and referrers exclude query strings and fragments; custom events exclude calculator values and raw search terms.
+- Google Analytics loads only after an explicit “Allow analytics” choice. Sent page locations exclude calculator values, raw directory searches, fragments and unrecognized query parameters; an explicit, length-limited campaign allowlist is retained for attribution. Referrers always exclude query strings, and custom events exclude calculator values and raw search terms.
 - The footer's **Privacy choices** control lets visitors withdraw or change that choice.
