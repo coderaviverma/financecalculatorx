@@ -28,13 +28,13 @@ const LOGO = `<svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect wid
 
 const THEME_INIT = `(function(){try{var p=JSON.parse(localStorage.getItem("fcx:prefs")||"{}");var t=p.theme||"auto";if(t==="auto"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.setAttribute("data-theme",t)}catch(e){document.documentElement.setAttribute("data-theme","light")}})();`;
 
-// Calculator share state is deliberately captured before analytics or ad code
-// can run. New links use a URL fragment (never sent in an HTTP request); legacy
-// query-string links are scrubbed before any third-party script loads. Emitted
-// on every page so the guarantee holds even for share links that land on
-// non-calculator URLs. A malformed %-sequence keeps the raw payload rather
-// than dropping the shared state.
-const SHARE_CAPTURE = `(function(){try{var raw="";if(location.hash.indexOf("#calc=")===0){raw=location.hash.slice(6);try{raw=decodeURIComponent(raw)}catch(e){}}else if(location.search.length>1){raw=location.search.slice(1)}if(raw){window.__FCX_SHARE_PARAMS=raw;history.replaceState(null,"",location.pathname)}}catch(e){try{history.replaceState(null,"",location.pathname)}catch(e2){}}})();`;
+// Capture sensitive calculator share state before analytics or ad code can run.
+// New links use a fragment (never sent in an HTTP request); legacy query-string
+// links are retained in memory and removed from the address bar. Standard
+// campaign parameters are separated from calculator data so consented GA4 can
+// attribute legitimate campaigns without receiving financial inputs or raw
+// directory searches.
+export const SHARE_CAPTURE = `(function(){try{var allowed={utm_source:1,utm_medium:1,utm_campaign:1,utm_id:1,utm_term:1,utm_content:1,gclid:1,dclid:1,gbraid:1,wbraid:1,msclkid:1,fbclid:1};var campaign=new URLSearchParams();var legacy=new URLSearchParams();var directorySearch="";if(location.search.length>1){new URLSearchParams(location.search).forEach(function(value,key){var normalized=key.toLowerCase();if(allowed[normalized]){if(value.length<=256)campaign.append(normalized,value)}else if(location.pathname==="/calculators/"&&normalized==="q"){directorySearch=value.slice(0,120)}else{legacy.append(key,value)}})}var campaignRaw=campaign.toString();if(campaignRaw)window.__FCX_ATTRIBUTION_PARAMS=campaignRaw;if(directorySearch)window.__FCX_DIRECTORY_SEARCH=directorySearch;var raw="";var calcHash=location.hash.indexOf("#calc=")===0;if(calcHash){raw=location.hash.slice(6);try{raw=decodeURIComponent(raw)}catch(e){}}else if(legacy.toString()){raw=legacy.toString()}if(raw)window.__FCX_SHARE_PARAMS=raw;if(location.search.length>1||calcHash){history.replaceState(null,"",location.pathname+(calcHash?"":location.hash))}}catch(e){try{history.replaceState(null,"",location.pathname)}catch(e2){}}})();`;
 
 const adsenseClient = () => {
   const id = String(site.adsense?.publisherId || "").trim();
@@ -97,7 +97,7 @@ function consentHtml() {
   return `<aside class="consent-banner" id="analytics-consent" role="dialog" aria-labelledby="consent-title" aria-describedby="consent-copy" hidden>
   <div>
     <h2 id="consent-title">Optional analytics</h2>
-    <p id="consent-copy">Allow optional Google Analytics cookies to help us understand which calculators are useful. Calculator inputs are never included, and page URLs are stripped of query strings and fragments. <a href="/privacy-policy/">Privacy policy</a>.</p>
+    <p id="consent-copy">Allow optional Google Analytics cookies to help us understand which calculators are useful. Calculator inputs and search terms are excluded; only standard campaign attribution may be reported. <a href="/privacy-policy/">Privacy policy</a>.</p>
   </div>
   <div class="consent-actions">
     <button type="button" class="btn btn-ghost btn-sm" data-consent="denied">Decline</button>
@@ -172,8 +172,16 @@ export const ldOrg = () => ({
   url: site.origin + "/",
   logo: site.origin + "/assets/img/apple-touch-icon.png",
   email: site.email,
-  founder: { "@type": "Person", name: "Avinash Verma", url: site.origin + "/authors/avinash-verma/" },
-  sameAs: ["https://github.com/coderaviverma", "https://gitlab.com/coderaviverma"],
+  founder: {
+    "@type": "Person",
+    name: "Avinash Verma",
+    url: site.origin + "/authors/avinash-verma/",
+    sameAs: [
+      "https://github.com/coderaviverma",
+      "https://gitlab.com/coderaviverma",
+      "https://www.linkedin.com/in/avinashverma89/",
+    ],
+  },
 });
 export const ldWebsite = () => ({
   "@context": "https://schema.org",
@@ -506,7 +514,7 @@ export function calculatorsIndex(calcs, v) {
     </section>`;
   }).join("")}
 </div>
-<script>addEventListener("DOMContentLoaded",function(){var q=new URLSearchParams(location.search).get("q");var i=document.querySelector("[data-search-input]");if(q&&i){i.value=q;i.dispatchEvent(new Event("input"));i.focus()}});</script>`;
+<script>addEventListener("DOMContentLoaded",function(){var q=window.__FCX_DIRECTORY_SEARCH||"";var i=document.querySelector("[data-search-input]");if(q&&i){i.value=q;i.dispatchEvent(new Event("input"));i.focus()}});</script>`;
   return base({
     path: "/calculators/",
     title: "All Financial Calculators — Loans, Mortgages, Investing, Savings",

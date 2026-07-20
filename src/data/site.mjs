@@ -11,7 +11,7 @@ export const site = {
   email: "contact@financecalculatorx.com",
   launched: "2026-07",
   lastModified: {
-    home: "2026-07-19",
+    home: "2026-07-20",
     calculators: "2026-07-12",
     guides: "2026-07-12",
   },
@@ -75,12 +75,12 @@ export const categories = [
     short: "Investing",
     title: "Investment Calculators",
     path: "/investment-calculators/",
-    lastModified: "2026-07-12",
+    lastModified: "2026-07-20",
     icon: "chart",
     tagline: "Compound growth, SIPs, future value, returns and investment planning.",
     metaTitle: "Investment Calculators — Compound Interest, SIP, ROI & Future Value",
     metaDescription:
-      "Seven investment calculators: compound interest, investment growth, SIP, lump sum, future value, present value and ROI — with year-by-year tables and charts.",
+      "Eight investment calculators: compound interest, investment growth, SIP, lump sum, future value, present value, ROI and simple interest — with year-by-year tables and charts.",
     introHtml: `
       <p>Investment mathematics is mostly one idea — compound growth — viewed from different angles. The <a href="/compound-interest-calculator/">Compound Interest Calculator</a> is the reference tool: it shows how a starting amount and regular contributions grow, and splits the result into what you put in versus what compounding added. The <a href="/investment-calculator/">Investment Calculator</a> builds on that with inflation adjustment, so you can see results in today's purchasing power. The <a href="/sip-calculator/">SIP Calculator</a> applies the same engine to monthly systematic investment plans, including annual step-ups.</p>
       <p>The remaining tools answer planning questions: <a href="/future-value-calculator/">future value</a> ("what will this be worth?"), <a href="/present-value-calculator/">present value</a> ("what is a future amount worth today?"), and <a href="/roi-calculator/">ROI</a> ("what did this investment actually return, annualized?"). Every calculator states its compounding assumptions explicitly and shows the year-by-year table behind the headline number.</p>`,

@@ -5,7 +5,7 @@ export default {
   metaDescription:
     "Avinash Verma builds and maintains Finance Calculator X: a software developer focused on transparent, tested browser-based financial calculators.",
   lede: "Builder and maintainer of Finance Calculator X.",
-  lastUpdated: "2026-07-19",
+  lastUpdated: "2026-07-20",
   extraJsonld: [
     {
       "@context": "https://schema.org",

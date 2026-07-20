@@ -12,7 +12,8 @@
   try { analyticsConsent = localStorage.getItem(CONSENT_KEY) || ""; } catch {}
 
   function cleanPageLocation() {
-    return location.origin + location.pathname;
+    const attribution = window.__FCX_ATTRIBUTION_PARAMS || "";
+    return location.origin + location.pathname + (attribution ? "?" + attribution : "");
   }
 
   function cleanReferrer() {
