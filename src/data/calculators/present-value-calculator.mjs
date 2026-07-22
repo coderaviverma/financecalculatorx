@@ -7,10 +7,10 @@ export default {
   metaDescription:
     "Find what a future amount or a stream of payments is worth today at your discount rate — with rate sensitivity and a year-by-year discount table.",
   tagline:
-    "Drag future money back to today: value a promised lump sum or a stream of payments at your own discount rate, and see how sensitive the answer is to that rate.",
+    "Bring a future lump sum or payment stream back to today's value using a discount rate you choose.",
   cardDescription: "Discount a future amount or payment stream to its value in today's money.",
   scenarioHint: "Save your valuation as Scenario A, change the discount rate or the years until payment, then save Scenario B — useful for testing how sensitive a buyout or settlement offer is to the rate you assume.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,

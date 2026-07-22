@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Work out simple interest with I = P × r × t: interest earned, total amount, and a year-by-year comparison against monthly compounding at the same rate.",
   tagline:
-    "Calculate flat, non-compounding interest the way bonds, payout deposits and legal interest actually charge it — and see exactly what not compounding costs.",
+    "Calculate non-compounding interest and compare it with monthly compounding over the same period.",
   cardDescription: "Flat interest via I = P × r × t, with a side-by-side compound comparison.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,
@@ -27,8 +27,8 @@ export default {
       <p>The chart and table track both balances year by year. The gap column is the answer to a practical question: if you're offered interest as a payout (a coupon, a monthly-payout deposit), how much are you giving up versus letting it reinvest?</p>`,
     explanationHtml: `
       <h2>Where simple interest is used</h2>
-      <p>Simple interest means the rate is only ever applied to the original principal. Earned interest is handed to you, or simply tallied up, but never added to the base. That sounds like a textbook relic, yet it describes a lot of real money: most <strong>bond coupons</strong> pay a fixed percentage of face value each period, straight to your account; <strong>fixed deposits with a payout option</strong> send interest out monthly or quarterly instead of reinvesting it; <strong>promissory notes</strong> between private parties are conventionally written as simple interest; and most <strong>statutory interest</strong> (court judgments, late tax payments, delayed insurance settlements) is calculated as a flat annual percentage on the amount owed.</p>
-      <p>The structural difference from compounding is linear versus exponential growth. At 6%, $10,000 earns exactly $600 every single year: the default three-year result is $1,800, and year twenty's interest is the same $600 as year one's. Reinvested monthly at the same 6%, the three-year figure is $1,966.81, only $166.81 more. But stretch to ten years and it's $16,000 simple versus $18,193.97 compounded; at twenty years, $22,000 versus $33,102.04. The two lines on the chart start out nearly touching and then peel apart, which is the whole story: over short periods simple and compound interest are near-twins, and over long periods they aren't even the same species.</p>
+      <p>Simple interest applies the rate to the original principal rather than adding earned interest to the base. It can model a payout deposit, the coupon cash flow on a fixed-rate bond, or another agreement that explicitly uses simple interest. Legal and financial products use different conventions, so confirm the contract or governing rule before choosing this model.</p>
+      <p>The structural difference is linear versus exponential growth. At 6%, $10,000 earns $600 each year under simple interest. Reinvested monthly at the same stated rate, the three-year interest is $1,966.81 rather than $1,800. At ten years the ending balances are $16,000 and $18,193.97; at twenty years, $22,000 and $33,102.04. The gap widens as the compounding periods accumulate.</p>
       <p>A useful way to think about it: simple interest is what you get when interest is <em>paid out</em>, compound is what you get when it's <em>reinvested</em>. The money doesn't care about the label — a bond investor who takes each coupon and immediately reinvests it at the same rate has manufactured compound interest out of a simple-interest instrument. The gap this calculator shows is therefore not a defect of the product; it's the value of the reinvestment job that's been left to you.</p>
       <p>One caution on language: people often call flat-fee personal loans "simple interest loans," but almost no amortizing loan is simple interest in this sense; each payment is split against an interest charge computed on the <em>declining</em> balance. If you're pricing a loan, use the <a href="/loan-interest-calculator/">Loan Interest Calculator</a> instead; this page is for money that earns, not money you owe.</p>`,
     formulaHtml: `

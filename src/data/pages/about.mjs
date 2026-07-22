@@ -4,16 +4,16 @@ export default {
   metaTitle: "About Finance Calculator X",
   metaDescription:
     "Finance Calculator X is an independent collection of transparent, tested financial calculators for loans, mortgages, investing, savings and debt decisions.",
-  lede: "Independent, transparent financial calculators — built to show their work.",
-  lastUpdated: "2026-07-19",
+  lede: "Independent financial calculators with the formulas and assumptions left in view.",
+  lastUpdated: "2026-07-22",
   bodyHtml: `
     <h2>What this site is</h2>
-    <p>Finance Calculator X is a collection of financial calculators for the money decisions most people actually face: taking a loan, buying a home, saving toward a goal, investing regularly, and paying off debt. Each calculator is built as a complete decision-support tool — a clear primary answer, the supporting numbers behind it, an interactive chart, a downloadable table or schedule where relevant, and a plain-English explanation of the mathematics, its assumptions and its limits.</p>
+    <p>Finance Calculator X covers loans, home buying, saving, investing and debt repayment. I built each calculator to give you the main result and the working behind it: a chart, a table or schedule where useful, the formula, and the assumptions that can make a real quote differ.</p>
     <p>The site is free, requires no account, and runs every calculation directly in your browser. During ordinary calculator use, your financial inputs are not submitted to the site or to analytics; the <a href="/privacy-policy/">privacy policy</a> explains the deliberately initiated sharing feature and its safeguards.</p>
 
     <h2>Who runs it</h2>
-    <p>Finance Calculator X is an independent project built and maintained by <strong><a href="/authors/avinash-verma/">Avinash Verma</a></strong>, a software developer based in Gurgaon, India, who builds focused web tools. It is not owned by, affiliated with, or sponsored by any bank, lender, broker or financial product provider. Nobody pays to influence a formula, a default value, or a word of the content.</p>
-    <p>We do not claim to be licensed financial advisers — and the site is deliberately designed so that it never needs to be one. Every page deals in published, verifiable financial mathematics: the same amortization, compounding and discounting formulas found in finance textbooks and used across the industry. Where a page depends on a rule of thumb or a debatable model (debt-to-income limits, rent-vs-buy assumptions), the page says so explicitly and shows the assumption so you can change it.</p>
+    <p>Finance Calculator X is an independent project built and maintained by <strong><a href="/authors/avinash-verma/">Avinash Verma</a></strong>, a software developer based in Gurgaon, India. It is not owned by or affiliated with a bank, lender, broker or financial product provider. The site does not currently publish sponsored content or affiliate recommendations.</p>
+    <p>I am not a licensed financial adviser. My role here is to implement and explain established financial mathematics, including amortization, compounding and discounting. Where a result depends on a rule of thumb or a debatable model—such as a debt-to-income limit or future home appreciation—the page states the assumption and, where possible, lets you change it.</p>
 
     <h2>Principles</h2>
     <ul>
@@ -25,9 +25,9 @@ export default {
     </ul>
 
     <h2>If you find an error</h2>
-    <p>Accuracy is the entire point of a calculator site, so error reports get priority over everything else. If a number looks wrong — against your lender's statement, another calculator, or your own arithmetic — please <a href="/contact/">contact us</a> with the inputs you used. The <a href="/corrections-policy/">corrections policy</a> describes exactly what happens next.</p>
+    <p>If a number looks wrong against a lender statement, another calculator or your own arithmetic, please <a href="/contact/">send me the page and inputs you used</a>. I prioritize reproducible calculation errors, and the <a href="/corrections-policy/">corrections policy</a> explains how I check them.</p>
 
-    <h2>What's ahead</h2>
-    <p>The current release covers 30 calculators across loans, mortgages, investing, savings and personal finance, plus a growing library of <a href="/guides/">plain-English guides</a>. New calculators are added deliberately — each must meet the same bar for accuracy, documentation and usefulness before it ships — rather than in bulk.</p>
+    <h2>Current scope</h2>
+    <p>The site currently contains 30 calculators across loans, mortgages, investing, savings and personal finance, together with the existing <a href="/guides/">plain-English guides</a>. I prefer maintaining a smaller set of documented tools to publishing large batches of lightly differentiated pages.</p>
   `,
 };

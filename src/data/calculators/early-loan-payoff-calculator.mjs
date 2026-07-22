@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Pick a target payoff date for your loan and get the exact monthly payment it takes, the extra needed above your current payment, and the interest you save.",
   tagline:
-    "Choose when you want the loan gone; this tool works backwards to the monthly payment that hits the deadline and prices it against your current pace.",
+    "Choose a target payoff date and estimate the monthly payment needed, alongside the cost of keeping your current pace.",
   cardDescription: "The exact monthly payment that retires your loan by a date you choose.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,

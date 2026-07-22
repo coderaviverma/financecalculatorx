@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "See how money grows with compound interest: starting amount plus regular contributions, any compounding frequency, year-by-year table and growth chart.",
   tagline:
-    "Watch a starting amount and regular contributions grow, see exactly how much of the result comes from compounding, and test different rates and frequencies.",
+    "See how a starting balance and regular contributions grow, and separate what you deposit from the interest earned over time.",
   cardDescription: "Growth of a lump sum plus contributions, with any compounding frequency.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: true,
   featured: true,

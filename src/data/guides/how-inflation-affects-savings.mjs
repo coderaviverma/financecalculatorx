@@ -7,14 +7,14 @@ export default {
   description:
     "Inflation reprices every dollar you save. Here is the math of purchasing power, the real-return formula, and what savers can do about it.",
   cardDescription: "The arithmetic of purchasing power: real returns, computed examples, and honest options for savers.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   published: "2026-07-12",
   categories: ["savings", "investment"],
   aliases: [],
   keywords: ["inflation and savings", "real return", "purchasing power", "real vs nominal", "inflation calculator"],
   relatedCalculators: ["investment-calculator", "savings-calculator", "compound-interest-calculator"],
   bodyHtml: `
-<p>Inflation is the only financial force that acts on every dollar you own, every year, without asking. It never shows up on a bank statement, because your balance only ever goes up; what that balance will buy is another matter. Most savings mistakes trace back to ignoring it: goals set in today's prices, "safe" accounts that lose ground year after year, retirement targets that look impressive until you deflate them. This guide covers the mechanics with computed numbers, because the effect is easy to acknowledge and hard to feel until you see it in figures.</p>
+<p>A savings balance can rise while its purchasing power falls. Your statement shows the account balance, not what that money will buy after prices change. The examples below convert future amounts into today's money, compare nominal and real returns, and show how an inflation assumption changes a long-term goal.</p>
 
 <h2>What inflation does to a fixed sum</h2>
 <p>Purchasing power is what a unit of money can buy, and inflation is the rate at which that shrinks. At 3% annual inflation (close to the long-run US average, and above the Federal Reserve's stated <a href="https://www.federalreserve.gov/faqs/economy_14400.htm" rel="noopener">2% target</a>), prices rise by a factor of 1.03 each year, compounding just like interest does. Divide any future balance by that factor, once per year, and you get its value in today's money.</p>
@@ -42,8 +42,8 @@ export default {
 </div></div>
 
 <h2>"My balance grew" can still mean "I got poorer"</h2>
-<p>A positive nominal rate with a negative real rate is the standard condition of ordinary savings accounts, and it deserves plain language: the balance rises while its value falls. Take an account paying 0.5%, a common big-bank rate for standard savings, during 3% inflation. The real return is 1.005 ÷ 1.03 − 1 = <strong>−2.43% per year</strong>.</p>
-<p>Over a decade, $10,000 in that account grows to $10,513 on paper. Deflated, it is worth <strong>$7,822</strong> in today's money. The account added $513 and inflation removed about $2,690 of buying power: a net loss of roughly $2,178 that never appears on any statement. This is why "I'm not losing anything, it's in the bank" is usually false in the only sense that matters. Run your own rate and horizon through the <a href="/savings-calculator/">savings calculator</a> and compare it against your country's current inflation figure.</p>
+<p>A positive nominal rate can still produce a negative real return: the balance rises while its purchasing power falls. Take an account paying 0.5% during 3% inflation. The real return is 1.005 ÷ 1.03 − 1 = <strong>−2.43% per year</strong>.</p>
+<p>Over a decade, $10,000 in that example grows to $10,513 on paper. Deflated, it is worth <strong>$7,822</strong> in today's money. The account added $513 while purchasing power fell by roughly $2,178 overall. Run your own rate and horizon through the <a href="/savings-calculator/">savings calculator</a> and compare it with an inflation assumption relevant to your currency and goal.</p>
 
 <div class="callout warn"><span class="c-title">The illusion is strongest when inflation is highest</span>
 <p>High-inflation periods often come with rising deposit rates, so balances grow faster and savers feel richer precisely when they are losing ground fastest. A 6% deposit rate during 8% inflation is a −1.85% real return, worse than 2% interest during 3% inflation. Always judge the pair, never the rate alone.</p>
@@ -60,7 +60,7 @@ export default {
 <p>The same discipline applies to costs. Something that costs $10,000 today costs about <strong>$18,061</strong> in 20 years at 3% inflation. And specific categories like education and healthcare have often outpaced general inflation, so category-specific goals deserve category-specific rates.</p>
 
 <h2>What savers can do about it</h2>
-<p>You cannot opt out of inflation, but you can stop volunteering for the worst of it.</p>
+<p>You cannot know the future inflation path, but you can make the assumption visible and test more than one rate.</p>
 <ul>
 <li><strong>Shop the rate.</strong> The spread between a 0.5% account and a competitive high-yield account or fixed deposit is often several percentage points for identical risk within <a href="https://www.fdic.gov/resources/deposit-insurance" rel="noopener">deposit-insurance limits</a>. On the ten-year example above, that spread is the difference between losing $2,178 of purchasing power and roughly breaking even. This is the highest return-per-effort move in savings.</li>
 <li><strong>Match the instrument to the horizon.</strong> Money needed within a year or two belongs in cash-like instruments regardless of real return; its job is to be there, a point our guide on <a href="/guides/how-much-emergency-fund/">emergency funds</a> makes in detail. Money not needed for five or ten years is where negative real returns compound into real damage.</li>
@@ -73,6 +73,6 @@ export default {
 <p>Divide 72 by the inflation rate to estimate how many years prices take to double: at 3%, roughly 24 years (the exact factor is 2.03×). If your money's horizon is longer than that doubling time, inflation is not a footnote to your plan; it is roughly half of it.</p>
 </div>
 
-<p>Inflation converts "how much will I have?" into the only question that matters: "what will it buy?" The mechanics are unforgiving but simple. Deflate every future number by (1 + inflation)<sup>years</sup>, judge every account by its real return, and set every goal in today's money. A saver who does those three things consistently will make better decisions than one chasing an extra half percent of nominal yield, because the real enemy was never the rate on the account. It was the denominator.</p>
+<p>Keep both versions of a long-term target: the amount that may appear on a future statement and its estimated value in today's money. Revisit the inflation assumption as the goal gets closer, especially when its main cost—such as housing, education or healthcare—has moved differently from a broad consumer-price index.</p>
 `,
 };

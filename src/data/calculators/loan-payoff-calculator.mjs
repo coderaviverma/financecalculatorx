@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "See when your existing loan will be paid off at your current monthly payment — months left, payoff date, remaining interest, and the effect of paying extra.",
   tagline:
-    "Find out exactly when a loan you're already repaying will be gone, what the remaining interest costs, and how the date moves if you pay a little more.",
+    "Find the payoff date and remaining interest for a current loan, with or without an extra monthly payment.",
   cardDescription: "Months left, payoff date and remaining interest on a loan you're already repaying.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,

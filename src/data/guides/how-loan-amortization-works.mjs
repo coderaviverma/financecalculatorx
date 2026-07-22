@@ -7,14 +7,14 @@ export default {
   description:
     "Where the fixed payment comes from, how each month's interest/principal split is computed, and how to rebuild — and audit — an amortization schedule yourself.",
   cardDescription: "The payment formula read in plain words, a schedule built by hand, and the principal crossover located.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   published: "2026-07-12",
   categories: ["loans", "mortgage"],
   aliases: [],
   keywords: ["loan amortization", "amortization schedule", "principal vs interest", "amortization formula", "negative amortization", "mortgage schedule"],
   relatedCalculators: ["loan-amortization-calculator", "loan-calculator", "mortgage-calculator", "extra-payment-calculator"],
   bodyHtml: `
-<p>"Amortize" comes from the Latin for "to kill off": an amortizing loan is one you kill gradually, with a level payment that's calibrated so the last installment lands exactly as the balance hits zero. The schedule that documents this (every month's interest, principal, and remaining balance) looks like something only software could produce. It isn't. Two lines of math, repeated, generate the whole thing, and this guide builds one by hand so you can verify any lender's schedule yourself.</p>
+<p>An amortizing loan uses scheduled payments to reduce a balance over time. Each row of the schedule shows the payment, the interest charged, the principal repaid and the balance left. Once you know those steps, you can recreate a simple schedule in a spreadsheet and compare it with a lender's figures.</p>
 
 <h2>Where the fixed payment comes from</h2>
 <p>The payment must satisfy one condition: applied every month against a balance that accrues interest, it kills the loan in exactly <em>n</em> payments. Solving that condition gives the standard formula:</p>
@@ -64,6 +64,6 @@ export default {
 <li><strong>Known discrepancies that are benign:</strong> a first period longer or shorter than one month (interest adjusts for the actual days), cent-level rounding that the final payment absorbs, and daily-accrual lenders whose monthly interest varies slightly with the number of days in the month.</li>
 <li><strong>Discrepancies that aren't:</strong> interest computed on the original balance rather than the reducing one (see <a href="/guides/how-loan-interest-works/">how loan interest works</a> on flat-rate loans), extra payments not reducing the balance, or fees appearing inside the payment without disclosure. <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-an-escrow-or-impound-account-en-140/" rel="noopener">Escrow items on a mortgage</a> (taxes, insurance) should be listed separately from principal and interest, not blended into them.</li>
 </ul>
-<p>Conventions vary a little by country (daily versus monthly accrual, how leap years are counted, when the first payment falls), but the reducing-balance core is universal. A schedule you can rebuild yourself is a schedule no one can get wrong without you noticing.</p>
+<p>Accrual intervals, day-count rules, payment dates and rounding methods vary by product and jurisdiction. Rebuilding the monthly model is still a useful check, but a difference does not automatically mean the lender is wrong; first compare the agreement's method with the assumptions used here.</p>
 `,
 };

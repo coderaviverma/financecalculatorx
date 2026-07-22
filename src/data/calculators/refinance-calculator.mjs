@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Check whether refinancing pays off: monthly savings, honest break-even on closing costs, and the lifetime cost of resetting your loan term.",
   tagline:
-    "Compare your current mortgage against a new rate and term — monthly saving, the months until closing costs pay for themselves, and the lifetime cost including the term-reset effect most quick quotes hide.",
+    "Compare a current mortgage with a refinance offer, including monthly savings, closing-cost break-even and the effect of a new term.",
   cardDescription: "Monthly saving, break-even on fees, and lifetime cost of a refinance — term reset included.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,

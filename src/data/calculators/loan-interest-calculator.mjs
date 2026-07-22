@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "See exactly what a loan costs in interest: the lifetime total, first-year cost, interest as a share of the amount borrowed, and year-by-year accrual.",
   tagline:
-    "Ignore the payment for a moment and look at the cost: total interest, how it front-loads into the early years, and what the loan really multiplies your borrowing by.",
+    "Focus on the interest cost of a loan, including when that interest is paid and how term length changes the total.",
   cardDescription: "Lifetime interest, first-year cost and the front-loaded accrual curve of any fixed loan.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,

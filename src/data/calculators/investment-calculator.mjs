@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Project an investment's growth from an initial amount and monthly contributions — in both future currency and today's purchasing power, with a year-by-year table.",
   tagline:
-    "Project what an initial amount plus monthly investing could grow into — and what that number is really worth once inflation is taken into account.",
+    "Project an initial investment and monthly contributions, then view the result before and after an inflation adjustment.",
   cardDescription: "Growth projection with monthly contributions and inflation-adjusted results.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: true,
   featured: true,
@@ -22,7 +22,7 @@ export default {
       <p>Give the calculator what you're starting with, what you'll add monthly, the average annual return you want to model, and your time horizon. The inflation field is what makes this calculator different from a plain growth tool: it converts the headline result into today's purchasing power, so a goal like "enough for a house deposit in 10 years" stays honest.</p>
       <ul>
         <li><strong>Expected annual return</strong>: an assumption, not a promise. A practical approach is to run the calculation three times (for example 5%, 7% and 9%) and check your plan works at the lowest one. The scenario tool below the results is built for exactly this comparison.</li>
-        <li><strong>Expected inflation</strong>: many central banks target about 2–3%; the long-run historical average in the US is a little over 3%.</li>
+        <li><strong>Expected inflation</strong>: use a planning assumption appropriate to the currency, horizon and goal, then test a higher rate to see how sensitive the real value is.</li>
       </ul>
       <p>The chart shows three lines: the projected balance, the amount you put in yourself, and the balance restated in today's money. The gap between the first and last line is what inflation costs you.</p>`,
     explanationHtml: `

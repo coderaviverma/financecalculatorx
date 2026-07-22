@@ -4,8 +4,8 @@ export default {
   metaTitle: "Calculation Methodology — How Our Calculators Work",
   metaDescription:
     "How Finance Calculator X computes results: standard financial formulas, documented assumptions, cent-level rounding rules, automated tests and versioning.",
-  lede: "Every result on this site comes from documented, tested, standard financial mathematics. Here's exactly how.",
-  lastUpdated: "2026-07-19",
+  lede: "The formulas, conventions and software checks behind the calculator results.",
+  lastUpdated: "2026-07-22",
   bodyHtml: `
     <h2>Standard formulas, shown on every page</h2>
     <p>Every calculator uses published, industry-standard financial mathematics: level-payment amortization for loans and mortgages, compound growth and annuity formulas for savings and investing, discounting for present value, and month-by-month simulation where no closed form exists (multi-debt payoff, rent-vs-buy). Each calculator page has a <strong>Formula and methodology</strong> section that states the formula it uses, defines every variable, and explains the calculation order — so you can reproduce any result by hand or in a spreadsheet.</p>
@@ -23,7 +23,7 @@ export default {
     <p>The calculation library is separated from the interface and covered by an automated test suite that runs before any release. Tests check results against independently known reference values (for example, a $250,000 loan at 6.5% over 30 years must produce a $1,580.17 monthly payment), verify edge cases (zero interest rates, very small and very large amounts, payments that fail to cover interest), and confirm that schedules internally reconcile — principal portions must sum to the loan, balances must close at zero.</p>
 
     <h2 id="verification">Current verification evidence</h2>
-    <p>The release dated above passes 50 automated calculation checks covering the shared financial-math library and all 30 calculator configurations. Representative checks include:</p>
+    <p>At the review date above, the release passes 50 automated calculation checks covering the shared financial-math library and all 30 calculator configurations. Representative checks include:</p>
     <ul>
       <li>The $250,000, 6.5%, 360-month payment reference resolves to $1,580.17 within a one-cent tolerance.</li>
       <li>Zero-rate loans resolve to principal divided by payment count without dividing by zero.</li>
@@ -50,6 +50,6 @@ export default {
     <p>Every calculator page shows a <strong>formula version</strong> and a <strong>last reviewed</strong> date. If a formula, assumption or default changes materially, the version increments and the review date updates. Corrections follow the <a href="/corrections-policy/">corrections policy</a>.</p>
 
     <h2>What methodology cannot fix</h2>
-    <p>A correct formula applied to an assumption about the future is still an assumption. Projections at an "expected return" are planning centerlines, not predictions; lender quotes include fees and underwriting judgments no public calculator can know. Treat every output here as a well-computed estimate — the <a href="/disclaimer/">disclaimer</a> spells out the boundary between education and advice.</p>
+    <p>A correct formula cannot turn an uncertain assumption into a prediction. Investment returns vary, and lender quotes can include fees, timing and underwriting details that a public calculator does not know. Treat the output as an estimate under the stated assumptions, and compare important results with the provider's documents. The <a href="/disclaimer/">disclaimer</a> explains that boundary.</p>
   `,
 };

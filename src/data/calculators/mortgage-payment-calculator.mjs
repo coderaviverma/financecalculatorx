@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Get your monthly principal and interest payment in seconds, see how each 0.5% of rate moves it, and compare 15, 20 and 30-year terms side by side.",
   tagline:
-    "A fast principal-and-interest quote from just three inputs — loan amount, rate and term — with a sensitivity table showing exactly how much every fraction of a percent costs you.",
+    "See the principal-and-interest payment for an amount, rate and term, then compare nearby rates in a sensitivity table.",
   cardDescription: "Quick monthly P&I payment with rate sensitivity and 15/20/30-year comparison.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,
@@ -75,7 +75,7 @@ export default {
     },
     {
       q: "Is a 15-year loan always the better deal?",
-      aHtml: `<p>It is always cheaper in total interest, about $212,235 less on the example loan, but it is not automatically better. The higher required payment is a hard commitment; a 30-year loan with voluntary extra payments achieves much of the saving while keeping the option to fall back to the lower minimum. The right choice depends on income stability and what else the monthly difference could earn.</p>`,
+      aHtml: `<p>At the same amount and rate, the 15-year example has about $212,235 less total interest, but its required payment is much higher. Whether that is the better choice depends on cash-flow capacity, income stability, other debts and what the payment difference would otherwise fund. Compare a voluntary-extra-payment scenario separately rather than assuming it will be maintained for the full term.</p>`,
     },
     {
       q: "Can I use this for a pre-approval sanity check?",

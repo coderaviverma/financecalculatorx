@@ -5,16 +5,16 @@ export default {
   metaDescription:
     "The EMI formula dissected term by term, a ₹25 lakh home loan computed by hand, flat vs reducing rate equivalence, and how rate and tenure move the number.",
   description:
-    "The EMI formula looks intimidating and is actually three moving parts. A term-by-term dissection, a hand-computed ₹25 lakh example, and the flat-rate trap.",
+    "Break the EMI formula into its parts, follow a ₹25 lakh example, and compare monthly reducing-balance pricing with a flat-rate quote.",
   cardDescription: "The EMI formula dissected, a ₹25 lakh loan computed by hand, and the flat-vs-reducing rate trap.",
-  lastReviewed: "2026-07-19",
+  lastReviewed: "2026-07-22",
   published: "2026-07-12",
   categories: ["loans"],
   aliases: [],
   keywords: ["emi formula", "emi calculation", "reducing balance", "flat rate vs reducing rate", "home loan emi"],
   relatedCalculators: ["emi-calculator", "loan-calculator", "loan-amortization-calculator", "personal-loan-calculator"],
   bodyHtml: `
-<p>Many Indian installment-loan quotes lead with an EMI, or equated monthly instalment: the scheduled amount intended to repay principal and interest over the stated tenure. When the quote uses the monthly reducing-balance convention, the formula below lets you reproduce the mathematical payment. Fees, daily accrual, floating-rate resets and lender rounding can still make the contractual schedule differ. This guide dissects the formula, computes a home-loan example by hand and explains flat-rate pricing.</p>
+<p>EMI means equated monthly instalment: the scheduled payment intended to repay principal and interest over a stated tenure. For a monthly reducing-balance loan, you can reproduce that payment with the formula below. The worked example also shows why fees, flat-rate pricing, rate resets and lender rounding can make a real quote differ from the clean calculation.</p>
 
 <h2>The formula, term by term</h2>
 <div class="formula-block"><span class="fx">EMI = P × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]</span>
@@ -69,7 +69,7 @@ export default {
 </tbody>
 </table></div>
 
-<p>Read the tenure rows first: going from 15 to 25 years cuts the EMI by ₹4,487 a month but adds <strong>₹16,07,875</strong> of interest. Tenure is the most expensive comfort a borrower can buy. The rate rows show the exponent at work: each 0.5% adds roughly ₹800 to this EMI and about ₹1.9–2 lakh to lifetime interest, which is why negotiating even a small rate concession, or refinancing to one, is worth real money on long loans.</p>
+<p>Read the tenure rows together: moving from 15 to 25 years cuts the EMI by ₹4,487 a month but adds <strong>₹16,07,875</strong> of interest in this example. The rate rows show a second trade-off: each 0.5 percentage-point increase adds roughly ₹800 to the EMI and about ₹1.9–2 lakh to the modeled lifetime interest.</p>
 <p>The EMI also affects how much a lender may offer. Some lenders use a fixed-obligation-to-income ratio (FOIR), but the income definition, threshold and underwriting adjustments vary by institution and borrower. A longer tenure lowers the modeled EMI and may raise the amount supportable under such a ratio, while also increasing total interest. Only a lender can determine an approval amount.</p>
 
 <h2>Floating rates: banks usually stretch your tenure, not your EMI</h2>
@@ -78,6 +78,6 @@ export default {
 
 <h2>Fees, moratoriums and step-up products</h2>
 <p><strong>Processing fees raise your true cost above the quoted rate.</strong> A typical 1% fee on the ₹25,00,000 loan is ₹25,000 taken off the amount you effectively receive, while your EMI is computed on the full principal. Solving for the rate that matches what you really got, the loan's effective cost is about <strong>8.64%, not 8.5%</strong>. Small on a 20-year loan; on short loans the same fee distorts far more, which is why fee-inclusive comparison matters (see <a href="/guides/apr-vs-interest-rate/">APR vs interest rate</a>).</p>
-<p><strong>Moratorium and step-up EMIs</strong> deserve one candid paragraph. A moratorium (EMI holiday) pauses payments but not interest: the unpaid interest is added to your balance, so you exit owing more than you entered. Step-up EMIs start low and rise with your expected salary; they genuinely help early affordability, but the low early instalments repay little principal, so total interest is higher than a level EMI, and the plan assumes that salary growth does arrive. Both are cash-flow tools, not discounts. Whenever a product makes the early months feel lighter, compute the total interest across the options with a <a href="/loan-amortization-calculator/">loan amortization calculator</a> before signing; that single number is where the difference always shows up.</p>
+<p><strong>Moratorium and step-up EMIs</strong> change the timing rather than removing the cost. During a moratorium, interest may continue to accrue and may be added to the balance under the agreement. A step-up plan begins with lower instalments and relies on later increases, so it also relies on the expected income growth arriving. Ask for the full payment schedule and compare its total interest with a level-EMI option using the <a href="/loan-amortization-calculator/">loan amortization calculator</a>.</p>
 `,
 };

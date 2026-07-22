@@ -7,10 +7,10 @@ export default {
   metaDescription:
     "Project your SIP maturity value from monthly investments, expected return and annual step-up — with the invested vs gains split shown year by year.",
   tagline:
-    "Estimate what a monthly SIP could grow into — with annual step-ups, an optional lump sum alongside, and an honest split between what you invested and what compounding added.",
+    "Model a monthly SIP with optional annual step-ups and a lump sum, separating contributions from projected growth.",
   cardDescription: "SIP maturity value with annual step-up and invested-vs-gains breakdown.",
   scenarioHint: "Save your SIP as Scenario A, then change the monthly amount, expected return or step-up percentage and save Scenario B to see the difference at maturity.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: true,
   featured: true,
@@ -28,8 +28,8 @@ export default {
       </ul>
       <p>The chart stacks what you invested against what compounding added, and the table tracks both year by year. The fourth metric always shows the step-up counterfactual (with a 10% step-up if you left it at zero, without one if you set it), so the comparison is one glance away.</p>`,
     explanationHtml: `
-      <h2>How SIPs actually work</h2>
-      <p>A SIP, short for systematic investment plan, is a standing instruction to buy mutual fund units for a fixed amount on a fixed date each month. The amount is constant; the number of units varies with that day's NAV. When the market falls your ₹10,000 buys more units, when it rises it buys fewer, so your average purchase cost per unit sits below the average NAV over the period. That's rupee-cost averaging, and it's worth stating plainly: it is not a return-enhancing trick. A rising market means your early cheap units were the best buys you'll get, and a lump sum invested at the start would have caught them all. The real benefit of a SIP is <strong>discipline</strong>: it automates investing before spending can happen, removes the "is now a good time?" decision entirely, and keeps you buying through downturns, which is precisely when most investors stop.</p>
+      <h2>How a SIP works</h2>
+      <p>A SIP, short for systematic investment plan, is a standing instruction to buy mutual fund units for a set amount on a recurring date. The number of units changes with the fund's NAV. A lower NAV buys more units and a higher NAV buys fewer, but this averaging does not guarantee a profit or a better return than investing earlier. Its practical feature is regularity: the purchase happens on schedule without requiring a fresh timing decision each month.</p>
       <p>The default projection shows the shape of the outcome: ₹10,000 a month for 15 years at an assumed 12% grows to about <strong>₹49.96 lakh</strong>, of which ₹18 lakh is your money and ₹31.96 lakh is growth, a 2.78× multiple on what you put in. Stretch the same SIP to 20 years and it reaches roughly ₹98.93 lakh: the last five years contribute nearly as much as the first fifteen, which is the compounding argument for starting early and not interrupting.</p>
       <p><strong>Step-up SIPs</strong> are the practical upgrade most plans miss. A SIP that stays at ₹10,000 for 15 years shrinks year after year relative to a growing salary. Adding a 10% annual step-up to the default plan lifts the maturity value from ₹49.96 lakh to about <strong>₹85.98 lakh</strong>, a ₹36 lakh improvement, of which ₹20.13 lakh is extra money you invested and the rest is growth on it. You invest more in total (₹38.13 lakh vs ₹18 lakh), but the increases arrive gradually, in step with income.</p>
       <p>One distinction worth knowing before you compare this projection with a fund factsheet: this calculator assumes a constant return every year, while real SIP returns are reported as <strong>XIRR</strong>, the internal rate of return across your actual dated purchases, which can differ noticeably from the fund's headline point-to-point return. Both are legitimate numbers; they're just answers to different questions.</p>`,
@@ -47,12 +47,12 @@ export default {
       <div class="example-block"><div class="ex-head">Example: ₹10,000/month for 15 years at 12%, with and without step-up</div><div class="ex-body">
         <p><strong>Flat SIP:</strong> 180 installments totalling ₹18,00,000 grow to <strong>₹49,95,802</strong>, for gains of ₹31,95,802.</p>
         <p><strong>10% annual step-up:</strong> the SIP becomes ₹11,000/month in year two, ₹12,100 in year three, and so on. Total invested rises to ₹38,12,698, and the maturity value to <strong>₹85,97,871</strong>.</p>
-        <p>The step-up lifts the outcome by almost three-quarters while never demanding a jump your salary growth wouldn't cover. Return sensitivity matters just as much: the same flat SIP projects to ₹41.45 lakh at 10% and ₹60.58 lakh at 14%; the spread between those is wider than most people's step-up decision.</p>
+        <p>The step-up lifts the modeled outcome by almost three-quarters, but it also requires the contribution to rise each year. Check that the later amounts fit your budget. Return sensitivity is also substantial: the same flat SIP projects to ₹41.45 lakh at 10% and ₹60.58 lakh at 14%, which is why one assumed return should not be treated as a forecast.</p>
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Duration beats everything.</strong> The flat default SIP reaches ₹23 lakh in 10 years, ₹49.96 lakh in 15, ₹98.93 lakh in 20. Each extra five years roughly doubles the outcome at 12%, so stopping early is the most expensive choice available.</li>
-        <li><strong>The return assumption is a range, not a fact.</strong> At 10% instead of 12%, the default lands at ₹41.45 lakh; at 14%, ₹60.58 lakh. Plan against the lower bound, treat the upper as upside.</li>
+        <li><strong>Duration.</strong> The flat default SIP reaches ₹23 lakh in 10 years, ₹49.96 lakh in 15, and ₹98.93 lakh in 20 under the same 12% assumption. A longer horizon adds both contributions and compounding periods.</li>
+        <li><strong>Return assumption.</strong> At 10% instead of 12%, the default lands at ₹41.45 lakh; at 14%, ₹60.58 lakh. Run more than one rate and treat each result as a scenario.</li>
         <li><strong>Step-up percentage.</strong> Linking it to real salary growth keeps the plan sustainable; setting 10% when raises run 5% eventually forces a downgrade, which breaks the discipline that makes SIPs work.</li>
         <li><strong>Expense ratios</strong> come straight out of returns — a fund charging 1.5% more than another needs to outperform by that much every year just to tie.</li>
       </ul>`,
@@ -67,11 +67,11 @@ export default {
   faq: [
     {
       q: "Is a SIP better than investing a lump sum?",
-      aHtml: `<p>If the money already exists, a lump sum invested today has more time in the market and wins on average: ₹18 lakh invested once at 12% for 15 years projects to about ₹1.08 crore, versus ₹49.96 lakh for the same ₹18 lakh drip-fed monthly. But the SIP's ₹18 lakh mostly doesn't exist yet — it's future salary. SIPs are for investing income as it arrives; the <a href="/lump-sum-investment-calculator/">Lump Sum Calculator</a> is for capital you already hold. When you have both, do both.</p>`,
+      aHtml: `<p>They describe different cash flows. A lump sum is available on day one, while SIP contributions usually arrive over time. At the same assumed return, earlier money has more time to compound, but a real investment also experiences changing prices and risk. Use the <a href="/lump-sum-investment-calculator/">Lump Sum Calculator</a> for capital available now and this page for recurring contributions.</p>`,
     },
     {
       q: "What return should I assume for an equity SIP?",
-      aHtml: `<p>Long-run Indian equity fund averages are commonly quoted in the 10–14% range, which is why 12% is this page's default. But past averages are not guarantees, and multi-year stretches below that range happen regularly. A sturdy plan is one that still meets the goal at 10%; anything the market delivers above your assumption is cushion, not entitlement.</p>`,
+      aHtml: `<p>The 12% default is an editable illustration, not a forecast or expected entitlement. Use a net return assumption that fits the fund category and fees you are considering, then test lower rates. Historical performance does not establish what your holding period will deliver.</p>`,
     },
     {
       q: "Does rupee-cost averaging increase my returns?",
@@ -87,7 +87,7 @@ export default {
     },
     {
       q: "Should I pause my SIP when markets fall?",
-      aHtml: `<p>Falling markets are when your fixed installment buys the most units — pausing then defeats the one mechanism that makes averaging useful and usually stems from treating the SIP as a market call rather than a savings habit. If cash flow really does tighten, reducing the amount beats stopping: the year-by-year table shows how much of the final value each year's installments carry.</p>`,
+      aHtml: `<p>A lower NAV means the same installment buys more units, but that fact alone is not a reason to continue or pause. Review the goal, cash flow, emergency reserves, fund suitability and costs. This calculator can show the effect of a smaller or missed contribution, but it cannot assess the investment itself.</p>`,
     },
   ],
 };

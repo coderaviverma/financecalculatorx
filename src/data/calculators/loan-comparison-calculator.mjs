@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Compare two loan offers on the same amount: monthly payment, fees, total cost, effective APR with fees included, and the break-even month between them.",
   tagline:
-    "Put two loan offers side by side on one amount and find out which truly costs less once rates, terms and upfront fees are all counted.",
+    "Compare two loan offers on the same amount, including their rates, terms, payments and upfront fees.",
   cardDescription: "Two loan offers compared on payment, total cost, fees and effective APR.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: true,
@@ -28,9 +28,9 @@ export default {
       <p>You get each offer's payment, total interest, total cost (interest plus fees), an effective APR that folds the fees in, and a verdict naming the cheaper offer — plus the break-even month when a higher-fee offer only wins if you keep the loan long enough.</p>`,
     explanationHtml: `
       <h2>How to put two loan offers on equal footing</h2>
-      <p>Loan offers are engineered to look good on different axes: one advertises the lower rate, another the lower payment, a third "no fees". To compare them honestly you have to normalize. First, price both on the <strong>same amount</strong>, done here by design. Second, judge on <strong>total cost</strong> (all interest plus all mandatory fees) and on <strong>effective APR</strong>, never on the monthly payment alone. A payment can always be made smaller by stretching the term, which usually makes the loan more expensive in total — the cheapest-looking payment is routinely attached to the costliest offer.</p>
+      <p>Loan offers may lead with different numbers: a lower rate, a smaller payment or no upfront fee. Start by putting both offers on the <strong>same amount</strong>, which this calculator does by design. Then compare the modeled <strong>total cost</strong> and <strong>effective APR</strong> alongside the payment. A longer term may lower the monthly amount while increasing the total interest.</p>
       <p>Fees versus rate is the classic trap, and the defaults here show why it needs actual arithmetic. Offer A: 8.9% over 60 months with no fees costs $414.20 a month, $4,851.83 of interest. Offer B: 7.4% with a $500 fee costs $399.81 a month, $3,988.56 of interest, $4,488.56 all-in. B wins by <strong>$363.27</strong> despite the fee, and its effective APR (8.47%) prices the fee into a single comparable number. But the win is conditional: B starts $500 behind on day one and claws it back at $14.39 a month, drawing level only at <strong>month 35</strong>. Repay or refinance before then and the "more expensive" no-fee offer would have been the cheaper choice. A fee is, in effect, prepaid interest, worth paying only if you keep the loan past break-even.</p>
-      <p>Finally, watch for teaser rates. An advertised rate that applies for the first six or twelve months and then "reverts" is not the rate to type in here; this tool assumes each rate holds for the whole term. Ask every lender for the same short list in writing: amount financed, nominal rate and whether it's fixed, full term, every mandatory fee, any prepayment penalty, and the regulated APR disclosure. With those six numbers, this page settles the question in one screen.</p>`,
+      <p>This tool assumes each entered rate holds for the whole term, so it is not suitable for a teaser or variable-rate offer without additional modeling. Ask each lender for the amount financed, rate type, term, mandatory fees, prepayment terms and applicable cost disclosure in writing. Use those documents to confirm the inputs and any final choice.</p>`,
     formulaHtml: `
       <p>Each offer is amortized normally; the comparison adds two derived figures. Total cost and effective APR are:</p>
       <div class="formula-block"><span class="fx">Total cost = total interest + upfront fees&nbsp;&nbsp;·&nbsp;&nbsp;PV(A, r<sub>eff</sub>, n) = amount − fees</span>
@@ -67,7 +67,7 @@ export default {
   faq: [
     {
       q: "Why not just pick the offer with the lower monthly payment?",
-      aHtml: `<p>Because the payment mixes price with time. Stretching a term shrinks the payment while adding months of interest, so the cheaper-feeling payment is often the dearer loan. The verdict here calls this out explicitly whenever the payment winner and the total-cost winner are different offers, and that split is exactly the trap.</p>`,
+      aHtml: `<p>A payment mixes price with time. Stretching the term can reduce the payment while adding months of interest, so the lower-payment offer may cost more overall. The result flags cases where the payment and total-cost comparisons point to different offers.</p>`,
     },
     {
       q: "What does the effective APR in the results mean?",

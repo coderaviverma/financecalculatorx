@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Work out a personal loan's monthly payment and total interest, and see how an origination fee taken out of your disbursal raises the effective APR.",
   tagline:
-    "Price an unsecured loan honestly: the monthly payment, the interest, and the effective APR once the origination fee is deducted from what you actually receive.",
+    "Include a deducted origination fee when comparing a personal loan's payment, total interest and effective APR.",
   cardDescription: "Monthly payment, origination fee impact and effective APR for unsecured loans.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,
@@ -19,19 +19,19 @@ export default {
   jumpExplainLabel: "Why the APR beats the rate",
   sections: {
     howToHtml: `
-      <p>From the offer in front of you, enter the loan amount, the quoted interest rate, the repayment term, and (crucially) the origination fee percentage if there is one. Most online lenders charge 1–10%; banks and credit unions often charge nothing.</p>
+      <p>From the offer in front of you, enter the loan amount, quoted interest rate, repayment term and origination fee percentage, if there is one.</p>
       <ul>
         <li><strong>Loan amount</strong>: the face value you are borrowing and will repay. If you need a specific sum in hand, note that a fee means you must borrow more than that sum.</li>
         <li><strong>Interest rate</strong>: the nominal annual rate on the offer. Unsecured quotes vary enormously with credit score, so use the rate you were offered, not an advertised "from" rate.</li>
-        <li><strong>Term</strong>: 24 to 60 months is typical; up to 84 exists for larger loans.</li>
-        <li><strong>Origination fee</strong>: the percentage the lender keeps out of the disbursal. Leave it at zero for no-fee lenders.</li>
+        <li><strong>Term</strong>: use the number of months stated in the offer.</li>
+        <li><strong>Origination fee</strong>: this model treats the fee as a percentage deducted from the disbursal. Leave it at zero for a no-fee offer.</li>
       </ul>
       <p>The results show how much lands in your bank account, along with the effective APR, which is the number to compare across offers.</p>`,
     explanationHtml: `
       <h2>Unsecured money costs more, and fees hide how much</h2>
-      <p>A personal loan is <strong>unsecured</strong>: there is no house or car for the lender to repossess if you stop paying. The lender's only protection is your creditworthiness, so rates sit well above secured lending. Expect high single digits for excellent credit, and 20–35% at the subprime end, against the 6–8% a mortgage might cost. Your credit score is the dominant input: the same borrower profile can be quoted rates ten points apart by different lenders, which is why pre-qualifying with several (a soft credit pull, no score damage) routinely saves more than any other step in the process.</p>
-      <p>The second cost lever is the <strong>origination fee</strong>, and its mechanics deserve attention. The fee is not billed to you; it is <em>deducted from the disbursal</em>. Take this calculator's default: a $15,000 loan at 11.5% for 48 months with a 2% fee. The lender wires you $14,700, keeps $300, and calculates your $391.34 payment on the full $15,000. You are paying interest for four years on $300 you never saw.</p>
-      <p>That is exactly what APR measures. Solving for the rate at which 48 payments of $391.34 are worth the $14,700 you received gives an effective APR of <strong>12.59%</strong> — more than a point above the quoted 11.5%. Push the fee to 5% and the APR reaches <strong>14.27%</strong> with the same headline rate. The gap also widens on shorter terms, because the fee is spread over fewer payments: the same 2% fee on a 24-month version of this loan works out to a 13.54% APR. When two offers differ in both rate and fee, only the APR ranks them correctly.</p>
+      <p>A personal loan is usually <strong>unsecured</strong>, so the lender prices the offer from the application and credit risk rather than from pledged collateral. Rates and fees vary widely by lender, borrower and market. Use a written offer rather than an advertised starting rate, and check whether any rate enquiry or pre-qualification will affect your credit file in your jurisdiction.</p>
+      <p>The second input is the <strong>origination fee</strong>. This calculator assumes it is deducted from the disbursal. On the default $15,000 loan, a 2% fee means $14,700 reaches you while the payment is still calculated from $15,000. Some lenders charge or finance fees differently, so compare this assumption with the offer.</p>
+      <p>This calculator expresses that deducted fee as an effective APR. Solving for the rate at which 48 payments of $391.34 are worth the $14,700 received gives <strong>12.59%</strong>, more than a point above the quoted 11.5%. A 5% fee raises the modeled figure to <strong>14.27%</strong>. For a final comparison, use the lender's regulated APR disclosure because it may include charges or conventions beyond this calculator's single fee input.</p>
       <p>Common uses shape the sensible term. For <strong>debt consolidation</strong> (replacing 20%+ credit-card balances with one fixed payment), a shorter term locks in the saving. For a large one-off purchase, match the term to the life of what you are buying rather than stretching for the smallest payment.</p>`,
     formulaHtml: `
       <p>The payment uses the standard amortization formula on the <em>full</em> loan amount:</p>
@@ -53,14 +53,14 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Credit score.</strong> The single biggest driver of your quote. Moving from a "fair" to a "good" tier can cut an unsecured rate by 5–10 points, so it pays to check your report for errors before applying.</li>
+        <li><strong>Credit profile.</strong> Credit history, income, existing debt, loan size and lender policy can all affect the quote. Check the application-specific rate rather than relying on a broad advertised range.</li>
         <li><strong>Origination fee.</strong> On the default loan, each percentage point of fee adds roughly half a point of APR. Fees hurt more on short terms, where they amortize over fewer payments.</li>
         <li><strong>Term.</strong> Longer terms shrink the payment but multiply the months of interest; 48 → 60 months on this loan adds about $1,000 of interest.</li>
         <li><strong>Secured alternatives.</strong> If you hold home equity or can post collateral, secured products usually undercut personal-loan rates, at the cost of putting the asset at risk.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
-        <li>Assumes a <strong>fixed rate and equal monthly payments</strong>; that holds for nearly all personal loans, unlike credit lines.</li>
+        <li>Assumes a <strong>fixed rate and equal monthly payments</strong>. It does not model a variable-rate loan or credit line.</li>
         <li>The effective APR here covers the origination fee only; <strong>late fees, insurance add-ons and prepaid interest</strong> are excluded.</li>
         <li>Some lenders add the fee on top of the loan instead of deducting it from the disbursal. Check which structure your offer uses, as the APR math differs slightly.</li>
         <li>Quotes expire and rates move with your credit file; the numbers here reflect the inputs, not a live offer.</li>
@@ -77,7 +77,7 @@ export default {
     },
     {
       q: "Which number should I compare between offers — rate or APR?",
-      aHtml: `<p>APR, always. The nominal rate ignores fees, so a 11.5% loan with a 2% fee (12.59% APR) is more expensive than a 12.25% loan with no fee. APR folds the fee into a single comparable yearly cost. The only caveat: APR comparisons assume you hold the loan to term. If you plan to repay very early, a fee-heavy loan gets even worse, because the fee is sunk on day one.</p>`,
+      aHtml: `<p>For offers with the same amount and term, APR can capture costs that the nominal rate omits. Also compare the itemized fees and total amount paid, especially if you expect to repay early. This calculator's effective APR includes the modeled origination fee only, so use the lender's regulated disclosure for the final comparison.</p>`,
     },
     {
       q: "Is a personal loan a good way to consolidate credit-card debt?",
@@ -85,11 +85,11 @@ export default {
     },
     {
       q: "Can I pay a personal loan off early?",
-      aHtml: `<p>Usually. Most personal lenders in the US charge no prepayment penalty, though a minority do, so read the agreement. Note that early payoff does not refund the origination fee: it was collected upfront. That is one reason short-term borrowers should prefer no-fee offers even at slightly higher rates.</p>`,
+      aHtml: `<p>Read the agreement for any prepayment charge and ask for a payoff quotation. An origination fee already collected may not be refundable, which can make a fee-heavy offer relatively expensive over a short holding period. Compare total cost to your expected payoff date rather than assuming the full-term APR tells the whole story.</p>`,
     },
     {
       q: "How does my credit score change the numbers here?",
-      aHtml: `<p>It sets the rate you should type in. Advertised ranges are wide — a lender showing "8.99–29.99%" will price you within that band based on score, income and existing debt. Pre-qualify to get your personal rate (a soft inquiry that doesn't affect your score), then enter that figure. A ten-point rate difference on this calculator's default loan changes total interest by thousands of dollars.</p>`,
+      aHtml: `<p>Enter the rate from a specific offer rather than the lowest rate in an advertisement. Lenders may consider credit history, income, existing debt, loan amount and other factors. Before requesting a quote, check whether the enquiry will be recorded on your credit file; practices and effects vary.</p>`,
     },
   ],
 };

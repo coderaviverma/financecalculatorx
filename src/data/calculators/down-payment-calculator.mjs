@@ -7,10 +7,10 @@ export default {
   metaDescription:
     "Size your down payment, add estimated closing costs, and get a month-by-month savings runway to your target — plus the PMI threshold at 20%.",
   tagline:
-    "Turn a home price and a percentage into a real cash target — down payment plus closing costs — and see exactly how many months of saving stand between you and it.",
+    "Work out the down payment and closing-cost cash you may need, then see how long your current saving pace could take.",
   cardDescription: "Cash needed at closing and the savings timeline to reach it, at any down payment percent.",
   scenarioHint: "Save your plan as Scenario A, then try a different down-payment percentage or monthly saving amount and save Scenario B — the comparison shows the change in cash needed and time to ready.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,
@@ -31,8 +31,8 @@ export default {
       <h2>How much down is actually required</h2>
       <p>The 20% figure is a threshold, not a requirement. Conventional loans commonly go to 3–5% down, FHA to 3.5%, and VA/USDA to zero for eligible borrowers. What 20% buys you is freedom from <strong>private mortgage insurance</strong> and a smaller, cheaper loan, so the real decision is not "can I reach 20%?" but "what does each tier cost me in time, cash and monthly expense?"</p>
       <p>On the default <strong>$350,000</strong> home, 20% down is <strong>$70,000</strong>. Add roughly <strong>$10,500</strong> of closing costs (estimated at 3% of the price: lender fees, title, escrow, prepaid taxes) and the true cash target is <strong>$80,500</strong>. Starting from $20,000 in savings and adding $800/month at 4% interest, that target is about <strong>63 months</strong> away, or five and a quarter years. Without the 4% interest working alongside you it would take 76 months; the yield trims 13 months off the runway.</p>
-      <p>Compare the tiers: 5% down needs only <strong>$28,000</strong> of cash (about 10 months away on the same plan) but leaves a $332,500 loan carrying PMI. The gap between buying at 5% and waiting for 20% is roughly four extra years of saving, years in which prices, rates and rents all move. There is no universally right answer; the table gives you the honest trade at your own numbers.</p>
-      <p>One planning note: down payment money belongs in boring places. A savings target with a 2–5 year horizon shouldn't ride the stock market. A high-yield savings account or short CDs at today's ~4% keeps the target date reliable, which is exactly what this calculator assumes.</p>`,
+      <p>Compare the tiers: 5% down needs <strong>$28,000</strong> of modeled cash (about 10 months away on the same plan) but leaves a $332,500 loan and may involve mortgage insurance. Waiting for 20% takes roughly four additional years under these inputs, while prices, rates and rents may change during that time. Use the table to compare the timing and loan size rather than treating one percentage as the right answer for everyone.</p>
+      <p>For a down payment needed on a fixed date, consider how much short-term loss you could tolerate. This calculator models steady interest, not market volatility, so use a rate that matches the savings or deposit product you would actually hold.</p>`,
     formulaHtml: `
       <p>The cash target is assembled first, then the runway is solved from compound growth with monthly deposits:</p>
       <div class="formula-block"><span class="fx">Cash = Price × d% + Price × 3% &nbsp;·&nbsp; S₀(1+r)<sup>n</sup> + A × [(1+r)<sup>n</sup> − 1] ÷ r ≥ Cash</span>
@@ -59,7 +59,7 @@ export default {
       </ul>`,
     limitationsHtml: `
       <ul>
-        <li>Closing costs are a flat 3% assumption; actual costs vary by state, lender and loan type (2–5% is the common range). Get a Loan Estimate for real figures.</li>
+        <li>Closing costs are a flat 3% planning assumption. Actual costs vary by location, lender, property and loan type; replace the estimate with the itemized figure supplied for your transaction.</li>
         <li>The home price is held constant over your saving runway. In rising markets the target moves as you approach it, so consider re-running with an inflated price for long horizons.</li>
         <li>Savings interest is treated as untaxed; in a taxable account your effective rate is somewhat lower.</li>
         <li>Program-specific minimums (FHA 3.5%, VA 0%) and first-time-buyer assistance are not modeled; the tiers table uses conventional-loan conventions.</li>

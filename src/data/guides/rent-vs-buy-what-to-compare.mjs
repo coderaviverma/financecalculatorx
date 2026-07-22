@@ -7,14 +7,14 @@ export default {
   description:
     "Comparing rent to a mortgage payment misses most of the real costs on both sides. A checklist of what belongs in a fair comparison — and what decides it.",
   cardDescription: "The complete cost checklist for an honest rent-vs-buy comparison, on both sides of the ledger.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   published: "2026-07-12",
   categories: ["mortgage", "personal"],
   aliases: [],
   keywords: ["rent vs buy", "renting or buying", "cost of homeownership", "opportunity cost down payment", "rent growth"],
   relatedCalculators: ["rent-vs-buy-calculator", "house-affordability-calculator", "mortgage-calculator", "down-payment-calculator"],
   bodyHtml: `
-<p>The most common rent-vs-buy analysis takes about ten seconds: "My rent is $1,900 and a mortgage on that condo would be $2,100, so renting is cheaper." Or its mirror image: "The mortgage is less than my rent, so buying is obviously better." Both versions compare two numbers that were never comparable, because each one hides a different set of costs. This guide is the checklist: everything that belongs on each side of a proper comparison, and the one variable, how long you stay, that usually decides the whole question.</p>
+<p>Comparing rent with only the mortgage payment leaves important costs on both sides. An owner also pays transaction and carrying costs but builds equity; a renter keeps flexibility and may be able to invest cash that would otherwise become a down payment. Use the checklist below to put those items on the same timeline.</p>
 
 <h2>Why "rent vs mortgage payment" misleads</h2>
 <p>A mortgage payment and a rent payment buy different things. Rent buys housing, complete. A mortgage payment buys housing <em>plus</em> a slice of an asset. Part of it is interest (a true cost) and part is principal (money moved into home equity, not spent). So the mortgage payment overstates the cost of owning in one way, while leaving out three categories that understate it far more.</p>
@@ -45,7 +45,7 @@ export default {
 
 <h2>Horizon is the master variable</h2>
 <p>Almost every input above scales with time in a way that favors longer stays: transaction costs are fixed and amortize over more years, equity building accelerates as the loan matures (see <a href="/guides/how-loan-amortization-works/">how loan amortization works</a>), and rent growth compounds against the renter. Spread that $32,000 round-trip toll over 3 years and it is roughly <strong>$889 per month</strong> of pure cost; over 10 years it is about <strong>$267 per month</strong>. Same house, same toll; the stay length alone moves the answer.</p>
-<p>This is why short expected stays almost always favor renting, regardless of what rents and prices are doing locally: the buyer pays the full toll and leaves before the compounding advantages arrive. If there is a decent chance you move within about five years (new job, growing family, uncertain city), renting is usually the safer default, and no calculator output should talk you out of asking that question first.</p>
+<p>A short expected stay gives the buyer fewer years over which to spread transaction costs. That often pushes the model toward renting, but the result still depends on local costs, rent changes, sale price and the time actually spent in the home. Run more than one holding period if your moving date is uncertain.</p>
 
 <h2>The fair-comparison checklist</h2>
 <div class="table-scroll"><table>
@@ -67,6 +67,6 @@ export default {
 </div>
 
 <h2>The parts no spreadsheet can price</h2>
-<p>Some genuinely important factors do not convert to dollars, and pretending otherwise makes analyses worse, not better. Owning brings stability (no landlord can end your tenancy, no renewal letter can reprice your home), plus control over the space and, for many people, a hard-to-quantify sense of being settled. Renting brings flexibility: the option to chase a job across the country on six weeks' notice, to downsize instantly, to let someone else own the failing water heater. These are real values; they simply belong in the decision as stated preferences, not as invented numbers. Do the financial comparison carefully, then let the non-financial factors break the tie, or overrule the money, knowingly, which is also a legitimate choice.</p>
+<p>Some important factors do not convert neatly into dollars. Owning can provide more control over the space and stability of tenure. Renting can make relocation easier and shifts many repair responsibilities to the landlord. Write those preferences down instead of forcing a dollar value onto them. The financial comparison is one part of the decision, not a substitute for how long you expect to stay or how much flexibility you need.</p>
 `,
 };

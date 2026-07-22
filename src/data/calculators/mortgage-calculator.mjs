@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Estimate your true monthly mortgage payment: principal and interest plus property tax, home insurance, PMI and HOA — with a full amortization schedule.",
   tagline:
-    "Estimate the complete monthly cost of a home loan — principal, interest, property tax, insurance, PMI and HOA — not just the payment lenders advertise.",
+    "Add principal, interest, property tax, insurance, PMI and HOA costs into one monthly home-payment estimate.",
   cardDescription: "True monthly payment including tax, insurance, PMI and HOA, plus amortization.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: true,
   featured: true,
@@ -23,15 +23,15 @@ export default {
       <ul>
         <li><strong>Property tax</strong>: enter the annual amount. Rates vary widely by location; recent listings or the local assessor's site will show the current figure for a specific property.</li>
         <li><strong>Home insurance</strong>: the annual premium for the dwelling policy.</li>
-        <li><strong>PMI</strong> appears automatically when your down payment is below 20%. Typical private mortgage insurance runs 0.3%–1.5% of the loan per year; the calculator also estimates when it drops off.</li>
+        <li><strong>PMI</strong> is included in this model when the down payment is below 20%. Enter the rate from a quote if it applies; the calculator estimates when the charge ends under its balance rule.</li>
         <li><strong>HOA / society fees</strong>: monthly dues, if the property has them.</li>
       </ul>
       <p>The donut chart splits the monthly payment into its parts, and the amortization table shows every payment to the last cent. Use the scenario tool to compare, say, a 30-year against a 15-year term with your real numbers.</p>`,
     explanationHtml: `
       <h2>The payment is more than the loan</h2>
-      <p>Advertised mortgage payments are usually just <strong>principal and interest (P&amp;I)</strong> — the amount that actually repays the loan. What you'll transfer to the lender each month is often 20–40% higher, because most lenders collect property tax and insurance into an escrow account alongside the loan payment, plus PMI if your equity is under 20%. This calculator estimates that complete figure, sometimes called <strong>PITI</strong> (principal, interest, taxes, insurance).</p>
+      <p>A principal-and-interest quote leaves out costs such as property tax, home insurance, mortgage insurance and association dues. Depending on the loan and location, some of those amounts may be collected through an escrow account and some may be paid separately. This calculator places them in one monthly planning figure so they are not lost beside the loan payment.</p>
       <p>The P&amp;I portion follows standard amortization: interest accrues monthly on the remaining balance, so early payments are interest-heavy and the balance falls slowly at first. On a $280,000 loan at 6.5% over 30 years, the first payment of $1,769.79 includes $1,516.67 of interest and only $253.12 of principal. It takes until roughly year 19 before more than half of each payment goes to principal. That lag is why extra payments and shorter terms make such a dramatic difference to total cost.</p>
-      <p><strong>PMI (private mortgage insurance)</strong> deserves special attention. It protects the lender, not you, and is charged when the loan exceeds 80% of the home's value. On this calculator, PMI is estimated from your entered rate and automatically ends at the month the scheduled balance reaches 80% of the purchase price. With most US lenders you can request cancellation at that point, and it must end automatically at 78%.</p>
+      <p><strong>PMI (private mortgage insurance)</strong> protects the lender rather than the borrower. This calculator uses your PMI input while the modeled balance is above 80% of the purchase price, then removes it from the estimate. Real cancellation rules depend on the loan type, payment history, property value and jurisdiction, so check the servicer's requirements instead of treating the modeled end month as a promise.</p>
       <p>Tax and insurance behave differently from the loan itself: they continue after the mortgage is paid off, and they generally rise over time. Treat them as permanent operating costs of the home rather than part of the debt.</p>`,
     formulaHtml: `
       <p>The principal-and-interest payment uses the standard amortization formula:</p>
@@ -54,9 +54,9 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Rate.</strong> On a $280,000 30-year loan, each 0.5% of rate is roughly $90–95/month and about $33,000–34,000 of lifetime interest. Rate-shopping between lenders is usually worth more than any other single negotiation.</li>
-        <li><strong>Term.</strong> 15-year loans carry lower rates and less than half the total interest of a 30-year, at the cost of a much higher required payment. A 30-year loan with voluntary extra payments is the flexible middle ground: $200/month extra on the example above saves about $101,283 and finishes 7¼ years early.</li>
-        <li><strong>Down payment.</strong> More down means a smaller loan, a lower payment and, once you reach 20%, no PMI. Below 20%, PMI adds a recurring cost that buys you nothing as a borrower.</li>
+        <li><strong>Rate.</strong> On the $280,000, 30-year example, each 0.5 percentage-point change is roughly $90–95 a month and $33,000–34,000 of modeled lifetime interest.</li>
+        <li><strong>Term.</strong> A shorter term raises the required payment and reduces the number of interest-bearing months. Compare that contractual payment with a longer term and a separate voluntary-extra-payment scenario.</li>
+        <li><strong>Down payment.</strong> More money down creates a smaller loan. Whether mortgage insurance applies, how it is priced and when it ends depend on the product and lender.</li>
         <li><strong>Location-driven costs.</strong> Property tax ranges from under 0.3% to over 2% of home value per year depending on region, and insurance varies with local risk. These often matter more than small rate differences when comparing homes in different areas.</li>
       </ul>`,
     limitationsHtml: `
@@ -76,11 +76,11 @@ export default {
   faq: [
     {
       q: "What credit and income do lenders check against this payment?",
-      aHtml: `<p>Lenders compare the full payment (including tax, insurance and PMI) to your gross monthly income, commonly capping it near 28%, and your total debt obligations near 36–43%. This calculator tells you the payment for a given house; the <a href="/house-affordability-calculator/">House Affordability Calculator</a> works the other way, from your income to a price range.</p>`,
+      aHtml: `<p>Underwriting may consider income, existing debts, credit history, cash reserves, property type and the full housing payment. The thresholds and income definitions vary by lender and program. This calculator estimates the payment for a given home; the <a href="/house-affordability-calculator/">House Affordability Calculator</a> lets you test adjustable debt-to-income limits.</p>`,
     },
     {
       q: "How accurate is the PMI estimate?",
-      aHtml: `<p>It's a reasonable planning figure, not a quote. Actual PMI rates depend on credit score, loan-to-value, loan term and insurer, typically landing between 0.3% and 1.5% of the loan annually. The drop-off month here follows the scheduled balance; paying extra principal or a rising home value can end PMI sooner (some lenders require a new appraisal for value-based removal).</p>`,
+      aHtml: `<p>It is a planning input, not a quote. Pricing and cancellation depend on the loan type, credit profile, loan-to-value calculation, insurer and applicable rules. Use the amount from the lender or insurer when available. The modeled end month follows scheduled principal only and may not match the servicer's process.</p>`,
     },
     {
       q: "Why does so little of my early payment reduce the balance?",
@@ -88,11 +88,11 @@ export default {
     },
     {
       q: "Should I escrow taxes and insurance or pay them myself?",
-      aHtml: `<p>Escrow spreads the cost into your monthly payment and most lenders require it above 80% LTV. Paying directly gives you control of the cash until bills are due but requires discipline for large lump sums. Either way the annual cost is identical. The choice is about cash-flow management, and it doesn't change anything this calculator computes.</p>`,
+      aHtml: `<p>Whether escrow is optional depends on the loan and lender. Escrow spreads estimated tax and insurance amounts across monthly collections, while direct payment leaves you responsible for the bills when due. Estimates can create a later shortage or surplus, so compare the servicer's terms and your ability to manage irregular payments.</p>`,
     },
     {
       q: "Does the calculator work outside the US?",
-      aHtml: `<p>The amortization math is universal for fixed-rate repayment mortgages, and you can switch the display currency in the header. PMI is a US concept; in other markets the equivalent is a lender's insurance premium or simply a higher rate above certain LTVs. Set the PMI field to 0 there and add any local recurring charges under HOA/society fees.</p>`,
+      aHtml: `<p>The fixed-rate monthly model can be useful outside the US when the loan follows the same convention, and the display currency can be changed in the header. Local accrual rules, insurance, taxes and fees differ. Set non-applicable inputs to zero and compare the assumptions with the lender's schedule.</p>`,
     },
   ],
 };

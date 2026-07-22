@@ -7,14 +7,14 @@ export default {
   description:
     "An extra payment removes principal — and with it, every month of future interest that slice would have cost. The mechanism, the timing effect, and the trade-offs.",
   cardDescription: "The mechanics of prepayment: where the money goes, why timing matters 3x, and when not to prepay.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   published: "2026-07-12",
   categories: ["loans", "mortgage"],
   aliases: [],
   keywords: ["extra loan payments", "prepay mortgage", "principal prepayment", "biweekly payments", "prepayment penalty"],
   relatedCalculators: ["extra-payment-calculator", "mortgage-payoff-calculator", "loan-payoff-calculator", "early-loan-payoff-calculator"],
   bodyHtml: `
-<p>Extra loan payments are often described as if the lender were doing you a favor by "letting you save interest." The reality is more mechanical and more interesting: interest is charged monthly on whatever balance remains, so any money that removes balance today stops generating interest for every month the loan had left. Understanding that single mechanism explains everything else: why early extras beat late ones by a multiple, why "biweekly payment plans" work, and why the same dollar is sometimes better off somewhere other than your loan.</p>
+<p>An extra payment can reduce interest because it lowers the balance used for later interest calculations. The earlier the principal falls, the more payment periods are affected. This guide compares early and late prepayments, explains the calendar effect behind biweekly plans, and covers the checks to make before sending money to a lender.</p>
 
 <h2>Where an extra payment really goes</h2>
 <p>A standard amortizing loan charges interest each month equal to the remaining balance times the monthly rate; whatever is left of your payment reduces the balance. On a $300,000 mortgage at 6.5% over 30 years, the required payment is <strong>$1,896.20</strong>. In month one, interest is 300,000 × (0.065 ÷ 12) = <strong>$1,625.00</strong>, so only <strong>$271.20</strong> of that first payment reduces the balance. (Our guide on <a href="/guides/how-loan-amortization-works/">how loan amortization works</a> walks the full schedule.)</p>
@@ -39,7 +39,7 @@ export default {
 </tbody>
 </table></div>
 
-<p>Two candid footnotes. First, these savings are nominal dollars spread over decades: the early-payoff dollars arrive far in the future and are worth less in today's money. Second, the asymmetry is a reason to start early if you intend to prepay at all, not a reason to regret a loan that is already 15 years old: $3,905 back on $2,400 is still an excellent, guaranteed result. Model your own loan and habit with the <a href="/extra-payment-calculator/">extra payment calculator</a> or, for mortgages specifically, the <a href="/mortgage-payoff-calculator/">mortgage payoff calculator</a>.</p>
+<p>These savings are nominal amounts spread over many years, so a distant dollar of interest avoided is worth less in today's money. The comparison still shows why timing matters: the same $2,400 prepayment has more months to affect the schedule when it is made earlier. Model the actual balance and payment rules with the <a href="/extra-payment-calculator/">extra payment calculator</a> or the <a href="/mortgage-payoff-calculator/">mortgage payoff calculator</a>.</p>
 
 <h2>Make sure it lands on principal</h2>
 <p>Loan servicers do not all treat unscheduled money the same way, and the difference is worth real money.</p>
@@ -70,6 +70,6 @@ export default {
 <p>Computed on the example mortgage: one extra $1,896.20 payment each year cuts total interest from $382,633 to $298,649 (a saving of <strong>$83,984</strong>) and retires the loan in 292 months, about <strong>5 years and 8 months early</strong>. Genuinely large numbers, and exactly reproducible by adding one-twelfth of the payment (about $158) to every monthly payment yourself. That is worth knowing because some third-party biweekly services charge enrollment or per-transaction fees to administer what is, mechanically, a free habit, and some hold your half-payments until month-end anyway, forfeiting any timing benefit. If your servicer offers true biweekly application at no cost, fine; otherwise do it manually with a <a href="/loan-payoff-calculator/">loan payoff calculator</a> to set the target.</p>
 
 <h2>The bottom line</h2>
-<p>Extra payments work through one lever: principal removed today stops costing interest for every month that remains. That makes them most powerful early in a long loan, entirely dependent on being applied to principal, and equivalent to a known, certain saving at the loan's rate, which is exactly the standard to hold them to when deciding between prepaying, investing, or attacking a more expensive debt first.</p>
+<p>The useful comparison is straightforward: confirm that the extra money reduces principal, calculate the interest avoided over the remaining term, and compare that benefit with your need for accessible cash and any higher-rate debt. The result depends on the loan agreement and your wider finances, not on the prepayment calculation alone.</p>
 `,
 };

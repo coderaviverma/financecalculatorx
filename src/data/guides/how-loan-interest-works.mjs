@@ -7,14 +7,14 @@ export default {
   description:
     "What a loan's interest rate actually does each month — how interest accrues on the balance, why early payments are interest-heavy, and how to read a rate quote.",
   cardDescription: "How interest accrues on a reducing balance, why early payments favor interest, and the flat-rate trap.",
-  lastReviewed: "2026-07-19",
+  lastReviewed: "2026-07-22",
   published: "2026-07-12",
   categories: ["loans"],
   aliases: [],
   keywords: ["how loan interest works", "reducing balance interest", "flat rate vs reducing rate", "loan interest calculation", "daily accrual loan"],
   relatedCalculators: ["loan-calculator", "loan-interest-calculator", "loan-amortization-calculator"],
   bodyHtml: `
-<p>Loan interest is rent charged on money you haven't returned yet. That single idea explains almost everything that confuses people about loans: why the first payments barely dent the balance, why a longer term costs so much more, and why two loans quoted at "9%" can have wildly different real costs. This guide walks through one real month of interest math, then uses it to decode the rate quotes lenders put in front of you.</p>
+<p>Loan interest is the charge for using money that has not yet been repaid. On a reducing-balance loan, the charge changes as the balance changes. The worked month below shows that calculation, followed by the effect of term length, fees and flat-rate pricing.</p>
 
 <h2>Interest accrues on the balance, not the original loan</h2>
 <p>Many amortizing consumer loans use a <strong>reducing-balance method</strong> (also called declining balance), but the accrual interval and rate convention vary. In the monthly model used here, the lender multiplies the current balance by the annual rate divided by 12, so a 9% rate produces a 0.75% monthly rate on what remains. Daily-accrual products and flat-rate quotes follow different arithmetic.</p>
@@ -68,7 +68,7 @@ export default {
 <tr><td>12%, 48 months (higher rate)</td><td>$395.01</td><td>$3,960.36</td></tr>
 </tbody>
 </table></div>
-<p>Stretching the term from 4 to 6 years lowers the payment by about $103 but raises total interest by 53%: the balance stays higher for longer, and there are more months of accrual. Raising the rate from 9% to 12% adds about $22 to the payment but over $1,000 to the total. Term is the quieter lever, which is exactly why long terms are how expensive loans get made to look affordable.</p>
+<p>Stretching the term from 4 to 6 years lowers the payment by about $103 but raises total interest by 53%: the balance stays higher for longer, and there are more months of accrual. Raising the rate from 9% to 12% adds about $22 to the payment but over $1,000 to the total. Term is easy to overlook because it lowers the required payment while adding more months of interest.</p>
 <div class="callout warn"><span class="c-title">Compare totals, not payments</span>
 <p>A lower monthly payment is not a cheaper loan. When comparing offers, hold the amount constant and compare total interest (or APR when fees differ) over the actual term. The <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> does this side by side.</p></div>
 <p>Everything above describes a fixed-rate, monthly-accrual model commonly used for installment-loan examples. It does not cover every lender or jurisdiction: some products accrue daily, apply different day-count rules, capitalize fees, or round each payment differently. Variable-rate products also recalculate after rate changes, and rules on fees, prepayment and disclosure vary by country. Your loan agreement and lender statement, not any calculator, are the authoritative sources for how your specific loan charges interest.</p>

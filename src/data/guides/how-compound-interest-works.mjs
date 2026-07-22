@@ -5,16 +5,16 @@ export default {
   metaDescription:
     "The mechanism behind compounding: how frequency, rate and time interact, what the Rule of 72 gets right, and how the same math works against borrowers.",
   description:
-    "Why interest that earns interest bends growth into a curve — the mechanism, the real effect of compounding frequency, and the asymmetry that makes starting early decisive.",
+    "See how interest joins the balance, how compounding frequency affects growth, and why time changes the result more than it first appears.",
   cardDescription: "The mechanism of interest-on-interest: frequency effects, the Rule of 72 tested, and time asymmetry.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   published: "2026-07-12",
   categories: ["investment", "savings"],
   aliases: [],
   keywords: ["how compound interest works", "compounding frequency", "rule of 72", "effective annual rate", "interest on interest", "start investing early"],
   relatedCalculators: ["compound-interest-calculator", "investment-calculator", "savings-calculator", "simple-interest-calculator"],
   bodyHtml: `
-<p>Compound interest is a bookkeeping rule with outsized consequences: whenever interest is credited, it stops being "interest" and becomes part of the balance, so the next interest calculation runs on a slightly bigger number. That's the entire mechanism. Everything remarkable about compounding (and everything painful about compounding debt) follows from that one rule repeating dozens or hundreds of times. This guide examines the machinery itself: how often the rule fires, how to sanity-check its output in your head, and why <em>when</em> you start matters more than almost anything else.</p>
+<p>Compound interest begins with a simple change: once interest is added to the balance, later interest is calculated on that larger amount. Repeating the step turns steady percentage growth into a curve. The sections below show the calculation, compare compounding frequencies and explain why the starting date can matter so much.</p>
 
 <h2>The mechanism: interest joins the base</h2>
 <p>Under simple interest, the base never changes: $10,000 at 6% earns $600 every year, forever, a straight line. Under compound interest, the base absorbs each credit and grows. Watch the first three years of $10,000 at 6%, compounded yearly:</p>
@@ -73,8 +73,8 @@ export default {
 <p>Read the 40-year run once more, from the other end: the same figures show the balance gaining $421,453 in its final ten years, more than everything it accumulated in the first thirty combined. The late years do the spectacular work, but only for money that was already in the machine; that's the sense in which the early decade is the one you can't buy back.</p>
 <p>This is not a claim that markets return a smooth 7%. They don't, and real sequences of returns will land above or below. It's a statement about the shape of exponential growth: contributions made early sit on the steep part of the curve for decades, a principle the SEC's <a href="https://www.investor.gov/introduction-investing/investing-basics/save-and-invest" rel="noopener">investor.gov saving basics</a> sum up as small amounts adding up to big money over time. The trade-offs between investing early in a lump sum versus spreading contributions are examined in <a href="/guides/lump-sum-vs-monthly-investing/">lump sum vs monthly investing</a>.</p>
 
-<h2>Effective annual rate: the universal comparator</h2>
-<p>Every compounding arrangement, whatever its rate and frequency, reduces to one comparable number: the effective annual rate, the percentage by which the balance grows in a year. This settles otherwise-confusing comparisons. Is 5.9% compounded monthly better than 6.0% compounded yearly? Convert both: 5.9% monthly is an effective 6.06%, so yes: the lower headline number wins. Between accounts, funds, or loans quoted with different frequencies, convert to effective rates and the ranking is unambiguous.</p>
-<p>Three practical closing notes. Taxes and fees interrupt compounding: interest taxed each year compounds only its after-tax portion, and a 1% annual fee compounds against you just as relentlessly as returns compound for you. Inflation compounds too: 3% inflation halves purchasing power in about 24 years (the Rule of 72 again), which is why <a href="/guides/how-inflation-affects-savings/">how inflation affects savings</a> deserves its own reading. And compounding assumes reinvestment: interest you withdraw and spend earns nothing. The curve only bends for money that stays.</p>
+<h2>Use an effective annual rate to compare frequencies</h2>
+<p>An effective annual rate converts a stated rate and compounding frequency into the percentage change over one year. For example, 5.9% compounded monthly produces an effective rate of about 6.06%, slightly above 6.0% compounded yearly. Make sure the figures use the same fee and tax basis before treating that conversion as a complete product comparison.</p>
+<p>Taxes and fees reduce the amount left to compound, while inflation reduces what the future balance can buy. Compounding also assumes reinvestment: interest that is withdrawn no longer earns a return. Those details are easy to miss in a clean projection, so include them whenever they apply to the account or investment you are modeling.</p>
 `,
 };

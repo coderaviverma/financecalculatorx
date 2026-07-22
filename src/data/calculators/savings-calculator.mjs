@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Project a savings account balance from your deposits and APY, see interest earned year by year, and find out exactly when you'll reach your savings goal.",
   tagline:
-    "Enter your balance, monthly deposit and the account's APY to see where your savings land in any number of years — and, if you set a goal, the month you reach it.",
+    "Project a savings balance from regular deposits and APY, with an optional goal and estimated target date.",
   cardDescription: "Savings account growth from deposits and APY, with an optional goal date.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: true,
@@ -71,15 +71,15 @@ export default {
     },
     {
       q: "Is a savings account better than investing?",
-      aHtml: `<p>For short horizons and known expenses, usually yes. Money needed within a few years (an emergency fund, a wedding, next year's tuition) shouldn't ride out a market dip, and a savings account's stated rate makes these projections firm rather than hopeful. Investing tends to win over long horizons, but it can't guarantee your balance on a specific date the way deposits plus a stated APY can. Sleep-at-night money belongs in savings.</p>`,
+      aHtml: `<p>They solve different problems. A savings account offers a stated rate and easier access to cash, while an investment can fluctuate and may lose value when the money is needed. Compare the goal's deadline, your tolerance for a short-term loss, access requirements, fees, tax treatment and deposit-protection rules. This calculator models the savings-account path only.</p>`,
     },
     {
       q: "How big should my emergency fund be before I save for other goals?",
-      aHtml: `<p>A common target is three to six months of essential expenses, parked somewhere instantly accessible. Building that cushion first means a job loss or repair bill doesn't force you to raid goal savings or borrow at card rates. Once it's funded, this calculator's goal feature is well suited to the next target — set the goal and read off the date.</p>`,
+      aHtml: `<p>Three to six months of essential expenses is a common starting range, not a universal target. Income stability, insurance, dependants and access to other cash can move it up or down. The <a href="/guides/how-much-emergency-fund/">emergency-fund guide</a> works through those inputs; this calculator can then estimate the funding date.</p>`,
     },
     {
       q: "Is my money safe in a savings account?",
-      aHtml: `<p>Deposit insurance protects bank savings up to a limit that varies by country: FDIC-style coverage in the US, DICGC in India, and similar schemes elsewhere, each with its own cap per depositor per bank. Check your scheme's limit; balances above it can be split across banks to stay fully covered.</p>`,
+      aHtml: `<p>Protection depends on the institution, account type, ownership category and country. Check the current limit and eligibility directly with the applicable deposit-insurance authority; a familiar brand or savings label alone does not establish coverage.</p>`,
     },
     {
       q: "Why does the goal date barely move when I raise the rate?",

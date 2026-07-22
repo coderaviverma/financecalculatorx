@@ -7,14 +7,14 @@ export default {
   description:
     "How to size an emergency fund from your essential expenses, how long it takes to build at a realistic savings rate, and where to keep it — with the numbers computed.",
   cardDescription: "Sizing the fund from essential expenses, a computed funding timeline, and why it shouldn't be invested.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   published: "2026-07-12",
   categories: ["savings", "personal"],
   aliases: [],
   keywords: ["emergency fund", "how much emergency fund", "3 to 6 months expenses", "emergency savings", "where to keep emergency fund"],
   relatedCalculators: ["savings-calculator", "monthly-investment-calculator", "budget-calculator"],
   bodyHtml: `
-<p>An emergency fund answers one question: if money stopped coming in, or a large bill arrived without warning, how long could your household run without borrowing? The standard advice, "three to six months," is a reasonable starting range, but it gets routinely misapplied. People measure it against the wrong base (income instead of essential spending), size it without regard to how stable that income is, and park it in the wrong place. This guide computes a specific target, a specific funding timeline, and the case for keeping the money boring. Consumer regulators frame the idea the same way: the <a href="https://www.consumerfinance.gov/an-essential-guide-to-building-an-emergency-fund/" rel="noopener">CFPB describes an emergency fund</a> as cash set aside for unplanned expenses.</p>
+<p>An emergency fund is cash set aside for an unplanned expense or a break in income. A three-to-six-month range can be a useful starting point, but the target should be based on essential spending and adjusted for the stability of your household income. The example below works through the target and the time needed to build it. The <a href="https://www.consumerfinance.gov/an-essential-guide-to-building-an-emergency-fund/" rel="noopener">CFPB's emergency-fund guide</a> uses the same basic definition.</p>
 
 <h2>What the fund is really for</h2>
 <p>Emergencies come in two shapes, and the fund covers both:</p>
@@ -64,6 +64,6 @@ export default {
 
 <h2>Building it while paying debt, and spending it well</h2>
 <p>With high-rate debt, every spare dollar faces competition: a 22% card mathematically beats a 4% savings account. But a zero buffer makes debt payoff fragile: the first surprise expense goes straight back on the card, undoing months of progress. A workable sequence: build a <strong>minimum viable buffer of one month's essentials first</strong> ($3,200 here, 8 months at $400/month), then split the flow, directing most of it at the debt while the buffer grows slowly toward the full target once the expensive debt is gone. Choosing the payoff order for that phase is its own decision; see <a href="/guides/debt-snowball-vs-debt-avalanche/">debt snowball vs debt avalanche</a>.</p>
-<p>Finally, discipline at both ends. <strong>Spend it</strong> when the event is unexpected, necessary, and urgent, all three at once. A genuine emergency spent from the fund is the system working, not failing. <strong>Refill it</strong> as the next non-negotiable priority: pause extra debt payments and investing contributions until the buffer is back to at least one month, then rebuild to target at the old contribution rate. A fund that gets spent and refilled over the years is doing exactly what it was built for; the only failure mode is not rebuilding it.</p>
+<p>If you use the fund for an unexpected, necessary and urgent expense, it has done its job. Decide in advance how you will refill it afterward. The order may involve pausing extra debt payments or investments, but the right choice depends on interest rates, employer matches, access to credit and the urgency of rebuilding the cash buffer.</p>
 `,
 };

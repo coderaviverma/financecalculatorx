@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Work backwards from a goal: enter a target amount, timeline and expected return to get the exact monthly investment required — plus what happens at other returns.",
   tagline:
-    "Every other growth tool asks what your money becomes. This one inverts the question: name the target and the deadline, and it solves for the monthly amount that gets you there.",
+    "Start with a target and deadline to estimate the monthly contribution needed to reach it.",
   cardDescription: "Solve for the monthly amount needed to hit a target by a deadline.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: true,
@@ -72,7 +72,7 @@ export default {
     },
     {
       q: "What return should I assume for my goal?",
-      aHtml: `<p>Match the assumption to what you'd actually hold for that horizon. Money needed in 1–3 years belongs in cash or deposits; assume today's savings rates, not market returns. Around 5 years, a conservative mixed portfolio might justify 4–6%. Only genuinely long goals (10+ years) can lean on long-run equity averages, and even then planning at the lower end of the range is the safer habit.</p>`,
+      aHtml: `<p>Start with the return of the product or asset mix you are considering, after recurring fees, then run a lower-rate scenario. A short, fixed deadline usually leaves less room to recover from a loss than a long, flexible one. This calculator does not choose an asset allocation, and a constant rate should not be read as a forecast.</p>`,
     },
     {
       q: "Why did the monthly amount jump so much when I shortened the timeline?",

@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Calculate any loan's monthly payment, total interest and full amortization schedule. Add extra payments to see interest saved and a faster payoff date.",
   tagline:
-    "Work out the monthly payment for any fixed-rate loan, see exactly how much interest it costs, and test how extra payments change the schedule.",
+    "Check a fixed-rate loan's monthly payment and total interest, then see how extra payments change the schedule.",
   cardDescription: "Monthly payment, total interest and full amortization for any fixed-rate loan.",
-  lastReviewed: "2026-07-19",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: true,
   featured: true,
@@ -18,7 +18,7 @@ export default {
   related: ["loan-amortization-calculator", "extra-payment-calculator", "loan-payoff-calculator", "loan-comparison-calculator", "personal-loan-calculator", "emi-calculator"],
   sections: {
     howToHtml: `
-      <p>Three inputs are all it takes: how much you want to borrow, the annual interest rate your lender quotes, and the repayment term. The calculator immediately shows the required monthly payment, the total interest over the life of the loan, and a full month-by-month amortization schedule.</p>
+      <p>Enter the amount you plan to borrow, the annual interest rate and the repayment term. The results show the modeled monthly payment, total interest and month-by-month schedule.</p>
       <ul>
         <li><strong>Loan amount</strong> is the principal you receive, before any fees are deducted.</li>
         <li><strong>Interest rate</strong> is the annual nominal rate. If your lender charges origination fees, the true cost (APR) is slightly higher; the <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> handles fees explicitly.</li>
@@ -30,7 +30,7 @@ export default {
       <h2>How loan payments actually work</h2>
       <p>Many fixed-rate personal, car, education and home loans are <strong>amortizing loans</strong>: you repay them in scheduled installments, and each installment is split between interest and principal. The split is not fixed. In the monthly reducing-balance model used here, interest is charged on the balance you still owe, so in month one, when the balance is highest, the interest share is at its peak. As the balance falls, the interest portion of each payment shrinks and the principal portion grows until the final modeled payment clears the balance.</p>
       <p>This is why the early years of a loan feel unproductive: on a 5-year, ${"$"}20,000 loan at 7.5%, about ${"$"}125 of the first ${"$"}400.76 payment is interest. By the final year, interest is only a few dollars per payment. The amortization table below the calculator shows this crossover explicitly for your numbers.</p>
-      <p>Two consequences follow from this structure. First, <strong>the term drives total cost more than most people expect</strong>. Stretching the same amount and rate over a longer term lowers the payment but raises the number of months on which interest accrues, so the total interest climbs sharply. Second, <strong>extra principal payments are disproportionately powerful early on</strong>, because money paid against principal in month 6 stops accruing interest for the entire remaining term.</p>
+      <p>A longer term lowers the required payment but adds more months of interest. An extra principal payment has a larger modeled effect earlier in the schedule because the reduced balance affects more future periods. Compare both the payment and the total interest before choosing a term.</p>
       <p>The calculator assumes a reducing balance with the annual rate divided into monthly periods. This is a common fixed-payment convention, but lenders may instead use daily accrual, different day-count rules, fees or payment-rounding methods. If you've seen "flat rate" loans advertised (interest charged on the original balance for the whole term), compare the total repayment or legally disclosed APR rather than comparing the headline percentages directly.</p>`,
     formulaHtml: `
       <p>The monthly payment on a fixed-rate amortizing loan is:</p>
@@ -53,7 +53,7 @@ export default {
     factorsHtml: `
       <ul>
         <li><strong>Interest rate.</strong> The payment moves less than you might think (on the example above, 1% more rate adds about $9/month), but total interest moves a lot: each extra point on the rate adds roughly $550 of interest per $20,000 borrowed over 5 years.</li>
-        <li><strong>Term length.</strong> The single biggest lever on total cost. The same $20,000 at 7.5% costs $4,046 in interest over 5 years but $6,842 over 8 years, a 69% increase in cost for a $105 lower payment.</li>
+        <li><strong>Term length.</strong> In this example, the same $20,000 at 7.5% costs $4,046 in interest over 5 years and $6,842 over 8 years, a 69% increase in cost for a $105 lower payment.</li>
         <li><strong>Extra payments.</strong> Every unit of currency paid early is removed from the balance for all remaining months. Earlier is better; even irregular extra payments help.</li>
         <li><strong>Fees.</strong> Origination or processing fees don't change the payment math but raise the true cost of borrowing. Compare loans on APR, not the nominal rate, when fees differ.</li>
       </ul>`,
@@ -69,11 +69,11 @@ export default {
   faq: [
     {
       q: "Why is my quoted payment slightly different from this calculator?",
-      aHtml: `<p>Three common reasons: your lender includes a fee or insurance premium in the payment, the first period is longer or shorter than one month (interest accrues for the extra days), or the lender uses daily rather than monthly accrual. Differences from rounding conventions are typically under a dollar; anything larger usually means a fee is embedded — ask for the loan's APR to see the true cost.</p>`,
+      aHtml: `<p>Possible reasons include fees or insurance in the payment, a first period that is longer or shorter than one month, daily rather than monthly accrual, or a different rounding method. Compare the calculator assumptions with the lender's itemized quote and payment schedule instead of inferring the cause from the size of the difference.</p>`,
     },
     {
       q: "Should I choose a longer term for the lower payment?",
-      aHtml: `<p>A longer term reduces the required payment but increases the number of months on which interest is charged, so the total cost rises. A practical middle path: take the longer term for safety, then pay the difference as a voluntary extra payment. You get the lower obligation if money gets tight, and nearly the same interest savings as the shorter term while you keep paying extra — the calculator's extra-payment field shows exactly what that's worth.</p>`,
+      aHtml: `<p>A longer term lowers the required payment and adds more months of interest. A shorter term does the reverse. You can model a longer term with voluntary extra payments, but that result assumes the extras continue and the lender applies them to principal. Compare the contractual obligation separately from the optional-payment scenario.</p>`,
     },
     {
       q: "Does this work for car and education loans?",
@@ -85,7 +85,7 @@ export default {
     },
     {
       q: "How do extra payments interact with the required payment?",
-      aHtml: `<p>The required payment stays the same; extra amounts reduce the principal immediately, which reduces the interest accrued in every later month and shortens the schedule from the end. Check that your lender applies extra amounts to principal (not as a prepayment of next month's installment) and whether any prepayment penalty applies — most personal and car loans have none, but it varies.</p>`,
+      aHtml: `<p>In this model the required payment stays the same and extra amounts reduce principal immediately, lowering later interest and shortening the schedule. Check how your lender applies excess payments and whether the agreement includes a prepayment charge before relying on that result.</p>`,
     },
   ],
 };

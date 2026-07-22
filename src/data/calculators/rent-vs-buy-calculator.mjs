@@ -7,10 +7,10 @@ export default {
   metaDescription:
     "Compare the full 10-year cost of buying against renting — mortgage, taxes, maintenance and selling costs versus rent and invested savings.",
   tagline:
-    "A fair fight between buying and renting: the buyer pays everything owners really pay and gets equity back on sale; the renter pays rent but keeps the down payment invested. The crossing point is your break-even.",
+    "Compare the longer-term costs of renting and buying, including ownership costs, home equity and the renter's invested savings.",
   cardDescription: "Net cost of buying vs renting year by year, with break-even and equity at your horizon.",
   scenarioHint: "Save your assumptions as Scenario A, then change one driver — rent growth, appreciation or how long you'll stay — and save Scenario B to see which path wins under each view.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: true,
   featured: true,
@@ -59,7 +59,7 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>How long you stay.</strong> The single biggest lever. Transaction costs (3% in, 6% out) are fixed tolls amortized over your stay: ruinous over 2 years, trivial over 20. On the defaults, leaving before year 10 means renting won.</li>
+        <li><strong>How long you stay.</strong> Transaction costs (modeled here as 3% in and 6% out) are spread over the ownership period, so they weigh more heavily on a short stay. With the default inputs, the modeled break-even occurs around year 10.</li>
         <li><strong>Appreciation vs rent growth.</strong> These two rates race each other: appreciation builds the buyer's equity while rent growth punishes the renter. A point of difference either way flips most close verdicts.</li>
         <li><strong>Investment return.</strong> The higher the return your cash could earn elsewhere, the better renting looks. At 6% the renter's $92,000 earns $5,520 in year one alone, and omitting this (as casual comparisons do) systematically flatters buying.</li>
         <li><strong>Rate and price-to-rent.</strong> This home costs 17.5 years of today's rent ($400,000 ÷ $22,800). Markets with lower price-to-rent ratios shift the verdict toward buying at the same mortgage rate.</li>

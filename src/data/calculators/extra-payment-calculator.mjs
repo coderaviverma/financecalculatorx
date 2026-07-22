@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Test extra monthly, yearly or one-time loan payments and see the interest saved, the new payoff date, and how many months you cut from the schedule.",
   tagline:
-    "Try monthly, yearly and one-time prepayments on any fixed-rate loan and see precisely how much interest they remove and how many months they cut.",
+    "Test monthly, yearly or one-time extra payments on a fixed-rate loan and compare the revised interest and payoff date.",
   cardDescription: "Interest saved and months cut by monthly, yearly or one-time prepayments.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,
@@ -28,7 +28,7 @@ export default {
       <p>The headline figure is the interest you avoid versus making no extra payments, alongside the new payoff date and the months removed. The chart overlays both balance curves so you can watch them separate.</p>`,
     explanationHtml: `
       <h2>What an extra payment actually buys</h2>
-      <p>Your required payment is fixed by contract, and interest gets first claim on it; only the remainder reduces principal. An extra payment is different in kind, not just size: because the required payment has already covered the month's interest, <strong>every unit of the extra lands on principal</strong>. And principal removed today stops generating interest for every month the loan has left. Prepaying is often described as "earning" the loan's rate, risk-free, on the amount prepaid. That framing is accurate, and it's why prepayment beats most savings accounts whenever the loan rate exceeds the savings rate.</p>
+      <p>On the model used here, the scheduled payment covers the period's interest first and the remainder reduces principal. An extra amount then reduces principal immediately, so later interest is calculated on a smaller balance. A real lender may apply excess money to fees, accrued interest or a future instalment instead; confirm the posting rule before using the projected saving.</p>
       <p>Timing and rhythm matter more than most people expect. Consider the default loan here ($250,000 at 6.5% over 30 years, which costs $318,861 in interest if left alone) and two plans that commit the same $1,200 of cash per year. Paid as <strong>$100 every month</strong>, the loan ends 56 months early and saves <strong>$58,860</strong>. Paid as <strong>one $1,200 lump each year</strong>, it ends 54 months early and saves <strong>$56,592</strong>. Identical money, a $2,268 difference, purely because the monthly drip reaches the balance sooner on average, so each dollar spends more months not accruing interest.</p>
       <p>The same logic makes early lump sums far more powerful than late ones. A one-time $10,000 against this loan in month 12 saves <strong>$49,273</strong> of interest; the same $10,000 in month 180 saves only <strong>$15,380</strong>. Nothing about the loan changed; the later payment simply has fewer remaining months over which to suppress interest. If you're expecting a windfall and intend to prepay, the arithmetic argues for applying it when it arrives rather than holding it for a round-number occasion.</p>`,
     formulaHtml: `
@@ -52,7 +52,7 @@ export default {
       <ul>
         <li><strong>When the extra money arrives.</strong> The dominant factor. The same $10,000 saves $49,273 in month 12 of the default loan but $15,380 in month 180, a 3.2× difference on identical cash.</li>
         <li><strong>Frequency at equal cash.</strong> Monthly drips edge out annual lumps ($58,860 vs $56,592 on $1,200/year here) because money reaches principal sooner on average.</li>
-        <li><strong>The loan's rate.</strong> Prepaying "earns" the loan rate risk-free. At 6.5% it competes well with safe savings; on a 3% loan, a high-yield account may beat it.</li>
+        <li><strong>The loan's rate.</strong> A higher rate increases the interest avoided by reducing principal. Compare that modeled saving with the after-tax return and liquidity of any alternative use for the money.</li>
         <li><strong>How your lender applies extras.</strong> Savings assume the extra posts to principal immediately. If it's held as a credit toward next month's installment, the effect largely evaporates; see the FAQ.</li>
       </ul>`,
     limitationsHtml: `
@@ -74,7 +74,7 @@ export default {
     },
     {
       q: "Should I prepay the loan or invest the money instead?",
-      aHtml: `<p>Prepaying earns the loan's interest rate, guaranteed and tax-free in most jurisdictions. Investing might earn more, with risk. A common rule: prepay when the loan rate beats what you'd reliably earn after tax, keep an emergency fund first either way, and never prepay with money you may need back — principal payments can't be withdrawn.</p>`,
+      aHtml: `<p>Prepaying produces a known interest saving under the loan's current rate and posting rules, while an investment return is uncertain. Taxes, deductions and fees can change the comparison. Also consider liquidity: money used to reduce principal generally cannot be withdrawn without new borrowing.</p>`,
     },
     {
       q: "Will paying extra reduce my required monthly payment?",

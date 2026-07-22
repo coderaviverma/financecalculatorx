@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Compute the future value of a lump sum plus regular contributions, with end-or-beginning timing and monthly, quarterly or yearly compounding.",
   tagline:
-    "The time-value-of-money workhorse: what a present amount and a stream of contributions will be worth on a future date, with proper annuity timing.",
+    "Put today's money and regular contributions on a future date, with beginning- or end-of-period deposits.",
   cardDescription: "Textbook TVM future value with annuity-due timing and compounding options.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,

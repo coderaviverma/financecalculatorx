@@ -5,12 +5,12 @@ export default {
   metaDescription:
     "Contact Finance Calculator X — report a calculation error, suggest a calculator, or ask about the site. Error reports are prioritized.",
   lede: "Questions, corrections and suggestions are all welcome — corrections get priority.",
-  lastUpdated: "2026-07-12",
+  lastUpdated: "2026-07-22",
   bodyHtml: `
-    <p>The fastest way to reach us is email:</p>
+    <p>The best way to reach me is email:</p>
     <div class="callout note"><span class="c-title">Email</span>
       <p><a href="mailto:contact@financecalculatorx.com">contact@financecalculatorx.com</a></p>
-      <p style="margin:0">We typically reply within a few business days. Reports of calculation errors are handled first — see the <a href="/corrections-policy/">corrections policy</a>.</p>
+      <p style="margin:0">I read calculation-error reports first; the <a href="/corrections-policy/">corrections policy</a> explains how I check them.</p>
     </div>
 
     <h2>What to include</h2>
@@ -20,7 +20,7 @@ export default {
       <li><strong>Feedback on content:</strong> the page and section, and what's unclear or missing.</li>
     </ul>
 
-    <h2>What we can't help with</h2>
-    <p>We can't provide personal financial advice — no recommendations about whether <em>you</em> should take a particular loan, buy a particular home, or choose a particular investment. The calculators exist to make the mathematics of those decisions transparent; decisions themselves belong with you and, where the stakes warrant it, a qualified professional in your jurisdiction. Please also see the <a href="/disclaimer/">financial disclaimer</a>.</p>
+    <h2>What I can't help with</h2>
+    <p>I can't provide personal financial advice or recommend a particular loan, home purchase or investment. The calculators explain the mathematics and assumptions; the decision itself may require a qualified professional who can consider your full circumstances and jurisdiction. Please also see the <a href="/disclaimer/">financial disclaimer</a>.</p>
   `,
 };

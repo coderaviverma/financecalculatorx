@@ -25,6 +25,24 @@ const BANNED = [
   "game-changer", "delve into", "it's important to note that", "it’s important to note that",
 ];
 
+const RISKY_CLAIMS = [
+  "guaranteed and tax-free",
+  "apr, always",
+  "most countries to state apr",
+  "no ordering can beat",
+  "mathematical optimum, always",
+  "every numeric example is produced by",
+  "most lenders require it above 80% ltv",
+  "amortization math is universal",
+  "the single biggest driver of your quote",
+  "most personal lenders in the us charge no prepayment",
+  "savings ~4%",
+  "bonds ~5%",
+  "broad equities ~8%",
+];
+
+const HYPE_WORDS = ["exactly", "honestly", "truly", "precisely", "workhorse", "fair fight"];
+
 async function loadDir(dir) {
   const out = [];
   if (!existsSync(dir)) return out;
@@ -38,6 +56,18 @@ async function loadDir(dir) {
 function checkBanned(where, html) {
   const lower = String(html || "").toLowerCase();
   for (const b of BANNED) if (lower.includes(b)) errors.push(`${where}: banned filler phrase "${b}"`);
+}
+
+function checkRiskyClaims(where, content) {
+  const lower = String(content || "").toLowerCase();
+  for (const claim of RISKY_CLAIMS)
+    if (lower.includes(claim)) errors.push(`${where}: unsupported absolute claim "${claim}"`);
+}
+
+function checkSummaryTone(where, content) {
+  const lower = String(content || "").toLowerCase();
+  for (const word of HYPE_WORDS)
+    if (new RegExp(`\\b${word}\\b`).test(lower)) errors.push(`${where}: summary copy uses salesy intensifier "${word}"`);
 }
 
 function textLen(html) {
@@ -72,8 +102,11 @@ function validateCalc(c, file, allSlugs) {
     const js = readFileSync(jsPath, "utf8");
     if (!js.includes("FCX.define")) errors.push(`${w}: calc script does not call FCX.define`);
     if (!js.includes(`"${c.slug}"`) && !js.includes(`'${c.slug}'`)) warnings.push(`${w}: calc script does not reference slug`);
+    checkRiskyClaims(`${w} calculator script`, js);
   }
   checkBanned(w, JSON.stringify(c.sections) + JSON.stringify(c.faq));
+  checkRiskyClaims(w, JSON.stringify(c.sections) + JSON.stringify(c.faq));
+  checkSummaryTone(`${w} tagline`, c.tagline);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(c.lastReviewed || "")) errors.push(`${w}: lastReviewed must be YYYY-MM-DD`);
 }
 
@@ -87,6 +120,8 @@ function validateGuide(g, file, calcSlugs) {
   if (len < 3500) errors.push(`${w}: bodyHtml too thin (${len} chars, need 3500+)`);
   (g.relatedCalculators || []).forEach((r) => { if (!calcSlugs.has(r)) (STRICT ? errors : warnings).push(`${w}: related calculator "${r}" does not exist${STRICT ? "" : " yet"}`); });
   checkBanned(w, g.bodyHtml);
+  checkRiskyClaims(w, g.bodyHtml);
+  checkSummaryTone(`${w} description`, g.description);
 }
 
 function dedupe(items, key, kind) {
@@ -159,6 +194,7 @@ async function main() {
     if (p.lastUpdated && !/^\d{4}-\d{2}-\d{2}$/.test(p.lastUpdated))
       errors.push(`pages/${m.file}: lastUpdated must be YYYY-MM-DD`);
     checkBanned(`pages/${m.file}`, p.bodyHtml);
+    checkRiskyClaims(`pages/${m.file}`, p.bodyHtml);
   }
   dedupe(pageMods, "metaTitle", "pages");
   dedupe(pageMods, "metaDescription", "pages");
@@ -166,6 +202,7 @@ async function main() {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date || "")) errors.push(`site.lastModified.${label} must be YYYY-MM-DD`);
   for (const category of categories)
     if (!/^\d{4}-\d{2}-\d{2}$/.test(category.lastModified || "")) errors.push(`category "${category.id}" needs a stable lastModified date`);
+  checkRiskyClaims("site categories", JSON.stringify(categories));
   if (site.ga4 && !/^G-[A-Z0-9]+$/.test(site.ga4)) errors.push(`site.ga4 must be a valid GA4 measurement ID or blank`);
   if (publisherId && !/^(?:ca-)?pub-\d{16}$/.test(publisherId))
     errors.push(`site.adsense.publisherId must be pub- followed by 16 digits (optionally prefixed with ca-)`);

@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "See how much interest an extra monthly payment or lump sum saves on your existing mortgage, and how many months it cuts from your payoff date.",
   tagline:
-    "For a mortgage you already have: put an extra monthly amount or a one-time lump sum against the balance and see the interest saved, the months cut, and your new payoff date.",
+    "See how an extra monthly amount or one-time payment could change a current mortgage's interest and payoff date.",
   cardDescription: "Interest saved and time cut by extra payments or a lump sum on an existing mortgage.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,
@@ -24,12 +24,12 @@ export default {
         <li>A <strong>one-time lump sum</strong> is a bonus or windfall, with a field for when you'd pay it (savings are larger the sooner it lands).</li>
         <li>You can combine both; the schedule recomputes with each keystroke.</li>
       </ul>
-      <p>The headline is the interest you'd save; the chart shows both balance curves so you can see the gap open up. Note that most US mortgages have no prepayment penalty, but confirm yours before committing, and make sure the servicer applies extras to <em>principal</em>, not to next month's payment.</p>`,
+      <p>The headline is the modeled interest saving, and the chart compares the two balance paths. Before sending extra money, check the note for any prepayment charge and confirm that the servicer will apply the amount to <em>principal</em> rather than a future payment.</p>`,
     explanationHtml: `
       <h2>The mathematics of a mid-life mortgage</h2>
-      <p>Prepaying a mortgage is one of the few financial moves with a guaranteed outcome: every dollar of principal you remove stops accruing interest at your note rate, immediately and for the rest of the loan. On the default inputs, a <strong>$240,000 balance at 6% with 22 years left</strong>, the required payment is $1,639.38 and the remaining schedule holds <strong>$192,796</strong> of future interest. Adding <strong>$200/month</strong> cuts that to $149,701: a saving of <strong>$43,095</strong>, with the loan gone <strong>4 years 4 months</strong> early.</p>
-      <p>What most people miss is how strongly the payoff math depends on <em>time remaining</em>, not just rate and balance. The same $240,000 at the same 6% with only <strong>8 years left</strong> saves just <strong>$4,985</strong> from the identical $200/month — barely a ninth of the saving, because each prepaid dollar has far fewer interest-bearing months ahead of it. Early and mid-loan, prepayment is powerful; late in the loan it's mostly just forced saving.</p>
-      <p>The honest comparison for any prepayment is opportunity cost. Paying down a 6% mortgage is economically equivalent to earning a guaranteed, risk-free 6% on that money, a return you cannot get from any savings account, though a diversified portfolio may beat it on average with risk attached. If you itemize deductions in the US, the effective mortgage rate is somewhat lower than the note rate, which softens (but rarely reverses) the case for prepaying.</p>
+      <p>In this fixed-rate model, principal removed today no longer accrues interest in later months. On the default inputs, a <strong>$240,000 balance at 6% with 22 years left</strong>, the required payment is $1,639.38 and the remaining schedule contains <strong>$192,796</strong> of interest. Adding <strong>$200/month</strong> reduces that to $149,701: a modeled saving of <strong>$43,095</strong>, with the loan finishing <strong>4 years 4 months</strong> earlier.</p>
+      <p>Time remaining changes the result substantially. The same $240,000 balance and 6% rate with only <strong>8 years left</strong> saves <strong>$4,985</strong> from the same $200 monthly extra, because fewer interest-bearing months remain. This does not make a late prepayment wrong; it shows why the interest-saving effect is smaller.</p>
+      <p>Compare that saving with the alternatives available to you. Taxes, deductions, investment risk, emergency cash needs and the cost of borrowing the money back can all change the decision. The calculator only measures the mortgage schedule; it does not determine the best use of the cash.</p>
       <p>Three tools exist for killing a mortgage faster: <strong>prepay</strong> (what this calculator models: flexible, stop any time), <strong>recast</strong> (a lump sum plus a servicer re-amortization that lowers the required payment), and <strong>refinance</strong> (a new loan entirely; see the <a href="/refinance-calculator/">refinance calculator</a> when the issue is your rate rather than your balance).</p>`,
     formulaHtml: `
       <p>Both plans run the same declining-balance schedule; only the payment differs:</p>
@@ -51,14 +51,14 @@ export default {
     factorsHtml: `
       <ul>
         <li><strong>Years remaining.</strong> The dominant factor: $200/month saves $43,095 with 22 years left, but only $4,985 with 8 years left on the same balance and rate. Prepay early if you're going to prepay at all.</li>
-        <li><strong>Rate.</strong> Your note rate is the known interest saving on every prepaid dollar — certain in a way market returns are not. At 6–7% prepaying competes well with bonds; at 3% it competes poorly with most alternatives, including high-yield savings.</li>
+        <li><strong>Rate.</strong> A higher note rate increases the modeled interest avoided by reducing principal. Compare that result with the after-tax return, risk and liquidity of other uses for the money.</li>
         <li><strong>Lump timing.</strong> Moving a lump sum earlier adds interest-bearing months. The month field lets you compare paying now versus after your next bonus.</li>
         <li><strong>Liquidity.</strong> Money in the house is hard to get back out without borrowing. Keep the emergency fund funded first — a prepaid mortgage doesn't pay medical bills.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
         <li>Assumes extras are applied to principal immediately and the required payment stays fixed. A servicer recast, which lowers the required payment after a lump sum, is a different transaction.</li>
-        <li>No prepayment penalties are modeled; most US home loans no longer have them, but check your note.</li>
+        <li>No prepayment charge is modeled. Check the note and current servicer instructions before making an extra payment.</li>
         <li>The tax deduction for mortgage interest (where itemized) slightly reduces the effective saving from prepaying; this is not modeled.</li>
         <li>Interest saved is not discounted to present value: a dollar of interest avoided in 2044 is treated the same as one avoided next year.</li>
         <li>If the rate is your real problem, compare against the <a href="/refinance-calculator/">refinance calculator</a>; prepaying an expensive loan is sometimes second-best.</li>
@@ -67,7 +67,7 @@ export default {
   faq: [
     {
       q: "Is paying extra on the mortgage better than investing the money?",
-      aHtml: `<p>Prepaying earns your note rate (here 6%), guaranteed and tax-free in effect. Investing might earn more on average but with risk and, outside sheltered accounts, taxes. A common middle path: prepay when your rate is above what safe assets yield, invest when it's below. The calculator gives the guaranteed side of that comparison precisely.</p>`,
+      aHtml: `<p>This calculator measures interest avoided under the mortgage's current rate and payment rules. Investing has an uncertain return, while prepaying reduces liquidity and may interact with taxes or deductions. Compare both on an after-tax basis and keep cash needs in view; the mortgage result alone cannot choose between them.</p>`,
     },
     {
       q: "Should I prepay, recast, or refinance?",

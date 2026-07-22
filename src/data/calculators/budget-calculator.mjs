@@ -7,14 +7,14 @@ export default {
   metaDescription:
     "Split monthly take-home pay into needs, wants and savings with the 50/30/20 rule or your own percentages — monthly, weekly and yearly amounts included.",
   tagline:
-    "Turn take-home pay into three concrete numbers — needs, wants, and savings & debt repayment — using the classic 50/30/20 split or percentages tuned to your situation.",
+    "Split take-home pay between needs, wants, and savings or extra debt payments, using 50/30/20 or percentages that fit your budget.",
   cardDescription: "50/30/20 budget split with adjustable percentages and weekly amounts.",
   scenarioHint: "Save your current split as Scenario A, adjust the percentages (say, needs down to 45% and savings up to 25%), then save Scenario B to see what the shift is worth per month and per year.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: true,
-  jumpExplainLabel: "The 50/30/20 rule, warts and all",
+  jumpExplainLabel: "Where the 50/30/20 rule helps — and where it doesn't",
   aliases: ["50/30/20", "budget planner", "spending plan"],
   keywords: ["budget calculator", "50/30/20 rule", "needs wants savings", "monthly budget", "budget percentages"],
   related: ["savings-calculator", "debt-payoff-calculator", "monthly-investment-calculator", "house-affordability-calculator", "loan-payoff-calculator"],
@@ -28,11 +28,11 @@ export default {
       </ul>
       <p>The three must total 100%, and the calculator tells you the actual sum if they don't. Toggle <em>Show weekly amounts</em> if you budget by the week, and use the breakdown table for monthly, weekly and yearly figures for each bucket.</p>`,
     explanationHtml: `
-      <h2>The 50/30/20 rule, warts and all</h2>
-      <p>The 50/30/20 split (50% of take-home pay to needs, 30% to wants, 20% to savings and debt repayment) was popularized by Elizabeth Warren and Amelia Warren Tyagi in their 2005 book <em>All Your Worth</em>. Its virtue is bluntness: three buckets you can check in a minute, instead of forty spreadsheet categories you'll abandon by March. On the default <strong>$4,500</strong> take-home, it allocates <strong>$2,250</strong> to needs, <strong>$1,350</strong> to wants, and <strong>$900</strong> a month, or <strong>$10,800</strong> a year, to savings and debt.</p>
-      <p>It is a starting scaffold, not a law, and it breaks in predictable places. In high-rent cities, housing alone can swallow 40% of take-home pay, making a 50% needs cap unrealistic. The candid response is to acknowledge it (say 60/20/20) while treating the gap as a signal about the housing, not a personal failing. At the other end, high earners hiding behind the rule are under-saving: someone clearing $8,000 a month can live well within $4,000 of needs, and $1,600 of savings is likely too timid. Past a comfortable floor, each extra dollar of income should push the savings share well beyond 20%, because needs don't scale with income.</p>
-      <p>The rule's hardest edge is the needs/wants boundary. Groceries are a need; the same calories from delivery apps are mostly want. A car to get to work is a need; the upgrade from a functional car is a want. The gym is a real toss-up. A workable decision test: <em>would you cut it if your income dropped 20% next month?</em> On the default budget that's $4,500 falling to $3,600. Anything you'd keep paying at $3,600 is a need; anything you'd cancel is a want. Classify by that test, not by what feels virtuous.</p>
-      <p>Whatever split you choose, the savings bucket works best paid <strong>first</strong>: an automatic transfer on payday moves the $900 before spending decisions see it. Budgets that rely on saving "what's left over" reliably find nothing left over.</p>`,
+      <h2>Where the 50/30/20 rule helps — and where it doesn't</h2>
+      <p>The 50/30/20 split (50% of take-home pay to needs, 30% to wants, 20% to savings and extra debt repayment) was popularized by Elizabeth Warren and Amelia Warren Tyagi in their 2005 book <em>All Your Worth</em>. Its appeal is that three broad buckets are easy to remember. On the default <strong>$4,500</strong> take-home, it allocates <strong>$2,250</strong> to needs, <strong>$1,350</strong> to wants, and <strong>$900</strong> a month, or <strong>$10,800</strong> a year, to savings and debt.</p>
+      <p>Treat that split as a starting point. Housing, childcare, healthcare, income level and location can make 50% for needs unrealistic or unnecessarily high. If your current result is 60/20/20, the calculator is describing the budget you have; it is not grading it. You can then test what a small percentage change would mean in monthly cash.</p>
+      <p>The needs-and-wants boundary is personal. Groceries are usually a need, while delivery fees may be easier to cut. A car may be necessary for work, but the cost above a reliable option is more flexible. One useful question is: <em>would I keep this if income dropped for a few months?</em> It will not settle every category, but it makes the trade-off more concrete.</p>
+      <p>If you choose a savings target, an automatic transfer can make the planned amount easier to follow. Keep the transfer low enough that it does not force essential spending back onto expensive debt.</p>`,
     formulaHtml: `
       <p>The arithmetic is deliberately simple. Each bucket is a straight share of take-home income:</p>
       <div class="formula-block"><span class="fx">Bucket = Income × Percentage ⁄ 100</span>
@@ -51,10 +51,10 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Income level changes the right split.</strong> At $3,000 take-home the buckets are $1,500/$900/$600 and the 50% needs cap is truly hard; at $8,000 they're $4,000/$2,400/$1,600 and the 20% savings floor is far too soft. Adjust the percentages to the income, not the other way round.</li>
-        <li><strong>Fixed costs move slowly.</strong> Rent, insurance and car payments reset yearly at best; cutting needs is a project, cutting wants is a decision.</li>
-        <li><strong>Debt belongs in two buckets.</strong> Minimum payments are needs (missing them has consequences); everything beyond the minimum is the savings & debt bucket doing its job.</li>
-        <li><strong>Automation beats willpower.</strong> A payday transfer makes the savings rate structural; a mental commitment makes it seasonal.</li>
+        <li><strong>Income changes what a percentage means.</strong> The default split produces $600 for savings at $3,000 take-home and $1,600 at $8,000. Review the dollar amounts as well as the percentages.</li>
+        <li><strong>Fixed costs move slowly.</strong> Rent, insurance and loan payments may be hard to change quickly, while some discretionary costs can change this month.</li>
+        <li><strong>Debt appears in two places.</strong> Minimum payments fit under needs in this model; payments beyond the minimum use the savings-and-debt bucket.</li>
+        <li><strong>Automation can help.</strong> A scheduled transfer turns the chosen savings amount into a recurring action, but it still needs to leave enough cash for bills.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
@@ -83,7 +83,7 @@ export default {
     },
     {
       q: "What should the savings & debt bucket actually pay for, in what order?",
-      aHtml: `<p>A common ordering: first a starter emergency cushion, then high-interest debt beyond the minimums (card APRs beat any guaranteed savings return), then the full three-to-six-month emergency fund, then goals and investing. On the default budget's $900 a month, the six-month cushion of $13,500 takes 15 months, after which the entire bucket is free for wealth-building.</p>`,
+      aHtml: `<p>There is no single order that fits every household. A small emergency cushion can keep an unexpected bill off a credit card, while high-rate debt may deserve priority over longer-term goals. On the default budget, directing the full $900 monthly bucket to a $13,500 emergency target would take 15 months before interest. Adjust that sequence for employer matches, debt rates, income stability and cash you may need soon.</p>`,
     },
   ],
 };

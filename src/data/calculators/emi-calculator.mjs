@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Calculate a loan EMI with a monthly reducing-balance model. See total interest, the full schedule, and the modeled effect of a one-time prepayment.",
   tagline:
-    "Find the equated monthly installment for a home, car or personal loan, see the interest over the full tenure, and check how a lump-sum prepayment shortens the loan.",
+    "Use the amount, rate and tenure to calculate EMI and total interest, with an optional lump-sum prepayment.",
   cardDescription: "Monthly EMI, total interest and prepayment savings on the reducing-balance method.",
-  lastReviewed: "2026-07-19",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: true,
   featured: true,

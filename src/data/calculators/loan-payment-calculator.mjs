@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Find your loan payment at monthly, biweekly or weekly frequency, and compare the total interest all three schedules cost on the same loan.",
   tagline:
-    "Pick a payment frequency — monthly, biweekly or weekly — and see the payment per period, the number of payments, and how the schedules compare on total interest.",
+    "Compare monthly, biweekly and weekly schedules by payment amount, number of payments and total interest.",
   cardDescription: "Payment per period at monthly, biweekly or weekly frequency, with an interest comparison.",
-  lastReviewed: "2026-07-19",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,

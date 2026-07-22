@@ -7,9 +7,9 @@ export default {
   metaDescription:
     "Build a dated amortization schedule for any fixed-rate loan: payment-by-payment principal, interest and balance with calendar months and CSV export.",
   tagline:
-    "Generate the full payment-by-payment schedule with real calendar dates — every installment's principal/interest split, the running balance, and the exact payoff month.",
+    "Build a dated payment schedule showing principal, interest, remaining balance and the estimated final payment month.",
   cardDescription: "Dated payment-by-payment schedule with principal/interest split and CSV export.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,

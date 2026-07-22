@@ -5,20 +5,20 @@ export default {
   metaDescription:
     "The interest rate sets your payment; APR folds in mandatory fees. A worked example where the lower-rate loan is the more expensive one, computed step by step.",
   description:
-    "Interest rate and APR answer different questions — one sets your payment, the other measures true cost. Here's how each is computed and when they disagree.",
+    "Learn what the interest rate and APR each measure, how fees create a gap between them, and when total cost is the better comparison.",
   cardDescription: "What APR includes that the interest rate doesn't, and a computed case where the lower rate loses.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   published: "2026-07-12",
   categories: ["loans", "mortgage"],
   aliases: [],
   keywords: ["apr vs interest rate", "annual percentage rate", "loan fees apr", "apr meaning", "apy vs apr", "compare loan offers"],
   relatedCalculators: ["loan-comparison-calculator", "loan-calculator", "mortgage-calculator", "personal-loan-calculator"],
   bodyHtml: `
-<p>A loan offer shows two percentages, and they answer different questions. The <strong>interest rate</strong> answers "what will my monthly payment be?" The <strong>APR</strong> answers "what does this loan really cost per year, fees included?" On a loan with no fees they're identical. On a loan with fees they diverge, and occasionally they diverge enough that the offer with the lower interest rate is the more expensive loan. This guide defines both precisely and then computes exactly such a case.</p>
+<p>Seeing two percentages on a loan offer is confusing until you separate their jobs. The <strong>interest rate</strong> helps determine the scheduled payment. The <strong>APR</strong> is meant to express the yearly borrowing cost after qualifying fees are included. When an offer has fees, the loan with the lower interest rate can still cost more. The worked comparison below shows how that happens.</p>
 
 <h2>Two numbers, two jobs</h2>
 <p>The <strong>interest rate</strong> (the "nominal" or "note" rate) is the rate applied to your outstanding balance to accrue interest. Divide it by 12 and you have the monthly rate that drives the payment formula and the amortization schedule — the mechanics covered in <a href="/guides/how-loan-interest-works/">how loan interest works</a>. It says nothing about fees.</p>
-<p>The <strong>APR (annual percentage rate)</strong> is a disclosure figure, not a rate the lender charges. It restates the loan's total mandatory cost, interest <em>plus required fees</em>, as a single yearly rate computed on the money you walked away with. The logic: if you're charged an $800 origination fee on a $20,000 loan, you effectively borrowed $19,200 but repay as if you borrowed $20,000. The APR is the interest rate that would produce your exact payments on that smaller, real amount. Fees make APR higher than the note rate; no fees make them equal. APR can never be lower. The CFPB's <a href="https://www.consumerfinance.gov/ask-cfpb/whats-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">explainer on mortgage rates versus APR</a> makes the same point in the home-loan context.</p>
+<p>The <strong>APR (annual percentage rate)</strong> is a disclosure figure, not a separate rate charged to the balance. It converts interest and the fees included by the applicable disclosure rules into a yearly rate. If an $800 origination fee is deducted from a $20,000 loan, you receive $19,200 but make payments calculated on $20,000. The APR is the rate that matches those payments to the smaller amount received. The CFPB's <a href="https://www.consumerfinance.gov/ask-cfpb/whats-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">explainer on mortgage rates versus APR</a> covers this distinction for US mortgages. Which charges belong in APR depends on the product and jurisdiction, so read the itemized disclosure as well as the percentage.</p>
 
 <h2>What APR includes — and what it doesn't</h2>
 <ul>
@@ -59,7 +59,7 @@ export default {
 
 <h2>The savings-side mirror: APY and AER</h2>
 <p>Savings products have the same two-number structure, mirrored. The nominal rate understates what a savings account pays, because it ignores intra-year compounding; <strong>APY</strong> (annual percentage yield, called <strong>AER</strong> in the UK) states the true yearly growth with compounding included. A 5% nominal rate compounded monthly is a 5.12% APY.</p>
-<p>Notice the symmetry: on loans, the headline number (note rate) understates the true cost, and APR corrects it upward. On savings, the headline number (nominal rate) understates the true yield, and APY corrects it upward. That mirror image is why banks quote APR reluctantly on loans and APY enthusiastically on deposits. In both cases the corrected figure is the comparable one. The compounding mechanics behind APY are worked through in <a href="/guides/how-compound-interest-works/">how compound interest works</a>.</p>
+<p>The labels are similar but they should not be used interchangeably. APR helps compare borrowing costs under the relevant disclosure rules; APY helps compare deposit growth after compounding. The compounding mechanics behind APY are worked through in <a href="/guides/how-compound-interest-works/">how compound interest works</a>.</p>
 
 <h2>How to use each number</h2>
 <ul>
@@ -69,6 +69,6 @@ export default {
 <li><strong>Reading any offer?</strong> If APR is well above the quoted rate, that gap is fees. Ask for the itemized list before signing.</li>
 <li><strong>Refinancing?</strong> The new loan's fees are a fresh upfront cost against a rate saving that accrues slowly. The same break-even division as above, measured against how long you'll keep the new loan, decides it.</li>
 </ul>
-<p>Disclosure rules require lenders in most countries to state APR before you commit. It's a good number, honest by construction and hard to game, as long as you remember the one thing it assumes: that you'll still be paying this loan in its final month.</p>
+<p>Use the regulated cost disclosure supplied with the offer, but do not stop at one percentage. Confirm which fees it includes and compare the total amount paid over the period you realistically expect to keep the loan. APR is most useful when the loan amount, term and expected holding period are alike.</p>
 `,
 };

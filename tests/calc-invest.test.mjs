@@ -173,7 +173,8 @@ test("roi-calculator: ROI arithmetic crosscheck + loss and costs edges", () => {
   close(scnRaw(r, "annualized"), cagr, 0.01);
   close(n(metric(r, "break-even")), 10000, 0.01);
   assert.equal(r.chart.cfg.type, "bars");
-  assert.equal(r.chart.cfg.x.length, 4);
+  assert.deepEqual(r.chart.cfg.x, ["1 yr", "2 yr", "3 yr", "5 yr", "10 yr"]);
+  assert.doesNotMatch(r.chart.cfg.summary, /savings|bonds|equities/i);
   assert.equal(r.table.views[0].rows.length, 5);
 
   // costs join the base: ROI = (14000 − 10000 − 500) / 10500

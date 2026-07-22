@@ -5,12 +5,12 @@ export default {
   h1: "ROI Calculator",
   metaTitle: "ROI Calculator — Total & Annualized Return on Investment",
   metaDescription:
-    "Measure total ROI and the annualized return (CAGR) on any investment, including fees and costs, plus honest context for comparing the result.",
+    "Measure total ROI and annualized return (CAGR) after fees and costs, with a comparison across different holding periods.",
   tagline:
-    "Measure what an investment actually returned — total ROI, the annualized rate that makes it comparable, and the costs people forget to count.",
+    "Calculate total and annualized return after including the costs attached to an investment.",
   cardDescription: "Total and annualized return on a completed or current investment.",
   scenarioHint: "Save one investment's numbers as Scenario A, enter a second investment (or the same one with fees included), then save Scenario B to compare total and annualized returns side by side.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: false,
   featured: false,
@@ -29,10 +29,10 @@ export default {
       </ul>
       <p>The table re-annualizes the same total return over 1, 2, 3, 5 and 10 years. It's worth a look once, because it shows how completely the holding period changes what a "40% gain" means.</p>`,
     explanationHtml: `
-      <h2>ROI vs annualized return — the trap in the headline number</h2>
-      <p>Return on investment is the simplest metric in finance: net profit divided by what you put in. The default example ($10,000 in, $14,000 back) is a <strong>40% ROI</strong>. Clean, intuitive, and dangerously incomplete, because it says nothing about <em>time</em>. A 40% gain in one year is exceptional; the same 40% spread over three years works out to <strong>11.87% per year</strong>, and over ten years to just 3.42% — savings-account territory. Same ROI, radically different investments.</p>
+      <h2>ROI vs annualized return</h2>
+      <p>Return on investment is net profit divided by the amount invested. The default example ($10,000 in and $14,000 back) is a <strong>40% ROI</strong>, but that figure says nothing about <em>time</em>. Earned over three years it is <strong>11.87% per year</strong>; over ten years the same total gain is 3.42% per year. State the holding period whenever you quote ROI.</p>
       <p>The per-year figure is the <strong>annualized return</strong>, or CAGR: the steady compound rate that would turn the start amount into the end amount over the holding period. The naive shortcut (40% ÷ 3 years ≈ 13.33%/yr) overstates the truth, because compounding means each year's growth builds on the last; the true geometric answer is (14,000 ⁄ 10,000)<sup>1⁄3</sup> − 1 = 11.87%. The gap between 13.33% and 11.87% is small here and grows with the numbers: averaging yearly gains always flatters volatile results. A portfolio that gains 50% then loses 50% has an "average return" of zero yet has lost 13.4% a year in reality; geometric math is the only version that matches your account balance.</p>
-      <p>Annualized return matters because it's the <strong>only number that transfers</strong> across investments of different sizes and durations. You can't rank a 25% ROI over two years against a 60% ROI over five until both become annual rates (11.80% and 9.86%, the smaller headline wins). It also lets you weigh a result against reference points: long-run historical averages are commonly quoted around 4% for savings, 5% for bonds, 8% for broad equities — history, not prophecy, but useful for judging whether a result compensated its risk.</p>
+      <p>Annualizing puts results from different holding periods on a common time basis. A 25% ROI over two years annualizes to 11.80%, while a 60% ROI over five years annualizes to 9.86%. That still does not make the investments equally risky or account for cash added and withdrawn along the way, so compare like with like.</p>
       <p>The other discipline this calculator enforces is <strong>counting every cost</strong>. Fees, commissions, stamp duty and taxes paid belong in the denominator: they were capital you committed. Add $500 of costs to the default example and ROI drops from 40% to 33.33%, and the annualized rate from 11.87% to 10.06%. On thin-margin investments, ignored costs routinely turn paper profits into real losses.</p>`,
     formulaHtml: `
       <p>Total return counts everything committed, including costs:</p>
@@ -67,7 +67,7 @@ export default {
       <ul>
         <li>The model assumes <strong>one payment in, one value out</strong>. If you added or withdrew money along the way, CAGR misattributes the result; money-weighted measures (XIRR) handle dated cash flows.</li>
         <li><strong>Don't annualize sub-year holdings</strong> for decision-making: a lucky 6-month trade annualized to 44% implies a repeatability nothing guarantees. The engine computes it; treat it as extrapolation, clearly labeled.</li>
-        <li>The context bars (savings ~4%, bonds ~5%, equities ~8%) are <strong>rough historical long-run averages</strong>, shown only for scale: they are not predictions, offers, or targets, and any given decade lands well away from them.</li>
+        <li>The chart holds total ROI constant and changes only the holding period. It is a time-sensitivity illustration, not an asset-class benchmark or forecast.</li>
         <li>Inflation isn't deducted; a 3.42%/yr result during 3% inflation barely broke even in real terms.</li>
       </ul>`,
   },

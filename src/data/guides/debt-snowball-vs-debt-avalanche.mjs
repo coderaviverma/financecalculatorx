@@ -3,22 +3,22 @@ export default {
   title: "Debt Snowball vs Debt Avalanche",
   metaTitle: "Debt Snowball vs Avalanche — Which Payoff Order Wins?",
   metaDescription:
-    "Snowball pays the smallest balance first, avalanche the highest rate. A four-debt case study computed both ways shows exactly what the choice costs.",
+    "Snowball pays the smallest balance first; avalanche targets the highest rate. A four-debt example compares the resulting time and interest.",
   description:
-    "Two payoff orders, one budget: what the math says, what behavioral evidence adds, and a four-debt case study computed both ways so you can see the real gap.",
+    "Compare two debt-payoff orders with the same budget, including a four-debt example and the practical trade-off between early wins and lower interest.",
   cardDescription: "A computed four-debt case study of both payoff orders, plus when the avalanche edge is big or trivial.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   published: "2026-07-12",
   categories: ["personal", "loans"],
   aliases: [],
   keywords: ["debt snowball", "debt avalanche", "debt payoff order", "snowball vs avalanche", "pay off debt strategy"],
   relatedCalculators: ["debt-payoff-calculator", "loan-payoff-calculator", "budget-calculator", "extra-payment-calculator"],
   bodyHtml: `
-<p>Snowball and avalanche are not different amounts of effort. They're different <em>targeting rules</em> for the same monthly budget. Both pay every minimum, both aim every spare dollar at one debt at a time, and both roll each cleared debt's minimum into the attack on the next. The only decision is which debt gets the spare dollars: the smallest balance (snowball) or the highest interest rate (avalanche). That one choice has a price, and it can be computed exactly. This guide computes it for a realistic four-debt situation, then looks at when the gap is worth caring about.</p>
+<p>Snowball and avalanche can use the same monthly budget; they differ in where the extra payment goes. Snowball starts with the smallest balance. Avalanche starts with the highest rate. Both continue paying every minimum and redirect a cleared debt's payment to the next target. The four-debt example below compares the payoff order, interest and finish date under each method.</p>
 
 <h2>The two rules, precisely</h2>
-<p><strong>Avalanche</strong> ranks debts by interest rate, highest first. The logic is arithmetic: a dollar aimed at a 28% balance stops 28 cents of annual interest; the same dollar aimed at an 8% balance stops 8 cents. No ordering can beat highest-rate-first on total interest paid. It is the mathematical optimum, always.</p>
-<p><strong>Snowball</strong> ranks debts by balance, smallest first. The logic is behavioral: small debts die quickly, each payoff frees a minimum payment that visibly accelerates the next target, and the count of remaining debts, the number most people actually feel, falls fast and early.</p>
+<p><strong>Avalanche</strong> ranks debts by interest rate, highest first. Under the model used here—fixed rates, no new borrowing and the same monthly budget—this ordering minimizes total interest because extra money reaches the most expensive balance first.</p>
+<p><strong>Snowball</strong> ranks debts by balance, smallest first. That can clear an account sooner and reduce the number of separate payments earlier, even when the interest total is a little higher.</p>
 
 <h2>What the behavioral evidence adds</h2>
 <p>If people were indifferent to feedback, avalanche would be the end of the discussion. They aren't. Behavioral research on debt repayment suggests that closing individual accounts functions as a progress signal, and that people who experience early completions are more likely to sustain a repayment plan, a pattern sometimes described as small-victories momentum. Related work on goal pursuit finds motivation rising as a goal nears completion, which favors finishing small debts over slowly grinding a large one.</p>
@@ -69,6 +69,6 @@ export default {
 <li>Budget not yet defined? Start there: the <a href="/budget-calculator/">Budget Calculator</a> establishes what the "extra" really is; a plan built on an imaginary surplus fails by month three.</li>
 <li>Whichever order you pick, write down the payoff date the simulation gives you. A plan with a visible finish line survives better than an open-ended resolution.</li>
 </ul>
-<p>Either strategy, executed, beats the perfect strategy abandoned. The math above just tells you what your preference costs: for most debt profiles, less than the anxiety of choosing suggests.</p>
+<p>There is no benefit in choosing a mathematically cheaper order that you will not follow. Use the comparison to put a price on the trade-off, then choose a schedule that fits both your budget and your tolerance for a long first payoff.</p>
 `,
 };

@@ -18,13 +18,6 @@ FCX.define({
     const annualized = FIN.cagr(base, v.received, years);
     const annOk = annualized != null && isFinite(annualized);
 
-    const refs = [
-      { label: "This investment", value: annOk ? annualized : 0 },
-      { label: "Savings ~4%", value: 4 },
-      { label: "Bonds ~5%", value: 5 },
-      { label: "Broad equities ~8%", value: 8 },
-    ];
-
     const holdYears = [1, 2, 3, 5, 10];
     const rows = holdYears.map((y) => {
       const a = FIN.cagr(base, v.received, y);
@@ -43,20 +36,20 @@ FCX.define({
       ],
       explain: `<p>You put in <strong>${F.money0(base)}</strong>${costs > 0 ? ` (${F.money0(v.invested)} invested + ${F.money0(costs)} of costs)` : ""} and ${v.received >= base ? "got back" : "have"} <strong>${F.money0(v.received)}</strong> — a net ${profit >= 0 ? "profit" : "loss"} of <strong>${F.money0(Math.abs(profit))}</strong>, or a total return of <strong>${F.pct(roi, 2)}</strong>.</p><p>Because that took <strong>${F.dur(v.period)}</strong>, it works out to <strong>${annOk ? F.pct(annualized, 2) : "—"}</strong> per year compounded — the number to use when comparing this against anything else.</p>`,
       chart: {
-        title: "Annualized return, in context",
-        note: "Reference bars are rough historical long-run averages shown for context — not guarantees, forecasts or recommendations.",
+        title: "How time changes the annualized rate",
+        note: "The same total return looks different when it is earned over a different number of years.",
         cfg: {
           type: "bars",
-          aria: "Bar chart comparing this investment's annualized return with rough historical averages for savings, bonds and broad equities",
-          x: refs.map((r) => r.label),
-          series: [{ label: "Annualized return", color: "var(--c1)", values: refs.map((r) => r.value) }],
+          aria: "Bar chart showing the annualized rate for the same total return over one, two, three, five and ten years",
+          x: rows.map((r) => `${r.y} yr`),
+          series: [{ label: "Annualized return", color: "var(--c1)", values: rows.map((r) => r._csv_a === "" ? 0 : r._csv_a) }],
           fmt: (x) => F.pct(x, 2),
           fmtAxis: (x) => F.num(x, 0) + "%",
-          summary: `This investment annualized ${annOk ? F.pct(annualized, 2) : "—"}, vs context averages of about 4% for savings, 5% for bonds and 8% for broad equities (historical, not predictive).`,
+          summary: `A total return of ${F.pct(roi, 2)} annualizes differently depending on how long it takes; your entered ${F.dur(v.period)} works out to ${annOk ? F.pct(annualized, 2) : "—"} per year.`,
         },
       },
       table: {
-        title: "Same result over different holding periods",
+        title: "Same total return over different holding periods",
         csvName: "roi-by-holding-period",
         views: [{
           id: "hold", label: "By holding period",

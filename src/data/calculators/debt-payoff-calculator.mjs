@@ -7,10 +7,10 @@ export default {
   metaDescription:
     "List your actual debts and see when you'll be debt-free. Compares snowball vs avalanche strategies month by month — payoff dates, interest totals and timeline chart.",
   tagline:
-    "Enter your real debts — balances, rates, minimums — add what extra you can pay, and see exactly when each one dies under snowball vs avalanche.",
+    "Compare snowball and avalanche repayment using your balances, rates, minimum payments and available monthly budget.",
   cardDescription: "Multi-debt payoff plan comparing snowball vs avalanche month by month.",
   scenarioHint: "Save your plan as Scenario A, then change the extra monthly amount or switch strategy and save Scenario B — the table shows the difference in debt-free date and total interest.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: true,
   featured: true,
@@ -28,9 +28,9 @@ export default {
       </ul>
       <p>If a debt's minimum doesn't even cover its monthly interest, the calculator will tell you rather than pretend: that debt needs a bigger payment or a lower rate before any plan works.</p>`,
     explanationHtml: `
-      <h2>Snowball vs avalanche: what really differs</h2>
+      <h2>How snowball and avalanche differ</h2>
       <p>Both strategies pay every minimum every month, and both throw all spare budget at one target debt at a time. The only difference is targeting: <strong>avalanche</strong> attacks the highest interest rate first, <strong>snowball</strong> attacks the smallest balance first.</p>
-      <p>Avalanche is mathematically optimal — money aimed at a 22.9% balance stops more interest than the same money aimed at a 9.5% balance, full stop. In the default example (three debts totaling $25,000 with $300/month extra), avalanche costs <strong>$4,773 in interest</strong> versus snowball's <strong>$5,308</strong>: a $534 difference, with both finishing in 33 months.</p>
+      <p>With fixed rates, no new borrowing and the same monthly budget, avalanche minimizes modeled interest because extra money reaches the highest-rate balance first. In the default example (three debts totaling $25,000 with $300/month extra), avalanche costs <strong>$4,773 in interest</strong> versus snowball's <strong>$5,308</strong>: a $534 difference, with both finishing in 33 months.</p>
       <p>So why does snowball exist? Because it front-loads wins. Killing the $5,000 personal loan first (snowball's order) produces a paid-off account months earlier than avalanche's order does, and each cleared debt frees a minimum payment that makes the next one fall faster, a visible feedback loop that people stick with. Research on debt repayment behavior consistently finds completion matters more than optimization: the best strategy is worth nothing abandoned in month six.</p>
       <p>The honest takeaway from running real numbers: for many debt profiles the strategies differ by tens of dollars per month of effort, not thousands. When the gap is small, pick the one that keeps you motivated. When one debt's rate towers over the rest, as payday loans and many credit cards do, avalanche's advantage grows and is usually worth taking. This calculator's job is to show you the actual size of the gap for <em>your</em> debts, so the choice is informed rather than ideological.</p>`,
     formulaHtml: `
@@ -52,7 +52,7 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>The extra amount is the main event.</strong> Going from $0 to $300 extra in the example saves ~$5,558; choosing avalanche over snowball saves $534. Strategy tunes the plan; the budget drives it.</li>
+        <li><strong>The extra amount has the larger effect here.</strong> Going from $0 to $300 extra in the example saves about $5,558; choosing avalanche over snowball saves $534. The available budget matters more than the ordering choice in this particular case.</li>
         <li><strong>Rate spread.</strong> The wider the gap between your highest and lowest APR, the more avalanche wins. Debts clustered around similar rates make the strategies nearly identical.</li>
         <li><strong>Balance distribution.</strong> A tiny debt at a low rate is snowball's best case: clearing it quickly frees its minimum for the real fight at little interest cost.</li>
         <li><strong>New debt.</strong> The simulation assumes no new borrowing. A plan that's technically perfect fails if the cleared credit card gets reloaded. Closing or freezing paid-off revolving accounts is a behavioral, not mathematical, decision.</li>
@@ -73,7 +73,7 @@ export default {
     },
     {
       q: "Should I include my mortgage or car loan here?",
-      aHtml: `<p>Include any debt you actually want to accelerate. Most people run this calculator for high-rate unsecured debt (cards, personal loans) and leave low-rate secured loans on schedule, since extra money usually beats a 6% loan less convincingly than a 23% card. Including the car loan is still useful to see the full picture; the strategy math handles any mix correctly.</p>`,
+      aHtml: `<p>Include the debts you are considering for accelerated repayment. Comparing a high-rate card with a lower-rate secured loan can show why the rate order matters, but liquidity, collateral and penalty terms still belong in the decision. You can include the car loan to see the full schedule, then compare a second scenario without it.</p>`,
     },
     {
       q: "What if I can't pay more than the minimums?",

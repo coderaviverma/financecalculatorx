@@ -7,10 +7,10 @@ export default {
   metaDescription:
     "Work backward from your income to a realistic home price using the 28/36 rule lenders apply, and see which constraint caps your budget.",
   tagline:
-    "Start from your income and debts — the way a lender does — and get the home price the 28/36 debt-to-income rules support, plus what stricter or looser standards would allow.",
+    "Start with income, existing debts and a down payment to model a home-price range under adjustable debt-to-income limits.",
   cardDescription: "Home price your income supports under 28/36 DTI rules, with the binding constraint named.",
   scenarioHint: "Save your situation as Scenario A, then change income, monthly debts or the lending standard and save Scenario B to see how much house the difference buys.",
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-22",
   version: "1.0",
   popular: true,
   featured: true,
