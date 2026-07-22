@@ -507,6 +507,18 @@ table.compare .diff-neg { color: var(--danger); font-weight: 600; }
 .prose blockquote { margin: 0 0 1.2em; border-left: 3px solid var(--brand); background: var(--brand-softer); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: .8rem 1.1rem; color: var(--ink-2); }
 .prose blockquote p:last-child { margin: 0; }
 
+.article-figure {
+  margin: 1.15rem 0 1.45rem; border: 1px solid var(--line); border-radius: var(--r-md);
+  overflow: hidden; background: #fff; box-shadow: var(--shadow-1);
+}
+.article-figure img { width: 100%; }
+.article-figure figcaption {
+  padding: .72rem 1rem; border-top: 1px solid var(--line); background: var(--surface);
+  color: var(--ink-2); font-size: .86rem; line-height: 1.5;
+}
+.guide-faq { margin: 0 0 1.4em; }
+.guide-faq h2 { margin-top: 1.9em; }
+
 .formula-block {
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md);
   padding: 1rem 1.2rem; margin: 0 0 1.3em; overflow-x: auto;

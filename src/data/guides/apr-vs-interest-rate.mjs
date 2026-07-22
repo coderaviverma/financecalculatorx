@@ -19,6 +19,10 @@ export default {
 <h2>Two numbers, two jobs</h2>
 <p>The <strong>interest rate</strong> (the "nominal" or "note" rate) is the rate applied to your outstanding balance to accrue interest. Divide it by 12 and you have the monthly rate that drives the payment formula and the amortization schedule — the mechanics covered in <a href="/guides/how-loan-interest-works/">how loan interest works</a>. It says nothing about fees.</p>
 <p>The <strong>APR (annual percentage rate)</strong> is a disclosure figure, not a separate rate charged to the balance. It converts interest and the fees included by the applicable disclosure rules into a yearly rate. If an $800 origination fee is deducted from a $20,000 loan, you receive $19,200 but make payments calculated on $20,000. The APR is the rate that matches those payments to the smaller amount received. The CFPB's <a href="https://www.consumerfinance.gov/ask-cfpb/whats-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">explainer on mortgage rates versus APR</a> covers this distinction for US mortgages. Which charges belong in APR depends on the product and jurisdiction, so read the itemized disclosure as well as the percentage.</p>
+<figure class="article-figure">
+<img src="/assets/img/guides/apr-comparison-flow.svg" width="760" height="360" loading="lazy" decoding="async" alt="APR flow: a 5.9% interest rate sets a $385.73 payment, an $800 fee reduces cash received to $19,200, and APR combines both effects into 7.61%.">
+<figcaption>The interest rate describes the payment calculation. APR also accounts for qualifying fees by measuring those payments against the money actually received.</figcaption>
+</figure>
 
 <h2>What APR includes — and what it doesn't</h2>
 <ul>
@@ -29,7 +33,7 @@ export default {
 <p>The US (<a href="https://www.consumerfinance.gov/rules-policy/regulations/1026/" rel="noopener">Regulation Z</a>, the Truth in Lending rule), the EU (APRC under the Consumer Credit Directive), the UK, and India each draw the included-fees line slightly differently, and the EU convention compounds the rate where the US convention doesn't. The numbers below use the US-style monthly convention. The principle is universal (APR = payments measured against what you received), but only compare APRs computed under the same country's rules.</p></div>
 
 <h2>A computed example: when the lower rate is the worse deal</h2>
-<p>Two offers for $20,000 over 60 months:</p>
+<p>Imagine Meera needs $20,000 for a used car and a repair buffer. She has two 60-month offers. Loan B looks friendlier in the advertisement, but its fee is withheld before the money reaches her:</p>
 <div class="example-block"><div class="ex-head">Loan A: 6.4% with no fees, versus Loan B: 5.9% with an $800 origination fee</div><div class="ex-body">
 <p><strong>Loan A</strong>: payment on $20,000 at 6.4% for 60 months is <strong>$390.39</strong>. Total repaid: $23,423.21. No fees, so APR = 6.4%.</p>
 <p><strong>Loan B</strong>: payment on $20,000 at 5.9% is <strong>$385.73</strong>, about $4.66 less per month. But the $800 fee means you only received $19,200. Total cost: $23,143.60 in payments + $800 = <strong>$23,943.60</strong>, a full <strong>$520.39 more than Loan A</strong>.</p>
@@ -45,7 +49,7 @@ export default {
 <tr><td>APR</td><td><strong>6.4%</strong> (lower)</td><td>7.61%</td></tr>
 </tbody>
 </table></div>
-<p>Loan B wins on the two numbers an advertisement shows (rate and payment) and loses on the two that matter. This is precisely the situation APR exists to expose. Another way to see it: B's rate advantage saves $4.66 per month, so recouping the $800 fee would take about <strong>172 months, yet the loan only runs 60</strong>. B can never catch up. Whenever a fee buys a rate discount, that break-even division (fee ÷ monthly saving) is the fastest sanity check available, and it's exactly the calculation behind whether mortgage discount points are worth paying. The <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> runs this computation for any pair of offers, and the broader checklist lives in <a href="/guides/how-to-compare-loan-offers/">how to compare loan offers</a>.</p>
+<p>Loan B wins on the two numbers an advertisement shows (rate and payment) and loses on the two that matter. This is precisely the situation APR exists to expose. Its $4.66 monthly saving is coffee-sized; the $800 fee is not. Recouping that fee would take about <strong>172 months, yet the loan only runs 60</strong>, so B can never catch up. Whenever a fee buys a rate discount, that break-even division (fee ÷ monthly saving) is the fastest sanity check available, and it's exactly the calculation behind whether mortgage discount points are worth paying. The <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> runs this computation for any pair of offers, and the broader checklist lives in <a href="/guides/how-to-compare-loan-offers/">how to compare loan offers</a>.</p>
 
 <h2>Where APR misleads</h2>
 <p>APR is calibrated to one scenario: you keep the loan for its full term. Break that assumption and the ranking can flip back.</p>
@@ -70,5 +74,12 @@ export default {
 <li><strong>Refinancing?</strong> The new loan's fees are a fresh upfront cost against a rate saving that accrues slowly. The same break-even division as above, measured against how long you'll keep the new loan, decides it.</li>
 </ul>
 <p>Use the regulated cost disclosure supplied with the offer, but do not stop at one percentage. Confirm which fees it includes and compare the total amount paid over the period you realistically expect to keep the loan. APR is most useful when the loan amount, term and expected holding period are alike.</p>
+
+<section class="guide-faq faq" aria-labelledby="apr-questions">
+<h2 id="apr-questions">Beginner questions about APR</h2>
+<details><summary>Is the loan with the lowest APR always the cheapest?</summary><div class="faq-a"><p>It is usually the best starting point only when the loan amount, term and expected payoff date are comparable. A longer loan can show a similar APR while costing much more in total interest, and a fee-heavy loan can be poor value if you repay early. Compare the payment, upfront cash, total cost and your realistic holding period together.</p></div></details>
+<details><summary>Can APR equal the interest rate?</summary><div class="faq-a"><p>Yes. If the calculation includes no qualifying fees and uses the same rate convention, APR can match the stated interest rate. A visible gap between the two usually signals included fees or another financed cost, but the disclosure should show the actual items rather than leaving you to infer them.</p></div></details>
+<details><summary>Does APR include every fee I will pay?</summary><div class="faq-a"><p>No. The included charges depend on the product and the disclosure rules in the relevant country. Optional products, behavior-based charges and some third-party costs may sit outside APR. Read the itemized fee list and ask for the total amount payable; one percentage cannot describe every cash outflow.</p></div></details>
+</section>
 `,
 };

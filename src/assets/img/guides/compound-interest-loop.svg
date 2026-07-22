@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" role="img" aria-labelledby="title desc">
+  <title id="title">The compound interest loop over two years</title>
+  <desc id="desc">Ten thousand dollars earns six hundred dollars in year one. Crediting that interest creates a new base of ten thousand six hundred dollars. The same six percent then earns six hundred thirty-six dollars in year two.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L9 4.5L0 9Z" fill="#0b6b57"/>
+    </marker>
+    <style>
+      .title{font:600 22px Inter,system-ui,sans-serif;fill:#182420}.label{font:600 14px Inter,system-ui,sans-serif;fill:#46554e}.value{font:700 19px Inter,system-ui,sans-serif;fill:#0a5245}.small{font:500 13px Inter,system-ui,sans-serif;fill:#46554e}.box{fill:#fff;stroke:#c4cec9;stroke-width:1.5}.accent{fill:#edf5f2;stroke:#0b6b57;stroke-width:1.5}.gold{fill:#f5ebd8;stroke:#9a6a14;stroke-width:1.5}.flow{fill:none;stroke:#0b6b57;stroke-width:2;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect x="1" y="1" width="758" height="358" rx="14" fill="#f5f7f6" stroke="#dce3df"/>
+  <text x="380" y="39" text-anchor="middle" class="title">Compounding is a loop, not a magic jump</text>
+
+  <rect x="28" y="92" width="154" height="92" rx="11" class="box"/>
+  <text x="105" y="120" text-anchor="middle" class="label">Year 1 starts with</text>
+  <text x="105" y="151" text-anchor="middle" class="value">$10,000</text>
+  <text x="105" y="172" text-anchor="middle" class="small">the current base</text>
+
+  <path d="M182 138H218" class="flow"/>
+  <rect x="222" y="92" width="154" height="92" rx="11" class="gold"/>
+  <text x="299" y="120" text-anchor="middle" class="label">Earn 6%</text>
+  <text x="299" y="151" text-anchor="middle" class="value">+$600</text>
+  <text x="299" y="172" text-anchor="middle" class="small">first year's interest</text>
+
+  <path d="M376 138H412" class="flow"/>
+  <rect x="416" y="92" width="154" height="92" rx="11" class="accent"/>
+  <text x="493" y="120" text-anchor="middle" class="label">Credit the interest</text>
+  <text x="493" y="151" text-anchor="middle" class="value">$10,600</text>
+  <text x="493" y="172" text-anchor="middle" class="small">becomes the new base</text>
+
+  <path d="M570 138H606" class="flow"/>
+  <rect x="610" y="92" width="122" height="92" rx="11" class="accent"/>
+  <text x="671" y="120" text-anchor="middle" class="label">Year 2</text>
+  <text x="671" y="151" text-anchor="middle" class="value">+$636</text>
+  <text x="671" y="172" text-anchor="middle" class="small">6% of $10,600</text>
+
+  <path d="M671 184V250H105V190" class="flow"/>
+  <rect x="167" y="226" width="426" height="66" rx="11" class="box"/>
+  <text x="380" y="252" text-anchor="middle" class="label">The interest joins the balance before the next round</text>
+  <text x="380" y="277" text-anchor="middle" class="small">That repeated reset is what bends growth from a straight line into a curve.</text>
+
+  <text x="380" y="329" text-anchor="middle" class="small">At a negative return, the same percentage loop shrinks the base instead.</text>
+</svg>

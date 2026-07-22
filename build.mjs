@@ -118,6 +118,23 @@ function validateGuide(g, file, calcSlugs) {
   if (`${file}` !== `${g.slug}.mjs`) errors.push(`${w}: filename must match slug`);
   const len = textLen(g.bodyHtml);
   if (len < 3500) errors.push(`${w}: bodyHtml too thin (${len} chars, need 3500+)`);
+  const images = [...String(g.bodyHtml || "").matchAll(/<img\b[^>]*>/g)].map((m) => m[0]);
+  for (const [i, tag] of images.entries()) {
+    if (!/\balt="[^"]+"/.test(tag)) errors.push(`${w}: image ${i + 1} needs descriptive alt text`);
+    if (!/\bwidth="\d+"/.test(tag) || !/\bheight="\d+"/.test(tag)) errors.push(`${w}: image ${i + 1} needs width and height`);
+    const src = tag.match(/\bsrc="([^"]+)"/)?.[1];
+    if (!src) errors.push(`${w}: image ${i + 1} needs a src`);
+    else if (src.startsWith("/assets/") && !existsSync(join(SRC, src.slice(1)))) errors.push(`${w}: image asset does not exist: ${src}`);
+  }
+  const figures = (String(g.bodyHtml || "").match(/class="article-figure"/g) || []).length;
+  const captions = (String(g.bodyHtml || "").match(/<figcaption\b/g) || []).length;
+  if (figures !== captions) errors.push(`${w}: every article figure needs one figcaption (${figures} figures, ${captions} captions)`);
+  if (/class="guide-faq faq"/.test(g.bodyHtml)) {
+    const details = (g.bodyHtml.match(/<details\b/g) || []).length;
+    const summaries = (g.bodyHtml.match(/<summary>[^<]+<\/summary>/g) || []).length;
+    if (details < 3 || details > 7) errors.push(`${w}: guide FAQ needs 3–7 entries (has ${details})`);
+    if (summaries !== details) errors.push(`${w}: every guide FAQ entry needs a plain-text summary`);
+  }
   (g.relatedCalculators || []).forEach((r) => { if (!calcSlugs.has(r)) (STRICT ? errors : warnings).push(`${w}: related calculator "${r}" does not exist${STRICT ? "" : " yet"}`); });
   checkBanned(w, g.bodyHtml);
   checkRiskyClaims(w, g.bodyHtml);

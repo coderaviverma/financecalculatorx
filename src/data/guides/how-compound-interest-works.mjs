@@ -26,7 +26,13 @@ export default {
 <tr><td>3</td><td>$11,236.00</td><td>$674.16</td><td>$11,910.16</td></tr>
 </tbody>
 </table></div>
+<figure class="article-figure">
+<img src="/assets/img/guides/compound-interest-loop.svg" width="760" height="360" loading="lazy" decoding="async" alt="Compound interest loop: $10,000 earns $600 at 6%, the new $10,600 base then earns $636 in year two.">
+<figcaption>Compounding is the same percentage applied again after interest has joined the balance. In year two, the original money and year one's interest both earn a return.</figcaption>
+</figure>
 <p>Year two's extra $36 is 6% earned on year one's $600: interest on interest, the defining move. Each year's growth is a fixed <em>percentage</em> but a growing <em>amount</em>: the yearly interest itself grows 6% per year. Plotted, simple interest is a line; compound interest is a curve that pulls away from it, slowly at first, then unmistakably.</p>
+<div class="callout note"><span class="c-title">My first check is deliberately boring</span>
+<p>When I build or review a compounding example, I calculate the first two periods separately before trusting a 30- or 40-year result. If the new balance does not become the next period's base, the model is not compounding. A precise wrong answer is still wrong; it has merely dressed up as a spreadsheet.</p></div>
 <p>Notice what this means: the gains come from crediting events. Between credits, nothing compounds. That's why the crediting <em>frequency</em>, how often interest is folded into the base, is a genuine variable in the outcome, and it's the first thing worth quantifying.</p>
 <p>It's also worth being precise about what actually compounds. Bank deposits compound by contract: credited interest joins the balance automatically. Bonds mostly don't: a coupon paid to your account earns nothing further unless you reinvest it, which is why the same yield can produce very different outcomes depending on what happens to the payouts. Equity returns compound structurally (this year's growth builds on last year's prices, and reinvested dividends buy shares that generate their own dividends), but at a rate that's an average over volatile years rather than a promise. The arithmetic below applies to all three; only the certainty of the rate differs.</p>
 
@@ -76,5 +82,12 @@ export default {
 <h2>Use an effective annual rate to compare frequencies</h2>
 <p>An effective annual rate converts a stated rate and compounding frequency into the percentage change over one year. For example, 5.9% compounded monthly produces an effective rate of about 6.06%, slightly above 6.0% compounded yearly. Make sure the figures use the same fee and tax basis before treating that conversion as a complete product comparison.</p>
 <p>Taxes and fees reduce the amount left to compound, while inflation reduces what the future balance can buy. Compounding also assumes reinvestment: interest that is withdrawn no longer earns a return. Those details are easy to miss in a clean projection, so include them whenever they apply to the account or investment you are modeling.</p>
+
+<section class="guide-faq faq" aria-labelledby="compound-interest-questions">
+<h2 id="compound-interest-questions">Beginner questions about compounding</h2>
+<details><summary>Do monthly contributions start compounding immediately?</summary><div class="faq-a"><p>Each contribution begins earning only after it is deposited, and the exact first period depends on whether the calculator models deposits at the start or end of a month. A contribution made today therefore has more time than one made next year. Check the tool's deposit-timing assumption before comparing its result with an account statement.</p></div></details>
+<details><summary>Does a 7% assumption mean I will earn 7% every year?</summary><div class="faq-a"><p>No. A calculator applies the rate smoothly because it needs one input, while real investment returns can be positive or negative and arrive in an uneven sequence. Use several plausible rates as scenarios, not a single rate as a promise. Guaranteed deposit rates are different, but their term, compounding and withdrawal conditions still matter.</p></div></details>
+<details><summary>Can compound interest work against me?</summary><div class="faq-a"><p>Yes. Unpaid borrowing costs can join a debt balance and generate further interest, which is the same loop with the direction reversed. Credit-card balances are a common example. Fees, taxes and inflation can also reduce the useful growth of savings even when the displayed balance rises.</p></div></details>
+</section>
 `,
 };

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" role="img" aria-labelledby="title desc">
+  <title id="title">How a reducing-balance loan payment moves through one month</title>
+  <desc id="desc">A fifteen thousand dollar opening balance creates one hundred twelve dollars and fifty cents of interest. A payment of three hundred seventy-three dollars and twenty-eight cents covers that interest and reduces principal by two hundred sixty dollars and seventy-eight cents, leaving a new balance of fourteen thousand seven hundred thirty-nine dollars and twenty-two cents.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L9 4.5L0 9Z" fill="#0b6b57"/>
+    </marker>
+    <style>
+      .title{font:600 22px Inter,system-ui,sans-serif;fill:#182420}.label{font:600 14px Inter,system-ui,sans-serif;fill:#46554e}.value{font:700 19px Inter,system-ui,sans-serif;fill:#0a5245}.small{font:500 13px Inter,system-ui,sans-serif;fill:#46554e}.box{fill:#fff;stroke:#c4cec9;stroke-width:1.5}.accent{fill:#edf5f2;stroke:#0b6b57;stroke-width:1.5}.gold{fill:#f5ebd8;stroke:#9a6a14;stroke-width:1.5}.flow{fill:none;stroke:#0b6b57;stroke-width:2;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect x="1" y="1" width="758" height="358" rx="14" fill="#f5f7f6" stroke="#dce3df"/>
+  <text x="380" y="39" text-anchor="middle" class="title">One loan payment, unpacked</text>
+
+  <rect x="28" y="78" width="158" height="92" rx="11" class="box"/>
+  <text x="107" y="106" text-anchor="middle" class="label">Opening balance</text>
+  <text x="107" y="137" text-anchor="middle" class="value">$15,000.00</text>
+  <text x="107" y="157" text-anchor="middle" class="small">before month 1</text>
+
+  <path d="M186 124H216" class="flow"/>
+  <rect x="220" y="78" width="168" height="92" rx="11" class="gold"/>
+  <text x="304" y="104" text-anchor="middle" class="label">Interest is calculated</text>
+  <text x="304" y="133" text-anchor="middle" class="value">$112.50</text>
+  <text x="304" y="155" text-anchor="middle" class="small">$15,000 × 9% ÷ 12</text>
+
+  <path d="M388 124H418" class="flow"/>
+  <rect x="422" y="78" width="142" height="92" rx="11" class="accent"/>
+  <text x="493" y="106" text-anchor="middle" class="label">Payment arrives</text>
+  <text x="493" y="137" text-anchor="middle" class="value">$373.28</text>
+  <text x="493" y="157" text-anchor="middle" class="small">fixed amount</text>
+
+  <path d="M564 124H594" class="flow"/>
+  <rect x="598" y="78" width="134" height="92" rx="11" class="accent"/>
+  <text x="665" y="104" text-anchor="middle" class="label">New balance</text>
+  <text x="665" y="133" text-anchor="middle" class="value">$14,739.22</text>
+  <text x="665" y="155" text-anchor="middle" class="small">after principal</text>
+
+  <path d="M493 170V204" class="flow"/>
+  <rect x="348" y="210" width="290" height="82" rx="11" class="box"/>
+  <text x="493" y="235" text-anchor="middle" class="label">The payment has two jobs</text>
+  <text x="421" y="266" text-anchor="middle" class="value">$112.50</text>
+  <text x="421" y="285" text-anchor="middle" class="small">pays interest</text>
+  <line x1="493" y1="246" x2="493" y2="283" stroke="#dce3df"/>
+  <text x="565" y="266" text-anchor="middle" class="value">$260.78</text>
+  <text x="565" y="285" text-anchor="middle" class="small">reduces principal</text>
+
+  <path d="M665 170V313H107V176" class="flow"/>
+  <text x="380" y="334" text-anchor="middle" class="small">Next month repeats on the smaller balance, so the interest share falls.</text>
+</svg>

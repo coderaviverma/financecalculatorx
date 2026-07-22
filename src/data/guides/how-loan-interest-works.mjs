@@ -18,7 +18,11 @@ export default {
 
 <h2>Interest accrues on the balance, not the original loan</h2>
 <p>Many amortizing consumer loans use a <strong>reducing-balance method</strong> (also called declining balance), but the accrual interval and rate convention vary. In the monthly model used here, the lender multiplies the current balance by the annual rate divided by 12, so a 9% rate produces a 0.75% monthly rate on what remains. Daily-accrual products and flat-rate quotes follow different arithmetic.</p>
-<div class="example-block"><div class="ex-head">One month of a real loan: $15,000 at 9% over 48 months</div><div class="ex-body">
+<figure class="article-figure">
+<img src="/assets/img/guides/loan-payment-flow.svg" width="760" height="360" loading="lazy" decoding="async" alt="Flow of a $373.28 loan payment: $112.50 covers interest, $260.78 reduces principal, and the $15,000 balance falls to $14,739.22.">
+<figcaption>Follow one payment from the opening balance to the next month's smaller balance. The payment stays fixed; the two pieces inside it change.</figcaption>
+</figure>
+<div class="example-block"><div class="ex-head">Everyday worked example (hypothetical): $15,000 at 9% over 48 months</div><div class="ex-body">
 <p>The fixed monthly payment on this loan is <strong>$373.28</strong>. Here is exactly what happens in month one:</p>
 <ul>
 <li>Interest charged: $15,000 × (9% ÷ 12) = $15,000 × 0.0075 = <strong>$112.50</strong></li>
@@ -28,6 +32,8 @@ export default {
 <p>Month two repeats the same arithmetic on the smaller balance: interest is $14,739.22 × 0.0075 = <strong>$110.54</strong>, so principal rises to $262.73 and the balance falls to $14,476.49. Every month, the interest share shrinks by a couple of dollars and the principal share grows by the same amount, while the payment itself never changes.</p>
 </div></div>
 <p>Run that loop 48 times and the loan closes at exactly zero, having cost <strong>$2,917.23 in total interest</strong> on $17,917.23 of total payments. You can reproduce every row of this with the <a href="/loan-calculator/">Loan Calculator</a>, which builds the full schedule from the same three inputs.</p>
+<div class="callout note"><span class="c-title">How I check the calculator</span>
+<p>When I test a loan result, I rebuild the first schedule row by hand: opening balance × periodic rate, then payment − interest. It is less glamorous than staring at the final total, but it catches a wrong rate convention immediately. A polished 48-row table cannot rescue a bad first row.</p></div>
 <p>Because interest is proportional to the balance, and the balance is highest at the start, the interest share of each payment peaks in month one and declines from there. On the example loan, interest takes $112.50 of the first payment but only <strong>$2.78 of the last one</strong>. By the final month, the balance is so small that almost the entire payment is principal.</p>
 <p>The lopsidedness is easy to quantify. On the example loan, <strong>half of all the interest has been paid by month 15</strong> of 48, less than a third of the way through, while the balance doesn't fall to half of the original $15,000 until month 27. By the loan's midpoint at month 24, $2,129.30 of the $2,917.23 total interest (73%) is already paid. Interest is front-loaded because balances are front-loaded; the two statements are the same fact.</p>
 <p>This is a mechanical consequence of the reducing-balance rule, not a trick. But it has a practical implication: money you pay toward principal <em>early</em> in a loan removes a balance that would have been charged interest for every remaining month. The same extra $500 does more good in month 3 than in month 40. The guide on <a href="/guides/how-extra-payments-reduce-interest/">how extra payments reduce interest</a> quantifies this, and <a href="/guides/how-loan-amortization-works/">how loan amortization works</a> shows how the whole schedule is constructed.</p>
@@ -72,5 +78,12 @@ export default {
 <div class="callout warn"><span class="c-title">Compare totals, not payments</span>
 <p>A lower monthly payment is not a cheaper loan. When comparing offers, hold the amount constant and compare total interest (or APR when fees differ) over the actual term. The <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> does this side by side.</p></div>
 <p>Everything above describes a fixed-rate, monthly-accrual model commonly used for installment-loan examples. It does not cover every lender or jurisdiction: some products accrue daily, apply different day-count rules, capitalize fees, or round each payment differently. Variable-rate products also recalculate after rate changes, and rules on fees, prepayment and disclosure vary by country. Your loan agreement and lender statement, not any calculator, are the authoritative sources for how your specific loan charges interest.</p>
+
+<section class="guide-faq faq" aria-labelledby="loan-interest-questions">
+<h2 id="loan-interest-questions">Beginner questions about loan interest</h2>
+<details><summary>Does the interest charge fall every month?</summary><div class="faq-a"><p>On a fixed-rate reducing-balance loan with on-time payments, the interest portion generally falls as principal is repaid. It may not move in a perfectly smooth line on a daily-accrual loan because months have different lengths and payment dates can shift. Fees, missed payments and rate changes can also interrupt the pattern.</p></div></details>
+<details><summary>Why did my extra payment not reduce the next interest charge?</summary><div class="faq-a"><p>The servicer may have treated the money as an early future instalment instead of an immediate principal reduction. Check the transaction description and the new principal balance. If the balance did not fall by the expected amount, ask how to mark an overpayment as “principal only” under that lender's process.</p></div></details>
+<details><summary>Is paying early the same as paying extra?</summary><div class="faq-a"><p>Not necessarily. Paying the normal amount a few days early can reduce interest on a daily-accrual loan, but it usually does not change principal beyond the scheduled amount. Paying extra toward principal lowers the balance itself. The contract and servicer's payment-allocation rules decide how either action is recorded.</p></div></details>
+</section>
 `,
 };
