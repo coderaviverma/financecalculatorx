@@ -22,9 +22,9 @@ export default {
     howToHtml: `
       <p>Fill in the sanctioned loan amount, the annual interest rate from your sanction letter, and the tenure. The calculator returns your EMI, the interest over the full tenure, and a month-by-month schedule you can export.</p>
       <ul>
-        <li><strong>Loan amount</strong>: the sanctioned principal. For a home loan this is the property cost minus your down payment (banks typically fund 75–90% of the property value).</li>
+        <li><strong>Loan amount</strong>: the sanctioned principal. For a home loan this is the property cost minus your down payment (banks commonly fund about 75–90% of the property value, subject to regulatory loan-to-value caps that vary with loan size; your sanction letter states the funded amount).</li>
         <li><strong>Interest rate</strong>: the annual reducing-balance rate. If a dealer or NBFC quotes a "flat rate", do not enter it here; read the note below on why the two are not comparable.</li>
-        <li><strong>Tenure</strong>: home loans in India commonly run 15–30 years, car loans 3–7 years, and personal loans 1–5 years. Toggle between years and months.</li>
+        <li><strong>Tenure</strong>: tenures vary by lender — home loans in India often run 15–30 years, car loans 3–7 years, and personal loans 1–5 years — so use the tenure from your sanction letter. Toggle between years and months.</li>
         <li><strong>One-time prepayment</strong> (optional): enter a lump sum (a bonus, maturing FD, or annual incentive) and the month you plan to pay it, and the results show the interest saved and how much earlier the loan closes.</li>
       </ul>`,
     explanationHtml: `
@@ -59,7 +59,7 @@ export default {
       </ul>`,
     limitationsHtml: `
       <ul>
-        <li>Assumes a <strong>fixed rate for the whole tenure</strong>. Most Indian home loans float with the repo-linked rate, so your EMI or tenure will be reset when the benchmark moves.</li>
+        <li>Assumes a <strong>fixed rate for the whole tenure</strong>. Many Indian home loans are floating-rate, linked to an external benchmark such as the repo rate, so your EMI or tenure may be reset when the benchmark moves.</li>
         <li>Processing fees, GST on charges, and loan insurance premiums are <strong>not included</strong>; they raise the effective cost above the quoted rate.</li>
         <li>The prepayment model keeps the EMI constant and shortens the tenure; if you instead ask the bank to reduce the EMI and keep the tenure, the interest saving is smaller.</li>
         <li>Pre-EMI interest on under-construction property (paid before full disbursal) is outside the scope of this schedule.</li>

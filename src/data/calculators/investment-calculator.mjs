@@ -73,7 +73,7 @@ export default {
   faq: [
     {
       q: "What return should I enter?",
-      aHtml: `<p>That's a judgement, not a fact, which is why the field is yours to set. Commonly cited reference points: long-run diversified stock-market returns of roughly 7–10% nominal before fees, bonds meaningfully lower, savings accounts around or below inflation. Whatever you choose, test the downside: if the plan only works at 10%, it isn't much of a plan.</p>`,
+      aHtml: `<p>That's a judgement, not a fact, which is why the field is yours to set. Rather than borrowing a headline number, look up the long-run history of the specific market and asset mix you are considering (equity, bond and cash returns differ by country and by decade) and treat any figure you pick as a scenario, not a forecast. Whatever you choose, test the downside: if the plan only works at 10%, it isn't much of a plan.</p>`,
     },
     {
       q: "Why is the 'in today's money' number so much smaller?",
@@ -81,7 +81,7 @@ export default {
     },
     {
       q: "Should I invest a lump sum immediately or spread it monthly?",
-      aHtml: `<p>Mathematically, money invested earlier compounds longer, so a lump sum invested now beats drip-feeding it <em>on average</em>. Spreading purchases (dollar-cost averaging) reduces the regret of investing right before a fall and suits money that arrives monthly anyway. See the <a href="/lump-sum-investment-calculator/">Lump Sum Calculator</a> and our guide on <a href="/guides/lump-sum-vs-monthly-investing/">lump sum vs monthly investing</a> to compare both with your numbers.</p>`,
+      aHtml: `<p>At any positive assumed return, money invested earlier compounds longer, so this model always scores an immediate lump sum higher than drip-feeding it, though a real market can fall right after you invest. Spreading purchases (dollar-cost averaging) reduces the regret of investing right before a fall and suits money that arrives monthly anyway. See the <a href="/lump-sum-investment-calculator/">Lump Sum Calculator</a> and our guide on <a href="/guides/lump-sum-vs-monthly-investing/">lump sum vs monthly investing</a> to compare both with your numbers.</p>`,
     },
     {
       q: "How do fees change the projection?",

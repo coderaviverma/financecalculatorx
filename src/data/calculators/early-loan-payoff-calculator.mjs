@@ -19,7 +19,7 @@ export default {
   jumpExplainLabel: "Deadline-first payoff",
   sections: {
     howToHtml: `
-      <p>Enter your loan as it stands today and the deadline you want to hit:</p>
+      <p>Use this page when you have a target payoff date and need the monthly payment that meets it; if you instead have a payment in mind and want the payoff date and schedule it produces, use the <a href="/loan-calculator/">Loan Calculator</a>. Enter your loan as it stands today and the deadline you want to hit:</p>
       <ul>
         <li><strong>Current balance</strong> and <strong>rate</strong>, from your latest statement.</li>
         <li><strong>Current monthly payment</strong>: what you pay toward principal and interest now; it's the benchmark the target plan is priced against.</li>
@@ -28,7 +28,7 @@ export default {
       <p>The answer is the required monthly payment, the gap between it and what you pay today, and the interest the faster plan avoids. If the required payment comes out below your current one, you're already ahead of the goal, and the result says so instead of flagging an error.</p>`,
     explanationHtml: `
       <h2>Working backwards from a deadline</h2>
-      <p>Most loan tools run forwards: you supply a payment and they tell you when the debt ends. This one inverts the question. You fix the end date (<em>the loan is gone in 36 months</em>) and the calculator solves for the one unknown left, the payment. It's the same annuity equation used to originate a loan, applied to your current balance with your deadline as the term. That inversion is useful because deadlines, not payments, are how payoff goals usually arrive: the car loan should end before the lease on the next one starts, the personal loan before a mortgage application (lenders count its payment in your debt-to-income ratio), the education loan before a planned career break, every loan before retirement ends the paycheck that services it.</p>
+      <p>Most loan tools run forwards: you supply a payment and they tell you when the debt ends. This one inverts the question. You fix the end date (<em>the loan is gone in 36 months</em>) and the calculator solves for the one unknown left, the payment. It's the same annuity equation used to originate a loan, applied to your current balance with your deadline as the term. That inversion is useful because deadlines, not payments, are how payoff goals usually arrive: the car loan should end before the lease on the next one starts, the personal loan before a mortgage application (mortgage lenders typically count its payment when assessing how much you can borrow), the education loan before a planned career break, every loan before retirement ends the paycheck that services it.</p>
       <p>The price of speed is not linear, and seeing the curve helps you pick a sensible target. For the default loan ($18,000 at 7.5%, currently paid at $380/month and on pace to finish in 57 months), here is what each deadline costs:</p>
       <table>
         <thead><tr><th>Target</th><th>Required payment</th><th>Extra vs $380</th><th>Total interest</th></tr></thead>

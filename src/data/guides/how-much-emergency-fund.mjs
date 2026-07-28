@@ -25,7 +25,7 @@ export default {
 <p>The distinction matters because it clarifies what the fund is <em>not</em> for: planned irregular costs (annual insurance, holidays, car tires eventually wearing out) belong in ordinary savings with names on them, not in the emergency fund. A fund that gets tapped for predictable things is never there for the unpredictable ones.</p>
 
 <h2>The 3–6 month range, and who sits where</h2>
-<p>The heuristic exists because most income interruptions resolve within a few months, and because insurance and social systems absorb some shocks. But the right multiple depends on how volatile your income is and how expensive an interruption would be:</p>
+<p>The heuristic reflects a rough allowance for how long re-employment or recovery often takes, plus an assumption that insurance and social systems absorb part of the shock — both of which vary by country and situation. But the right multiple depends on how volatile your income is and how expensive an interruption would be:</p>
 <div class="table-scroll"><table>
 <thead><tr><th>Situation</th><th>Suggested cover</th><th>Why</th></tr></thead>
 <tbody>
@@ -45,7 +45,7 @@ export default {
 <p><strong>3-month target: $9,600.</strong> <strong>6-month target: $19,200.</strong></p>
 <p>Note what this number is not: this household's take-home pay might be $4,800/month, and an income-based rule would demand $14,400–$28,800, which is 50% more fund than survival actually requires.</p>
 </div></div>
-<p>If you don't know your essential-expense figure, and most people don't know it precisely, a month with the <a href="/budget-calculator/">Budget Calculator</a> produces it, and it's the single most reusable number in personal finance.</p>
+<p>If you don't know your essential-expense figure, and most people don't know it precisely, a month with the <a href="/budget-calculator/">Budget Calculator</a> produces it, and it is one of the most reusable numbers in personal finance.</p>
 
 <h2>How long it takes to build</h2>
 <p>Suppose this household can direct $400/month to the fund, held in a savings account earning 4% APY. Simulating month by month:</p>

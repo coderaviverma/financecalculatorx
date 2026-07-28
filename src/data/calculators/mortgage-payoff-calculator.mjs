@@ -50,10 +50,10 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Years remaining.</strong> The dominant factor: $200/month saves $43,095 with 22 years left, but only $4,985 with 8 years left on the same balance and rate. Prepay early if you're going to prepay at all.</li>
+        <li><strong>Years remaining.</strong> The dominant factor: $200/month saves $43,095 with 22 years left, but only $4,985 with 8 years left on the same balance and rate. In the model, earlier prepayments avoid the most interest because the balance, and therefore each month's interest charge, is largest at the start.</li>
         <li><strong>Rate.</strong> A higher note rate increases the modeled interest avoided by reducing principal. Compare that result with the after-tax return, risk and liquidity of other uses for the money.</li>
         <li><strong>Lump timing.</strong> Moving a lump sum earlier adds interest-bearing months. The month field lets you compare paying now versus after your next bonus.</li>
-        <li><strong>Liquidity.</strong> Money in the house is hard to get back out without borrowing. Keep the emergency fund funded first — a prepaid mortgage doesn't pay medical bills.</li>
+        <li><strong>Liquidity.</strong> Prepaid principal is hard to access again without borrowing or selling, so cash-reserve needs such as an emergency fund are part of the trade-off the calculator doesn't measure.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
@@ -79,11 +79,11 @@ export default {
     },
     {
       q: "Does one extra payment a year really shorten a mortgage by years?",
-      aHtml: `<p>Usually, yes. An annual extra equal to one payment is roughly a $137/month equivalent on the default loan, and recurring extras of that size cut multiple years from a long schedule. Enter your own figure in the extra-monthly field (annual amount ÷ 12) to see the exact months saved rather than relying on the rule of thumb.</p>`,
+      aHtml: `<p>On a loan with many years remaining, yes. An annual extra equal to one payment is roughly a $137/month equivalent on the default loan, and recurring extras of that size cut multiple years from a long schedule. Enter your own figure in the extra-monthly field (annual amount ÷ 12) to see the exact months saved rather than relying on the rule of thumb.</p>`,
     },
     {
       q: "Will my servicer automatically apply extras to principal?",
-      aHtml: `<p>Not always. Some apply surplus to next month's payment or to escrow unless told otherwise, which earns you nothing. Mark extra amounts explicitly as "principal only" (most online portals have the option), and check the next statement to confirm the balance dropped by the full extra amount.</p>`,
+      aHtml: `<p>Not always. Some servicers apply surplus to next month's payment or to escrow unless told otherwise, which earns you nothing. Mark extra amounts explicitly as "principal only" (many servicer portals offer the option), and check the next statement to confirm the balance dropped by the full extra amount.</p>`,
     },
   ],
 };

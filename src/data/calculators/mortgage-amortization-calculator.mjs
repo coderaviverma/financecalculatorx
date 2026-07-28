@@ -21,11 +21,12 @@ export default {
     howToHtml: `
       <p>Set the loan amount, rate and term, then pick the month and year of your first payment. The whole schedule is dated from there, so any row answers "what will I owe in March 2031?" directly.</p>
       <ul>
-        <li><strong>First payment month/year</strong> comes from your closing disclosure; it's typically the first day of the second month after closing.</li>
+        <li><strong>First payment month/year</strong> comes from your closing disclosure; in US practice it's commonly the first day of the second month after closing.</li>
         <li><strong>Extra monthly payment</strong> is optional. Adding one redraws the entire schedule, moves the crossover earlier and pulls in the final payment date.</li>
         <li><strong>Annual vs monthly views</strong>: the annual view shows each 12-payment year with its date range; switch to monthly to find a specific payment, or export the CSV for your records.</li>
       </ul>
-      <p>The metrics above the table surface the three dates people actually look up: the crossover, the 5-year balance, and the final payment.</p>`,
+      <p>The metrics above the table surface the three dates people actually look up: the crossover, the 5-year balance, and the final payment.</p>
+      <p>Use this page instead of the <a href="/mortgage-calculator/">Mortgage Calculator</a> when your question is about the schedule itself — the balance in a given month, a dated payoff, or the principal/interest split over time — rather than what the complete monthly payment costs with taxes and insurance.</p>`,
     explanationHtml: `
       <h2>Reading a 30-year schedule</h2>
       <p>An amortization schedule shows how a level payment changes over time. Each month, interest is charged on the current balance and the rest of the payment reduces principal. The schedule lets you see that shift instead of judging the loan only by its monthly payment.</p>

@@ -19,7 +19,7 @@ export default {
   jumpExplainLabel: "Reading your loan position",
   sections: {
     howToHtml: `
-      <p>This tool is for a loan you already have, so the inputs come off your most recent statement rather than a loan offer:</p>
+      <p>Use this page when you are partway through a loan and want the payoff date your current balance and payment imply; to price a brand-new loan from an offer's amount, rate and term, use the <a href="/loan-calculator/">Loan Calculator</a> instead. Because this tool is for a loan you already have, the inputs come off your most recent statement rather than a loan offer:</p>
       <ul>
         <li><strong>Current balance</strong> is the principal you owe today. Use the "principal balance" line, not the original loan amount and not a payoff quote (more on the difference below).</li>
         <li><strong>Interest rate</strong> is the annual rate on the account. For a fixed-rate loan it's the rate you signed at; statements usually print it near the interest charged.</li>

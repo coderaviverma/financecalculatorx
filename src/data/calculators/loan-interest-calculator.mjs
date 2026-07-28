@@ -19,7 +19,7 @@ export default {
   jumpExplainLabel: "Why interest front-loads",
   sections: {
     howToHtml: `
-      <p>Give it the amount, rate and term, and the output leads with what most calculators bury: the interest bill. Use it when you already know a payment fits your budget and want to judge whether the loan is worth its cost.</p>
+      <p>Give it the amount, rate and term, and the output leads with what most calculators bury: the interest bill. Use this page when you already know a payment fits your budget and the question left is what the loan costs in interest; for the monthly payment plus the full amortization schedule, use the <a href="/loan-calculator/">Loan Calculator</a> instead.</p>
       <ul>
         <li><strong>Amount borrowed</strong> is the principal on which interest accrues.</li>
         <li><strong>Interest rate</strong> is the annual reducing-balance rate from your offer.</li>
@@ -30,7 +30,7 @@ export default {
       <h2>Where the interest on an amortized loan comes from</h2>
       <p>Each month, your lender multiplies the outstanding balance by one-twelfth of the annual rate; that product is the month's interest, and it is collected out of your payment before a single unit reduces the principal. On $30,000 at 8% over 72 months, month one charges 30,000 × 0.006667 = <strong>$200</strong> of interest out of the $526.00 payment; by the final month the balance is so small that the interest charge is barely three dollars, and the last full year of the loan costs only $265.20 in total.</p>
       <p>Because the balance is largest at the start, interest accrual is <strong>front-loaded</strong> even though the rate never changes. On the default loan, the first year alone generates $2,253.33 of interest — 28.6% of the lifetime bill in 16.7% of the term. By the end of year three, the halfway mark, <strong>72.7% of all the interest has already been paid</strong>. This is why refinancing or prepaying late in a loan feels underwhelming: most of the cost is already sunk, and only the thin tail of remaining interest can still be rescued.</p>
-      <p>Your monthly statement shows this machinery directly. The "interest charged" (or "finance charge") column is always the previous balance times the periodic rate. If your statement's figure differs from this calculator's for the same month, the usual causes are daily rather than monthly accrual, a payment posted off-cycle, or escrowed amounts mixed into the payment line. The "principal" column should always equal payment minus interest; if it doesn't, something else (a fee, escrow) is being deducted first and is worth a phone call.</p>
+      <p>Your monthly statement shows this machinery directly. The "interest charged" (or "finance charge") column is, on this model's convention, the previous balance times the periodic rate. If your statement's figure differs from this calculator's for the same month, the usual causes are daily rather than monthly accrual, a payment posted off-cycle, or escrowed amounts mixed into the payment line. The "principal" column should equal payment minus interest; if it doesn't, something else (a fee, escrow) is being deducted first and is worth a phone call.</p>
       <p>Two summary numbers make loans comparable at a glance. <strong>Interest as a share of the amount borrowed</strong> (26.2% on the default loan) tells you the surcharge on every unit of principal. The <strong>cost multiple</strong>, total paid ÷ borrowed, 1.26× here, is the bluntest test of all: would you take this loan if the price tag simply read "repay 1.26 times what you get"?</p>`,
     formulaHtml: `
       <p>Total interest is the payment stream minus the principal returned:</p>
@@ -80,7 +80,7 @@ export default {
     },
     {
       q: "Does making payments early in the month reduce my interest?",
-      aHtml: `<p>Only on daily-accrual loans (many student loans, some autos): there, interest builds every day, so a payment ten days early stops ten days of accrual on the amount paid. On standard monthly-accrual loans, the month's interest is fixed by the balance at the cycle start, and paying early changes nothing except your float. Your loan agreement's "how interest is calculated" clause says which type you have.</p>`,
+      aHtml: `<p>Only on daily-accrual loans (a method some student and auto lenders use; prevalence varies by market): there, interest builds every day, so a payment ten days early stops ten days of accrual on the amount paid. On standard monthly-accrual loans, the month's interest is fixed by the balance at the cycle start, and paying early changes nothing except your float. Your loan agreement's "how interest is calculated" clause says which type you have.</p>`,
     },
   ],
 };

@@ -23,7 +23,7 @@ export default {
     howToHtml: `
       <p>Start with your monthly SIP amount, the annual return you want to assume, and how long you'll stay invested. Two optional fields change the picture meaningfully:</p>
       <ul>
-        <li><strong>Annual step-up</strong>: raises the SIP by a fixed percentage every year, the way most fund houses' step-up/top-up facilities work. Matching it to your expected salary growth (commonly 5–10%) keeps your investing rate constant as a share of income.</li>
+        <li><strong>Annual step-up</strong>: raises the SIP by a fixed percentage every year, the way most fund houses' step-up/top-up facilities work. Matching it to your own expected salary growth keeps your investing rate roughly constant as a share of income: for example, a 7% step-up turns a ₹10,000 SIP into ₹10,700 a month in year two.</li>
         <li><strong>Initial lump sum</strong>: money invested on day one alongside the SIP, useful when you're deploying a bonus and starting a SIP at the same time.</li>
       </ul>
       <p>The chart stacks what you invested against what compounding added, and the table tracks both year by year. The fourth metric always shows the step-up counterfactual (with a 10% step-up if you left it at zero, without one if you set it), so the comparison is one glance away.</p>`,

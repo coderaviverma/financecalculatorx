@@ -22,7 +22,7 @@ export default {
       <p>Fill in whichever pieces your problem has (a present amount, a monthly contribution, or both), then the rate, the horizon, and how often interest compounds:</p>
       <ul>
         <li><strong>Contribution timing</strong>: "End of month" is the textbook <em>ordinary annuity</em>; "Beginning of month" is an <em>annuity due</em>, where every deposit earns one extra month. Payroll-style saving is usually end-of-period; rent-like flows are beginning.</li>
-        <li><strong>Compounding</strong>: match the account. Monthly is standard for savings; yearly fits products quoted as APY.</li>
+        <li><strong>Compounding</strong>: match the account. Many savings accounts compound monthly; use yearly for rates quoted as APY or AER, which already include compounding.</li>
       </ul>
       <p>The results split the future value into what the lump sum becomes and what the contribution stream becomes, the two halves of every TVM problem. The bar chart re-runs your inputs at 5, 10, 15, 20 and 25 years so you can see how the answer scales with time.</p>`,
     explanationHtml: `
@@ -78,7 +78,7 @@ export default {
     },
     {
       q: "Which compounding option should I pick?",
-      aHtml: `<p>Match the product's stated terms: most savings accounts compound monthly, many bonds and deposits yearly or half-yearly. If the rate you have is an APY or AER, it already includes compounding — enter it with yearly frequency. The difference is small (defaults: $93,485 monthly vs $91,571 yearly) but there's no reason to accept avoidable error.</p>`,
+      aHtml: `<p>Match the product's stated terms: savings accounts often compound monthly, and bonds and deposits often yearly or half-yearly; the paperwork is authoritative. If the rate you have is an APY or AER, it already includes compounding — enter it with yearly frequency. The difference is small (defaults: $93,485 monthly vs $91,571 yearly) but there's no reason to accept avoidable error.</p>`,
     },
     {
       q: "Why does the lump sum punch above its weight in the result?",

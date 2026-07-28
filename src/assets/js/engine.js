@@ -503,7 +503,11 @@
       view.rows.forEach((r) => lines.push(view.columns.map((c) => {
         const raw = r["_csv_" + c.key] != null ? r["_csv_" + c.key] : r[c.key];
         const v = clean(raw);
-        return /^[\d.\-]+$/.test(v.replace(/,/g, "")) ? v.replace(/,/g, "") : `"${v.replace(/"/g, '""')}"`;
+        if (/^[\d.\-]+$/.test(v.replace(/,/g, ""))) return v.replace(/,/g, "");
+        // Guard spreadsheet formula injection: user-entered text (e.g. debt
+        // names) starting with = + - @ or tab would execute in Excel/Sheets.
+        const safe = /^[=+\-@\t\r]/.test(v) ? "'" + v : v;
+        return `"${safe.replace(/"/g, '""')}"`;
       }).join(",")));
       const blob = new Blob(["﻿" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
       const a = document.createElement("a");

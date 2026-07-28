@@ -21,10 +21,10 @@ export default {
     howToHtml: `
       <p>A single deposit drives this tool: set the one-time amount, the annual return you want to assume, and the holding period. Two options refine the result:</p>
       <ul>
-        <li><strong>Compounding</strong>: monthly suits funds and most accounts; yearly suits products quoted as annual effective rates.</li>
+        <li><strong>Compounding</strong>: monthly suits funds and many accounts; yearly suits products quoted as annual effective rates.</li>
         <li><strong>Expected inflation</strong>: optional. Set it and the fourth metric switches from exact doubling time to the maturity value in today's purchasing power.</li>
       </ul>
-      <p>The chart deliberately draws three lines: your rate, plus dashed lines two points lower and higher. A single smooth curve looks like a promise; the band is a more truthful picture of a return assumption. The table tracks value, yearly growth and the running multiple; watch how the "growth that year" column accelerates even though the rate never changes.</p>`,
+      <p>The chart deliberately draws three lines: your rate, plus dashed lines two points lower and higher. A single smooth curve looks like a promise; the band is a more truthful picture of a return assumption. The table tracks value, yearly growth and the running multiple; watch how the "growth that year" column accelerates even though the rate never changes. The <a href="/investment-calculator/">Investment Calculator</a> can also model a one-time amount (with contributions set to zero), but use this page when the money goes in exactly once and you want the doubling time and the ±2% assumption band it draws around your rate.</p>`,
     explanationHtml: `
       <h2>Deploying a lump sum</h2>
       <p>A lump sum might come from a bonus, inheritance, maturing deposit, property sale or vested stock. This calculator does not decide whether it should be invested; it shows what one deposit becomes under a return and horizon you choose. At an assumed 10% compounded monthly, $100,000 becomes about <strong>$445,392 in 15 years, a 4.45× multiple</strong> ($417,725, or 4.18×, with yearly compounding).</p>

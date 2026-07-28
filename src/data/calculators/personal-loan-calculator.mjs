@@ -32,7 +32,7 @@ export default {
       <p>A personal loan is usually <strong>unsecured</strong>, so the lender prices the offer from the application and credit risk rather than from pledged collateral. Rates and fees vary widely by lender, borrower and market. Use a written offer rather than an advertised starting rate, and check whether any rate enquiry or pre-qualification will affect your credit file in your jurisdiction.</p>
       <p>The second input is the <strong>origination fee</strong>. This calculator assumes it is deducted from the disbursal. On the default $15,000 loan, a 2% fee means $14,700 reaches you while the payment is still calculated from $15,000. Some lenders charge or finance fees differently, so compare this assumption with the offer.</p>
       <p>This calculator expresses that deducted fee as an effective APR. Solving for the rate at which 48 payments of $391.34 are worth the $14,700 received gives <strong>12.59%</strong>, more than a point above the quoted 11.5%. A 5% fee raises the modeled figure to <strong>14.27%</strong>. For a final comparison, use the lender's regulated APR disclosure because it may include charges or conventions beyond this calculator's single fee input.</p>
-      <p>Common uses shape the sensible term. For <strong>debt consolidation</strong> (replacing 20%+ credit-card balances with one fixed payment), a shorter term locks in the saving. For a large one-off purchase, match the term to the life of what you are buying rather than stretching for the smallest payment.</p>`,
+      <p>Common uses shape the sensible term. For <strong>debt consolidation</strong> (replacing high-rate credit-card balances with one fixed payment), a shorter term locks in the saving. For a large one-off purchase, match the term to the life of what you are buying rather than stretching for the smallest payment.</p>`,
     formulaHtml: `
       <p>The payment uses the standard amortization formula on the <em>full</em> loan amount:</p>
       <div class="formula-block"><span class="fx">M = P × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]&nbsp;&nbsp;with net disbursal D = P − fee</span>
@@ -81,7 +81,7 @@ export default {
     },
     {
       q: "Is a personal loan a good way to consolidate credit-card debt?",
-      aHtml: `<p>Often, yes: swapping 20%+ revolving APRs for a fixed 11–15% installment loan cuts the interest and imposes a fixed end date. Two conditions make it work: the effective APR (after any fee) must be clearly below your cards' rates, and the freed-up cards must not be run back up. Check the plan with the debt payoff calculator before and after to confirm the saving is real.</p>`,
+      aHtml: `<p>It can be: replacing higher-rate revolving balances with a lower fixed-rate installment loan cuts the interest and imposes a fixed end date. Two conditions make it work: the effective APR (after any fee) must be clearly below your cards' rates, and the freed-up cards must not be run back up. Check the plan with the debt payoff calculator before and after to confirm the saving is real.</p>`,
     },
     {
       q: "Can I pay a personal loan off early?",

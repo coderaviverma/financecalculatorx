@@ -85,7 +85,7 @@ export default {
     },
     {
       q: "Are no-cost refinances really free?",
-      aHtml: `<p>No. The lender recovers the fees through a higher rate (typically 0.25–0.5% above the par rate), so you pay them monthly forever instead of once upfront. That trade actually favors you for short holding periods and works against you for long ones. To compare fairly here: enter 0 fees with the no-cost rate, then your quoted fees with the par rate, and compare lifetime rows.</p>`,
+      aHtml: `<p>No. The lender recovers the fees through a higher rate (often a fraction of a percentage point above the par rate, with the exact spread varying by lender, balance and market), so you pay them monthly forever instead of once upfront. That trade actually favors you for short holding periods and works against you for long ones. To compare fairly here: enter 0 fees with the no-cost rate, then your quoted fees with the par rate, and compare lifetime rows.</p>`,
     },
     {
       q: "Should I roll the closing costs into the new loan?",

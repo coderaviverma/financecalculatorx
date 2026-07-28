@@ -79,7 +79,7 @@ export default {
     },
     {
       q: "I might repay the loan early. How does that change the comparison?",
-      aHtml: `<p>Early exit favors the low-fee offer. Fees are sunk on day one, while a rate advantage pays out month by month — the break-even month in the verdict marks the crossover. If your likely exit is before it, take the low-fee offer even at a higher rate; after it, the low-rate offer wins and keeps winning.</p>`,
+      aHtml: `<p>Early exit favors the low-fee offer. Fees are sunk on day one, while a rate advantage pays out month by month — the break-even month in the verdict marks the crossover. If your likely exit is before it, the low-fee offer comes out cheaper in this model even at a higher rate; after it, the low-rate offer wins and keeps winning.</p>`,
     },
     {
       q: "What should I collect from each lender before comparing?",
@@ -87,7 +87,7 @@ export default {
     },
     {
       q: "Can I compare two offers with different terms, like 48 and 72 months?",
-      aHtml: `<p>Yes, the math handles it, and the verdict adds a caveat when terms differ. Just read the result in two parts: total cost tells you which loan is cheaper in absolute money, while the payoff-time row reminds you the longer offer occupies your budget for extra years. A shorter, slightly costlier-per-month offer is often the better deal overall.</p>`,
+      aHtml: `<p>Yes, the math handles it, and the verdict adds a caveat when terms differ. Just read the result in two parts: total cost tells you which loan is cheaper in absolute money, while the payoff-time row reminds you the longer offer occupies your budget for extra years. A shorter, slightly costlier-per-month offer often costs less in total; whether its higher payment fits your budget is a separate question.</p>`,
     },
   ],
 };

@@ -5,7 +5,7 @@ export default {
   h1: "House Affordability Calculator",
   metaTitle: "House Affordability Calculator — How Much Home Can I Buy?",
   metaDescription:
-    "Work backward from your income to a realistic home price using the 28/36 rule lenders apply, and see which constraint caps your budget.",
+    "Work backward from your income to a realistic home price using the classic 28/36 rule of thumb from US underwriting, and see which constraint caps your budget.",
   tagline:
     "Start with income, existing debts and a down payment to model a home-price range under adjustable debt-to-income limits.",
   cardDescription: "Home price your income supports under 28/36 DTI rules, with the binding constraint named.",
@@ -23,17 +23,17 @@ export default {
     howToHtml: `
       <p>Fill in your household's gross annual income and the monthly payments on existing debts: car loans, student loans, card minimums. Add the down payment you have available and the rate you expect, then choose a lending standard:</p>
       <ul>
-        <li><strong>Conservative (25/33)</strong> is a self-imposed margin many planners recommend.</li>
-        <li><strong>Standard (28/36)</strong> uses the classic qualifying ratios for conventional loans.</li>
+        <li><strong>Conservative (25/33)</strong> is a stricter self-imposed margin that leaves headroom for savings and surprises.</li>
+        <li><strong>Standard (28/36)</strong> uses the classic 28/36 rule of thumb long associated with conventional lending — a screening convention, not a hard approval line.</li>
         <li><strong>Aggressive (31/43)</strong> sits closer to FHA-style ceilings; approval territory, comfort not included.</li>
       </ul>
       <p>The tax + insurance estimate matters more than it looks: every dollar of it comes directly out of the payment available for the loan. The result names which constraint binds you, income share or existing debts, because the fix is different for each.</p>`,
     explanationHtml: `
       <h2>How lenders turn income into a price ceiling</h2>
-      <p>Lenders don't start from house prices; they start from two payment caps computed off your gross monthly income. The <strong>front-end ratio</strong> caps total housing costs (loan payment plus tax and insurance) at a share of income: 28% in the standard rule. The <strong>back-end ratio</strong> caps housing costs <em>plus all other debt payments</em> at a larger share, 36%. Your maximum loan payment is whatever survives both caps, and the smaller one wins.</p>
-      <p>Worked through the defaults: <strong>$96,000/year</strong> is $8,000/month gross. The front-end cap allows 28% = $2,240 for housing; subtracting the $350 tax/insurance estimate leaves <strong>$1,890</strong> for principal and interest. The back-end cap allows 36% = $2,880, minus $400 of debts and $350 of tax/insurance = $2,130. The front-end cap is smaller, so it binds: <strong>$1,890/month</strong> is the payment a lender will size your loan on. At 6.5% over 30 years that supports a <strong>$299,018</strong> loan; with $40,000 down, a price around <strong>$339,018</strong>.</p>
+      <p>The traditional US affordability screen doesn't start from house prices; it starts from two payment caps computed off your gross monthly income. The <strong>front-end ratio</strong> caps total housing costs (loan payment plus tax and insurance) at a share of income: 28% in the standard rule. The <strong>back-end ratio</strong> caps housing costs <em>plus all other debt payments</em> at a larger share, 36%. Your maximum loan payment is whatever survives both caps, and the smaller one wins.</p>
+      <p>Worked through the defaults: <strong>$96,000/year</strong> is $8,000/month gross. The front-end cap allows 28% = $2,240 for housing; subtracting the $350 tax/insurance estimate leaves <strong>$1,890</strong> for principal and interest. The back-end cap allows 36% = $2,880, minus $400 of debts and $350 of tax/insurance = $2,130. The front-end cap is smaller, so it binds: <strong>$1,890/month</strong> is the payment this rule of thumb sizes your loan on. At 6.5% over 30 years that supports a <strong>$299,018</strong> loan; with $40,000 down, a price around <strong>$339,018</strong>.</p>
       <p>Which cap binds tells you what would change your budget. When the front end binds (modest debts), only more income or lower housing costs move the ceiling. When the back end binds (heavier debts), paying off a car loan converts directly into house: each $100/month of debt cleared frees about $15,800 of loan at these terms. Raise the debts field to $1,200 in the calculator and watch the constraint flip and the price drop to $250,420.</p>
-      <p>Finally, remember the ceiling is an approval limit, not advice. Lenders qualify you on gross income; you live on net income. The gap between the standard and conservative results, about <strong>$37,971</strong> here, is a reasonable margin for maintenance, retirement savings and life generally.</p>`,
+      <p>Finally, remember the ceiling is a modeled qualifying limit under the chosen ratios, not an approval promise or advice. Lenders qualify you on gross income; you live on net income. The gap between the standard and conservative results, about <strong>$37,971</strong> here, is a reasonable margin for maintenance, retirement savings and life generally.</p>`,
     formulaHtml: `
       <p>Two caps are computed and the binding (smaller) one sizes the loan:</p>
       <div class="formula-block"><span class="fx">P&amp;I<sub>max</sub> = min( G × f − TI , G × b − D − TI )</span>
@@ -89,7 +89,7 @@ export default {
     },
     {
       q: "Should I actually buy at the maximum the calculator shows?",
-      aHtml: `<p>Usually not. The maximum is what ratios permit on gross income, before maintenance (often 1–2% of home value yearly), childcare, retirement contributions and income volatility. The conservative standard's result is a better default target, and the gap between the two, about $38,000 on the defaults, is your margin of safety.</p>`,
+      aHtml: `<p>Usually not. The maximum is what ratios permit on gross income, before maintenance (a common rule of thumb budgets 1–2% of home value yearly), childcare, retirement contributions and income volatility. The conservative standard's result is a better default target, and the gap between the two, about $38,000 on the defaults, is your margin of safety.</p>`,
     },
     {
       q: "Does a bigger down payment let me afford a more expensive house?",

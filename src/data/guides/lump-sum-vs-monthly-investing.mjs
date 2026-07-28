@@ -44,7 +44,7 @@ export default {
 <p>So the honest framing is this: DCA is a form of insurance. You pay a premium (a lower expected outcome) to reduce a specific risk (a painful entry point). Insurance is not irrational — people buy it on their homes every year. The question is whether the premium is worth it to you, and whether the alternative is truly worse.</p>
 
 <div class="callout note"><span class="c-title">Regret is a real cost</span>
-<p>An investor who lump-sums into a 20% decline and sells at the bottom ends up far behind an investor who averaged in and stayed the course. If spreading your entry is what keeps you invested through the first rough patch, the "suboptimal" strategy can produce the better real-world result. Choose the plan you can hold, not the one that wins a spreadsheet.</p>
+<p>An investor who lump-sums into a 20% decline and sells at the bottom ends up far behind an investor who averaged in and stayed the course. If spreading your entry is what keeps you invested through the first rough patch, the "suboptimal" strategy can produce the better real-world result. The plan you can hold is the one whose modeled result you realize in practice; a spreadsheet advantage only materializes if the strategy is followed to the end.</p>
 </div>
 
 <h2>Most monthly investing isn't DCA at all</h2>
@@ -52,17 +52,17 @@ export default {
 <p>If you invest $500 from every paycheck, you are already following the "invest as soon as possible" rule, and there is nothing to optimize. The lump-sum question only truly arises when a discrete pile of money lands at once: a bonus, an inheritance, a property sale, accumulated cash that sat in a bank account too long. A <a href="/sip-calculator/">SIP calculator</a> models the paycheck pattern; a <a href="/lump-sum-investment-calculator/">lump sum calculator</a> models the windfall. They answer different questions.</p>
 
 <h2>The volatile-market worry, without a crystal ball</h2>
-<p>"But the market is at an all-time high" is the most common reason to hesitate. Two things are true at once. First, nobody can reliably predict whether the next move is up or down: not analysts, not this site, not your most confident friend. Markets sit near record highs regularly on their way to further highs, and every major decline also started from a point someone called expensive. Second, your discomfort is still information about <em>you</em>: if a 15% drop the month after investing would genuinely make you sell, that fragility is worth paying a premium to manage.</p>
+<p>"But the market is at an all-time high" is the most common reason to hesitate. Two things are true at once. First, nobody can reliably predict whether the next move is up or down: not analysts, not this site, not your most confident friend. Markets have often gone on to set further highs after record highs, and past declines have also begun from points that looked expensive at the time — neither pattern predicts the next move. Second, your discomfort is still information about <em>you</em>: if a 15% drop the month after investing would genuinely make you sell, that fragility is worth paying a premium to manage.</p>
 <p>Waiting for an undefined "better entry" is different from a staged plan. A staged plan has dates and amounts; open-ended waiting has no rule for when to act. If you choose to spread purchases, write down the schedule in advance so the comparison remains between two defined strategies.</p>
 
 <div class="callout warn"><span class="c-title">The most expensive strategy is the unfinished one</span>
-<p>A staged plan can quietly turn into indefinite delay if each purchase requires a new decision. Setting dates and amounts in advance makes the modeled strategy easier to compare with what you actually do.</p>
+<p>A staged plan can drift into indefinite delay if each purchase requires a new decision. Setting dates and amounts in advance makes the modeled strategy easier to compare with what you actually do.</p>
 </div>
 
 <h2>A decision framework</h2>
 <ul>
 <li><strong>Money arrives monthly (salary, freelance income):</strong> invest it as it arrives. This is the earliest-possible deployment, not DCA, and there is nothing to agonize over.</li>
-<li><strong>Windfall, and you are comfortable with market swings:</strong> the math favors investing it at once. Expected outcome is highest, and history has favored this approach in most (not all) periods.</li>
+<li><strong>Windfall, and you are comfortable with market swings:</strong> the math favors investing it at once. Under the model's positive-return assumption, deploying sooner has the higher expected outcome; real markets deliver that expectation unevenly, and no period is guaranteed.</li>
 <li><strong>Windfall, and a sharp early loss would shake you:</strong> stage it over a fixed 6–12 month window on an automated schedule. You give up a modest slice of expected return (about $2,200 on the $24,000 example above) in exchange for a smoothed entry and a plan you will finish.</li>
 <li><strong>Either way, before investing at all:</strong> make sure high-interest debt and a cash buffer are handled first; our guide on <a href="/guides/how-much-emergency-fund/">how much emergency fund you need</a> covers the order of operations.</li>
 </ul>

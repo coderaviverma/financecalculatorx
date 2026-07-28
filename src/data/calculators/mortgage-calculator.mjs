@@ -57,7 +57,7 @@ export default {
         <li><strong>Rate.</strong> On the $280,000, 30-year example, each 0.5 percentage-point change is roughly $90–95 a month and $33,000–34,000 of modeled lifetime interest.</li>
         <li><strong>Term.</strong> A shorter term raises the required payment and reduces the number of interest-bearing months. Compare that contractual payment with a longer term and a separate voluntary-extra-payment scenario.</li>
         <li><strong>Down payment.</strong> More money down creates a smaller loan. Whether mortgage insurance applies, how it is priced and when it ends depend on the product and lender.</li>
-        <li><strong>Location-driven costs.</strong> Property tax ranges from under 0.3% to over 2% of home value per year depending on region, and insurance varies with local risk. These often matter more than small rate differences when comparing homes in different areas.</li>
+        <li><strong>Location-driven costs.</strong> In the US, effective property tax rates range from under 0.3% to over 2% of home value per year depending on state and county, and insurance varies with local risk. These often matter more than small rate differences when comparing homes in different areas.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
@@ -71,6 +71,7 @@ export default {
       <ul>
         <li><a href="https://www.consumerfinance.gov/ask-cfpb/when-can-i-remove-private-mortgage-insurance-pmi-from-my-loan-en-202/" rel="noopener">CFPB: When can I remove private mortgage insurance (PMI)?</a> — basis for the 80% request / 78% automatic cancellation convention modeled here.</li>
         <li><a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">CFPB: Interest rate vs APR</a> — why the quoted rate differs from the loan's true annual cost when fees exist.</li>
+        <li><a href="https://taxfoundation.org/data/all/state/property-taxes-by-state-county/" rel="noopener">Tax Foundation: Property Taxes by State and County</a> — source for the range of US effective property tax rates noted above.</li>
       </ul>`,
   },
   faq: [

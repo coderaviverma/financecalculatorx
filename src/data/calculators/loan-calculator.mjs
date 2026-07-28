@@ -21,8 +21,8 @@ export default {
       <p>Enter the amount you plan to borrow, the annual interest rate and the repayment term. The results show the modeled monthly payment, total interest and month-by-month schedule.</p>
       <ul>
         <li><strong>Loan amount</strong> is the principal you receive, before any fees are deducted.</li>
-        <li><strong>Interest rate</strong> is the annual nominal rate. If your lender charges origination fees, the true cost (APR) is slightly higher; the <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> handles fees explicitly.</li>
-        <li><strong>Term</strong> switches between years and months with the toggle. Car loans commonly run 36–72 months, personal loans 12–84 months.</li>
+        <li><strong>Interest rate</strong> is the annual nominal rate. If your lender charges origination fees, the true cost (APR) is higher than the nominal rate — by how much depends on the fee; the <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> handles fees explicitly.</li>
+        <li><strong>Term</strong> switches between years and months with the toggle. Typical term ranges vary by lender and market: car loans are often in the 36–72 month range and personal loans 12–84 months, but use the term from your own offer.</li>
         <li><strong>Extra monthly payment</strong> is optional. Anything you add is applied directly to principal, and the schedule, payoff date and interest figures update to show the effect.</li>
       </ul>
       <p>Use <em>Copy link</em> to share a calculation (the link reproduces your exact inputs), and the schedule can be exported to CSV or printed as a report.</p>`,
@@ -42,7 +42,7 @@ export default {
           <li><code>n</code> number of monthly payments</li>
         </ul>
       </div>
-      <p>Each month the schedule is computed as: interest = balance × <code>r</code>; principal = payment − interest; new balance = balance − principal − any extra payment. When the rate is 0%, the payment is simply <code>P ÷ n</code>. Figures are rounded to the cent for display, and the final payment is adjusted by a few cents where needed so the balance closes at exactly zero. Payments are assumed to be made at the end of each month, matching standard lender convention.</p>`,
+      <p>Each month the schedule is computed as: interest = balance × <code>r</code>; principal = payment − interest; new balance = balance − principal − any extra payment. When the rate is 0%, the payment is simply <code>P ÷ n</code>. Figures are rounded to the cent for display, and the final payment is adjusted by a few cents where needed so the balance closes at exactly zero. Payments are assumed to be made at the end of each month, a common lender convention.</p>`,
     exampleHtml: `
       <div class="example-block"><div class="ex-head">Example: $20,000 over 5 years at 7.5%</div><div class="ex-body">
         <p>Monthly rate <code>r</code> = 0.075 ÷ 12 = 0.00625, term <code>n</code> = 60 payments.</p>
@@ -77,7 +77,7 @@ export default {
     },
     {
       q: "Does this work for car and education loans?",
-      aHtml: `<p>Yes — any fixed-rate loan repaid in equal monthly installments follows this math. For car loans, remember the loan often covers taxes and add-ons, not just the vehicle price. For education loans that defer payments while studying, interest that accrues during the deferment is typically added to the balance before amortization starts, so enter the balance at the point repayment begins.</p>`,
+      aHtml: `<p>Yes — any fixed-rate loan repaid in equal monthly installments follows this math. For car loans, remember the loan often covers taxes and add-ons, not just the vehicle price. For education loans that defer payments while studying, interest that accrues during the deferment is often capitalized (added to the balance) when repayment begins — rules differ by loan program and jurisdiction, so check your terms and enter the balance at the point repayment begins.</p>`,
     },
     {
       q: "Is the interest rate here the same as APR?",

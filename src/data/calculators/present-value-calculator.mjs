@@ -83,7 +83,7 @@ export default {
     },
     {
       q: "What discount rate do courts and insurers use for settlements?",
-      aHtml: `<p>It varies by jurisdiction and instrument — statutory discount rates exist in some places, while structured-settlement buyout firms often apply effective rates far above any fair opportunity cost, which is exactly how they profit. Before signing any buyout, compute the PV of your payments at a rate you could really earn and compare it to the offer; the gap is the price of the transaction.</p>`,
+      aHtml: `<p>It varies by jurisdiction and instrument — statutory discount rates exist in some places, while buyout firms set their own discount rates, which can sit far above what you could realistically earn on the money. Before signing any buyout, compute the PV of your payments at a rate you could really earn and compare it to the offer; the gap is the price of the transaction.</p>`,
     },
     {
       q: "Is present value the same as inflation-adjusted value?",

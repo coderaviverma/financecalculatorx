@@ -23,7 +23,7 @@ export default {
       <ul>
         <li><strong>Target amount</strong> is the number the goal truly costs: the down payment, the car, the wedding, the first year of tuition.</li>
         <li><strong>Years to reach it</strong>: your real deadline. The result is extremely sensitive to this input, so be realistic about it.</li>
-        <li><strong>Expected annual return.</strong> Match it to where the money will really sit: cash rates for goals a couple of years out, blended or equity-like returns only for long horizons.</li>
+        <li><strong>Expected annual return.</strong> Match it to where the money will really sit (the account or asset mix you intend to use) and test a lower rate, since a short, fixed deadline leaves little time to recover from a bad year.</li>
         <li><strong>Current savings toward it</strong>: anything already earmarked, since it shrinks the required monthly amount.</li>
       </ul>
       <p>The bar chart shows how the answer moves at 3–11% returns, and the table re-solves the same goal for five different timelines so you can see what an extra few years buys you.</p>`,
@@ -32,7 +32,7 @@ export default {
       <p>Most planning tools project forward: given savings, they estimate a future balance. Real goals run the other way — you know the car costs $30,000 or the down payment is $100,000, and the question is what it demands from each month's budget. This calculator solves that inverse problem exactly. With the defaults (a <strong>$100,000</strong> target, <strong>10 years</strong>, <strong>7%</strong> expected return and <strong>$5,000</strong> already saved) the answer is <strong>$519.70 per month</strong>.</p>
       <p>Look at where the $100,000 comes from: your monthly contributions total <strong>$62,363.67</strong>, your existing $5,000 keeps working, and investment growth supplies the remaining <strong>$32,636.33</strong>, about a third of the target. The longer the timeline, the more of the goal growth pays for: stretch the same goal to 20 years and contributions fall to $36,768 while growth covers $58,232, more than half.</p>
       <p><strong>Time is the input that changes everything.</strong> Halving the timeline far more than doubles the monthly bill. This goal needs <strong>$153.20</strong> a month over 20 years but <strong>$519.70</strong> over 10. Cutting the time in half multiplied the requirement by <strong>3.4×</strong>, because you lose both saving months and, disproportionately, the compounding those months would have done. Squeeze it to 5 years and the number jumps again to <strong>$1,297.78</strong>. Starting early isn't a platitude here; it is the arithmetic.</p>
-      <p>The return assumption deserves the same honesty. Between 5% and 9% (a plausible range of outcomes for a diversified portfolio) the required monthly swings from $590.96 to $453.42. Plan on the conservative end; a goal funded at pessimistic assumptions gets finished early when markets cooperate, while the reverse leaves you short at the deadline.</p>`,
+      <p>The return assumption deserves the same honesty. Between 5% and 9% (an illustrative band; substitute your own assumptions) the required monthly swings from $590.96 to $453.42. Plan on the conservative end; a goal funded at pessimistic assumptions gets finished early when markets cooperate, while the reverse leaves you short at the deadline.</p>`,
     formulaHtml: `
       <p>The future value of the current savings plus an end-of-month contribution stream is set equal to the target, then solved for the contribution:</p>
       <div class="formula-block"><span class="fx">C = (T − P × (1 + i)<sup>n</sup>) × i ⁄ [(1 + i)<sup>n</sup> − 1]</span>
@@ -84,7 +84,7 @@ export default {
     },
     {
       q: "Should I save monthly or invest a lump sum if I have one?",
-      aHtml: `<p>Mathematically, money invested earlier compounds longer, so deploying an available lump sum toward the goal usually beats drip-feeding it — enter it under current savings and watch the required monthly fall. Monthly investing is the answer for money that arrives monthly, i.e. income. The <a href="/lump-sum-investment-calculator/">Lump Sum Investment Calculator</a> covers the one-off side in detail.</p>`,
+      aHtml: `<p>At any positive assumed return, money invested earlier compounds longer, so the model projects a higher balance when an available lump sum is deployed at once (whether that holds in a real market depends on the path of returns after you invest) — enter it under current savings and watch the required monthly fall. Monthly investing is the answer for money that arrives monthly, i.e. income. The <a href="/lump-sum-investment-calculator/">Lump Sum Investment Calculator</a> covers the one-off side in detail.</p>`,
     },
   ],
 };

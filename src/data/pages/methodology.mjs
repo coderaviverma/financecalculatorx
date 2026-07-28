@@ -31,7 +31,8 @@ export default {
       <li>Extra-payment cases shorten the schedule and reduce total interest, while non-amortizing payments are rejected.</li>
       <li>Investment, savings, mortgage, affordability, refinance, debt-payoff and rent-versus-buy outputs are cross-checked against independent formulas or accounting identities in the test code.</li>
     </ul>
-    <p>These are repeatable software checks, not an independent professional certification. The site's <a href="/editorial-policy/">editorial policy</a> states the current review boundary.</p>
+    <p>These checks are independently reproducible: the complete source code, including the calculation library (<code>src/assets/js/finance.js</code>) and the full test suite (<code>tests/</code>), is public at <a href="https://github.com/coderaviverma/financecalculatorx" rel="noopener">github.com/coderaviverma/financecalculatorx</a>. Anyone can clone the repository and run <code>node --test tests/*.test.mjs</code> to reproduce every check above — no build step or dependencies required.</p>
+    <p>They are repeatable software checks, not an independent professional certification. The site's <a href="/editorial-policy/">editorial policy</a> states the current review boundary.</p>
 
     <h2>Simulation-based tools</h2>
     <p>Three calculators use explicit month-by-month or year-by-year simulation rather than a single formula, because their questions have no closed-form answer: the <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> (multiple debts with rolling minimums), the <a href="/rent-vs-buy-calculator/">Rent vs Buy Calculator</a> (interacting growth rates and transaction costs), and goal-timing calculations in the savings tools. Their pages document each simulation step in order, and the same honesty applies: assumptions you can see, defaults you can change.</p>

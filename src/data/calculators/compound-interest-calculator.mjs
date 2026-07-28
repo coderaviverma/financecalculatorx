@@ -75,11 +75,11 @@ export default {
   faq: [
     {
       q: "What's the difference between APY/AER and the nominal rate?",
-      aHtml: `<p>The nominal rate (APR-style) ignores compounding frequency; APY/AER states the true yearly growth including it. 7% nominal compounded monthly equals 7.229% APY. Banks usually advertise APY for savings products, so if you enter an APY here, set compounding to yearly — entering an APY with monthly compounding would double-count the effect.</p>`,
+      aHtml: `<p>The nominal rate (APR-style) ignores compounding frequency; APY/AER states the true yearly growth including it. 7% nominal compounded monthly equals 7.229% APY. Savings products are usually advertised with a compounded yearly figure (APY in the US, AER in the UK), so if you enter one of those, set compounding to yearly — entering an APY with monthly compounding would double-count the effect.</p>`,
     },
     {
       q: "How often do real accounts compound?",
-      aHtml: `<p>Most bank savings accounts compound daily or monthly and credit interest monthly. Fixed deposits and CDs commonly compound quarterly or at maturity. Bonds typically pay simple coupons rather than compounding, unless you reinvest them. When in doubt, the account's terms state the frequency — or just use the advertised APY with yearly compounding, which is exact by construction.</p>`,
+      aHtml: `<p>Compounding conventions vary by product and country: many savings accounts compound daily or monthly and credit interest monthly, while fixed deposits and CDs often compound quarterly or at maturity. Bonds typically pay simple coupons rather than compounding, unless you reinvest them. When in doubt, the account's terms state the frequency — or just use the advertised APY with yearly compounding, which is exact by construction.</p>`,
     },
     {
       q: "Does the Rule of 72 actually work?",
@@ -91,7 +91,7 @@ export default {
     },
     {
       q: "Is compound interest good or bad for me?",
-      aHtml: `<p>Both, depending on which side you're on. It grows savings and investments, but it's also why credit-card balances balloon — card interest compounds daily at rates several times higher than savings pay. The same math that builds $86k of growth in the default example is what makes minimum-payment debt so expensive; the <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> shows the borrowing side of it.</p>`,
+      aHtml: `<p>Both, depending on which side you're on. It grows savings and investments, but it's also why credit-card balances balloon — card interest typically accrues daily, and card APRs are generally far higher than savings rates; your own statement shows the actual figure. The same math that builds $86k of growth in the default example is what makes minimum-payment debt so expensive; the <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> shows the borrowing side of it.</p>`,
     },
   ],
 };

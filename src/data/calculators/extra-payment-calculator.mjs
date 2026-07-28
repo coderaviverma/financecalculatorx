@@ -59,14 +59,14 @@ export default {
       <ul>
         <li>Extras are assumed to post to principal on the same day as the regular payment; a lender that holds funds or applies them at cycle end will produce slightly smaller savings.</li>
         <li>The required payment is held constant. Some lenders offer to recast (re-amortize) after a large lump sum, which lowers the payment instead of shortening the term: different goal, different math.</li>
-        <li>Prepayment penalties are not modeled; a few loan types charge them, so check your agreement.</li>
+        <li>Prepayment penalties are not modeled; whether one applies depends on your loan type, contract and jurisdiction, so check your agreement before relying on the projected saving.</li>
         <li>The rate is assumed fixed for the whole comparison, and both schedules assume no missed payments.</li>
       </ul>`,
   },
   faq: [
     {
       q: "Do lenders automatically put extra money toward principal?",
-      aHtml: `<p>Not always, and this is the biggest practical gotcha. Some servicers treat an overpayment as an early payment of next month's installment — which mostly prepays interest you'd owe anyway and saves you almost nothing. When you send extra, mark it "apply to principal" (most online portals have this option), and check the next statement to confirm the balance dropped by the full extra amount.</p>`,
+      aHtml: `<p>Not always, and this is the biggest practical gotcha. Some servicers treat an overpayment as an early payment of next month's installment — which mostly prepays interest you'd owe anyway and saves you almost nothing. When you send extra, mark it "apply to principal" (many online portals have this option), and check the next statement to confirm the balance dropped by the full extra amount.</p>`,
     },
     {
       q: "Is $100 a month the same as $1,200 once a year?",
@@ -82,7 +82,7 @@ export default {
     },
     {
       q: "I expect a windfall — should I hold it until January or apply it now?",
-      aHtml: `<p>Apply it when it arrives. Savings depend on how many months the prepaid principal spends off the balance, so every month of delay costs you one month of avoided interest on that amount. The one-time field with its month selector lets you price the delay exactly for your own loan.</p>`,
+      aHtml: `<p>If you have already decided to prepay, the numbers favor applying it when it arrives. Savings depend on how many months the prepaid principal spends off the balance, so every month of delay costs you one month of avoided interest on that amount. The one-time field with its month selector lets you price the delay exactly for your own loan.</p>`,
     },
   ],
 };

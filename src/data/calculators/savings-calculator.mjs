@@ -30,7 +30,7 @@ export default {
       <h2>What a savings account actually pays you</h2>
       <p>A savings balance grows from two streams: the deposits you make and the interest credited on whatever is sitting in the account. With the defaults here (<strong>$5,000</strong> already saved, <strong>$400</strong> added monthly at <strong>4.2%</strong> compounded monthly) the balance reaches <strong>$67,129.48</strong> after ten years. You supplied $53,000 of that; the bank paid <strong>$14,129.48</strong>. Interest is real money, but notice the proportions: for savers making regular deposits over a decade, roughly three-quarters of the result is still their own money. The deposit amount is the lever that matters most.</p>
       <p><strong>APY versus the nominal rate.</strong> Banks advertise APY (annual percentage yield) precisely because it already folds in compounding; it is the true one-year growth figure. A nominal 4.2% compounded monthly works out to an APY of about <strong>4.282%</strong>. If you type an advertised APY into this calculator and also select monthly compounding, you double-count that effect and overstate the result. The fix is simple: APY in, compounding set to <em>Yearly</em>.</p>
-      <p><strong>The account you choose matters more than it looks.</strong> Run the defaults at a typical big-bank rate of 0.5% instead of 4.2%: the ten-year balance drops from $67,129.48 to <strong>$54,466.04</strong>. Same deposits, same decade: $12,663 less, because the high-yield account earned $14,129.48 of interest against $1,466.04, nearly ten times as much. Moving cash to a competitive account is one of the few genuinely free lunches in personal finance.</p>
+      <p><strong>The account you choose matters more than it looks.</strong> Run the defaults at a low 0.5% rate instead of 4.2%: the ten-year balance drops from $67,129.48 to <strong>$54,466.04</strong>. Same deposits, same decade: $12,663 less, because the high-yield account earned $14,129.48 of interest against $1,466.04, nearly ten times as much. For cash you plan to keep in savings, the rate you accept is one of the few inputs you can change without changing your habits, though compare access terms, fees, introductory-rate periods and deposit protection before switching.</p>
       <p>One caveat that cuts the other way: savings rates float. Your bank can reprice the account whenever central-bank rates move, so a ten-year projection at today's rate is a scenario, not a promise. If the default account paid 4.2% for five years and then dropped to 3%, the final balance would be about <strong>$63,984</strong> — roughly $3,146 shy of the constant-rate projection. Re-run the numbers when your rate changes.</p>`,
     formulaHtml: `
       <p>Each compounding period, the balance earns the periodic rate; monthly deposits are added at month-end. For monthly compounding the closed form is:</p>
@@ -53,7 +53,7 @@ export default {
       <ul>
         <li><strong>Deposit size.</strong> Over one year at 4.2%, the default account earns just $307.58 of interest — early on, nearly all progress is deposits. Consistency beats rate-shopping in the first years.</li>
         <li><strong>The rate, over long horizons.</strong> The 4.2%-vs-0.5% comparison above is a $12,663 difference in a decade. Small rate gaps compound into real money once balances are large.</li>
-        <li><strong>Rate changes.</strong> Savings APYs track policy rates. Treat long projections as scenarios and refresh them when your bank reprices.</li>
+        <li><strong>Rate changes.</strong> Savings rates tend to move with central-bank policy rates, though banks reprice on their own schedules. Treat long projections as scenarios and refresh them when your bank reprices.</li>
         <li><strong>Compounding frequency, barely.</strong> Daily instead of monthly compounding on the defaults adds $27.80 over ten years. Never pick an account for its compounding frequency; pick it for its APY.</li>
       </ul>`,
     limitationsHtml: `
@@ -79,7 +79,7 @@ export default {
     },
     {
       q: "Is my money safe in a savings account?",
-      aHtml: `<p>Protection depends on the institution, account type, ownership category and country. Check the current limit and eligibility directly with the applicable deposit-insurance authority; a familiar brand or savings label alone does not establish coverage.</p>`,
+      aHtml: `<p>Protection depends on the institution, account type, ownership category and country. In the US, FDIC insurance covers deposits to at least $250,000 per depositor, per insured bank, per ownership category (<a href="https://www.fdic.gov/deposit-insurance" rel="noopener">fdic.gov</a>); in India, bank deposits are insured by the DICGC (<a href="https://www.dicgc.org.in/" rel="noopener">dicgc.org.in</a>). Check the current limit and eligibility directly with the applicable authority; a familiar brand or savings label alone does not establish coverage.</p>`,
     },
     {
       q: "Why does the goal date barely move when I raise the rate?",

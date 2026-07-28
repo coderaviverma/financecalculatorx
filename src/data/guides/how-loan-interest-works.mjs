@@ -17,7 +17,7 @@ export default {
 <p>Loan interest is the charge for using money that has not yet been repaid. On a reducing-balance loan, the charge changes as the balance changes. The worked month below shows that calculation, followed by the effect of term length, fees and flat-rate pricing.</p>
 
 <h2>Interest accrues on the balance, not the original loan</h2>
-<p>Many amortizing consumer loans use a <strong>reducing-balance method</strong> (also called declining balance), but the accrual interval and rate convention vary. In the monthly model used here, the lender multiplies the current balance by the annual rate divided by 12, so a 9% rate produces a 0.75% monthly rate on what remains. Daily-accrual products and flat-rate quotes follow different arithmetic.</p>
+<p>Many amortizing consumer loans use a <strong>reducing-balance method</strong> (also called declining balance), but the accrual interval and rate convention vary. In the monthly model used here, the lender multiplies the current balance by the annual rate divided by 12, so a 9% rate produces a 0.75% monthly rate on what remains. Daily-accrual products and flat-rate quotes follow different rules.</p>
 <figure class="article-figure">
 <img src="/assets/img/guides/loan-payment-flow.svg" width="760" height="360" loading="lazy" decoding="async" alt="Flow of a $373.28 loan payment: $112.50 covers interest, $260.78 reduces principal, and the $15,000 balance falls to $14,739.22.">
 <figcaption>Follow one payment from the opening balance to the next month's smaller balance. The payment stays fixed; the two pieces inside it change.</figcaption>
