@@ -94,7 +94,7 @@ export const categories = [
     short: "Savings",
     title: "Savings Calculators",
     path: "/savings-calculators/",
-    lastModified: "2026-07-22",
+    lastModified: "2026-07-29",
     icon: "piggy",
     tagline: "Plan regular deposits, savings goals and interest growth.",
     metaTitle: "Savings Calculators — Growth, Goals, Deposits & Simple Interest",
@@ -102,7 +102,7 @@ export const categories = [
       "Savings calculators for account growth with regular deposits, monthly saving targets to reach a goal, and simple interest — with clear assumptions and tables.",
     introHtml: `
       <p>Savings products quote a rate, which makes them easier to model than market investments, although the rate can still change. The <a href="/savings-calculator/">Savings Calculator</a> combines an opening balance, regular deposits and compound interest, and can estimate when you will reach a target. The <a href="/monthly-investment-calculator/">Monthly Investment Calculator</a> starts with the target and timeframe instead. For a product that pays interest without adding it back to the balance, use the <a href="/simple-interest-calculator/">Simple Interest Calculator</a>.</p>
-      <h3>Which one fits your question?</h3>
+      <h2>Which one fits your question?</h2>
       <ul>
         <li><strong>"I can save X per month. Where will I be in N years?"</strong> Start with the <a href="/savings-calculator/">Savings Calculator</a>. Enter your balance, deposit and the account's APY; set a goal amount if you have one and it will mark the month you cross it.</li>
         <li><strong>"I need X by a certain date. How much must I put away?"</strong> That inverse problem belongs to the <a href="/monthly-investment-calculator/">Monthly Investment Calculator</a>, which also shows how sharply the required amount falls when you add time.</li>
@@ -119,7 +119,7 @@ export const categories = [
     short: "Personal Finance",
     title: "Personal Finance Calculators",
     path: "/personal-finance-calculators/",
-    lastModified: "2026-07-22",
+    lastModified: "2026-07-29",
     icon: "wallet",
     tagline: "Build a workable budget and compare ways to repay debt.",
     metaTitle: "Personal Finance Calculators — Budgeting & Debt Payoff",
@@ -127,7 +127,7 @@ export const categories = [
       "Personal finance calculators: build a 50/30/20 budget from your income, and plan multi-debt payoff with snowball vs avalanche comparison, timelines and interest totals.",
     introHtml: `
       <p>These two tools cover income allocation and multi-debt repayment. The <a href="/budget-calculator/">Budget Calculator</a> uses the 50/30/20 rule as an editable starting point, not a required split. The <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> uses each balance, rate and minimum payment to compare snowball and avalanche repayment month by month.</p>
-      <h3>Where to start</h3>
+      <h2>Where to start</h2>
       <p>The two tools are designed to be used in sequence. Run the <a href="/budget-calculator/">budget</a> first: its "savings &amp; debt" slice is the number that feeds everything else, and the page shows what that slice implies for an emergency fund timeline. If you carry more than one debt, take that monthly amount straight into the <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> as your extra payment and compare both payoff strategies with your real balances — the difference between them is often smaller than expected, and seeing your own numbers settles the argument quickly. For a single loan rather than a set of debts, the <a href="/loan-payoff-calculator/">Loan Payoff Calculator</a> and <a href="/extra-payment-calculator/">Extra Payment Calculator</a> in the loans section answer the same questions with loan-specific detail. Two guides pair well with this page: <a href="/guides/debt-snowball-vs-debt-avalanche/">snowball vs avalanche</a> and <a href="/guides/how-much-emergency-fund/">how much emergency fund you need</a>.</p>`,
     eduHtml: `
       <h2>Choosing a repayment order</h2>

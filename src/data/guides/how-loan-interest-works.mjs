@@ -7,7 +7,7 @@ export default {
   description:
     "What a loan's interest rate actually does each month — how interest accrues on the balance, why early payments are interest-heavy, and how to read a rate quote.",
   cardDescription: "How interest accrues on a reducing balance, why early payments favor interest, and the flat-rate trap.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-07-29",
   published: "2026-07-12",
   categories: ["loans"],
   aliases: [],
@@ -46,7 +46,7 @@ export default {
 <li><strong>Effective annual rate</strong>: what the rate compounds to over a year. A 9% nominal rate charged monthly compounds to 9.38% per year; charged daily, 9.42%. Consumer-loan accrual conventions vary, while credit cards commonly use a daily periodic rate. The difference is small on an installment loan but real.</li>
 </ul>
 <div class="callout note"><span class="c-title">Daily accrual and your due date</span>
-<p>With daily-accrual loans, paying a few days early genuinely reduces interest, because the balance drops before more days of interest are charged. With monthly-accrual loans it usually doesn't, since the charge is computed once per cycle. Credit cards are the everyday case: the CFPB explains <a href="https://www.consumerfinance.gov/ask-cfpb/how-does-my-credit-card-issuer-calculate-the-amount-of-interest-i-owe-en-51/" rel="noopener">how card issuers compute interest from a daily rate</a>. Your loan agreement states which method applies.</p></div>
+<p>With daily-accrual loans, paying a few days early genuinely reduces interest, because the balance drops before more days of interest are charged. With monthly-accrual loans it usually doesn't, since the charge is computed once per cycle. Credit cards are the everyday case: the CFPB explains <a href="https://www.consumerfinance.gov/ask-cfpb/how-does-my-credit-card-company-calculate-the-amount-of-interest-i-owe-en-51/" rel="noopener">how card issuers compute interest from a daily rate</a>. Your loan agreement states which method applies.</p></div>
 
 <h2>The flat-rate trap</h2>
 <p>Some lenders quote a <strong>flat rate</strong> instead, a practice common in car finance, small personal loans, and informal lending in many countries. Here interest is computed on the <em>original</em> amount for the whole term, ignoring the fact that you repay as you go. A flat quote looks similar to a reducing-balance quote but describes a much more expensive loan.</p>

@@ -177,6 +177,14 @@ function validateRenderedPage(path, html) {
     try { JSON.parse(match[1]); }
     catch (e) { errors.push(`dist/${path}: invalid JSON-LD (${e.message})`); }
   }
+  const headingLevels = [...html.matchAll(/<h([1-6])\b/gi)].map((match) => Number(match[1]));
+  for (let i = 1; i < headingLevels.length; i += 1) {
+    if (headingLevels[i] > headingLevels[i - 1] + 1) {
+      errors.push(
+        `dist/${path}: heading level skips from h${headingLevels[i - 1]} to h${headingLevels[i]}`,
+      );
+    }
+  }
   if (path === "404.html" && !html.includes('name="robots" content="noindex, follow"'))
     errors.push(`dist/404.html: missing noindex directive`);
   if (html.includes('id="calc-form"') && !html.includes("__FCX_SHARE_PARAMS"))

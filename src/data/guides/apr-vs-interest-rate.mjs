@@ -7,7 +7,7 @@ export default {
   description:
     "Learn what the interest rate and APR each measure, how fees create a gap between them, and when total cost is the better comparison.",
   cardDescription: "What APR includes that the interest rate doesn't, and a computed case where the lower rate loses.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-07-29",
   published: "2026-07-12",
   categories: ["loans", "mortgage"],
   aliases: [],
@@ -18,7 +18,7 @@ export default {
 
 <h2>Two numbers, two jobs</h2>
 <p>The <strong>interest rate</strong> (the "nominal" or "note" rate) is the rate applied to your outstanding balance to accrue interest. Divide it by 12 and you have the monthly rate that drives the payment formula and the amortization schedule — the mechanics covered in <a href="/guides/how-loan-interest-works/">how loan interest works</a>. It says nothing about fees.</p>
-<p>The <strong>APR (annual percentage rate)</strong> is a disclosure figure, not a separate rate charged to the balance. It converts interest and the fees included by the applicable disclosure rules into a yearly rate. If an $800 origination fee is deducted from a $20,000 loan, you receive $19,200 but make payments calculated on $20,000. The APR is the rate that matches those payments to the smaller amount received. The CFPB's <a href="https://www.consumerfinance.gov/ask-cfpb/whats-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">explainer on mortgage rates versus APR</a> covers this distinction for US mortgages. Which charges belong in APR depends on the product and jurisdiction, so read the itemized disclosure as well as the percentage.</p>
+<p>The <strong>APR (annual percentage rate)</strong> is a disclosure figure, not a separate rate charged to the balance. It converts interest and the fees included by the applicable disclosure rules into a yearly rate. If an $800 origination fee is deducted from a $20,000 loan, you receive $19,200 but make payments calculated on $20,000. The APR is the rate that matches those payments to the smaller amount received. The CFPB's <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">explainer on mortgage rates versus APR</a> covers this distinction for US mortgages. Which charges belong in APR depends on the product and jurisdiction, so read the itemized disclosure as well as the percentage.</p>
 <figure class="article-figure">
 <img src="/assets/img/guides/apr-comparison-flow.svg" width="760" height="360" loading="lazy" decoding="async" alt="APR flow: a 5.9% interest rate sets a $385.73 payment, an $800 fee reduces cash received to $19,200, and APR combines both effects into 7.61%.">
 <figcaption>The interest rate describes the payment calculation. APR also accounts for qualifying fees by measuring those payments against the money actually received.</figcaption>
