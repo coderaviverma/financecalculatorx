@@ -56,7 +56,7 @@ export default {
     factorsHtml: `
       <ul>
         <li><strong>Horizon sets the multiple.</strong> At 10% monthly the default doubles about every 7 years: 4.45× at 15 years came from the time, not from cleverness. The biggest risk to a lump sum plan is usually withdrawing it early.</li>
-        <li><strong>The rate assumption is a band.</strong> ±2 points around 10% spans $330,692 to $599,580 at 15 years, a $268,888 range on identical money. Plan against the low line.</li>
+        <li><strong>The rate assumption is a band.</strong> ±2 points around 10% spans $330,692 to $599,580 at 15 years, a $268,888 range on identical money. Compare several return assumptions and check whether the outcome would still be acceptable under the lower one.</li>
         <li><strong>Entry timing.</strong> All-at-once and staged investing have different exposure paths. Compare them over a defined schedule and avoid treating the constant-return output as evidence about next month's market.</li>
         <li><strong>Inflation and fees</strong> both compound against you: 3% inflation converts the default's 4.45× nominal into 2.86× real, and every 1% of annual fees costs multiples of itself over 15 years.</li>
       </ul>`,

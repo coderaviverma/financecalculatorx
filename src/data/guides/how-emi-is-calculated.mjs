@@ -51,7 +51,7 @@ export default {
 </table></div>
 
 <div class="callout warn"><span class="c-title">A "10% flat" loan is not a 10% loan</span>
-<p>Run the arithmetic in reverse: 10% flat on ₹5,00,000 for 5 years means ₹2,50,000 of interest and an instalment of ₹12,500, which corresponds to a reducing-balance rate of about <strong>17.3%</strong>. Whenever a quote sounds surprisingly cheap, ask one question: "flat or reducing?" If the answer is flat, mentally multiply by roughly 1.7–1.8 before comparing it with bank offers, or verify with our guide on <a href="/guides/how-to-compare-loan-offers/">how to compare loan offers</a>.</p>
+<p>Run the arithmetic in reverse: 10% flat on ₹5,00,000 for 5 years means ₹2,50,000 of interest and an instalment of ₹12,500, which corresponds to a reducing-balance rate of about <strong>17.3%</strong>. Whenever a quote sounds surprisingly cheap, ask one question: "flat or reducing?" There is no universal conversion factor between the two — the gap depends on the tenure, widening toward double for long loans — so convert the complete cash flows as this example does, or compare total repayment amounts directly using our guide on <a href="/guides/how-to-compare-loan-offers/">how to compare loan offers</a>.</p>
 </div>
 
 <h2>How tenure and rate move the EMI</h2>
