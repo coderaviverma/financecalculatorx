@@ -20,6 +20,7 @@ export default {
 <p>Compounding rewards time in the market more than anything else. A dollar invested today earns returns for the entire horizon; a dollar invested in year nine earns returns for one year. (The SEC's investor-education site has a short <a href="https://www.investor.gov/additional-resources/information/youth/teachers-classroom-resources/what-compound-interest" rel="noopener">primer on compound interest</a> if the mechanism is new to you.) Spreading a fixed sum over time therefore leaves most of it on the sidelines for most of the period, and that has a price you can calculate.</p>
 
 <div class="example-block"><div class="ex-head">Example: $24,000 at 8% over 10 years — all at once vs $200/month</div><div class="ex-body">
+<p>One assumption matters before comparing: both scenarios below treat the full $24,000 as available on day one. This is a comparison of <em>deployment schedules</em> for money you already have — not a comparison between a windfall and income that will only be earned gradually over the decade.</p>
 <p>Invested as a single lump sum at an 8% average annual return (compounded monthly), $24,000 grows to <strong>$53,271</strong> after 10 years: $29,271 of growth on top of the original amount.</p>
 <p>The same $24,000 drip-fed as $200 per month for 10 years grows to <strong>$36,589</strong>, only $12,589 of growth, because the average dollar was invested for just five years instead of ten.</p>
 <p>Identical money in, identical return assumption, and a gap of <strong>$16,682</strong>. That is the cost of the sidelines.</p>
