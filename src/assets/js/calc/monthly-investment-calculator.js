@@ -4,7 +4,7 @@ FCX.define({
   inputs: [
     { id: "target", label: "Target amount", type: "currency", default: 100000, min: 1, max: 1000000000 },
     { id: "years", label: "Years to reach it", type: "number", default: 10, min: 1, max: 60, integer: true, affixPost: "years" },
-    { id: "rate", label: "Expected annual return", type: "percent", default: 7, min: 0, max: 30, slider: { min: 0, max: 15, step: 0.1 }, hint: "Match this to what you'd actually hold — cash rates for short goals, market averages only for long ones." },
+    { id: "rate", label: "Expected annual return", type: "percent", default: 7, min: 0, max: 30, slider: { min: 0, max: 15, step: 0.1 }, hint: "Use a scenario rate appropriate to the assets modeled; actual returns can be lower or negative." },
     { id: "principal", label: "Current savings toward it", type: "currency", default: 5000, min: 0, max: 1000000000, optional: true },
   ],
   compute(v, F) {
@@ -17,6 +17,7 @@ FCX.define({
     const totalContrib = req * months;
     const growthPart = Math.max(0, v.target - principal - totalContrib);
     const growthShare = (growthPart / v.target) * 100;
+    const fundedGrowthShare = funded ? Math.max(0, Math.min(100, ((v.target - principal) / v.target) * 100)) : growthShare;
     const rLo = FIN.contributionForGoal(v.target, principal, Math.max(0, v.rate - 2), v.years, 12);
     const rHi = FIN.contributionForGoal(v.target, principal, v.rate + 2, v.years, 12);
     const projected = funded ? FIN.grow({ principal, contribution: 0, annualPct: v.rate, years: v.years, compFreq: 12 }).fv : 0;
@@ -61,8 +62,8 @@ FCX.define({
         : { label: "Required monthly investment", value: F.money(req), sub: `to reach ${F.money0(v.target)} in ${v.years} years at ${F.pct(v.rate)}` },
       metrics,
       explain: funded
-        ? `<p>Good news — you don't need to add anything. Your current <strong>${F.money0(principal)}</strong> growing at <strong>${F.pct(v.rate)}</strong> projects to <strong>${F.money0(projected)}</strong> in ${v.years} years, a surplus of <strong>${F.money0(projected - v.target)}</strong> over your <strong>${F.money0(v.target)}</strong> target. You could stop here, shorten the timeline, or aim the surplus at the next goal.</p>`
-        : `<p>To reach <strong>${F.money0(v.target)}</strong> in ${v.years} years at <strong>${F.pct(v.rate)}</strong>, invest <strong>${F.money(req)}</strong> every month${principal > 0 ? ` on top of your <strong>${F.money0(principal)}</strong> head start` : ""}. Your contributions total <strong>${F.money0(totalContrib)}</strong>; growth covers <strong>${F.money0(growthPart)}</strong> — <strong>${F.pct(growthShare, 1)}</strong> of the target.</p><p>If returns land 2% lower, the required amount rises to <strong>${F.money(rLo)}</strong>; 2% higher trims it to <strong>${F.money(rHi)}</strong>. Budget for the lower-return case and let good years surprise you.</p>`,
+        ? `<p>No added monthly contribution is required in this scenario. The current <strong>${F.money0(principal)}</strong> growing at <strong>${F.pct(v.rate)}</strong> projects to <strong>${F.money0(projected)}</strong> in ${v.years} years, a surplus of <strong>${F.money0(projected - v.target)}</strong> over the <strong>${F.money0(v.target)}</strong> target.</p>`
+        : `<p>To reach <strong>${F.money0(v.target)}</strong> in ${v.years} years at <strong>${F.pct(v.rate)}</strong>, the model requires <strong>${F.money(req)}</strong> every month${principal > 0 ? ` on top of the <strong>${F.money0(principal)}</strong> starting amount` : ""}. Contributions total <strong>${F.money0(totalContrib)}</strong>; modeled growth covers <strong>${F.money0(growthPart)}</strong> — <strong>${F.pct(growthShare, 1)}</strong> of the target.</p><p>At a return 2 percentage points lower, the required amount is <strong>${F.money(rLo)}</strong>; 2 points higher changes it to <strong>${F.money(rHi)}</strong>. These are scenario outputs, not return forecasts.</p>`,
       chart: {
         title: "Required monthly at different returns",
         note: `Bars use your ${F.money0(v.target)} target, ${v.years}-year timeline and ${F.money0(principal)} starting savings — only the return assumption changes.`,
@@ -87,7 +88,7 @@ FCX.define({
         metrics: [
           { label: "Required monthly", raw: funded ? 0 : req, fmt: "money", betterWhen: "lower" },
           { label: "Total contributed", raw: funded ? 0 : totalContrib, fmt: "money0", betterWhen: "lower" },
-          { label: "Share funded by growth", raw: funded ? 100 : growthShare, fmt: "pct", betterWhen: "higher" },
+          { label: "Share funded by growth", raw: fundedGrowthShare, fmt: "pct", betterWhen: "higher" },
         ],
       },
     };

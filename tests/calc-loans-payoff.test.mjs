@@ -49,6 +49,10 @@ test("loan-payoff-calculator: defaults vs closed-form nper; extra payment; inval
   // payment at/below monthly interest → invalid naming the minimum ($99.17)
   const bad = cfg.compute({ ...defaults(cfg), payment: 99 }, F);
   assert.ok(bad.invalid && bad.invalid.includes("$99.17"));
+  // Slightly above interest-only does pay down eventually, but beyond the
+  // schedule's 100-year safety horizon; it must not return a false payoff.
+  const overCap = cfg.compute({ ...defaults(cfg), balance: 100000000, rate: 12, payment: 1000000.01 }, F);
+  assert.ok(overCap.invalid && overCap.invalid.includes("100 years"));
 });
 
 test("extra-payment-calculator: savings vs independent balance walk; zero extras stay valid", () => {
@@ -85,6 +89,16 @@ test("extra-payment-calculator: savings vs independent balance walk; zero extras
   close(n(none.primary.value), 0, 0.001);
   close(scnRaw(none, "months saved"), 0, 0.01);
   assert.equal(none.chart.cfg.series.length, 1);
+
+  // Oversized one-time extras report only the amount actually applied.
+  const oversized = cfg.compute({ ...defaults(cfg), extraMonthly: 0, extraOnce: 500000, onceMonth: 1 }, F);
+  close(oversized.table.views.find((v) => v.id === "monthly").rows[0]._csv_xtr, 249774, 0.01);
+  assert.ok(oversized.explain.includes("of the requested"));
+  // A month after payoff is left at the selected month and ignored.
+  const late = cfg.compute({ ...defaults(cfg), extraMonthly: 0, extraOnce: 500000, onceMonth: 600 }, F);
+  close(n(late.primary.value), 0, 0.001);
+  assert.equal(late.chart.cfg.series.length, 1);
+  assert.ok(late.explain.includes("month 600") && late.explain.includes("not applied"));
 });
 
 test("early-loan-payoff-calculator: required payment closed-form; target already met; non-amortizing current pace", () => {
@@ -116,6 +130,14 @@ test("early-loan-payoff-calculator: required payment closed-form; target already
   assert.equal(metric(low, "at current"), "—");
   assert.equal(low.chart.cfg.series.length, 1);
   close(n(low.primary.value), req, 0.02); // required payment unchanged by current pace
+
+  // A current payment just above interest has a finite 154.3-year solution,
+  // but the comparison schedule is deliberately omitted beyond 100 years.
+  const slow = cfg.compute({ ...defaults(cfg), balance: 100000000, rate: 12, payment: 1000000.01 }, F);
+  assert.ok(!slow.invalid);
+  assert.equal(metric(slow, "at current"), "—");
+  assert.equal(slow.chart.cfg.series.length, 1);
+  assert.ok(slow.explain.includes("beyond 100 years"));
 });
 
 test("loan-comparison-calculator: totals, effective APR and break-even vs closed form; equal offers tie", () => {
@@ -136,9 +158,18 @@ test("loan-comparison-calculator: totals, effective APR and break-even vs closed
   close(n(metric(r, "total cost — offer a")), costA, 0.5);
   close(n(metric(r, "total cost — offer b")), costB, 0.5);
 
-  // break-even: first m with 500 + payB·m < payA·m → ceil(500 / (payA − payB)) = 35
-  const be = Math.ceil(500 / (payA - payB) + 1e-9);
+  // Early-payoff break-even compares borrowing cost: fees plus cumulative
+  // interest. Principal repayment is excluded because it also reduces payoff.
+  let balA = 20000, balB = 20000, cumA = 0, cumB = 500, be = null;
+  for (let m = 1; m <= 60 && be == null; m++) {
+    const intA = balA * 0.089 / 12, intB = balB * 0.074 / 12;
+    cumA += intA; cumB += intB;
+    balA -= payA - intA; balB -= payB - intB;
+    if (cumB < cumA) be = m;
+  }
+  assert.equal(be, 24);
   assert.ok(r.explain.includes(`month ${be}`));
+  assert.ok(r.explain.includes("cumulative interest savings"));
 
   // effective APR of B (fees deducted from proceeds) ≈ 8.47% in the comparison table
   assert.equal(r.table.views.length, 1);
@@ -147,6 +178,12 @@ test("loan-comparison-calculator: totals, effective APR and break-even vs closed
   assert.equal(r.chart.cfg.type, "bars");
   assert.equal(r.chart.cfg.series.length, 2);
   assert.ok(!r.scenario);
+
+  // Adaptive APR bracket: $99 deducted from a $100, three-month, zero-rate
+  // loan leaves $1 net proceeds and implies 39,999.01157587% nominal APR.
+  const extreme = cfg.compute({ ...defaults(cfg), amount: 100, rateA: 0, termA: 3, feesA: 99, rateB: 0, termB: 3, feesB: 0 }, F);
+  const extremeApr = extreme.table.views[0].rows.find((row) => row.m.includes("APR"));
+  close(extremeApr._csv_a, 39999.01157587, 0.000001);
 
   // identical offers → zero difference and an explicit tie
   const same = cfg.compute({ ...defaults(cfg), rateB: 8.9, feesB: 0 }, F);

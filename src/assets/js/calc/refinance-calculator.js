@@ -14,7 +14,7 @@ FCX.define({
       ],
       hint: "Matching your remaining time avoids resetting the clock; a longer term lowers the payment but can raise lifetime cost.",
     },
-    { id: "closing", label: "Closing costs", type: "currency", default: 5000, min: 0, max: 10000000, optional: true, hint: "Origination, appraisal, title — often 2–5% of the balance. A \"no-cost\" refi prices these into the rate instead." },
+    { id: "closing", label: "Closing costs", type: "currency", default: 5000, min: 0, max: 10000000, optional: true, hint: "Enter the fees used in this scenario. Actual fee structures and so-called no-cost offers vary by lender and jurisdiction." },
   ],
   compute(v, F) {
     const FIN = F.fin;
@@ -47,10 +47,10 @@ FCX.define({
     if (save > 0) {
       explain += `<p>The <strong>${F.money0(closing)}</strong> of closing costs is recovered by the monthly saving in about <strong>${breakEven === 0 ? "no time" : F.dur(breakEven)}</strong>. Over the full schedules, the refinance ${lifetime >= 0 ? `saves <strong>${F.money0(lifetime)}</strong>` : `costs <strong>${F.money0(-lifetime)}</strong> more`} including fees.</p>`;
     } else {
-      explain += `<p>The payment rises, so closing costs are never recovered from monthly savings — there is no payment break-even. ${lifetime > 0 ? `The shorter schedule still ${reset ? "changes" : "cuts"} lifetime cost by <strong>${F.money0(lifetime)}</strong> including fees, which can make this worthwhile as a term-shortening move.` : `Lifetime cost also rises by <strong>${F.money0(-lifetime)}</strong> including fees — this refinance loses on both fronts.`}</p>`;
+      explain += `<p>The payment rises, so closing costs are not recovered from monthly savings — there is no payment break-even. ${lifetime > 0 ? `The shorter schedule still ${reset ? "changes" : "cuts"} modeled lifetime cost by <strong>${F.money0(lifetime)}</strong> including fees.` : `Modeled lifetime cost also rises by <strong>${F.money0(-lifetime)}</strong> including fees.`}</p>`;
     }
     if (reset) {
-      explain += `<p><strong>Term reset warning:</strong> the new ${F.dur(v.newTerm)} term is longer than the ${F.dur(v.remaining)} you have left. Stretching the balance over more payments ${lifetime < 0 ? `raises lifetime cost by <strong>${F.money0(-lifetime)}</strong> despite the lower rate` : `keeps lifetime cost lower here, but only because of the rate gap`} — compare the total-cost row in the table, not just the payment.</p>`;
+      explain += `<p><strong>Term reset:</strong> the new ${F.dur(v.newTerm)} term is longer than the ${F.dur(v.remaining)} remaining term. Stretching the balance over more payments ${lifetime < 0 ? `raises modeled lifetime cost by <strong>${F.money0(-lifetime)}</strong> despite the lower rate` : `keeps modeled lifetime cost lower here because of the entered rate gap`}; the total-cost row captures that difference.</p>`;
     }
 
     return {

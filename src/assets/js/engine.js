@@ -14,6 +14,7 @@
 (function () {
   "use strict";
   const $ = (s, r) => (r || document).querySelector(s);
+  const MAX_DEBTS = 50;
 
   const F = {
     get fin() { return window.FIN; },
@@ -36,59 +37,80 @@
 
   function parseNum(str) {
     if (typeof str === "number") return str;
-    if (str == null) return NaN;
-    const s = String(str).replace(/[^\d.\-]/g, "");
-    if (!s || s === "-" || s === ".") return NaN;
-    return parseFloat(s);
+    if (FCX.fmt.parse) return FCX.fmt.parse(str);
+    const s = String(str == null ? "" : str).trim().replace(/,/g, "");
+    return /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(s) ? Number(s) : NaN;
+  }
+
+  function parseSharedNumber(raw) {
+    const s = String(raw == null ? "" : raw).trim();
+    if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(s)) return NaN;
+    const n = Number(s);
+    return Number.isFinite(n) ? n : NaN;
+  }
+
+  function normalizeDebt(value, index) {
+    const d = value && typeof value === "object" ? value : {};
+    const finite = (v) => {
+      const n = typeof v === "number" ? v : parseSharedNumber(v);
+      return Number.isFinite(n) ? n : NaN;
+    };
+    return {
+      name: String(d.name == null || d.name === "" ? `Debt ${index + 1}` : d.name).slice(0, 120),
+      balance: finite(d.balance),
+      apr: finite(d.apr),
+      min: finite(d.min),
+    };
   }
 
   function fieldHtml(def) {
     const id = "f-" + def.id;
     let control = "";
-    const tip = def.tip ? `<button type="button" class="tip" tabindex="-1" title="${F.esc(def.tip)}" aria-label="More info: ${F.esc(def.tip)}">?</button>` : "";
+    const tip = def.tip ? `<button type="button" class="tip" title="${F.esc(def.tip)}" aria-label="More info: ${F.esc(def.tip)}">?</button>` : "";
     const label = `<label class="field-label" for="${id}">${def.label}${tip}</label>`;
     if (def.type === "currency") {
-      control = `<div class="control"><span class="affix pre" data-cursym>${FCX.fmt.sym()}</span><input id="${id}" type="text" inputmode="decimal" autocomplete="off" spellcheck="false"></div>`;
+      control = `<div class="control"><span class="affix pre" data-cursym>${FCX.fmt.sym()}</span><input id="${id}" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" aria-describedby="${id}-error"></div>`;
     } else if (def.type === "percent") {
-      control = `<div class="control"><input id="${id}" class="has-post" type="text" inputmode="decimal" autocomplete="off"><span class="affix post">% / yr</span></div>`;
+      control = `<div class="control"><input id="${id}" class="has-post" type="text" inputmode="decimal" autocomplete="off" aria-describedby="${id}-error"><span class="affix post">% / yr</span></div>`;
       if (def.affixPost) control = control.replace("% / yr", F.esc(def.affixPost));
     } else if (def.type === "number") {
       const post = def.affixPost ? `<span class="affix post">${F.esc(def.affixPost)}</span>` : "";
-      control = `<div class="control"><input id="${id}" ${post ? 'class="has-post"' : ""} type="text" inputmode="decimal" autocomplete="off">${post}</div>`;
+      control = `<div class="control"><input id="${id}" ${post ? 'class="has-post"' : ""} type="text" inputmode="decimal" autocomplete="off" aria-describedby="${id}-error">${post}</div>`;
     } else if (def.type === "term") {
-      control = `<div class="control"><input id="${id}" class="has-post" type="text" inputmode="numeric" autocomplete="off"></div>
+      control = `<div class="control"><input id="${id}" class="has-post" type="text" inputmode="numeric" autocomplete="off" aria-describedby="${id}-error"></div>
         <div class="segment" data-term-unit role="group" aria-label="Term unit">
           <button type="button" data-u="y" aria-pressed="true">Years</button>
           <button type="button" data-u="m" aria-pressed="false">Months</button>
         </div>`;
     } else if (def.type === "select") {
-      control = `<div class="control"><select id="${id}">${def.options.map((o) => `<option value="${F.esc(o.v)}">${F.esc(o.label)}</option>`).join("")}</select><span class="select-caret">▾</span></div>`;
+      control = `<div class="control"><select id="${id}" aria-describedby="${id}-error">${def.options.map((o) => `<option value="${F.esc(o.v)}">${F.esc(o.label)}</option>`).join("")}</select><span class="select-caret">▾</span></div>`;
     } else if (def.type === "segment") {
-      control = `<div class="segment" data-segment role="group" aria-label="${F.esc(def.label)}">${def.options.map((o, i) => `<button type="button" data-v="${F.esc(o.v)}" aria-pressed="${i === 0}">${F.esc(o.label)}</button>`).join("")}</div>`;
+      control = `<div class="segment" data-segment role="group" aria-label="${F.esc(def.label)}" aria-describedby="${id}-error">${def.options.map((o, i) => `<button type="button" data-v="${F.esc(o.v)}" aria-pressed="${i === 0}">${F.esc(o.label)}</button>`).join("")}</div>`;
     } else if (def.type === "toggle") {
       return `<div class="field" data-field="${def.id}">
         <div class="toggle-row"><label class="field-label" for="${id}" style="margin:0">${def.label}${tip}</label>
-        <span class="switch"><input id="${id}" type="checkbox"><span class="track"></span><span class="thumb"></span></span></div>
-        ${def.hint ? `<p class="field-hint">${def.hint}</p>` : ""}<p class="field-error" hidden></p></div>`;
+        <span class="switch"><input id="${id}" type="checkbox" aria-describedby="${id}-error"><span class="track"></span><span class="thumb"></span></span></div>
+        ${def.hint ? `<p class="field-hint">${def.hint}</p>` : ""}<p class="field-error" id="${id}-error" role="status" aria-live="polite" hidden></p></div>`;
     } else if (def.type === "debts") {
       return `<div class="field" data-field="${def.id}">
         <span class="field-label">${def.label}${tip}</span>
         <div class="row-list" data-rows></div>
         <button type="button" class="btn btn-soft btn-sm" data-add-row>+ Add a debt</button>
-        ${def.hint ? `<p class="field-hint">${def.hint}</p>` : ""}<p class="field-error" hidden></p></div>`;
+        ${def.hint ? `<p class="field-hint">${def.hint}</p>` : ""}<p class="field-error" id="${id}-error" role="status" aria-live="polite" hidden></p></div>`;
     }
     const slider = def.slider ? `<input type="range" min="${def.slider.min}" max="${def.slider.max}" step="${def.slider.step}" aria-label="${F.esc(def.label)} slider" tabindex="-1">` : "";
-    return `<div class="field" data-field="${def.id}">${label}${control}${slider}${def.hint ? `<p class="field-hint">${def.hint}</p>` : ""}<p class="field-error" hidden></p></div>`;
+    return `<div class="field" data-field="${def.id}">${label}${control}${slider}${def.hint ? `<p class="field-hint">${def.hint}</p>` : ""}<p class="field-error" id="${id}-error" role="status" aria-live="polite" hidden></p></div>`;
   }
 
   function debtRowHtml(d, i) {
+    const base = `debt-${i + 1}`;
     return `<div class="row-item" data-row="${i}">
-      <div class="row-head"><input type="text" value="${F.esc(d.name)}" aria-label="Debt ${i + 1} name" data-k="name">
+      <div class="row-head"><input id="${base}-name" type="text" value="${F.esc(d.name)}" maxlength="120" aria-label="Debt ${i + 1} name" data-k="name">
         <button type="button" class="row-remove" aria-label="Remove ${F.esc(d.name)}">Remove</button></div>
       <div class="row-fields">
-        <div class="field"><label class="field-label">Balance</label><div class="control"><span class="affix pre" data-cursym>${FCX.fmt.sym()}</span><input type="text" inputmode="decimal" data-k="balance" value="${d.balance}"></div></div>
-        <div class="field"><label class="field-label">APR</label><div class="control"><input class="has-post" type="text" inputmode="decimal" data-k="apr" value="${d.apr}"><span class="affix post">%</span></div></div>
-        <div class="field"><label class="field-label">Min. payment</label><div class="control"><span class="affix pre" data-cursym>${FCX.fmt.sym()}</span><input type="text" inputmode="decimal" data-k="min" value="${d.min}"></div></div>
+        <div class="field"><label class="field-label" for="${base}-balance">Balance</label><div class="control"><span class="affix pre" data-cursym>${FCX.fmt.sym()}</span><input id="${base}-balance" type="text" inputmode="decimal" data-k="balance" value="${F.esc(d.balance)}"></div></div>
+        <div class="field"><label class="field-label" for="${base}-apr">APR</label><div class="control"><input id="${base}-apr" class="has-post" type="text" inputmode="decimal" data-k="apr" value="${F.esc(d.apr)}"><span class="affix post">%</span></div></div>
+        <div class="field"><label class="field-label" for="${base}-min">Min. payment</label><div class="control"><span class="affix pre" data-cursym>${FCX.fmt.sym()}</span><input id="${base}-min" type="text" inputmode="decimal" data-k="min" value="${F.esc(d.min)}"></div></div>
       </div></div>`;
   }
 
@@ -104,7 +126,7 @@
       const wrap = form.querySelector(`[data-field="${def.id}"]`);
       fieldEls[def.id] = wrap;
       if (def.type === "debts") {
-        state.debts = (def.default || []).map((d) => Object.assign({}, d));
+        state.debts = (def.default || []).slice(0, MAX_DEBTS).map(normalizeDebt);
         renderDebtRows(wrap, def);
       } else if (def.type === "segment") {
         state.values[def.id] = def.default != null ? def.default : def.options[0].v;
@@ -155,7 +177,12 @@
 
     function coerceOption(def, v) {
       const opt = def.options.find((o) => String(o.v) === String(v));
-      return opt ? opt.v : v;
+      if (opt) return opt.v;
+      const fallback = def.options.find((o) => String(o.v) === String(def.default));
+      return (fallback || def.options[0]).v;
+    }
+    function coerceTermUnit(v, fallback) {
+      return v === "m" || v === "y" ? v : (fallback === "m" ? "m" : "y");
     }
     function syncSegment(wrap, v) {
       wrap.querySelectorAll("[data-segment] button").forEach((b) => b.setAttribute("aria-pressed", String(String(b.dataset.v) === String(v))));
@@ -166,9 +193,9 @@
       if (def.type === "currency") input.value = isFinite(v) && v !== "" ? FCX.fmt.group(v) : "";
       else if (def.type === "term") {
         const u = state.termUnits[def.id];
-        input.value = u === "m" ? String(Math.round(v)) : String(+(v / 12).toFixed(2)).replace(/\.00$/, "");
+        input.value = u === "m" ? String(Math.round(v)) : String(+(v / 12).toFixed(4)).replace(/\.0+$/, "");
       } else input.value = v === "" ? "" : String(v);
-      readField(def);
+      state.values[def.id] = isFinite(v) ? Number(v) : v;
     }
     function reformat(def) {
       const input = fieldEls[def.id].querySelector("input[type=text]");
@@ -188,7 +215,7 @@
       if (!input) return;
       let v = parseNum(input.value);
       if (def.type === "term" && state.termUnits[def.id] === "y") v = v * 12;
-      if (def.integer && isFinite(v)) v = Math.round(v);
+      if ((def.integer || def.type === "term") && isFinite(v)) v = Math.round(v);
       state.values[def.id] = v;
     }
 
@@ -201,7 +228,7 @@
         row.querySelectorAll("input[data-k]").forEach((inp) => {
           inp.addEventListener("input", () => {
             const k = inp.dataset.k;
-            state.debts[i][k] = k === "name" ? inp.value : parseNum(inp.value);
+            state.debts[i][k] = k === "name" ? inp.value.slice(0, 120) : parseNum(inp.value);
             onChange();
           });
         });
@@ -213,6 +240,7 @@
         });
       });
       wrap.querySelector("[data-add-row]").onclick = () => {
+        if (state.debts.length >= MAX_DEBTS) { FCX.toast(`A calculation can include up to ${MAX_DEBTS} debts`); return; }
         state.debts.push({ name: "Debt " + (state.debts.length + 1), balance: 1000, apr: 15, min: 50 });
         renderDebtRows(wrap, def);
         onChange();
@@ -236,7 +264,6 @@
           }
         } else if (["currency", "percent", "number", "term"].includes(def.type)) {
           const v = state.values[def.id];
-          const unit = def.type === "term" ? (state.termUnits[def.id] === "m" ? " months" : " months (in the selected unit)") : "";
           if (!isFinite(v)) msg = def.optional ? "" : "Enter a number.";
           else if (def.min != null && v < def.min) msg = `Must be at least ${FCX.fmt.num(def.min)}${def.type === "term" ? " months" : ""}.`;
           else if (def.max != null && v > def.max) msg = `Must be ${FCX.fmt.num(def.max)}${def.type === "term" ? " months" : ""} or less.`;
@@ -266,14 +293,31 @@
 
     /* ---- rendering ---- */
     const heroEl = $("#res-hero"), invalidEl = $("#res-invalid");
+    function setResultActions(r) {
+      const valid = !!(r && !r.invalid);
+      [$("#act-share"), $("#act-print")].forEach((button) => { if (button) button.disabled = !valid; });
+      [$("#table-print"), $("#table-csv")].forEach((button) => { if (button) button.disabled = !(valid && r.table); });
+      scnCard?.querySelectorAll("[data-save]").forEach((button) => { button.disabled = !(valid && r.scenario); });
+    }
     function render() {
       const r = state.result;
       const metricsEl = $("#res-metrics"), explainEl = $("#res-explain");
       const chartCard = $("#chart-card"), tableCard = $("#table-card");
+      setResultActions(r);
       if (!r || r.invalid) {
         invalidEl.hidden = false;
         invalidEl.textContent = (r && r.invalid) || "Check the highlighted fields to see results.";
-        heroEl.style.opacity = .4; metricsEl.style.opacity = .4;
+        heroEl.style.opacity = .4;
+        metricsEl.style.opacity = .4;
+        $(".rh-label", heroEl).textContent = "";
+        $(".rh-value", heroEl).textContent = "";
+        $(".rh-sub", heroEl).textContent = "";
+        metricsEl.replaceChildren();
+        if (explainEl) { explainEl.replaceChildren(); explainEl.hidden = true; }
+        if (chartCard) chartCard.hidden = true;
+        $("#chart")?.replaceChildren();
+        if (tableCard) tableCard.hidden = true;
+        $("#table")?.replaceChildren();
         return;
       }
       invalidEl.hidden = true;
@@ -281,7 +325,24 @@
       $(".rh-label", heroEl).textContent = r.primary.label;
       $(".rh-value", heroEl).textContent = r.primary.value;
       $(".rh-sub", heroEl).textContent = r.primary.sub || "";
-      metricsEl.innerHTML = (r.metrics || []).map((m) => `<div class="metric"><div class="m-label">${m.label}</div><div class="m-value">${m.value}</div>${m.hint ? `<div class="m-hint">${m.hint}</div>` : ""}</div>`).join("");
+      metricsEl.replaceChildren(...(r.metrics || []).map((m) => {
+        const metric = document.createElement("div");
+        metric.className = "metric";
+        const label = document.createElement("div");
+        label.className = "m-label";
+        label.textContent = m.label;
+        const value = document.createElement("div");
+        value.className = "m-value";
+        value.textContent = m.value;
+        metric.append(label, value);
+        if (m.hint) {
+          const hint = document.createElement("div");
+          hint.className = "m-hint";
+          hint.textContent = m.hint;
+          metric.append(hint);
+        }
+        return metric;
+      }));
       if (explainEl) { explainEl.innerHTML = r.explain || ""; explainEl.hidden = !r.explain; }
 
       if (chartCard) {
@@ -307,17 +368,18 @@
       const seg = $("#table-views");
       if (t.views.length > 1) {
         seg.hidden = false;
-        seg.innerHTML = t.views.map((v) => `<button type="button" data-view="${v.id}" aria-pressed="${String(v.id === state.view)}">${v.label}</button>`).join("");
+        seg.innerHTML = t.views.map((v) => `<button type="button" data-view="${F.esc(v.id)}" aria-pressed="${String(v.id === state.view)}">${F.esc(v.label)}</button>`).join("");
         seg.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { state.view = b.dataset.view; renderViews(t); FCX.track("table_view_changed", { view: state.view }); }));
       } else { seg.hidden = true; }
       if (!t.views.find((v) => v.id === state.view)) state.view = t.views[0].id;
       seg.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === state.view)));
       const view = t.views.find((v) => v.id === state.view);
       const tbl = $("#table");
-      const cell = (c, val) => `<td style="${c.align === "left" ? "text-align:left" : ""}">${val == null ? "—" : val}</td>`;
-      tbl.innerHTML = `<thead><tr>${view.columns.map((c) => `<th scope="col" style="${c.align === "left" ? "text-align:left" : ""}">${c.label}</th>`).join("")}</tr></thead>
-        <tbody>${view.rows.map((row) => `<tr${row._cls ? ` class="${row._cls}"` : ""}>${view.columns.map((c) => cell(c, row[c.key])).join("")}</tr>`).join("")}</tbody>
-        ${view.foot ? `<tfoot><tr>${view.foot.map((f) => `<td>${f == null ? "" : f}</td>`).join("")}</tr></tfoot>` : ""}`;
+      const cell = (c, val) => `<td style="${c.align === "left" ? "text-align:left" : ""}">${F.esc(val == null ? "—" : val)}</td>`;
+      const rowClass = (value) => /^[A-Za-z0-9_-]+$/.test(String(value || "")) ? String(value) : "";
+      tbl.innerHTML = `<thead><tr>${view.columns.map((c) => `<th scope="col" style="${c.align === "left" ? "text-align:left" : ""}">${F.esc(c.label)}</th>`).join("")}</tr></thead>
+        <tbody>${view.rows.map((row) => `<tr${rowClass(row._cls) ? ` class="${rowClass(row._cls)}"` : ""}>${view.columns.map((c) => cell(c, row[c.key])).join("")}</tr>`).join("")}</tbody>
+        ${view.foot ? `<tfoot><tr>${view.foot.map((f) => `<td>${F.esc(f == null ? "" : f)}</td>`).join("")}</tr></tfoot>` : ""}`;
     }
 
     /* ---- scenarios ---- */
@@ -347,7 +409,7 @@
           let cls = "", txt = diff == null ? "—" : (diff > 0 ? "+" : diff < 0 ? "−" : "") + fmtScn(Math.abs(diff), ma.fmt);
           if (diff && ma.betterWhen) cls = (diff < 0) === (ma.betterWhen === "lower") ? "diff-pos" : "diff-neg";
           if (diff === 0) txt = "Same";
-          return `<tr><td>${ma.label}</td><td>${fmtV(ma)}</td><td>${fmtV(mb)}</td><td class="${cls}">${txt}</td></tr>`;
+          return `<tr><td>${F.esc(ma.label)}</td><td>${F.esc(fmtV(ma))}</td><td>${F.esc(fmtV(mb))}</td><td class="${cls}">${F.esc(txt)}</td></tr>`;
         }).join("");
         cmp.innerHTML = `<table class="compare"><thead><tr><th scope="col">Metric</th><th scope="col">Scenario A</th><th scope="col">Scenario B</th><th scope="col">B − A</th></tr></thead><tbody>${rows}</tbody></table>`;
         cmp.hidden = false;
@@ -387,19 +449,27 @@
     function loadValues(values, termUnits) {
       cfg.inputs.forEach((def) => {
         if (def.type === "debts") {
-          if (Array.isArray(values.debts)) { state.debts = values.debts.map((d) => Object.assign({}, d)); renderDebtRows(fieldEls[def.id], def); }
+          if (Array.isArray(values.debts)) { state.debts = values.debts.slice(0, MAX_DEBTS).map(normalizeDebt); renderDebtRows(fieldEls[def.id], def); }
         } else if (def.type === "toggle") {
           state.values[def.id] = !!values[def.id];
           fieldEls[def.id].querySelector("input").checked = !!values[def.id];
         } else if (def.type === "segment") {
-          if (values[def.id] != null) { state.values[def.id] = values[def.id]; syncSegment(fieldEls[def.id], values[def.id]); }
+          if (values[def.id] != null) {
+            const v = coerceOption(def, values[def.id]);
+            state.values[def.id] = v;
+            syncSegment(fieldEls[def.id], v);
+          }
         } else if (def.type === "select") {
-          if (values[def.id] != null) { state.values[def.id] = values[def.id]; fieldEls[def.id].querySelector("select").value = String(values[def.id]); }
+          if (values[def.id] != null) {
+            const v = coerceOption(def, values[def.id]);
+            state.values[def.id] = v;
+            fieldEls[def.id].querySelector("select").value = String(v);
+          }
         } else if (values[def.id] != null && isFinite(values[def.id])) {
           if (def.type === "term" && termUnits && termUnits[def.id]) {
-            state.termUnits[def.id] = termUnits[def.id];
+            state.termUnits[def.id] = coerceTermUnit(termUnits[def.id], state.termUnits[def.id]);
             const wrap = fieldEls[def.id];
-            wrap.querySelectorAll("[data-term-unit] button").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.u === termUnits[def.id])));
+            wrap.querySelectorAll("[data-term-unit] button").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.u === state.termUnits[def.id])));
           }
           setInputVal(def, values[def.id]);
         }
@@ -409,11 +479,15 @@
 
     /* ---- share / reset / print / csv ---- */
     $("#act-share")?.addEventListener("click", () => {
+      if (!state.result || state.result.invalid) { FCX.toast("Enter valid inputs first"); return; }
       const p = new URLSearchParams();
       cfg.inputs.forEach((def) => {
-        if (def.type === "debts") p.set("debts", state.debts.map((d) => [encodeURIComponent(d.name), d.balance, d.apr, d.min].join("~")).join("_"));
+        if (def.type === "debts") p.set("debts", JSON.stringify(state.debts));
         else if (def.type === "toggle") p.set(def.id, state.values[def.id] ? "1" : "0");
-        else if (state.values[def.id] != null && state.values[def.id] !== "" && isFinite(state.values[def.id])) p.set(def.id, String(+(+state.values[def.id]).toFixed(4)));
+        else if (state.values[def.id] != null && state.values[def.id] !== "" && isFinite(state.values[def.id])) {
+          p.set(def.id, String(+(+state.values[def.id]).toFixed(6)));
+          if (def.type === "term") p.set(def.id + "Unit", state.termUnits[def.id]);
+        }
         else if (typeof state.values[def.id] === "string") p.set(def.id, state.values[def.id]);
       });
       // Keep calculator inputs in the URL fragment. Fragments are not included in
@@ -435,21 +509,31 @@
       window.__FCX_SHARE_PARAMS = "";
       const p = new URLSearchParams(raw);
       if (![...p.keys()].length) return;
-      const values = {};
+      const values = {}, termUnits = {};
       let any = false;
       cfg.inputs.forEach((def) => {
         if (!p.has(def.type === "debts" ? "debts" : def.id)) return;
         any = true;
         if (def.type === "debts") {
-          values.debts = p.get("debts").split("_").map((s) => {
-            const [name, balance, apr, min] = s.split("~");
-            return { name: safeDecode(name || "Debt"), balance: +balance || 0, apr: +apr || 0, min: +min || 0 };
-          });
+          const rawDebts = p.get("debts");
+          try {
+            const parsed = JSON.parse(rawDebts);
+            if (Array.isArray(parsed)) values.debts = parsed.slice(0, MAX_DEBTS).map(normalizeDebt);
+          } catch {
+            // Backward compatibility for links generated before debt arrays used JSON.
+            values.debts = rawDebts.split("_").slice(0, MAX_DEBTS).map((s, i) => {
+              const [name, balance, apr, min] = s.split("~");
+              return normalizeDebt({ name: safeDecode(name || "Debt"), balance, apr, min }, i);
+            });
+          }
         } else if (def.type === "toggle") values[def.id] = p.get(def.id) === "1";
         else if (def.type === "select" || def.type === "segment") values[def.id] = coerceOption(def, p.get(def.id));
-        else values[def.id] = parseFloat(p.get(def.id));
+        else {
+          values[def.id] = parseSharedNumber(p.get(def.id));
+          if (def.type === "term") termUnits[def.id] = coerceTermUnit(p.get(def.id + "Unit"), state.termUnits[def.id]);
+        }
       });
-      if (any) loadValues(values, null);
+      if (any) loadValues(values, termUnits);
     }
     // Opening a share link in a tab that already shows this calculator is a
     // same-document navigation: the head capture doesn't re-run, so apply and
@@ -476,6 +560,7 @@
     $("#act-print")?.addEventListener("click", doPrint);
     $("#table-print")?.addEventListener("click", doPrint);
     function doPrint() {
+      if (!state.result || state.result.invalid) { FCX.toast("Enter valid inputs first"); return; }
       const ph = $(".print-header");
       if (ph) {
         const inputsTxt = cfg.inputs.filter((d) => !fieldEls[d.id]?.hidden && d.type !== "debts").map((d) => {
@@ -487,14 +572,22 @@
           else if (d.type === "select" || d.type === "segment") v = (d.options.find((o) => String(o.v) === String(v)) || {}).label || v;
           return `${d.label}: ${v}`;
         }).join(" · ");
-        ph.innerHTML = `<div class="ph-brand">Finance Calculator X — ${document.title.split("—")[0].split("|")[0].trim()}</div>
-          <div class="ph-meta">${inputsTxt}</div>
-          <div class="ph-meta">Generated ${new Date().toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric" })} · financecalculatorx.com · Estimates for education, not financial advice.</div>`;
+        const brand = document.createElement("div");
+        brand.className = "ph-brand";
+        brand.textContent = `Finance Calculator X — ${document.title.split("—")[0].split("|")[0].trim()}`;
+        const inputs = document.createElement("div");
+        inputs.className = "ph-meta";
+        inputs.textContent = inputsTxt;
+        const generated = document.createElement("div");
+        generated.className = "ph-meta";
+        generated.textContent = `Generated ${new Date().toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric" })} · financecalculatorx.com · Estimates for education, not financial advice.`;
+        ph.replaceChildren(brand, inputs, generated);
       }
       FCX.track("calculation_printed", { slug: cfg.slug });
       window.print();
     }
     $("#table-csv")?.addEventListener("click", () => {
+      if (!state.result || state.result.invalid) { FCX.toast("Enter valid inputs first"); return; }
       const t = state.result?.table;
       if (!t) return;
       const view = t.views.find((v) => v.id === state.view) || t.views[0];
@@ -521,10 +614,10 @@
 
     /* ---- change pipeline ---- */
     let t0 = 0, computed = false;
-    function onChange() {
+    function onChange(immediate) {
       clearTimeout(t0);
-      t0 = setTimeout(() => {
-        applyShowIf();
+      applyShowIf();
+      const calculate = () => {
         const { ok } = validate();
         if (!ok) { state.result = { invalid: "Fix the highlighted inputs to see your results." }; render(); return; }
         let r;
@@ -533,19 +626,26 @@
         state.result = r;
         render();
         if (!computed && r && !r.invalid) { computed = true; FCX.track("calculation_completed", { slug: cfg.slug }); }
-      }, 120);
+      };
+      if (immediate) { calculate(); return; }
+      state.result = { invalid: "Updating results…" };
+      render();
+      t0 = setTimeout(calculate, 120);
     }
 
     document.addEventListener("fcx:currency", () => {
       form.querySelectorAll("[data-cursym]").forEach((el) => (el.textContent = FCX.fmt.sym()));
       cfg.inputs.forEach((def) => { if (def.type === "currency") reformat(def); });
-      onChange();
+      onChange(true);
     });
 
     try { readShareParams(); } catch {}
     FCX.pushRecent(cfg.slug);
     FCX.track("calculator_view", { slug: cfg.slug });
-    onChange();
+    // Compute defaults in the same task as boot so the initial result occupies
+    // its final space before first paint; subsequent edits remain debounced.
+    onChange(true);
+    document.body.classList.remove("calc-booting");
   }
 
   window.FCX = window.FCX || {};

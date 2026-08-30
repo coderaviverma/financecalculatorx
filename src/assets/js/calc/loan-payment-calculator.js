@@ -38,8 +38,8 @@ FCX.define({
       ],
       explain: `<p>Repaying <strong>${F.money0(v.amount)}</strong> at <strong>${F.pct(v.rate)}</strong> over <strong>${v.years} ${v.years === 1 ? "year" : "years"}</strong> ${cur.f === 12 ? "monthly" : cur.f === 26 ? "every two weeks" : "weekly"} takes <strong>${F.num(cur.n, 0)}</strong> payments of <strong>${F.money(cur.pay)}</strong>, with <strong>${F.money(cur.interest)}</strong> of interest.</p>` +
         (cur.f !== 12
-          ? `<p>The same loan paid monthly would cost <strong>${F.money(all[0].interest)}</strong> in interest — paying ${cur.label.toLowerCase()} saves about <strong>${F.money(all[0].interest - cur.interest)}</strong> because the balance falls a little sooner between due dates.</p>`
-          : `<p>Switching to weekly payments would trim interest to <strong>${F.money(all[2].interest)}</strong> — a saving of about <strong>${F.money(all[0].interest - all[2].interest)}</strong> at the same rate and term.</p>`),
+          ? `<p>Under this nominal-rate-per-payment-period model, the monthly version produces <strong>${F.money(all[0].interest)}</strong> in interest; the ${cur.label.toLowerCase()} version is lower by <strong>${F.money(all[0].interest - cur.interest)}</strong> because principal is paid sooner within each year.</p>`
+          : `<p>Under the same model, weekly payments produce <strong>${F.money(all[2].interest)}</strong> in interest — <strong>${F.money(all[0].interest - all[2].interest)}</strong> below the monthly result at the same nominal rate and term.</p>`),
       chart: {
         title: "Total interest by payment frequency",
         note: "Same amount, rate and term — only the payment frequency changes.",

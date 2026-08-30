@@ -42,6 +42,17 @@ test("savings-calculator: defaults vs inline annuity formula, goal date, zero ra
   assert.ok(far.metrics.some((m) => m.label === "Share of goal reached"));
   assert.equal(scnRaw(far, "months to goal"), null);
 
+  // Goal timing must use the selected compounding convention. At 4.2%
+  // compounded annually, this $250,000 goal crosses in month 323, not 320.
+  const annualGoal = cfg.compute({ ...defaults(cfg), compFreq: 1, goal: 250000 }, F);
+  close(scnRaw(annualGoal, "months to goal"), 323, 0.01);
+  // A goal below the starting balance is met at month zero, with no future
+  // table year incorrectly marked as the crossing year.
+  const met = cfg.compute({ ...defaults(cfg), compFreq: 1, goal: 4000 }, F);
+  close(scnRaw(met, "months to goal"), 0, 0.001);
+  assert.equal(metric(met, "goal reached in"), "0 months");
+  assert.equal(met.table.views[0].rows.some((row) => row._cls === "year-row"), false);
+
   // zero rate → pure deposits
   const zero = cfg.compute({ ...defaults(cfg), rate: 0 }, F);
   close(n(zero.primary.value), 53000, 0.01);
@@ -81,7 +92,12 @@ test("monthly-investment-calculator: solved contribution round-trips through FIN
   const funded = cfg.compute({ ...defaults(cfg), target: 10000, principal: 6000 }, F);
   assert.equal(scnRaw(funded, "required monthly"), 0);
   close(n(metric(funded, "projected surplus")), 12057.97 - 10000, 0.5);
-  assert.ok(funded.explain.includes("don't need to add anything"));
+  assert.ok(funded.explain.includes("No added monthly contribution is required"));
+  // $6,000 is contributed principal and $4,000 of the $10,000 target must be
+  // supplied by growth, so the funded scenario's growth share is 40%, not 100%.
+  close(scnRaw(funded, "share funded by growth"), 40, 0.001);
+  const overfunded = cfg.compute({ ...defaults(cfg), target: 10000, principal: 12000 }, F);
+  close(scnRaw(overfunded, "share funded by growth"), 0, 0.001);
 
   // zero return → simple division (100000 - 5000) / 120
   const flat = cfg.compute({ ...defaults(cfg), rate: 0 }, F);

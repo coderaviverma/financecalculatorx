@@ -89,14 +89,15 @@
       maxY = Math.max(...cfg.x.map((_, i) => cfg.series.reduce((s, sr) => s + Math.max(0, sr.values[i] || 0), 0)));
     } else {
       const all = cfg.series.flatMap((sr) => sr.values.map((v) => v || 0));
-      maxY = Math.max(...all);
-      if (cfg.type === "lines") minY = Math.min(0, ...all);
+      maxY = (cfg.type === "lines" || cfg.type === "bars") ? Math.max(0, ...all) : Math.max(...all);
+      if (cfg.type === "lines" || cfg.type === "bars") minY = Math.min(0, ...all);
     }
     const ticks = niceTicks(minY, maxY || 1, 4);
     minY = ticks[0];
     maxY = ticks[ticks.length - 1];
     const fmtA = cfg.fmtAxis || dflt;
     const X = (i) => padL + (n === 1 ? iw / 2 : (i / (n - 1)) * iw);
+    const XP = (i) => cfg.type === "bars" ? padL + (iw * (i + 0.5)) / n : X(i);
     const Y = (v) => padT + ih - ((v - minY) / (maxY - minY)) * ih;
 
     ticks.forEach((t) => {
@@ -107,7 +108,7 @@
     const xStep = Math.max(1, Math.ceil(n / (W < 480 ? 5 : 9)));
     cfg.x.forEach((xl, i) => {
       if (i % xStep !== 0 && i !== n - 1) return;
-      el("text", { x: X(i), y: H - 8, "text-anchor": "middle", "font-size": 11, fill: "var(--ink-3)", "font-family": "inherit" }, svg).textContent = xl;
+      el("text", { x: XP(i), y: H - 8, "text-anchor": "middle", "font-size": 11, fill: "var(--ink-3)", "font-family": "inherit" }, svg).textContent = xl;
     });
 
     if (cfg.type === "area") {
@@ -138,7 +139,8 @@
         const total = barW * cfg.series.length;
         cfg.series.forEach((sr, si) => {
           const v = sr.values[i] || 0;
-          el("rect", { x: cxx - total / 2 + si * barW, y: Y(v), width: barW - 2, height: Math.max(0, padT + ih - Y(v)), rx: 4, fill: sr.color }, svg);
+          const y0 = Y(0), yv = Y(v);
+          el("rect", { x: cxx - total / 2 + si * barW, y: Math.min(y0, yv), width: barW - 2, height: Math.abs(y0 - yv), rx: 4, fill: sr.color }, svg);
         });
       });
     }
@@ -150,8 +152,8 @@
     overlay.addEventListener("pointermove", (e) => {
       const rect = svg.getBoundingClientRect();
       const px = ((e.clientX - rect.left) / rect.width) * W;
-      const i = Math.max(0, Math.min(n - 1, Math.round(((px - padL) / iw) * (n - 1))));
-      guide.setAttribute("x1", X(i)); guide.setAttribute("x2", X(i)); guide.setAttribute("opacity", 1);
+      const i = Math.max(0, Math.min(n - 1, cfg.type === "bars" ? Math.floor(((px - padL) / iw) * n) : Math.round(((px - padL) / iw) * (n - 1))));
+      guide.setAttribute("x1", XP(i)); guide.setAttribute("x2", XP(i)); guide.setAttribute("opacity", 1);
       const fmt = cfg.fmt || fmtA;
       let html = `<div class="tt">${cfg.xLabel ? cfg.xLabel(cfg.x[i], i) : cfg.x[i]}</div>`;
       let cumV = 0;
@@ -200,7 +202,7 @@
   addEventListener("resize", () => {
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => {
-      charts.forEach((c) => { if (c.el.isConnected && c.cfg.type !== "donut") { const cfg = c.cfg; c.el.innerHTML = ""; const box = document.createElement("div"); box.className = "chart-box"; c.el.appendChild(box); xyChart(box, cfg); if (cfg.legend !== false) legend(c.el, cfg.series); } });
+      charts.forEach((c) => { if (c.el.isConnected && c.cfg.type !== "donut") { const cfg = c.cfg; c.el.innerHTML = ""; const box = document.createElement("div"); box.className = "chart-box"; c.el.appendChild(box); xyChart(box, cfg); if (cfg.legend !== false) legend(c.el, cfg.series); if (cfg.summary) { const s = document.createElement("p"); s.className = "sr-only"; s.textContent = cfg.summary; c.el.appendChild(s); } } });
     });
   });
 

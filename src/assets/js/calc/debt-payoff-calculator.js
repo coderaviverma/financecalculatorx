@@ -20,10 +20,12 @@ FCX.define({
     const debts = (v.debts || []).map((d) => ({ name: d.name || "Debt", balance: d.balance, apr: d.apr, minPayment: d.min }));
     if (!debts.length) return { invalid: "Add at least one debt." };
     const chosen = FIN.debtPlan(debts, v.extra || 0, v.method);
-    if (chosen.error === "min") return { invalid: `The minimum payment on “${chosen.debt}” doesn't cover its monthly interest — the balance would grow forever. Increase that minimum.` };
+    if (chosen.error === "min") return { invalid: `The combined minimum and extra payment on “${chosen.debt}” doesn't cover its monthly interest. Increase the amount paid.` };
     if (chosen.error === "cap") return { invalid: "These debts take more than 100 years to clear. Increase the payments." };
     const other = FIN.debtPlan(debts, v.extra || 0, v.method === "avalanche" ? "snowball" : "avalanche");
     const minOnly = FIN.debtPlan(debts, 0, v.method);
+    const validPlan = (plan) => plan && !plan.error;
+    const otherValid = validPlan(other), minValid = validPlan(minOnly);
     const totalDebt = debts.reduce((s, d) => s + d.balance, 0);
     const methodName = v.method === "avalanche" ? "avalanche" : "snowball";
     const otherName = v.method === "avalanche" ? "snowball" : "avalanche";
@@ -34,10 +36,10 @@ FCX.define({
       { key: "min", label: "Min. payment" }, { key: "ord", label: "Extra goes" }, { key: "paid", label: "Paid off" },
     ];
     const planRows = debts.map((d, i) => {
-      const pd = chosen.perDebt.find((x) => x.name === d.name) || {};
-      const ord = chosen.order.indexOf(d.name) + 1;
+      const pd = chosen.perDebt.find((x) => x.ix === i) || {};
+      const ord = chosen.orderIds.indexOf(i) + 1;
       return {
-        d: F.esc(d.name), bal: F.money0(d.balance), apr: F.pct(d.apr), min: F.money0(d.minPayment),
+        d: d.name, bal: F.money0(d.balance), apr: F.pct(d.apr), min: F.money0(d.minPayment),
         ord: ord === 1 ? "1st" : ord === 2 ? "2nd" : ord === 3 ? "3rd" : ord + "th",
         paid: "Month " + pd.payoffMonth + " (" + F.dateFromNow(pd.payoffMonth) + ")",
         _csv_d: d.name, _csv_bal: d.balance, _csv_apr: d.apr, _csv_min: d.minPayment, _csv_ord: ord, _csv_paid: pd.payoffMonth,
@@ -51,40 +53,50 @@ FCX.define({
       _csv_m: r.m, _csv_paid: r.paid, _csv_int: r.interest, _csv_bal: r.balance,
     }));
 
-    const maxM = Math.max(chosen.months, other.months, minOnly.months);
+    const maxM = Math.max(chosen.months, otherValid ? other.months : 0, minValid ? minOnly.months : 0);
     const series = [
       { label: methodName[0].toUpperCase() + methodName.slice(1) + " (chosen)", color: "var(--c1)", values: [] },
-      { label: otherName[0].toUpperCase() + otherName.slice(1), color: "var(--c3)", values: [] },
-      { label: "Minimums only", color: "var(--c4)", dash: "5 5", values: [] },
     ];
+    if (otherValid) series.push({ label: otherName[0].toUpperCase() + otherName.slice(1), color: "var(--c3)", values: [] });
+    if (minValid) series.push({ label: "Minimums only", color: "var(--c4)", dash: "5 5", values: [] });
     const x = [];
     for (let m = 0; m <= maxM; m++) {
       x.push(String(m));
       series[0].values.push(m === 0 ? totalDebt : chosen.timeline[m - 1] ? chosen.timeline[m - 1].balance : 0);
-      series[1].values.push(m === 0 ? totalDebt : other.timeline[m - 1] ? other.timeline[m - 1].balance : 0);
-      series[2].values.push(m === 0 ? totalDebt : minOnly.timeline[m - 1] ? minOnly.timeline[m - 1].balance : 0);
+      let si = 1;
+      if (otherValid) series[si++].values.push(m === 0 ? totalDebt : other.timeline[m - 1] ? other.timeline[m - 1].balance : 0);
+      if (minValid) series[si].values.push(m === 0 ? totalDebt : minOnly.timeline[m - 1] ? minOnly.timeline[m - 1].balance : 0);
     }
+
+    const otherText = otherValid
+      ? (other.totalInterest.toFixed(0) === chosen.totalInterest.toFixed(0)
+          ? `Both strategies cost about the same for these debts.`
+          : `The ${otherName} method on the same budget would cost <strong>${F.money(other.totalInterest)}</strong>${other.months !== chosen.months ? ` over ${F.dur(other.months)}` : ""} — a difference of <strong>${F.money(Math.abs(other.totalInterest - chosen.totalInterest))}</strong>.`)
+      : `The ${otherName} simulation does not clear every balance within 100 years at this budget.`;
+    const minText = minValid
+      ? `Minimum payments alone would take <strong>${F.dur(minOnly.months)}</strong> and <strong>${F.money(minOnly.totalInterest)}</strong> of interest.`
+      : `Minimum payments alone do not clear every balance within the 100-year simulation limit.`;
 
     return {
       primary: { label: "Debt-free in", value: F.dur(chosen.months), sub: `${F.money0(totalDebt)} across ${debts.length} debt${debts.length > 1 ? "s" : ""} · debt-free ${F.dateFromNow(chosen.months)}` },
       metrics: [
         { label: "Total interest (" + methodName + ")", value: F.money(chosen.totalInterest) },
-        { label: "Saved vs minimums only", value: F.money(Math.max(0, minOnly.totalInterest - chosen.totalInterest)), hint: F.dur(Math.max(0, minOnly.months - chosen.months)) + " sooner" },
-        { label: "First win", value: F.esc(firstPaid.name), hint: "paid off month " + firstPaid.payoffMonth },
-        { label: otherName + " would cost", value: F.money(other.totalInterest), hint: other.months === chosen.months ? "same payoff time" : F.dur(other.months) },
+        { label: "Saved vs minimums only", value: minValid ? F.money(Math.max(0, minOnly.totalInterest - chosen.totalInterest)) : "Not reached", hint: minValid ? F.dur(Math.max(0, minOnly.months - chosen.months)) + " sooner" : "minimum-only payoff exceeds the simulation limit" },
+        { label: "First win", value: firstPaid.name, hint: "paid off month " + firstPaid.payoffMonth },
+        { label: otherName + " would cost", value: otherValid ? F.money(other.totalInterest) : "Not reached", hint: otherValid ? (other.months === chosen.months ? "same payoff time" : F.dur(other.months)) : "payoff exceeds the simulation limit" },
       ],
-      explain: `<p>Paying the minimums plus <strong>${F.money0(v.extra || 0)}</strong> a month with the <strong>${methodName}</strong> method clears all <strong>${F.money0(totalDebt)}</strong> in <strong>${F.dur(chosen.months)}</strong> with <strong>${F.money(chosen.totalInterest)}</strong> of interest. Extra money targets ${v.method === "avalanche" ? "the highest-rate debt first, which minimizes total interest" : "the smallest balance first, which produces the quickest first payoff"} — here that's <strong>${F.esc(chosen.order[0])}</strong>.</p><p>${other.totalInterest.toFixed(0) === chosen.totalInterest.toFixed(0) ? `Both strategies cost about the same for these debts.` : `The ${otherName} method on the same budget would cost <strong>${F.money(other.totalInterest)}</strong>${other.months !== chosen.months ? ` over ${F.dur(other.months)}` : ""} — a difference of <strong>${F.money(Math.abs(other.totalInterest - chosen.totalInterest))}</strong>.`} Minimum payments alone would take <strong>${F.dur(minOnly.months)}</strong> and <strong>${F.money(minOnly.totalInterest)}</strong> of interest.</p>`,
+      explain: `<p>Paying the minimums plus <strong>${F.money0(v.extra || 0)}</strong> a month with the <strong>${methodName}</strong> method clears all <strong>${F.money0(totalDebt)}</strong> in <strong>${F.dur(chosen.months)}</strong> with <strong>${F.money(chosen.totalInterest)}</strong> of interest. In this model, extra money targets ${v.method === "avalanche" ? "the highest-rate debt first" : "the smallest current balance first"} — here that's <strong>${F.esc(chosen.order[0])}</strong>.</p><p>${otherText} ${minText}</p>`,
       chart: {
         title: "Remaining debt, month by month",
         cfg: {
           type: "lines",
-          aria: "Line chart of remaining debt over time comparing the chosen strategy, the alternative strategy and minimum payments only",
+          aria: `Line chart of remaining debt over time for the chosen strategy${otherValid ? ", the alternative strategy" : ""}${minValid ? " and minimum payments only" : ""}`,
           x,
           xLabel: (m) => (+m === 0 ? "Start" : "Month " + m + " · " + F.dateFromNow(+m)),
           series,
           fmt: F.money0,
           fmtAxis: F.compact,
-          summary: `Debt reaches zero at month ${chosen.months} with the ${methodName} method, versus ${minOnly.months} with minimums only.`,
+          summary: `Debt reaches zero at month ${chosen.months} with the ${methodName} method.${minValid ? ` Minimums alone reach zero at month ${minOnly.months}.` : " Minimums alone do not reach zero within 100 years."}`,
         },
       },
       table: {

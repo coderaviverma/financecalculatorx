@@ -87,6 +87,12 @@ test("mortgage-payoff-calculator: interest saved vs nper crosscheck, lump-only, 
   const lump = cfg.compute({ ...defaults(cfg), extra: 0, lump: 10000, lumpMonth: 1 }, F);
   close(n(lump.primary.value), 25256.91, 0.5);
   close(scnRaw(lump, "time saved"), 21, 0.01);
+  // Oversized and late lump requests must not be described as fully applied.
+  const oversized = cfg.compute({ ...defaults(cfg), extra: 0, lump: 500000, lumpMonth: 1 }, F);
+  assert.ok(oversized.explain.includes("$239,561 of the requested $500,000"));
+  const late = cfg.compute({ ...defaults(cfg), extra: 0, lump: 500000, lumpMonth: 480 }, F);
+  close(n(late.primary.value), 0, 0.001);
+  assert.ok(late.explain.includes("month 480") && late.explain.includes("not applied"));
   // edge: no extras at all → zero saved, still valid, plans identical
   const none = cfg.compute({ ...defaults(cfg), extra: 0, lump: 0 }, F);
   assert.ok(!none.invalid);
@@ -134,12 +140,16 @@ test("down-payment-calculator: cash target, savings runway closed form, ready-no
   assert.equal(nRef, 63);
   close(scnRaw(r, "time to save"), 63, 0.01);
   assert.ok(metric(r, "ready by").includes("2031"));
-  // options table: 6 tiers with correct PMI flags
+  // options table: categorical output is explicitly a model flag, not a claim
+  // that every loan below 20% must carry PMI.
   const rows = r.table.views[0].rows;
   assert.equal(rows.length, 6);
-  assert.equal(rows[0].pmi, "Yes"); // 3%
-  assert.equal(rows[4].pmi, "No"); // 20%
+  assert.equal(rows[0].pmi, "Potential"); // 3%
+  assert.equal(rows[4].pmi, "Not modeled"); // 20%
   close(rows[1]._csv_cash, 28000, 0.01); // 5% → 17500 + 10500
+  // The closing-cost percentage is now a real control rather than fixed copy.
+  const closing5 = cfg.compute({ ...defaults(cfg), closingPct: 5 }, F);
+  close(scnRaw(closing5, "cash needed"), 87500, 0.01);
   // edge: savings already cover the target
   const ready = cfg.compute({ ...defaults(cfg), savings: 100000 }, F);
   assert.ok(!ready.invalid);
@@ -156,8 +166,9 @@ test("rent-vs-buy-calculator: verdict at horizon, renter year-1 identity, 1-year
   close(scnRaw(r, "renting"), 194717.78, 1);
   close(n(r.primary.value), 194717.78 - 193605.6, 1); // |difference| ≈ 1112
   assert.ok(r.primary.label.toLowerCase().includes("buying is cheaper"));
-  assert.ok(metric(r, "break-even").includes("Year 10"));
-  close(scnRaw(r, "break-even"), 10, 0.01);
+  assert.ok(metric(r, "first crossover").includes("Year 10"));
+  close(scnRaw(r, "first crossover"), 10, 0.01);
+  assert.ok(r.chart.note.includes("can cross more than once"));
   // independent identity: renter net year 1 = 12×rent − upfront×return = 22800 − 5520
   const upfront = 80000 + 0.03 * 400000;
   const rentNetY1 = 1900 * 12 - upfront * 0.06;
@@ -170,7 +181,7 @@ test("rent-vs-buy-calculator: verdict at horizon, renter year-1 identity, 1-year
   assert.ok(!short.invalid);
   assert.ok(short.primary.label.toLowerCase().includes("renting is cheaper"));
   close(n(short.primary.value), 53828.72 - 17280, 1);
-  assert.ok(metric(short, "break-even").includes("Beyond"));
+  assert.ok(metric(short, "first crossover").includes("Beyond"));
   // edge: down payment covers the price
   const bad = cfg.compute({ ...defaults(cfg), down: 400000 }, F);
   assert.ok(bad.invalid);

@@ -48,18 +48,18 @@ FCX.define({
       },
       metrics: [
         {
-          label: "Break-even year",
+          label: "First crossover year",
           value: r.breakEven ? "Year " + r.breakEven : `Beyond ${v.horizon} years`,
-          hint: r.breakEven ? "first year buying pulls ahead of renting" : "buying never catches up within your stay",
+          hint: r.breakEven ? "first modeled year buying's net cost is no higher; the paths can cross again" : "buying is never the lower net-cost path within this stay",
         },
         { label: "Net cost of buying", value: F.money0(last.buyNet), hint: "all outflows minus the equity you'd recover by selling" },
         { label: "Net cost of renting", value: F.money0(last.rentNet), hint: "rent paid minus growth on the cash you didn't tie up" },
         { label: "Home equity at horizon", value: F.money0(last.equity), hint: "market value minus the remaining loan" },
       ],
-      explain: `<p>Buying ties up <strong>${F.money0(upfront)}</strong> upfront (down payment plus closing costs) and commits you to <strong>${F.money(r.payment)}</strong>/month of principal and interest, plus tax, insurance and maintenance. Renting starts at <strong>${F.money0(v.rent)}</strong>/month, rising ${F.pct(v.rentGrowth || 0, 1)} a year — but leaves that upfront cash invested at ${F.pct(v.investReturn || 0, 1)}.</p><p>After <strong>${v.horizon} years</strong>, buying nets out to <strong>${F.money0(last.buyNet)}</strong> (outflows minus <strong>${F.money0(last.equity)}</strong> of equity, after ${F.pct(v.sellingPct || 0, 1)} selling costs) against <strong>${F.money0(last.rentNet)}</strong> for renting. ${verdict === "buy" ? `Buying comes out about <strong>${F.money0(diff)}</strong> ahead` : verdict === "rent" ? `Renting comes out about <strong>${F.money0(-diff)}</strong> ahead` : `The two are effectively tied`}${r.breakEven ? `, with buying first pulling ahead in <strong>year ${r.breakEven}</strong>.` : `; at these numbers buying doesn't catch up before you'd move.`}</p>`,
+      explain: `<p>Buying ties up <strong>${F.money0(upfront)}</strong> upfront (down payment plus closing costs) and includes <strong>${F.money(r.payment)}</strong>/month of principal and interest, plus tax, insurance and maintenance. Renting starts at <strong>${F.money0(v.rent)}</strong>/month, rising ${F.pct(v.rentGrowth || 0, 1)} a year in this scenario, while the upfront cash is modeled at ${F.pct(v.investReturn || 0, 1)}.</p><p>After <strong>${v.horizon} years</strong>, buying nets out to <strong>${F.money0(last.buyNet)}</strong> (outflows minus <strong>${F.money0(last.equity)}</strong> of equity, after ${F.pct(v.sellingPct || 0, 1)} selling costs) against <strong>${F.money0(last.rentNet)}</strong> for renting. ${verdict === "buy" ? `Buying comes out about <strong>${F.money0(diff)}</strong> ahead` : verdict === "rent" ? `Renting comes out about <strong>${F.money0(-diff)}</strong> ahead` : `The two are effectively tied`}${r.breakEven ? `, with its first crossover in <strong>year ${r.breakEven}</strong>. Later assumptions can make the paths cross again.` : `; buying is not the lower modeled net-cost path before the move date.`}</p>`,
       chart: {
         title: "Cumulative net cost: buying vs renting",
-        note: "Where the lines cross is the break-even point. Buying starts high because of upfront and selling costs, then equity catches up.",
+        note: "A line crossing is a crossover point, not a permanent break-even guarantee; the paths can cross more than once.",
         cfg: {
           type: "lines",
           aria: "Line chart of the cumulative net cost of buying versus renting for each year of your stay",
@@ -71,7 +71,7 @@ FCX.define({
           ],
           fmt: F.money0,
           fmtAxis: F.compact,
-          summary: `At year ${v.horizon}: buying ${F.money0(last.buyNet)}, renting ${F.money0(last.rentNet)}. ${r.breakEven ? "Break-even in year " + r.breakEven + "." : "No break-even within the horizon."}`,
+          summary: `At year ${v.horizon}: buying ${F.money0(last.buyNet)}, renting ${F.money0(last.rentNet)}. ${r.breakEven ? "First crossover in year " + r.breakEven + "." : "No crossover within the horizon."}`,
         },
       },
       table: {
@@ -97,7 +97,7 @@ FCX.define({
         metrics: [
           { label: "Net cost of buying", raw: last.buyNet, fmt: "money0", betterWhen: "lower" },
           { label: "Net cost of renting", raw: last.rentNet, fmt: "money0", betterWhen: "lower" },
-          { label: "Break-even year", raw: r.breakEven, fmt: "num", betterWhen: "lower" },
+          { label: "First crossover year", raw: r.breakEven, fmt: "num", betterWhen: "lower" },
         ],
       },
     };

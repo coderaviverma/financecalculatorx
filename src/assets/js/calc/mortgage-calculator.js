@@ -3,12 +3,12 @@ FCX.define({
   slug: "mortgage-calculator",
   inputs: [
     { id: "price", label: "Home price", type: "currency", default: 350000, min: 1000, max: 1000000000 },
-    { id: "down", label: "Down payment", type: "currency", default: 70000, min: 0, max: 1000000000, hint: "20% of the price avoids PMI with most lenders." },
+    { id: "down", label: "Down payment", type: "currency", default: 70000, min: 0, max: 1000000000, hint: "This model applies its PMI input below 20% down. Actual loan rules vary by product and jurisdiction." },
     { id: "rate", label: "Interest rate", type: "percent", default: 6.5, min: 0, max: 25, slider: { min: 1, max: 12, step: 0.05 } },
     { id: "term", label: "Loan term", type: "term", default: 360, min: 12, max: 480 },
     { id: "tax", label: "Property tax (per year)", type: "currency", default: 3600, min: 0, max: 10000000, optional: true },
     { id: "insurance", label: "Home insurance (per year)", type: "currency", default: 1500, min: 0, max: 10000000, optional: true },
-    { id: "pmiRate", label: "PMI rate (per year)", type: "percent", default: 0.5, min: 0, max: 5, optional: true, affixPost: "% of loan", showIf: (v) => v.price > 0 && v.down / v.price < 0.2, hint: "Charged because the down payment is under 20%. Drops off once you reach 20% equity." },
+    { id: "pmiRate", label: "PMI rate (per year)", type: "percent", default: 0.5, min: 0, max: 5, optional: true, affixPost: "% of loan", showIf: (v) => v.price > 0 && v.down / v.price < 0.2, hint: "Modeled below 20% down and removed when the scheduled balance reaches 80% of purchase price. Actual rules vary." },
     { id: "hoa", label: "HOA / society fees (per month)", type: "currency", default: 0, min: 0, max: 100000, optional: true },
   ],
   compute(v, F) {
@@ -50,13 +50,13 @@ FCX.define({
         { label: "Total interest", value: F.money0(am.totalInterest), hint: "over " + F.dur(am.months) },
         { label: "Total P&I paid", value: F.money0(am.totalPaid) },
         pmiMonthly > 0
-          ? { label: "PMI", value: F.money(pmiMonthly) + "/mo", hint: `≈ ${F.dur(pmiMonths)} until 20% equity (${F.money0(pmiMonthly * pmiMonths)} total)` }
+          ? { label: "PMI", value: F.money(pmiMonthly) + "/mo", hint: `≈ ${F.dur(pmiMonths)} until the modeled balance threshold (${F.money0(pmiMonthly * pmiMonths)} total)` }
           : { label: "Payoff date", value: F.dateFromNow(am.months) },
       ],
-      explain: `<p>On a <strong>${F.money0(v.price)}</strong> home with <strong>${F.money0(v.down)}</strong> down (${F.pct((v.down / v.price) * 100, 1)}), you'd borrow <strong>${F.money0(loan)}</strong>. At <strong>${F.pct(v.rate)}</strong> over <strong>${F.dur(v.term)}</strong>, principal and interest come to <strong>${F.money(am.payment)}</strong> per month, and interest over the full term totals about <strong>${F.money0(am.totalInterest)}</strong>.</p><p>${pmiMonthly > 0 ? `Because the down payment is under 20%, PMI of about <strong>${F.money(pmiMonthly)}</strong>/month applies for roughly ${F.dur(pmiMonths)} until the balance reaches 80% of the price. ` : ""}With tax, insurance${pmiMonthly ? ", PMI" : ""}${hoaM ? " and HOA" : ""} included, plan on <strong>${F.money(piti)}</strong> per month.</p>`,
+      explain: `<p>On a <strong>${F.money0(v.price)}</strong> home with <strong>${F.money0(v.down)}</strong> down (${F.pct((v.down / v.price) * 100, 1)}), the modeled loan is <strong>${F.money0(loan)}</strong>. At <strong>${F.pct(v.rate)}</strong> over <strong>${F.dur(v.term)}</strong>, principal and interest are <strong>${F.money(am.payment)}</strong> per month, and full-term interest is about <strong>${F.money0(am.totalInterest)}</strong>.</p><p>${pmiMonthly > 0 ? `Under this calculator's below-20% assumption, PMI of about <strong>${F.money(pmiMonthly)}</strong>/month continues for roughly ${F.dur(pmiMonths)}, until the scheduled balance reaches 80% of the purchase price. Actual cancellation rules vary by loan and jurisdiction. ` : ""}With the entered tax, insurance${pmiMonthly ? ", modeled PMI" : ""}${hoaM ? " and HOA" : ""}, the initial total is <strong>${F.money(piti)}</strong> per month.</p>`,
       chart: {
         title: "What's inside the monthly payment",
-        note: pmiMonthly > 0 ? "PMI shown at its initial amount; it ends once the balance falls to 80% of the home price." : "",
+        note: pmiMonthly > 0 ? "PMI is shown at its modeled initial amount and removed at 80% scheduled balance-to-purchase-price; actual rules vary." : "",
         cfg: {
           type: "donut",
           aria: "Donut chart splitting the monthly payment into principal and interest, tax, insurance and other costs",

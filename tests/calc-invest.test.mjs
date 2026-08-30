@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { loadCalc, F, n, metric, scnRaw } from "./harness.mjs";
 
 const close = (a, b, tol = 0.02) => assert.ok(Math.abs(a - b) <= tol, `expected ${a} ≈ ${b} (±${tol})`);
@@ -187,6 +188,18 @@ test("roi-calculator: ROI arithmetic crosscheck + loss and costs edges", () => {
   close(scnRaw(loss, "total roi"), -20, 0.001);
   close(scnRaw(loss, "annualized"), (Math.pow(0.8, 1 / 3) - 1) * 100, 0.01);
   assert.ok(scnRaw(loss, "net profit") < 0);
+  assert.ok(loss.chart.cfg.series[0].values.every((value) => value < 0));
+
+  // Renderer regressions: bar scales include negative values, rectangles grow
+  // away from the zero line, band centers align labels/hover, and resize keeps
+  // the screen-reader summary.
+  const chartsSource = readFileSync(new URL("../src/assets/js/charts.js", import.meta.url), "utf8");
+  assert.match(chartsSource, /cfg\.type === "lines" \|\| cfg\.type === "bars"/);
+  assert.match(chartsSource, /height: Math\.abs\(y0 - yv\)/);
+  assert.match(chartsSource, /const XP = \(i\) => cfg\.type === "bars"/);
+  const resizeSource = chartsSource.slice(chartsSource.indexOf('addEventListener("resize"'));
+  assert.match(resizeSource, /cfg\.summary/);
+  assert.match(resizeSource, /s\.className = "sr-only"/);
 
   const bad = cfg.compute({ ...defaults(cfg), invested: 0 }, F);
   assert.ok(bad.invalid);

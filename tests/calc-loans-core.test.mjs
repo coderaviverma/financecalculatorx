@@ -40,6 +40,16 @@ test("emi-calculator: default EMI vs closed form, prepayment, zero rate", () => 
   close(scnRaw(pre, "total interest"), 2100667.91, 1);
   assert.ok(pre.metrics.some((m) => m.label.toLowerCase().includes("saved")));
 
+  // An oversized prepayment is capped at the remaining principal after the
+  // scheduled month-one EMI; runtime copy must report the applied portion.
+  const oversized = cfg.compute({ ...defaults(cfg), prepay: 999999999, prepayMonth: 1 }, F);
+  assert.ok(oversized.explain.includes("of the requested"));
+  assert.ok(!oversized.explain.includes("Prepaying <strong>$999,999,999</strong>"));
+  // A request after the contractual payoff is ignored, not moved into month 240.
+  const late = cfg.compute({ ...defaults(cfg), prepay: 100000, prepayMonth: 480 }, F);
+  close(scnRaw(late, "total interest"), scnRaw(r, "total interest"), 0.01);
+  assert.ok(late.explain.includes("month 480") && late.explain.includes("not applied"));
+
   // zero rate: EMI = P/n
   const zero = cfg.compute({ ...defaults(cfg), rate: 0 }, F);
   close(n(zero.primary.value), 2500000 / 240, 0.01);
@@ -78,6 +88,19 @@ test("personal-loan-calculator: payment, fee, effective APR, no-fee edge", () =>
   const zr = cfg.compute({ ...defaults(cfg), rate: 0 }, F);
   close(n(zr.primary.value), 15000 / 48, 0.01);
   assert.ok(scnRaw(zr, "effective apr") > 0);
+
+  // The old fixed rate+30 bracket truncated this case. Independently solve
+  // PV(payment, APR, 6) = $13,200 with an expanding bracket.
+  const extreme = cfg.compute({ ...defaults(cfg), rate: 40, term: 6, feePct: 12 }, F);
+  const extremePay = pmtRef(15000, 0.40 / 12, 6);
+  let xLo = 40, xHi = 80;
+  while (pv(extremePay, xHi, 6) > 13200) xHi *= 2;
+  for (let i = 0; i < 100; i++) {
+    const mid = (xLo + xHi) / 2;
+    if (pv(extremePay, mid, 6) > 13200) xLo = mid; else xHi = mid;
+  }
+  close(scnRaw(extreme, "effective apr"), (xLo + xHi) / 2, 0.0001);
+  close(scnRaw(extreme, "effective apr"), 88.2467695, 0.0001);
 });
 
 test("loan-payment-calculator: frequencies vs closed form, invalid term", () => {

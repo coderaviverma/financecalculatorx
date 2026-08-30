@@ -12,6 +12,9 @@ FCX.define({
     const minPay = (v.balance * v.rate) / 1200;
     if (v.rate > 0 && v.payment <= minPay)
       return { invalid: `At ${F.pct(v.rate)}, interest on ${F.money0(v.balance)} accrues at ${F.money(minPay)} per month, so a ${F.money(v.payment)} payment never reduces the balance. The payment must be above ${F.money(minPay)} — the more above it, the faster the loan ends.` };
+    const baseExactMonths = FIN.nper(v.balance, v.rate, v.payment);
+    if (baseExactMonths != null && baseExactMonths > 1200)
+      return { invalid: `These values produce a payoff longer than 100 years (${F.num(baseExactMonths / 12, 1)} years). Increase the monthly payment to model a shorter schedule.` };
     const base = FIN.amortize(v.balance, v.rate, 0, { paymentOverride: v.payment });
     if (!base) return { invalid: "These values never pay the loan off. Check the balance, rate and payment." };
     const extra = v.extra > 0 ? v.extra : 0;

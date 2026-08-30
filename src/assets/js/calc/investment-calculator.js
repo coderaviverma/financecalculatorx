@@ -4,7 +4,7 @@ FCX.define({
   inputs: [
     { id: "initial", label: "Initial investment", type: "currency", default: 10000, min: 0, max: 1000000000, optional: true },
     { id: "monthly", label: "Monthly contribution", type: "currency", default: 500, min: 0, max: 100000000, optional: true },
-    { id: "rate", label: "Expected annual return", type: "percent", default: 8, min: 0, max: 30, slider: { min: 0, max: 15, step: 0.1 }, hint: "Before inflation. Long-run diversified equity averages are often quoted at 6–10%." },
+    { id: "rate", label: "Expected annual return", type: "percent", default: 8, min: 0, max: 30, slider: { min: 0, max: 15, step: 0.1 }, hint: "A before-inflation scenario rate; actual returns can be lower or negative." },
     { id: "years", label: "Investment horizon", type: "number", default: 25, min: 1, max: 60, integer: true, affixPost: "years" },
     { id: "inflation", label: "Expected inflation", type: "percent", default: 3, min: 0, max: 20, optional: true, hint: "Used to show results in today's purchasing power." },
   ],

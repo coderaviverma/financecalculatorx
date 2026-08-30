@@ -14,17 +14,31 @@ FCX.define({
     const FIN = F.fin;
     const base = FIN.amortize(v.amount, v.rate, v.term, {});
     if (!base) return { invalid: "This loan never pays off at these values. Check the amount, rate and term." };
-    const onceMonth = Math.min(Math.max(1, Math.round(v.onceMonth || 1)), v.term);
+    const onceMonth = Math.max(1, Math.round(v.onceMonth || 1));
     const opts = { extraMonthly: v.extraMonthly || 0, extraYearly: v.extraYearly || 0, extraOnce: v.extraOnce || 0, extraOnceMonth: onceMonth };
-    const hasExtra = opts.extraMonthly > 0 || opts.extraYearly > 0 || opts.extraOnce > 0;
-    const plan = hasExtra ? FIN.amortize(v.amount, v.rate, v.term, opts) : base;
+    const requestedAny = opts.extraMonthly > 0 || opts.extraYearly > 0 || opts.extraOnce > 0;
+    const plan = requestedAny ? FIN.amortize(v.amount, v.rate, v.term, opts) : base;
+    if (!plan) return { invalid: "The extra-payment plan could not be computed. Check the extra payment values." };
+    const onceRow = opts.extraOnce > 0 ? plan.rows[onceMonth - 1] : null;
+    const recurringAtOnce = opts.extraMonthly + (onceMonth % 12 === 0 ? opts.extraYearly : 0);
+    const actualOnce = onceRow ? Math.max(0, onceRow.extra - Math.min(recurringAtOnce, onceRow.extra)) : 0;
+    const onceApplied = actualOnce > 0.005;
+    const ignoredOnce = opts.extraOnce > 0 && !onceApplied;
+    const hasExtra = opts.extraMonthly > 0 || opts.extraYearly > 0 || onceApplied;
     const saved = Math.max(0, base.totalInterest - plan.totalInterest);
     const monthsSaved = base.months - plan.months;
 
     const extraBits = [];
-    if (opts.extraMonthly > 0) extraBits.push(`${F.money(opts.extraMonthly)} monthly`);
-    if (opts.extraYearly > 0) extraBits.push(`${F.money(opts.extraYearly)} yearly`);
-    if (opts.extraOnce > 0) extraBits.push(`${F.money(opts.extraOnce)} once in month ${onceMonth}`);
+    if (opts.extraMonthly > 0) extraBits.push(`up to ${F.money(opts.extraMonthly)} monthly`);
+    if (opts.extraYearly > 0) extraBits.push(`up to ${F.money(opts.extraYearly)} yearly`);
+    if (onceApplied) extraBits.push(Math.abs(actualOnce - opts.extraOnce) <= 0.01
+      ? `${F.money(actualOnce)} once in month ${onceMonth}`
+      : `${F.money(actualOnce)} of the requested ${F.money(opts.extraOnce)} once in month ${onceMonth}`);
+    const onceNote = ignoredOnce
+      ? ` The requested one-time payment in month ${onceMonth} is not applied because the modeled loan is already paid off.`
+      : opts.extraOnce > actualOnce + 0.01
+        ? ` The unused portion of the requested one-time payment is not needed after the balance reaches zero.`
+        : "";
 
     const fmtRow = (r, label) => ({
       n: label, pay: F.money(r.payment), xtr: F.money(r.extra), pri: F.money(r.principal), int: F.money(r.interest), bal: F.money(r.balance),
@@ -61,7 +75,7 @@ FCX.define({
       primary: {
         label: "Interest saved",
         value: F.money(saved),
-        sub: hasExtra ? `paid off ${F.dur(monthsSaved)} sooner than the ${F.dur(v.term)} schedule` : "enter an extra amount above to see its effect",
+        sub: hasExtra ? `paid off ${F.dur(monthsSaved)} sooner than the ${F.dur(v.term)} schedule` : ignoredOnce ? "the selected one-time payment falls after the modeled payoff" : "enter an extra amount above to see its effect",
       },
       metrics: [
         { label: "New payoff time", value: F.dur(plan.months), hint: "≈ " + F.dateFromNow(plan.months) },
@@ -72,8 +86,10 @@ FCX.define({
       explain:
         `<p>Without extras, <strong>${F.money0(v.amount)}</strong> at <strong>${F.pct(v.rate)}</strong> over <strong>${F.dur(v.term)}</strong> means a <strong>${F.money(base.payment)}</strong> payment and <strong>${F.money(base.totalInterest)}</strong> of interest.</p>` +
         (hasExtra
-          ? `<p>Adding <strong>${extraBits.join(" + ")}</strong> — every unit of it applied to principal — ends the loan in <strong>${F.dur(plan.months)}</strong> instead of ${F.dur(base.months)}, cutting interest to <strong>${F.money(plan.totalInterest)}</strong>. That's <strong>${F.money(saved)}</strong> kept, for money you were going to pay toward the loan anyway — just earlier.</p>`
-          : `<p>Add a monthly, yearly or one-time extra amount and this page shows the interest it removes and the months it cuts from the schedule.</p>`),
+          ? `<p>Adding <strong>${extraBits.join(" + ")}</strong>, capped by the remaining balance, ends the loan in <strong>${F.dur(plan.months)}</strong> instead of ${F.dur(base.months)} and changes modeled interest to <strong>${F.money(plan.totalInterest)}</strong>, a difference of <strong>${F.money(saved)}</strong>.${onceNote}</p>`
+          : requestedAny
+            ? `<p>The requested one-time payment does not change the schedule.${onceNote}</p>`
+            : `<p>A monthly, yearly or one-time extra amount can be modeled here to show the interest and payoff-time difference.</p>`),
       chart: {
         title: "Balance over time: baseline vs with extras",
         cfg: {
@@ -98,7 +114,7 @@ FCX.define({
         ],
       },
       scenario: {
-        summary: `${F.money0(v.amount)} · ${F.pct(v.rate)} · ${F.dur(v.term)}${extraBits.length ? " · +" + extraBits.join(", ") : ""}`,
+        summary: `${F.money0(v.amount)} · ${F.pct(v.rate)} · ${F.dur(v.term)}${extraBits.length ? " · +" + extraBits.join(", ") : ignoredOnce ? " · requested one-time payment not applied" : ""}`,
         metrics: [
           { label: "Interest saved", raw: saved, fmt: "money", betterWhen: "higher" },
           { label: "Months saved", raw: monthsSaved, fmt: "dur", betterWhen: "higher" },

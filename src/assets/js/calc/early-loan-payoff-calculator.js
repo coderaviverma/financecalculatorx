@@ -15,7 +15,8 @@ FCX.define({
     if (!tgt) return { invalid: "The target plan never pays off at these values. Check the rate and target." };
     const minPay = (v.balance * v.rate) / 1200;
     const curMonths = FIN.nper(v.balance, v.rate, v.payment);
-    const cur = curMonths != null ? FIN.amortize(v.balance, v.rate, 0, { paymentOverride: v.payment }) : null;
+    const curOverCap = curMonths != null && curMonths > 1200;
+    const cur = curMonths != null && !curOverCap ? FIN.amortize(v.balance, v.rate, 0, { paymentOverride: v.payment }) : null;
     const extraNeeded = Math.max(0, required - v.payment);
     const alreadyMet = required <= v.payment;
     const savedInt = cur ? Math.max(0, cur.totalInterest - tgt.totalInterest) : null;
@@ -49,20 +50,22 @@ FCX.define({
         {
           label: "Interest at current payment",
           value: cur ? F.money(cur.totalInterest) : "—",
-          hint: cur ? `paid off in ${F.dur(cur.months)}` : `never pays off — ${F.money(v.payment)} doesn't cover the ${F.money(minPay)} monthly interest`,
+          hint: cur ? `paid off in ${F.dur(cur.months)}` : curOverCap ? `modeled payoff exceeds 100 years at ${F.money(v.payment)}/month` : `never pays off — ${F.money(v.payment)} doesn't cover the ${F.money(minPay)} monthly interest`,
         },
         { label: "Interest saved", value: savedInt != null ? F.money(savedInt) : "—", hint: savedInt != null && savedInt > 0 ? "by switching to the target plan" : "" },
       ],
       explain:
         `<p>To clear <strong>${F.money0(v.balance)}</strong> at <strong>${F.pct(v.rate)}</strong> in exactly <strong>${F.dur(v.target)}</strong>, pay <strong>${F.money(required)}</strong> per month. That plan costs <strong>${F.money(tgt.totalInterest)}</strong> in interest and ends around <strong>${F.dateFromNow(tgt.months)}</strong>.</p>` +
         (alreadyMet && cur
-          ? `<p>You already beat this target: at your current <strong>${F.money(v.payment)}</strong> payment the loan is gone in <strong>${F.dur(cur.months)}</strong>, sooner than the deadline you picked. Keep the payment where it is, or pick a shorter target.</p>`
+          ? `<p>The current <strong>${F.money(v.payment)}</strong> payment already meets this target: the modeled loan ends in <strong>${F.dur(cur.months)}</strong>, sooner than the selected deadline.</p>`
           : cur
-            ? `<p>That's <strong>${F.money(extraNeeded)}</strong> more than you pay now. Staying at <strong>${F.money(v.payment)}</strong> would take <strong>${F.dur(cur.months)}</strong> and cost <strong>${F.money(cur.totalInterest)}</strong> in interest, so hitting the deadline keeps <strong>${F.money(savedInt)}</strong> in your pocket.</p>`
-            : `<p>Your current <strong>${F.money(v.payment)}</strong> payment doesn't cover the <strong>${F.money(minPay)}</strong> of interest that accrues each month, so at that pace the loan never pays off. The required payment above is still the answer: it amortizes the balance to zero on your deadline regardless of where the payment stands today.</p>`),
+            ? `<p>That is <strong>${F.money(extraNeeded)}</strong> more than the current payment. At <strong>${F.money(v.payment)}</strong>, the modeled payoff takes <strong>${F.dur(cur.months)}</strong> and costs <strong>${F.money(cur.totalInterest)}</strong> in interest; the target schedule reduces that interest by <strong>${F.money(savedInt)}</strong>.</p>`
+            : curOverCap
+              ? `<p>The current <strong>${F.money(v.payment)}</strong> payment is above monthly interest but produces a modeled payoff beyond 100 years, so the comparison schedule is omitted. The target payment above amortizes the balance within the selected deadline.</p>`
+              : `<p>Your current <strong>${F.money(v.payment)}</strong> payment doesn't cover the <strong>${F.money(minPay)}</strong> of interest that accrues each month, so at that pace the loan never pays off. The target payment above amortizes the balance to zero on the selected deadline.</p>`),
       chart: {
         title: "Total interest: current pace vs target plan",
-        note: cur ? "" : "No bar is shown for the current pace because the payment never amortizes the loan.",
+        note: cur ? "" : curOverCap ? "No current-pace bar is shown because its modeled payoff exceeds 100 years." : "No bar is shown for the current pace because the payment never amortizes the loan.",
         cfg: {
           type: "bars",
           aria: "Bar chart comparing total interest paid at the current payment with total interest under the target payoff plan",
@@ -72,7 +75,9 @@ FCX.define({
           fmtAxis: F.compact,
           summary: cur
             ? `Interest totals ${F.money(cur.totalInterest)} at the current pace versus ${F.money(tgt.totalInterest)} on the target plan.`
-            : `The target plan costs ${F.money(tgt.totalInterest)} in interest; the current payment never pays the loan off.`,
+            : curOverCap
+              ? `The target plan costs ${F.money(tgt.totalInterest)} in interest; the current-payment schedule exceeds 100 years.`
+              : `The target plan costs ${F.money(tgt.totalInterest)} in interest; the current payment never pays the loan off.`,
         },
       },
       table: {

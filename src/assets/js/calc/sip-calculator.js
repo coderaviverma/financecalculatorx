@@ -4,7 +4,7 @@ FCX.define({
   suggestCurrency: "INR",
   inputs: [
     { id: "sip", label: "Monthly SIP amount", type: "currency", default: 10000, min: 0, max: 100000000 },
-    { id: "rate", label: "Expected annual return", type: "percent", default: 12, min: 0, max: 30, slider: { min: 0, max: 20, step: 0.5 }, hint: "Long-run Indian equity fund averages are commonly quoted at 10–14% — an assumption, not a guarantee." },
+    { id: "rate", label: "Expected annual return", type: "percent", default: 12, min: 0, max: 30, slider: { min: 0, max: 20, step: 0.5 }, hint: "Use an illustrative scenario rate appropriate to the investment; actual returns can be lower or negative." },
     { id: "years", label: "Investment period", type: "number", default: 15, min: 1, max: 50, integer: true, affixPost: "years" },
     { id: "stepUp", label: "Annual step-up", type: "percent", default: 0, min: 0, max: 50, optional: true, affixPost: "% / yr", hint: "Increase your SIP every year, e.g. 10%." },
     { id: "lump", label: "Initial lump sum", type: "currency", default: 0, min: 0, max: 1000000000, optional: true, hint: "Optional one-time investment alongside the SIP." },
@@ -35,7 +35,7 @@ FCX.define({
         { label: "Invested-to-value multiple", value: F.num(multiple, 2) + "×" },
         { label: altLabel, value: F.money0(alt.fv), hint: altHint },
       ],
-      explain: `<p>A <strong>${F.money0(v.sip)}</strong> monthly SIP${lump > 0 ? ` alongside a <strong>${F.money0(lump)}</strong> lump sum` : ""} at an assumed <strong>${F.pct(v.rate)}</strong> annual return grows to about <strong>${F.money0(g.fv)}</strong> in ${v.years} years${stepUp > 0 ? `, with the SIP stepped up <strong>${F.pct(stepUp)}</strong> every year` : ""}. Of that, <strong>${F.money0(invested)}</strong> is money you invested and <strong>${F.money0(gains)}</strong> is growth — <strong>${F.num(multiple, 2)}×</strong> your money in.</p><p>${stepUp > 0 ? `Holding the SIP flat instead would end at about <strong>${F.money0(alt.fv)}</strong>.` : `Stepping the SIP up 10% a year — roughly matching salary growth — would lift the result to about <strong>${F.money0(alt.fv)}</strong>.`}</p>`,
+      explain: `<p>A <strong>${F.money0(v.sip)}</strong> monthly SIP${lump > 0 ? ` alongside a <strong>${F.money0(lump)}</strong> lump sum` : ""} at an assumed <strong>${F.pct(v.rate)}</strong> annual return grows to about <strong>${F.money0(g.fv)}</strong> in ${v.years} years${stepUp > 0 ? `, with the SIP stepped up <strong>${F.pct(stepUp)}</strong> every year` : ""}. Of that, <strong>${F.money0(invested)}</strong> is contributed and <strong>${F.money0(gains)}</strong> is modeled growth — <strong>${F.num(multiple, 2)}×</strong> the amount invested.</p><p>${stepUp > 0 ? `Holding the SIP flat instead would end at about <strong>${F.money0(alt.fv)}</strong>.` : `An illustrative 10% annual step-up changes the modeled result to about <strong>${F.money0(alt.fv)}</strong>.`}</p>`,
       chart: {
         title: "Invested amount vs gains",
         cfg: {

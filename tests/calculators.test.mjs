@@ -82,4 +82,41 @@ test("debt-payoff-calculator: avalanche vs snowball reference", () => {
   // impossible minimum flagged
   const bad = cfg.compute({ debts: [{ name: "Trap", balance: 10000, apr: 24, min: 150 }], extra: 0, method: "avalanche" }, F);
   assert.ok(bad.invalid && bad.invalid.includes("Trap"));
+
+  // The extra budget can rescue a minimum that only equals monthly interest.
+  const rescued = cfg.compute({ debts: [{ name: "Debt", balance: 1000, apr: 12, min: 10 }], extra: 100, method: "avalanche" }, F);
+  assert.ok(!rescued.invalid);
+  close(scnRaw(rescued, "debt-free"), 10, 0.01);
+  close(scnRaw(rescued, "total interest"), 53.78, 0.01);
+  assert.equal(metric(rescued, "saved vs"), "Not reached");
+  assert.ok(!JSON.stringify(rescued).includes("undefined"));
+
+  // Duplicate display names retain distinct payoff rows through stable IDs.
+  const duplicate = cfg.compute({
+    debts: [
+      { name: "Same", balance: 1000, apr: 12, min: 10 },
+      { name: "Same", balance: 500, apr: 6, min: 20 },
+    ],
+    extra: 100,
+    method: "avalanche",
+  }, F);
+  assert.deepEqual(duplicate.table.views[0].rows.map((row) => row._csv_paid), [10, 13]);
+  assert.deepEqual(duplicate.table.views[0].rows.map((row) => row._csv_ord), [1, 2]);
+
+  // The alternative and minimum-only simulations may exceed the cap even
+  // when the selected avalanche plan is valid; output stays finite and omits
+  // unavailable chart series rather than dereferencing null fields.
+  const cappedComparisons = cfg.compute({
+    debts: [
+      { name: "High", balance: 500, apr: 24, min: 5 },
+      { name: "Low", balance: 100, apr: 0, min: 1 },
+    ],
+    extra: 5,
+    method: "avalanche",
+  }, F);
+  assert.ok(!cappedComparisons.invalid);
+  assert.equal(cappedComparisons.chart.cfg.series.length, 1);
+  assert.equal(metric(cappedComparisons, "snowball would cost"), "Not reached");
+  assert.equal(metric(cappedComparisons, "saved vs"), "Not reached");
+  assert.ok(!/undefined|NaN/.test(JSON.stringify(cappedComparisons)));
 });

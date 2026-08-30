@@ -13,11 +13,18 @@ FCX.define({
     const FIN = F.fin;
     const base = FIN.amortize(v.balance, v.rate, v.remaining, {});
     if (!base) return { invalid: "This balance never pays off at these values. Check the rate and time remaining." };
-    const hasExtra = v.extra > 0 || v.lump > 0;
-    const acc = hasExtra
-      ? FIN.amortize(v.balance, v.rate, v.remaining, { extraMonthly: v.extra || 0, extraOnce: v.lump || 0, extraOnceMonth: Math.min(Math.max(1, v.lumpMonth || 1), v.remaining) })
+    const monthlyExtra = v.extra || 0, requestedLump = v.lump || 0;
+    const lumpMonth = Math.max(1, Math.round(v.lumpMonth || 1));
+    const requestedAny = monthlyExtra > 0 || requestedLump > 0;
+    const acc = requestedAny
+      ? FIN.amortize(v.balance, v.rate, v.remaining, { extraMonthly: monthlyExtra, extraOnce: requestedLump, extraOnceMonth: lumpMonth })
       : base;
     if (!acc) return { invalid: "The accelerated plan could not be computed. Check the extra payment values." };
+    const lumpRow = requestedLump > 0 ? acc.rows[lumpMonth - 1] : null;
+    const actualLump = lumpRow ? Math.max(0, lumpRow.extra - Math.min(monthlyExtra, lumpRow.extra)) : 0;
+    const lumpApplied = actualLump > 0.005;
+    const hasExtra = monthlyExtra > 0 || lumpApplied;
+    const ignoredLump = requestedLump > 0 && !lumpApplied;
     const saved = Math.max(0, base.totalInterest - acc.totalInterest);
     const monthsSaved = Math.max(0, base.months - acc.months);
 
@@ -35,26 +42,36 @@ FCX.define({
       { key: "n", label: "#", align: "left" }, { key: "pay", label: "Payment" }, { key: "pri", label: "Principal" },
       { key: "int", label: "Interest" }, { key: "bal", label: "Balance" },
     ];
-    const extraDesc = hasExtra
-      ? [v.extra > 0 ? F.money(v.extra) + "/mo extra" : "", v.lump > 0 ? F.money0(v.lump) + " lump sum" : ""].filter(Boolean).join(" + ")
+    const lumpDesc = lumpApplied
+      ? (Math.abs(actualLump - requestedLump) <= 0.01
+          ? `${F.money0(actualLump)} lump sum in month ${lumpMonth}`
+          : `${F.money0(actualLump)} of the requested ${F.money0(requestedLump)} lump sum in month ${lumpMonth}`)
       : "";
+    const extraDesc = [monthlyExtra > 0 ? `up to ${F.money(monthlyExtra)}/mo extra` : "", lumpDesc].filter(Boolean).join(" + ");
+    const lumpNote = ignoredLump
+      ? ` The requested ${F.money0(requestedLump)} lump sum in month ${lumpMonth} is not applied because the modeled loan is already paid off.`
+      : requestedLump > actualLump + 0.01
+        ? ` The remaining requested lump amount is not needed once the balance reaches zero.`
+        : "";
 
     return {
       primary: {
         label: "Interest saved",
         value: F.money(saved),
-        sub: hasExtra ? `with ${extraDesc} — debt-free ${F.dur(monthsSaved)} sooner` : "add an extra monthly payment or a lump sum above to see the effect",
+        sub: hasExtra ? `with ${extraDesc} — debt-free ${F.dur(monthsSaved)} sooner` : ignoredLump ? "the selected lump month falls after the modeled payoff" : "add an extra monthly payment or a lump sum above to see the effect",
       },
       metrics: [
         { label: "New payoff date", value: F.dateFromNow(acc.months), hint: F.dur(acc.months) + " from now" },
-        { label: "Time cut from the loan", value: hasExtra ? F.dur(monthsSaved) : "—" },
+        { label: "Time cut from the loan", value: hasExtra ? F.dur(monthsSaved) : "—", hint: ignoredLump ? "the requested lump sum is after payoff and is not applied" : "" },
         { label: "Interest remaining (current plan)", value: F.money0(base.totalInterest) },
         { label: "Interest remaining (new plan)", value: F.money0(acc.totalInterest) },
       ],
       explain: `<p>Staying on schedule, your <strong>${F.money0(v.balance)}</strong> balance at <strong>${F.pct(v.rate)}</strong> takes <strong>${F.dur(base.months)}</strong> to clear at <strong>${F.money(base.payment)}</strong>/month, costing <strong>${F.money0(base.totalInterest)}</strong> more in interest.</p>` +
         (hasExtra
-          ? `<p>Adding ${extraDesc} pays it off in <strong>${F.dur(acc.months)}</strong> — <strong>${F.dur(monthsSaved)}</strong> early — and trims interest to <strong>${F.money0(acc.totalInterest)}</strong>, saving <strong>${F.money0(saved)}</strong>. Every prepaid dollar stops accruing interest at ${F.pct(v.rate)}, so this works like a guaranteed ${F.pct(v.rate)} return on the money.</p>`
-          : `<p>Because interest accrues on the balance every month, any prepayment — recurring or one-off — shortens the schedule and reduces total interest. Enter an amount above to see the exact saving.</p>`),
+          ? `<p>Adding ${extraDesc} pays it off in <strong>${F.dur(acc.months)}</strong> — <strong>${F.dur(monthsSaved)}</strong> early — and trims modeled interest to <strong>${F.money0(acc.totalInterest)}</strong>, a difference of <strong>${F.money0(saved)}</strong>. Prepaid principal stops accruing modeled loan interest at the entered rate; actual benefit can differ with penalties, fees or tax treatment.${lumpNote}</p>`
+          : requestedAny
+            ? `<p>The requested prepayment does not change the schedule.${lumpNote}</p>`
+            : `<p>Because modeled interest accrues on the balance every month, an applied prepayment can shorten the schedule and reduce total interest. Enter an amount above to calculate the difference.</p>`),
       chart: {
         title: "Remaining balance: current plan vs accelerated",
         cfg: {
@@ -82,7 +99,7 @@ FCX.define({
         ],
       },
       scenario: {
-        summary: `${F.money0(v.balance)} @ ${F.pct(v.rate)} · ${F.dur(v.remaining)} left${hasExtra ? " · " + extraDesc : ""}`,
+        summary: `${F.money0(v.balance)} @ ${F.pct(v.rate)} · ${F.dur(v.remaining)} left${hasExtra ? " · " + extraDesc : ignoredLump ? " · requested lump not applied" : ""}`,
         metrics: [
           { label: "Interest saved", raw: saved, fmt: "money0", betterWhen: "higher" },
           { label: "Time saved", raw: monthsSaved, fmt: "dur", betterWhen: "higher" },

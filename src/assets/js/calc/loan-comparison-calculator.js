@@ -23,31 +23,24 @@ FCX.define({
 
     // Effective APR: the rate at which the payment stream discounts to the net
     // proceeds (amount minus fees) — the fees-deducted-from-proceeds convention.
-    const effApr = (payment, months, net) => {
-      let lo = 0, hi = 200;
-      for (let i = 0; i < 100; i++) {
-        const mid = (lo + hi) / 2;
-        if (FIN.principalFromPayment(payment, mid, months) > net) lo = mid; else hi = mid;
-      }
-      return (lo + hi) / 2;
-    };
-    const aprA = effApr(A.payment, v.termA, v.amount - feesA);
-    const aprB = effApr(B.payment, v.termB, v.amount - feesB);
+    const aprA = feesA > 0 ? FIN.aprFromProceeds(FIN.pmt(v.amount, v.rateA, v.termA), v.termA, v.amount - feesA, v.rateA) : v.rateA;
+    const aprB = feesB > 0 ? FIN.aprFromProceeds(FIN.pmt(v.amount, v.rateB, v.termB), v.termB, v.amount - feesB, v.rateB) : v.rateB;
+    if (aprA == null || aprB == null) return { invalid: "A fee-adjusted APR could not be solved for one of the offers. Check the amount, fees and terms." };
 
     const diff = costA - costB;
     const winner = Math.abs(diff) < 0.005 ? null : diff > 0 ? "B" : "A";
     const payDiff = A.payment - B.payment;
     const payWinner = Math.abs(payDiff) < 0.005 ? null : payDiff > 0 ? "B" : "A";
 
-    // Break-even: the cheaper offer carries higher upfront fees — find the first
-    // month its cumulative cost (fees + payments made so far) drops below the other's.
+    // Break-even for an early payoff: principal repaid is not a borrowing cost,
+    // so compare upfront fees plus cumulative interest rather than raw payments.
     let breakEven = null;
     if (winner && (winner === "A" ? feesA > feesB : feesB > feesA)) {
       let cumA = feesA, cumB = feesB;
       const maxM = Math.max(A.months, B.months);
       for (let m = 1; m <= maxM && breakEven === null; m++) {
-        cumA += A.rows[m - 1] ? A.rows[m - 1].payment : 0;
-        cumB += B.rows[m - 1] ? B.rows[m - 1].payment : 0;
+        cumA += A.rows[m - 1] ? A.rows[m - 1].interest : 0;
+        cumB += B.rows[m - 1] ? B.rows[m - 1].interest : 0;
         if ((winner === "B" ? cumB : cumA) < (winner === "B" ? cumA : cumB)) breakEven = m;
       }
     }
@@ -83,7 +76,7 @@ FCX.define({
         `<p>${winner ? `<strong>Offer ${winner}</strong> is the cheaper loan overall, by <strong>${F.money(Math.abs(diff))}</strong>.` : `The two offers cost the same overall at these inputs.`}` +
         (winner && payWinner && payWinner !== winner ? ` Note the split verdict: Offer ${payWinner} has the lower monthly payment while Offer ${winner} costs less in total — a lower payment stretched over more months is not a cheaper loan.` : "") +
         (v.termA !== v.termB ? ` The terms differ (${F.dur(v.termA)} vs ${F.dur(v.termB)}), so the totals cover different lengths of time — weigh the total cost against how long each offer keeps a payment in your budget.` : "") +
-        (breakEven ? ` Offer ${winner} starts behind because of its higher upfront fees; its lower payments recover that gap by <strong>month ${breakEven}</strong> (${F.dateFromNow(breakEven)}). If you'd repay or refinance before then, the other offer would work out cheaper.` : "") +
+        (breakEven ? ` Offer ${winner} starts behind because of its higher upfront fees; its cumulative interest savings first recover that gap in <strong>month ${breakEven}</strong> (${F.dateFromNow(breakEven)}). Under this no-penalty early-payoff model, exiting before then leaves the other offer with the lower fee-plus-interest cost.` : "") +
         `</p>`,
       chart: {
         title: "Offer A vs Offer B",

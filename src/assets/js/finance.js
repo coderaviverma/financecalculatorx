@@ -62,6 +62,26 @@
     return (monthlyPayment * (1 - Math.pow(1 + r, -months))) / r;
   }
 
+  // Nominal APR whose payment stream has the requested net proceeds as its PV.
+  // The upper bracket expands so high-fee, short-term loans are not capped at
+  // an arbitrary APR. Returns null only if a finite bracket cannot be found.
+  function aprFromProceeds(monthlyPayment, months, netProceeds, startingPct) {
+    if (!(monthlyPayment > 0) || !(months > 0) || !(netProceeds > 0)) return null;
+    const pvAt = (annualPct) => principalFromPayment(monthlyPayment, annualPct, months);
+    let lo = 0, hi = Math.max(1, startingPct || 0);
+    if (pvAt(lo) < netProceeds) return null;
+    for (let i = 0; i < 256 && pvAt(hi) > netProceeds; i++) {
+      hi *= 2;
+      if (!isFinite(hi)) return null;
+    }
+    if (pvAt(hi) > netProceeds) return null;
+    for (let i = 0; i < 100; i++) {
+      const mid = (lo + hi) / 2;
+      if (pvAt(mid) > netProceeds) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
   /* ---- amortization ----
      opts: { extraMonthly, extraYearly, extraOnce, extraOnceMonth,
              startYear, startMonth (1-12), paymentOverride }
@@ -90,6 +110,7 @@
       let principal = pay - interest;
       if (principal <= 0 && extra === 0) return null; // never amortizes
       if (principal >= bal) { principal = bal; pay = principal + interest; }
+      const appliedExtra = Math.max(0, pay - basePmt);
       bal -= principal;
       totalInterest += interest;
       totalPaid += pay;
@@ -99,8 +120,9 @@
         year = startYear + Math.floor(mm / 12);
         month = (mm % 12) + 1;
       }
-      rows.push({ i, year, month, payment: r2(pay), interest: r2(interest), principal: r2(principal), extra: r2(Math.min(extra, pay - interest)), balance: r2(Math.max(bal, 0)) });
+      rows.push({ i, year, month, payment: r2(pay), interest: r2(interest), principal: r2(principal), extra: r2(appliedExtra), balance: r2(Math.max(bal, 0)) });
     }
+    if (bal > 0.005) return null;
     return { rows, months: i, totalInterest: r2(totalInterest), totalPaid: r2(totalPaid), payment: r2(basePmt) };
   }
 
@@ -181,8 +203,9 @@
     return (need * rp) / (Math.pow(1 + rp, n) - 1);
   }
   // years to reach target with contributions (simulation; returns null > 100y)
-  function yearsToGoal(target, principal, contributionMonthly, annualPct) {
-    const rp = monthlyRate(annualPct);
+  function yearsToGoal(target, principal, contributionMonthly, annualPct, compFreq) {
+    if (principal >= target) return 0;
+    const rp = periodicRate(annualPct, compFreq || 12, 12);
     let bal = principal;
     for (let m = 1; m <= 1200; m++) {
       bal = bal * (1 + rp) + contributionMonthly;
@@ -207,15 +230,20 @@
      perDebt: { name, payoffMonth, interest } */
   function debtPlan(debts, extra, method) {
     const ds = debts.map((d, ix) => ({ ix, name: d.name, bal: d.balance, r: monthlyRate(d.apr), apr: d.apr, min: d.minPayment, interest: 0, payoffMonth: null }));
-    // fail fast: every min payment must at least cover that debt's interest
-    for (const d of ds) if (d.bal > 0 && d.min <= d.bal * d.r) return { error: "min", debt: d.name };
+    // A single balance is impossible only when its entire available payment,
+    // including extra, cannot cover the first month's interest. With several
+    // debts, a temporarily under-interest minimum can still be rescued after
+    // the target debt is cleared and its payment rolls over, so simulate it.
+    if (ds.length === 1 && ds[0].bal > 0 && ds[0].min + Math.max(0, extra || 0) <= ds[0].bal * ds[0].r) {
+      return { error: "min", debt: ds[0].name };
+    }
     const order = ds.slice().sort((a, b) => method === "avalanche" ? (b.apr - a.apr) || (a.bal - b.bal) : (a.bal - b.bal) || (b.apr - a.apr));
     const timeline = [];
     let m = 0, totalInterest = 0, totalPaid = 0;
     const cap = 1200;
     while (ds.some((d) => d.bal > 0.005) && m < cap) {
       m++;
-      let budgetExtra = extra || 0;
+      let budgetExtra = Math.max(0, extra || 0);
       let monthInterest = 0, monthPaid = 0;
       // freed-up minimums roll into the extra budget (classic snowball behaviour)
       for (const d of ds) if (d.bal <= 0.005 && d.payoffMonth) budgetExtra += d.min;
@@ -247,8 +275,9 @@
       months: m,
       totalInterest: r2(totalInterest),
       totalPaid: r2(totalPaid),
-      perDebt: ds.map((d) => ({ name: d.name, payoffMonth: d.payoffMonth, interest: r2(d.interest) })),
+      perDebt: ds.map((d) => ({ ix: d.ix, name: d.name, payoffMonth: d.payoffMonth, interest: r2(d.interest) })),
       order: order.map((d) => d.name),
+      orderIds: order.map((d) => d.ix),
       timeline,
     };
   }
@@ -300,7 +329,7 @@
 
   const api = {
     r2, periodicRate, monthlyRate, ear, nominalFromEar,
-    pmt, pmtPeriodic, nper, nperPeriodic, principalFromPayment,
+    pmt, pmtPeriodic, nper, nperPeriodic, principalFromPayment, aprFromProceeds,
     amortize, annualize,
     grow, fvLump, pvLump, pvAnnuity, simpleInterest,
     contributionForGoal, yearsToGoal, cagr, inflationAdjust,

@@ -20,7 +20,7 @@ FCX.define({
     const goal = v.goal || 0;
     let goalYears = null, goalMonths = null;
     if (goal > 0) {
-      goalYears = FIN.yearsToGoal(goal, v.balance || 0, v.deposit || 0, v.rate); // YEARS or null
+      goalYears = FIN.yearsToGoal(goal, v.balance || 0, v.deposit || 0, v.rate, +v.compFreq); // YEARS or null
       goalMonths = goalYears == null ? null : Math.round(goalYears * 12);
     }
 
@@ -31,14 +31,14 @@ FCX.define({
     ];
     if (goal > 0) {
       if (goalMonths != null) {
-        metrics.push({ label: "Goal reached in", value: F.dur(goalMonths), hint: F.money0(goal) + " around " + F.dateFromNow(goalMonths) });
+        metrics.push({ label: "Goal reached in", value: F.dur(goalMonths), hint: goalMonths === 0 ? F.money0(goal) + " is already covered by the starting balance" : F.money0(goal) + " around " + F.dateFromNow(goalMonths) });
       } else {
         metrics.push({ label: "Share of goal reached", value: F.pct((g.fv / goal) * 100, 1), hint: "reaching " + F.money0(goal) + " is beyond 100 years at this pace" });
       }
     }
 
     // find the first table year the balance crosses the goal
-    const goalYearRow = goal > 0 ? (g.rows.find((r) => r.balance >= goal) || {}).year : null;
+    const goalYearRow = goal > (v.balance || 0) ? (g.rows.find((r) => r.balance >= goal) || {}).year : null;
 
     const cols = [
       { key: "y", label: "Year", align: "left" }, { key: "d", label: "Deposited" },
@@ -54,14 +54,16 @@ FCX.define({
     let goalNote = "";
     if (goal > 0) {
       goalNote = goalMonths != null
-        ? `You cross your ${F.money0(goal)} goal after about ${F.dur(goalMonths)} (${F.dateFromNow(goalMonths)}).`
-        : `At this pace, the ${F.money0(goal)} goal stays out of reach for over 100 years — raise the deposit to bring it closer.`;
+        ? goalMonths === 0
+          ? `The starting balance already meets the ${F.money0(goal)} goal.`
+          : `You cross your ${F.money0(goal)} goal after about ${F.dur(goalMonths)} (${F.dateFromNow(goalMonths)}).`
+        : `At this modeled pace, the ${F.money0(goal)} goal stays out of reach for over 100 years.`;
     }
 
     return {
       primary: { label: `Balance after ${v.years} years`, value: F.money(g.fv), sub: `saving ${F.money0(v.deposit || 0)}/month at ${F.pct(v.rate)}, compounded ${freqWord}` },
       metrics,
-      explain: `<p>Starting from <strong>${F.money0(v.balance || 0)}</strong> and depositing <strong>${F.money0(v.deposit || 0)}</strong> every month at <strong>${F.pct(v.rate)}</strong>, your account grows to about <strong>${F.money0(g.fv)}</strong> in ${v.years} years. You deposit <strong>${F.money0(deposited)}</strong> of that yourself; the remaining <strong>${F.money0(g.interest)}</strong> is interest the bank pays you.</p>${goal > 0 ? `<p>${goalMonths != null ? `Your <strong>${F.money0(goal)}</strong> goal arrives in about <strong>${F.dur(goalMonths)}</strong> — around ${F.dateFromNow(goalMonths)}.` : `Your <strong>${F.money0(goal)}</strong> goal is beyond 100 years at this pace. A bigger monthly deposit moves it far more than a slightly better rate.`}</p>` : ""}`,
+      explain: `<p>Starting from <strong>${F.money0(v.balance || 0)}</strong> and depositing <strong>${F.money0(v.deposit || 0)}</strong> every month at <strong>${F.pct(v.rate)}</strong>, the modeled account grows to about <strong>${F.money0(g.fv)}</strong> in ${v.years} years. You deposit <strong>${F.money0(deposited)}</strong> of that; the remaining <strong>${F.money0(g.interest)}</strong> is modeled interest.</p>${goal > 0 ? `<p>${goalMonths === 0 ? `The starting balance already meets the <strong>${F.money0(goal)}</strong> goal.` : goalMonths != null ? `The <strong>${F.money0(goal)}</strong> goal is reached in about <strong>${F.dur(goalMonths)}</strong> — around ${F.dateFromNow(goalMonths)}.` : `The <strong>${F.money0(goal)}</strong> goal is beyond 100 years at this modeled pace.`}</p>` : ""}`,
       chart: {
         title: "Your deposits vs interest earned",
         note: goalNote,

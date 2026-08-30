@@ -3,9 +3,9 @@ FCX.define({
   slug: "personal-loan-calculator",
   inputs: [
     { id: "amount", label: "Loan amount", type: "currency", default: 15000, min: 100, max: 10000000 },
-    { id: "rate", label: "Annual interest rate", type: "percent", default: 11.5, min: 0, max: 40, slider: { min: 4, max: 30, step: 0.1 }, tip: "Unsecured rates run well above mortgage or car-loan rates and depend heavily on your credit score." },
+    { id: "rate", label: "Annual interest rate", type: "percent", default: 11.5, min: 0, max: 40, slider: { min: 4, max: 30, step: 0.1 }, tip: "Use the fixed annual rate in the offer. Actual pricing varies by lender and borrower." },
     { id: "term", label: "Repayment term", type: "term", default: 48, min: 6, max: 120 },
-    { id: "feePct", label: "Origination fee", type: "percent", default: 2, min: 0, max: 12, optional: true, affixPost: "% of loan", hint: "Deducted from the money you receive — you still repay the full loan amount." },
+    { id: "feePct", label: "Origination fee", type: "percent", default: 2, min: 0, max: 12, optional: true, affixPost: "% of loan", hint: "This model deducts the fee from proceeds while payments use the full loan amount." },
   ],
   compute(v, F) {
     const FIN = F.fin;
@@ -16,15 +16,9 @@ FCX.define({
     if (net <= 0) return { invalid: "The fee consumes the whole loan — nothing would be disbursed." };
 
     // Effective APR: the rate at which the payment stream is worth exactly the net amount received.
-    let apr = v.rate;
-    if (fee > 0) {
-      let lo = v.rate, hi = v.rate + 30;
-      for (let i = 0; i < 60; i++) {
-        const mid = (lo + hi) / 2;
-        if (FIN.principalFromPayment(am.payment, mid, v.term) > net) lo = mid; else hi = mid;
-      }
-      apr = (lo + hi) / 2;
-    }
+    const exactPayment = FIN.pmt(v.amount, v.rate, v.term);
+    const apr = fee > 0 ? FIN.aprFromProceeds(exactPayment, v.term, net, v.rate) : v.rate;
+    if (apr == null) return { invalid: "The fee-adjusted APR could not be solved for these values. Check the amount, fee and term." };
 
     const fmtRow = (r, label) => ({
       n: label, pay: F.money(r.payment), pri: F.money(r.principal), int: F.money(r.interest), bal: F.money(r.balance),
@@ -44,17 +38,17 @@ FCX.define({
       primary: { label: "Monthly payment", value: F.money(am.payment), sub: `for ${F.dur(v.term)} at ${F.pct(v.rate)} nominal` },
       metrics: [
         { label: "Total interest", value: F.money(am.totalInterest) },
-        { label: "Origination fee", value: F.money(fee), hint: fee > 0 ? F.pct(v.feePct) + " of the loan, kept by the lender" : "no fee entered" },
+        { label: "Origination fee", value: F.money(fee), hint: fee > 0 ? F.pct(v.feePct) + " of the loan, modeled as deducted from proceeds" : "no fee entered" },
         { label: "You actually receive", value: F.money(net), hint: fee > 0 ? "but you repay the full " + F.money0(v.amount) : "the full loan amount" },
-        { label: "Effective APR", value: F.pct(apr, 2), hint: fee > 0 ? "true cost including the fee" : "equals the rate — no fee" },
+        { label: "Effective APR", value: F.pct(apr, 2), hint: fee > 0 ? "modeled cost including the deducted fee" : "equals the rate — no fee" },
       ],
       explain: `<p>Borrowing <strong>${F.money0(v.amount)}</strong> at <strong>${F.pct(v.rate)}</strong> for <strong>${F.dur(v.term)}</strong> costs <strong>${F.money(am.payment)}</strong> per month and <strong>${F.money(am.totalInterest)}</strong> in interest.</p>` +
         (fee > 0
-          ? `<p>Because the lender deducts a <strong>${F.money(fee)}</strong> origination fee, only <strong>${F.money(net)}</strong> lands in your account — yet the payments are calculated on the full ${F.money0(v.amount)}. Measured against the money you actually received, the true cost is <strong>${F.pct(apr, 2)}</strong> APR, not ${F.pct(v.rate)}.</p>`
+          ? `<p>Under the deducted-fee model, only <strong>${F.money(net)}</strong> of the stated <strong>${F.money0(v.amount)}</strong> reaches you after the <strong>${F.money(fee)}</strong> fee, while payments use the full loan amount. Measured against those net proceeds, the modeled fee-adjusted rate is <strong>${F.pct(apr, 2)}</strong> APR rather than ${F.pct(v.rate)}.</p>`
           : `<p>With no origination fee, the effective APR equals the nominal rate of <strong>${F.pct(v.rate)}</strong>.</p>`),
       chart: {
         title: "What the repayments cover",
-        note: fee > 0 ? "The fee never reaches you, but you repay it with interest as part of the principal." : "",
+        note: fee > 0 ? "Under the deducted-fee model, the fee is withheld from proceeds while the full stated amount is repaid." : "",
         cfg: {
           type: "donut",
           aria: `Donut chart splitting total repayment into net disbursal ${F.money0(net)}, interest ${F.money0(am.totalInterest)}${fee > 0 ? " and origination fee " + F.money0(fee) : ""}`,

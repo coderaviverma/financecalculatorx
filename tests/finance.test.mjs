@@ -35,12 +35,19 @@ test("amortize with extra payment shortens schedule and saves interest", () => {
   assert.equal(extra.months, 47);
   close(base.totalInterest - extra.totalInterest, 964.55, 0.5);
   assert.ok(extra.rows[extra.rows.length - 1].balance === 0);
+  // The adjusted final installment is below the base payment, so none of its
+  // principal may be mislabeled as an extra payment.
+  assert.equal(extra.rows[extra.rows.length - 1].extra, 0);
 });
 
 test("amortize rejects loans that never pay off", () => {
   // payment override below interest-only
   const bad = FIN.amortize(100000, 12, 360, { paymentOverride: 900 }); // interest = 1000/mo
   assert.equal(bad, null);
+  // This payment does amortize mathematically, but only after 1,851.26 months.
+  // The 100-year schedule cap must fail closed instead of returning a balance.
+  close(FIN.nper(100000000, 12, 1000000.01), 1851.263141, 0.0001);
+  assert.equal(FIN.amortize(100000000, 12, 360, { paymentOverride: 1000000.01 }), null);
 });
 
 test("amortize handles very small and very large values", () => {
@@ -92,6 +99,9 @@ test("nper solves payoff time consistent with pmt", () => {
 
 test("principalFromPayment inverts pmt", () => {
   close(FIN.principalFromPayment(1580.17, 6.5, 360), 250000, 1);
+  // $100 repaid in three equal, zero-rate installments but only $1 received
+  // has an independently solved nominal APR of 39,999.01157587%.
+  close(FIN.aprFromProceeds(100 / 3, 3, 1, 0), 39999.01157587, 0.000001);
 });
 
 test("ear and nominalFromEar", () => {
@@ -109,6 +119,10 @@ test("yearsToGoal is consistent with grow", () => {
   const y = FIN.yearsToGoal(50000, 0, 500, 6);
   const g = FIN.grow({ principal: 0, contribution: 500, annualPct: 6, years: y });
   assert.ok(g.fv >= 50000 && g.fv < 51500);
+  // Annual compounding converted to an equivalent monthly rate reaches this
+  // goal in month 323; monthly compounding would incorrectly report 320.
+  assert.equal(FIN.yearsToGoal(250000, 5000, 400, 4.2, 1) * 12, 323);
+  assert.equal(FIN.yearsToGoal(4000, 5000, 400, 4.2, 1), 0);
 });
 
 test("cagr and inflationAdjust", () => {
@@ -133,13 +147,21 @@ test("debtPlan matches reference simulation", () => {
   close(snow.totalInterest, 5307.68, 0.5);
   close(minOnly.totalInterest, 10331.53, 0.5);
   assert.deepEqual(aval.order, ["Credit card", "Personal loan", "Car loan"]);
+  assert.deepEqual(aval.orderIds, [0, 2, 1]);
   assert.deepEqual(snow.order, ["Personal loan", "Credit card", "Car loan"]);
+  assert.deepEqual(aval.perDebt.map((d) => d.ix), [0, 1, 2]);
   assert.ok(aval.totalInterest < snow.totalInterest);
 });
 
 test("debtPlan flags impossible minimum payments", () => {
   const r = FIN.debtPlan([{ name: "Trap", balance: 10000, apr: 24, minPayment: 150 }], 0, "avalanche");
   assert.equal(r.error, "min"); // interest is 200/mo > 150 minimum
+  // A $10 minimum alone only equals first-month interest, but $100 of extra
+  // makes the full $110 budget viable: 10 months and $53.78 interest.
+  const rescued = FIN.debtPlan([{ name: "Debt", balance: 1000, apr: 12, minPayment: 10 }], 100, "avalanche");
+  assert.equal(rescued.months, 10);
+  close(rescued.totalInterest, 53.78, 0.01);
+  close(rescued.totalPaid, 1053.78, 0.01);
 });
 
 test("affordability respects DTI caps", () => {

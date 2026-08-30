@@ -9,13 +9,13 @@ FCX.define({
     { id: "term", label: "Loan term", type: "segment", default: 30, options: [{ v: 15, label: "15 years" }, { v: 30, label: "30 years" }] },
     { id: "taxIns", label: "Monthly property tax + insurance", type: "currency", default: 350, min: 0, max: 1000000, optional: true, hint: "An estimate for homes in your target area — it reduces the payment left over for the loan itself." },
     {
-      id: "standard", label: "Lending standard", type: "select", default: "28/36",
+      id: "standard", label: "DTI ratio scenario", type: "select", default: "28/36",
       options: [
-        { v: "25/33", label: "Conservative — 25% / 33%" },
-        { v: "28/36", label: "Standard — 28% / 36%" },
-        { v: "31/43", label: "Aggressive — 31% / 43%" },
+        { v: "25/33", label: "Lower ratios — 25% / 33%" },
+        { v: "28/36", label: "Middle ratios — 28% / 36%" },
+        { v: "31/43", label: "Higher ratios — 31% / 43%" },
       ],
-      hint: "Front-end % of income for housing / back-end % for housing plus all debts.",
+      hint: "Modeled front-end share for housing / back-end share for housing plus debts. Actual underwriting varies.",
     },
   ],
   compute(v, F) {
@@ -25,15 +25,15 @@ FCX.define({
     const backPct = parseFloat(parts[1]) || 36;
     const cfg = { incomeAnnual: v.income, debtsMonthly: v.debts || 0, downPayment: v.down || 0, annualPct: v.rate, years: v.term, taxInsMonthly: v.taxIns || 0 };
     const a = FIN.affordability({ ...cfg, frontPct, backPct });
-    if (!(a.maxPI > 0)) return { invalid: "At these ratios, existing debts and housing costs already use the whole allowance — no room is left for a mortgage payment. Lower the monthly debts or tax/insurance estimate, or pick a more aggressive standard." };
+    if (!(a.maxPI > 0)) return { invalid: "At these modeled ratios, existing debts and housing costs use the full allowance, leaving no amount for principal and interest. Adjust an input or the ratio scenario." };
     const gross = v.income / 12;
     const frontBinds = a.binding === "front";
 
     // all three standards for the chart + the contrast metric
     const standards = [
-      { key: "25/33", name: "Conservative", f: 25, b: 33 },
-      { key: "28/36", name: "Standard", f: 28, b: 36 },
-      { key: "31/43", name: "Aggressive", f: 31, b: 43 },
+      { key: "25/33", name: "Lower", f: 25, b: 33 },
+      { key: "28/36", name: "Middle", f: 28, b: 36 },
+      { key: "31/43", name: "Higher", f: 31, b: 43 },
     ].map((s) => ({ ...s, r: FIN.affordability({ ...cfg, frontPct: s.f, backPct: s.b }) }));
     const contrast = v.standard === "25/33" ? standards[1] : standards[0];
 
@@ -49,7 +49,7 @@ FCX.define({
 
     return {
       primary: {
-        label: "Home price you can afford",
+        label: "Modeled home-price ceiling",
         value: F.money0(a.price),
         sub: `a ${F.money0(a.loan)} loan plus your ${F.money0(v.down)} down payment, under the ${frontPct}/${backPct} standard`,
       },
@@ -63,15 +63,15 @@ FCX.define({
             ? `the ${frontPct}% housing share of income is reached before the ${backPct}% total-debt cap`
             : `your other debt payments hit the ${backPct}% total-debt cap first`,
         },
-        { label: `At the ${contrast.name.toLowerCase()} ${contrast.key} standard`, value: F.money0(contrast.r.price), hint: "the same inputs under stricter ratios" },
+        { label: `At the ${contrast.name.toLowerCase()} ${contrast.key} scenario`, value: F.money0(contrast.r.price), hint: contrast.r.price < a.price ? "the same inputs under lower ratios" : "the same inputs under higher ratios" },
       ],
-      explain: `<p>On <strong>${F.money0(gross)}</strong> of gross monthly income, the <strong>${frontPct}/${backPct}</strong> standard allows <strong>${F.money(gross * (frontPct / 100))}</strong> for housing (front-end) and <strong>${F.money(gross * (backPct / 100))}</strong> for housing plus all debts (back-end). After <strong>${F.money(v.taxIns || 0)}</strong> of tax/insurance${v.debts > 0 ? ` and <strong>${F.money(v.debts)}</strong> of debt payments` : ""}, the ${frontBinds ? "front-end" : "back-end"} cap binds first, leaving <strong>${F.money(a.maxPI)}</strong> per month for principal and interest.</p><p>That payment supports a <strong>${F.money0(a.loan)}</strong> loan at <strong>${F.pct(v.rate)}</strong> over <strong>${v.term} years</strong>; with <strong>${F.money0(v.down)}</strong> down, the price ceiling is <strong>${F.money0(a.price)}</strong>. This is the most a lender would likely approve — not necessarily what fits your budget.</p>`,
+      explain: `<p>On <strong>${F.money0(gross)}</strong> of gross monthly income, the selected <strong>${frontPct}/${backPct}</strong> scenario allocates <strong>${F.money(gross * (frontPct / 100))}</strong> to housing (front-end) and <strong>${F.money(gross * (backPct / 100))}</strong> to housing plus debts (back-end). After <strong>${F.money(v.taxIns || 0)}</strong> of tax/insurance${v.debts > 0 ? ` and <strong>${F.money(v.debts)}</strong> of debt payments` : ""}, the ${frontBinds ? "front-end" : "back-end"} cap binds first, leaving <strong>${F.money(a.maxPI)}</strong> per month for principal and interest.</p><p>That modeled payment supports a <strong>${F.money0(a.loan)}</strong> loan at <strong>${F.pct(v.rate)}</strong> over <strong>${v.term} years</strong>; with <strong>${F.money0(v.down)}</strong> down, the modeled price ceiling is <strong>${F.money0(a.price)}</strong>. Actual lender underwriting and household budgets can differ.</p>`,
       chart: {
-        title: "Affordable price under each lending standard",
-        note: "Same income, debts, rate and down payment — only the DTI ratios change.",
+        title: "Modeled price under each DTI scenario",
+        note: "Same income, debts, rate and down payment; only the selected ratio pair changes.",
         cfg: {
           type: "bars",
-          aria: "Bar chart of the affordable home price under conservative, standard and aggressive lending ratios",
+          aria: "Bar chart of the modeled home-price ceiling under lower, middle and higher debt-to-income ratio scenarios",
           x: standards.map((s) => s.name),
           series: [{ label: "Affordable price", color: "var(--c1)", values: standards.map((s) => s.r.price) }],
           fmt: F.money0,
