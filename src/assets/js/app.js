@@ -12,8 +12,7 @@
   try { analyticsConsent = localStorage.getItem(CONSENT_KEY) || ""; } catch {}
 
   function cleanPageLocation() {
-    const attribution = window.__FCX_ATTRIBUTION_PARAMS || "";
-    return location.origin + location.pathname + (attribution ? "?" + attribution : "");
+    return location.origin + location.pathname;
   }
 
   function cleanReferrer() {
@@ -145,7 +144,7 @@
   } catch {}
 
   /* ---------- formatters ---------- */
-  let _money, _money0, _compact, _num, _cur;
+  let _money, _money0, _compact, _num, _cur, _decimal, _group;
   function buildFmt() {
     const pageCur = document.body?.dataset.suggestCurrency;
     // precedence: explicit user choice → detected country → per-page suggestion → USD
@@ -158,6 +157,9 @@
     _money0 = new Intl.NumberFormat(loc, { style: "currency", currency: _cur, maximumFractionDigits: 0 });
     _compact = new Intl.NumberFormat(loc, { style: "currency", currency: _cur, notation: "compact", maximumFractionDigits: 1 });
     _num = new Intl.NumberFormat(loc, { maximumFractionDigits: 2 });
+    const parts = _num.formatToParts(12345.6);
+    _decimal = parts.find((p) => p.type === "decimal")?.value || ".";
+    _group = parts.find((p) => p.type === "group")?.value || ",";
   }
   FCX.fmt = {
     money: (v) => (isFinite(v) ? _money.format(v) : "—"),
@@ -166,6 +168,22 @@
     num: (v, dp) => (isFinite(v) ? new Intl.NumberFormat(CURRENCIES[_cur].locale, { maximumFractionDigits: dp == null ? 2 : dp }).format(v) : "—"),
     pct: (v, dp) => (isFinite(v) ? FCX.fmt.num(v, dp == null ? 2 : dp) + "%" : "—"),
     group: (v) => (isFinite(v) ? _num.format(v) : ""),
+    parse: (raw) => {
+      if (typeof raw === "number") return raw;
+      let s = String(raw == null ? "" : raw).trim().replace(/[\s\u00a0\u202f]/g, "");
+      if (!s || !/^[+-]?[\d.,]+$/.test(s)) return NaN;
+      if (_group && _group !== _decimal && s.includes(_group)) {
+        if (s.includes(_decimal)) s = s.split(_group).join("");
+        else {
+          const groups = s.split(_group);
+          s = groups.length > 2 || groups.at(-1).length === 3 ? groups.join("") : groups.join(".");
+        }
+      }
+      if (_decimal && _decimal !== ".") s = s.replace(_decimal, ".");
+      if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(s)) return NaN;
+      const n = Number(s);
+      return isFinite(n) ? n : NaN;
+    },
     dur: (months) => {
       if (months == null || !isFinite(months)) return "—";
       const m = Math.round(months);
@@ -235,8 +253,15 @@
     if (curBtn) curBtn.textContent = FCX.fmt.cur();
   }
 
-  function closeMenus(except) {
-    document.querySelectorAll(".menu.open").forEach((m) => { if (m !== except) m.classList.remove("open"); });
+  function closeMenus(except, restoreFocus) {
+    document.querySelectorAll(".menu.open").forEach((m) => {
+      if (m === except) return;
+      const opener = document.querySelector(`[data-opens="${m.id}"]`);
+      const focusWasInside = m.contains(document.activeElement);
+      m.classList.remove("open");
+      opener?.setAttribute("aria-expanded", "false");
+      if (restoreFocus && focusWasInside) opener?.focus();
+    });
   }
 
   document.addEventListener("click", (e) => {
@@ -252,15 +277,35 @@
       if (menu.hasAttribute("data-menu-theme")) FCX.setPref("theme", opt.dataset.v);
       if (menu.hasAttribute("data-menu-currency")) FCX.setPref("currency", opt.dataset.v);
       menu.classList.remove("open");
+      const menuOpener = document.querySelector(`[data-opens="${menu.id}"]`);
+      menuOpener?.setAttribute("aria-expanded", "false");
+      menuOpener?.focus();
       return;
     }
     if (!e.target.closest(".menu")) closeMenus();
     const nav = document.querySelector(".main-nav");
     const tog = e.target.closest(".nav-toggle");
-    if (tog && nav) { nav.classList.toggle("open"); tog.setAttribute("aria-expanded", nav.classList.contains("open")); }
-    else if (nav && !e.target.closest(".site-header")) nav.classList.remove("open");
+    if (tog && nav) {
+      nav.classList.toggle("open");
+      const open = nav.classList.contains("open");
+      tog.setAttribute("aria-expanded", String(open));
+      if (open && e.detail === 0) nav.querySelector("a")?.focus();
+    }
+    else if (nav && !e.target.closest(".site-header")) {
+      nav.classList.remove("open");
+      document.querySelector(".nav-toggle")?.setAttribute("aria-expanded", "false");
+    }
   });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeMenus(); document.querySelector(".main-nav")?.classList.remove("open"); } });
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    closeMenus(null, true);
+    const nav = document.querySelector(".main-nav");
+    const toggle = document.querySelector(".nav-toggle");
+    const navWasOpen = nav?.classList.contains("open");
+    nav?.classList.remove("open");
+    toggle?.setAttribute("aria-expanded", "false");
+    if (navWasOpen) toggle?.focus();
+  });
 
   /* ---------- instant search ---------- */
   let index = null, idxPromise = null;
@@ -299,12 +344,13 @@
     };
     const update = () => {
       const q = input.value.trim();
-      if (!q) { resultsBox.hidden = true; return; }
+      if (!q) { resultsBox.hidden = true; input.setAttribute("aria-expanded", "false"); return; }
       loadIndex().then(() => {
         items = (index || []).map((it) => ({ it, s: score(it, q) })).filter((x) => x.s > 0)
           .sort((a, b) => b.s - a.s).slice(0, 8).map((x) => x.it);
         active = -1;
         resultsBox.hidden = false;
+        input.setAttribute("aria-expanded", "true");
         render();
         FCX.track("calculator_search_used", { result_count: items.length });
       });
@@ -316,9 +362,13 @@
       if (e.key === "ArrowDown") { e.preventDefault(); active = Math.min(items.length - 1, active + 1); render(); }
       else if (e.key === "ArrowUp") { e.preventDefault(); active = Math.max(0, active - 1); render(); }
       else if (e.key === "Enter" && active >= 0 && items[active]) { location.href = items[active].u; }
-      else if (e.key === "Escape") { resultsBox.hidden = true; }
+      else if (e.key === "Escape") { resultsBox.hidden = true; input.setAttribute("aria-expanded", "false"); }
     });
-    document.addEventListener("click", (e) => { if (!resultsBox.contains(e.target) && e.target !== input) resultsBox.hidden = true; });
+    document.addEventListener("click", (e) => {
+      if (resultsBox.contains(e.target) || e.target === input) return;
+      resultsBox.hidden = true;
+      input.setAttribute("aria-expanded", "false");
+    });
   }
   FCX.attachSearch = attachSearch;
 

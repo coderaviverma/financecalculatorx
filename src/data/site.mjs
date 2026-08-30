@@ -11,9 +11,9 @@ export const site = {
   email: "contact@financecalculatorx.com",
   launched: "2026-07",
   lastModified: {
-    home: "2026-07-22",
-    calculators: "2026-07-22",
-    guides: "2026-07-22",
+    home: "2026-08-30",
+    calculators: "2026-08-30",
+    guides: "2026-08-30",
   },
   // GA4 is loaded only after the visitor explicitly allows optional analytics.
   ga4: "G-CB5GWN9DQ9",
@@ -36,7 +36,7 @@ export const categories = [
     short: "Loans",
     title: "Loan Calculators",
     path: "/loan-calculators/",
-    lastModified: "2026-07-22",
+    lastModified: "2026-08-30",
     icon: "loan",
     tagline: "Work through payments, interest, repayment schedules and payoff options.",
     metaTitle: "Loan Calculators — Payments, Interest, Amortization & Payoff",
@@ -44,7 +44,7 @@ export const categories = [
       "Ten loan calculators covering monthly payments, EMI, total interest, amortization schedules, extra payments, early payoff and side-by-side loan comparison.",
     introHtml: `
       <p>These calculators cover different stages of a fixed-rate loan. Use the <a href="/loan-calculator/">Loan Calculator</a> for a new loan's payment, total interest and full schedule. If you already know the question you need to answer, use the more focused tools: the <a href="/extra-payment-calculator/">Extra Payment Calculator</a> measures the effect of paying more each month, the <a href="/loan-payoff-calculator/">Loan Payoff Calculator</a> estimates when a current balance will clear, and the <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> compares two offers on the same amount.</p>
-      <p>The tools use monthly reducing-balance interest for fixed-rate borrowing. Many personal, car, education and home loans use that convention, while others accrue interest daily or follow different fee and rounding rules. Check the assumptions on the calculator page against the lender's agreement or statement before relying on the estimate.</p>`,
+      <p>The tools model fixed-rate borrowing with monthly reducing-balance interest. Actual products may instead use daily accrual or different fee, compounding and rounding rules. Compare the assumptions on the calculator page with the agreement or statement for the product being modeled.</p>`,
     eduHtml: `
       <h2>How to get the most out of these calculators</h2>
       <p>A monthly payment only tells part of the story. Two offers can have similar payments and quite different interest totals once the term and fees are included. Keep the amount borrowed the same when you compare offers, then change the rate, term and fees one at a time. The comparison calculator also shows whether an upfront fee earns itself back through a lower payment.</p>
@@ -56,7 +56,7 @@ export const categories = [
     short: "Mortgage",
     title: "Mortgage & Home Calculators",
     path: "/mortgage-calculators/",
-    lastModified: "2026-07-22",
+    lastModified: "2026-08-30",
     icon: "home",
     tagline: "Estimate home costs, affordability, refinancing and early payoff.",
     metaTitle: "Mortgage Calculators — Payment, Affordability, Payoff & Refinance",
@@ -64,10 +64,10 @@ export const categories = [
       "Eight mortgage and home calculators: monthly payment with taxes and insurance, affordability, amortization, early payoff, down payment, refinancing and rent vs buy.",
     introHtml: `
       <p>A mortgage can stay with you for decades, so a modest change in the rate, term or extra payment can materially change the final cost. The <a href="/mortgage-calculator/">Mortgage Calculator</a> estimates principal, interest, property tax, home insurance, PMI and HOA fees together. The <a href="/house-affordability-calculator/">House Affordability Calculator</a> starts with income and current debts to estimate a price range from debt-to-income limits.</p>
-      <p>If you already own, the <a href="/mortgage-payoff-calculator/">Mortgage Payoff Calculator</a> and <a href="/refinance-calculator/">Refinance Calculator</a> quantify the two most common questions: what extra payments would save, and whether refinancing truly breaks even after closing costs. And if you're deciding whether to buy at all, the <a href="/rent-vs-buy-calculator/">Rent vs Buy Calculator</a> compares the true multi-year cost of both paths, including the opportunity cost of your down payment.</p>`,
+      <p>If you already own, the <a href="/mortgage-payoff-calculator/">Mortgage Payoff Calculator</a> models how extra payments change the schedule, while the <a href="/refinance-calculator/">Refinance Calculator</a> compares payment and modeled cost after entered closing costs. The <a href="/rent-vs-buy-calculator/">Rent vs Buy Calculator</a> compares the selected multi-year cash flows for both paths, including an assumed return on cash not used for a down payment.</p>`,
     eduHtml: `
       <h2>What these calculators assume</h2>
-      <p>All mortgage tools here model fixed-rate, fully amortizing loans, a widely used structure but not the only one. Adjustable-rate products, interest-only periods and negative amortization are deliberately out of scope, because their outcomes depend on future rate paths no calculator can honestly predict. Property tax, insurance and maintenance inputs are annual estimates you control; the pages explain typical ranges, but your actual figures depend on location and property. Every result should be read as an estimate to structure your decision, then verified against a lender's official quote or amortization statement.</p>`,
+      <p>All mortgage tools here model fixed-rate, fully amortizing loans. Adjustable-rate products, interest-only periods and negative amortization are out of scope because they require assumptions this model does not collect. Property tax, insurance and maintenance inputs are estimates controlled by the user; actual figures depend on the property, product and jurisdiction. The results describe the entered scenario and can be compared with an official quote or amortization statement.</p>`,
     relatedCategories: ["loans", "savings"],
   },
   {
@@ -75,7 +75,7 @@ export const categories = [
     short: "Investing",
     title: "Investment Calculators",
     path: "/investment-calculators/",
-    lastModified: "2026-07-22",
+    lastModified: "2026-08-30",
     icon: "chart",
     tagline: "Explore compound growth, regular investing, future value and returns.",
     metaTitle: "Investment Calculators — Compound Interest, SIP, ROI & Future Value",
@@ -86,7 +86,7 @@ export const categories = [
       <p>The remaining tools answer planning questions: <a href="/future-value-calculator/">future value</a> ("what will this be worth?"), <a href="/present-value-calculator/">present value</a> ("what is a future amount worth today?"), and <a href="/roi-calculator/">ROI</a> ("what did this investment actually return, annualized?"). Every calculator states its compounding assumptions explicitly and shows the year-by-year table behind the headline number.</p>`,
     eduHtml: `
       <h2>A note on return assumptions</h2>
-      <p>Every projection depends on the return rate you enter, while real investment returns change from year to year and are not guaranteed. Try a lower, middle and higher rate rather than treating one output as a forecast. Pay particular attention to the lower-rate result: it shows whether the plan still works when returns disappoint.</p>`,
+      <p>Every projection depends on the return rate entered, while real investment returns change from year to year and are not guaranteed. Comparing a lower, middle and higher assumption shows how sensitive the result is; none of those scenarios is a forecast.</p>`,
     relatedCategories: ["savings", "personal"],
   },
   {
@@ -94,7 +94,7 @@ export const categories = [
     short: "Savings",
     title: "Savings Calculators",
     path: "/savings-calculators/",
-    lastModified: "2026-07-29",
+    lastModified: "2026-08-30",
     icon: "piggy",
     tagline: "Plan regular deposits, savings goals and interest growth.",
     metaTitle: "Savings Calculators — Growth, Goals, Deposits & Simple Interest",
@@ -107,11 +107,11 @@ export const categories = [
         <li><strong>"I can save X per month. Where will I be in N years?"</strong> Start with the <a href="/savings-calculator/">Savings Calculator</a>. Enter your balance, deposit and the account's APY; set a goal amount if you have one and it will mark the month you cross it.</li>
         <li><strong>"I need X by a certain date. How much must I put away?"</strong> That inverse problem belongs to the <a href="/monthly-investment-calculator/">Monthly Investment Calculator</a>, which also shows how sharply the required amount falls when you add time.</li>
         <li><strong>"My deposit pays interest that doesn't reinvest."</strong> Use the <a href="/simple-interest-calculator/">Simple Interest Calculator</a>, which also quantifies what reinvesting the same rate would add.</li>
-        <li><strong>"Should this money be saved or invested at all?"</strong> For horizons under a few years, or money you cannot afford to see dip, the certainty of a stated rate is often the deciding factor; the guide on <a href="/guides/how-inflation-affects-savings/">inflation and savings</a> covers the trade-off, and the <a href="/investment-calculators/">investment calculators</a> handle the market side.</li>
+        <li><strong>"How do saving and investing assumptions differ?"</strong> The guide on <a href="/guides/how-inflation-affects-savings/">inflation and savings</a> explains the purchasing-power trade-off, while the <a href="/investment-calculators/">investment calculators</a> model uncertain return assumptions rather than an account's stated rate.</li>
       </ul>`,
     eduHtml: `
       <h2>Why the compounding detail matters</h2>
-      <p>Two accounts advertising the same nominal rate can pay different amounts depending on how often interest is credited — daily, monthly, quarterly or yearly. The savings tools let you set the compounding frequency and show the effect directly. For short horizons the difference is small; over a decade it is visible. When comparing real accounts, look for the effective annual yield (APY/AER), which already includes compounding, and use that figure here for the most accurate projection.</p>`,
+      <p>In the model, the same nominal rate can produce different balances when interest is credited daily, monthly, quarterly or yearly. The savings tools expose that frequency so its effect is visible. If a real product quotes an effective annual yield such as APY or AER, note that it already incorporates compounding; do not combine that yield with an additional compounding assumption without checking the product's definition.</p>`,
     relatedCategories: ["investment", "personal"],
   },
   {
@@ -119,7 +119,7 @@ export const categories = [
     short: "Personal Finance",
     title: "Personal Finance Calculators",
     path: "/personal-finance-calculators/",
-    lastModified: "2026-07-29",
+    lastModified: "2026-08-30",
     icon: "wallet",
     tagline: "Build a workable budget and compare ways to repay debt.",
     metaTitle: "Personal Finance Calculators — Budgeting & Debt Payoff",
@@ -128,10 +128,10 @@ export const categories = [
     introHtml: `
       <p>These two tools cover income allocation and multi-debt repayment. The <a href="/budget-calculator/">Budget Calculator</a> uses the 50/30/20 rule as an editable starting point, not a required split. The <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> uses each balance, rate and minimum payment to compare snowball and avalanche repayment month by month.</p>
       <h2>Where to start</h2>
-      <p>The two tools are designed to be used in sequence. Run the <a href="/budget-calculator/">budget</a> first: its "savings &amp; debt" slice is the number that feeds everything else, and the page shows what that slice implies for an emergency fund timeline. If you carry more than one debt, take that monthly amount straight into the <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> as your extra payment and compare both payoff strategies with your real balances — the difference between them is often smaller than expected, and seeing your own numbers settles the argument quickly. For a single loan rather than a set of debts, the <a href="/loan-payoff-calculator/">Loan Payoff Calculator</a> and <a href="/extra-payment-calculator/">Extra Payment Calculator</a> in the loans section answer the same questions with loan-specific detail. Two guides pair well with this page: <a href="/guides/debt-snowball-vs-debt-avalanche/">snowball vs avalanche</a> and <a href="/guides/how-much-emergency-fund/">how much emergency fund you need</a>.</p>`,
+      <p>The tools can be used in sequence without prescribing an allocation. The <a href="/budget-calculator/">budget calculator</a> turns an editable income split into monthly amounts. One of those amounts can then be entered as an extra payment in the <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> to compare both repayment methods with the same balances and budget. For a single loan rather than a set of debts, the <a href="/loan-payoff-calculator/">Loan Payoff Calculator</a> and <a href="/extra-payment-calculator/">Extra Payment Calculator</a> provide loan-specific schedules. Related guides cover <a href="/guides/debt-snowball-vs-debt-avalanche/">snowball vs avalanche</a> and <a href="/guides/how-much-emergency-fund/">emergency-fund scenario sizing</a>.</p>`,
     eduHtml: `
       <h2>Choosing a repayment order</h2>
-      <p>With multiple debts, the repayment order can change the total interest even when the monthly budget stays the same. Directing extra money to the highest-rate balance minimizes interest under the calculator's assumptions. Starting with the smallest balance may give you an earlier account payoff, which some people find easier to maintain. Compare both schedules with your own debts, then choose the trade-off you are more likely to follow.</p>`,
+      <p>With multiple debts, the repayment order can change total modeled interest even when the monthly budget stays the same. Directing extra money to the highest-rate balance minimizes interest under the calculator's fixed-rate, no-new-charges assumptions. Starting with the smallest balance can produce an earlier first account payoff. The comparison reports both schedules; behavioral and product-specific considerations remain outside the model.</p>`,
     relatedCategories: ["loans", "savings"],
   },
 ];

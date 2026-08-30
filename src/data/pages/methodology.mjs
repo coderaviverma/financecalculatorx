@@ -5,7 +5,7 @@ export default {
   metaDescription:
     "How Finance Calculator X computes results: standard financial formulas, documented assumptions, cent-level rounding rules, automated tests and versioning.",
   lede: "The formulas, conventions and software checks behind the calculator results.",
-  lastUpdated: "2026-07-22",
+  lastUpdated: "2026-08-30",
   bodyHtml: `
     <h2>Standard formulas, shown on every page</h2>
     <p>Every calculator uses published, industry-standard financial mathematics: level-payment amortization for loans and mortgages, compound growth and annuity formulas for savings and investing, discounting for present value, and month-by-month simulation where no closed form exists (multi-debt payoff, rent-vs-buy). Each calculator page has a <strong>Formula and methodology</strong> section that states the formula it uses, defines every variable, and explains the calculation order — so you can reproduce any result by hand or in a spreadsheet.</p>
@@ -14,7 +14,7 @@ export default {
     <ul>
       <li><strong>Loan interest</strong> is modeled as accruing monthly on the reducing (remaining) balance: monthly rate = annual rate ÷ 12, with payments at the end of each period. This is a common convention for fixed-payment examples, but it is not universal. Daily accrual, fees, compounding rules, day-count conventions and payment rounding can produce different lender figures.</li>
       <li><strong>Compound growth</strong> supports daily, monthly, quarterly, half-yearly and yearly compounding. When contribution frequency differs from compounding frequency, the periodic rate is converted exactly: i = (1 + r/m)<sup>m/p</sup> − 1.</li>
-      <li><strong>Rounding:</strong> calculations run in full floating-point precision; displayed currency values are rounded to the smallest unit (cent/paisa). In amortization schedules the final payment is adjusted by the leftover cents so the balance closes at exactly zero — the same practice lenders use.</li>
+      <li><strong>Rounding:</strong> calculations run in full floating-point precision; displayed currency values are rounded to the smallest unit (cent/paisa). In this site's amortization model, the final payment is adjusted by the leftover cents so the calculated balance closes at zero. A lender's statement may use different payment-rounding or accrual rules.</li>
       <li><strong>Dates</strong> (payoff dates, goal dates) assume the first period begins one month from today and no payments are missed.</li>
       <li><strong>Currency selection changes formatting only.</strong> Choosing ₹ or € does not convert amounts at an exchange rate; the mathematics of rates and periods is currency-independent.</li>
     </ul>
@@ -42,8 +42,8 @@ export default {
     <ul>
       <li><strong>Time-value-of-money and annuity formulas</strong> (payment, future value, present value) follow the closed forms published in standard corporate-finance texts such as Ross, Westerfield &amp; Jordan, <em>Fundamentals of Corporate Finance</em>, and Brealey, Myers &amp; Allen, <em>Principles of Corporate Finance</em>.</li>
       <li><strong>Amortization and APR concepts</strong> match the definitions used by the U.S. Consumer Financial Protection Bureau — for example its explainer on <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">interest rate vs APR</a>.</li>
-      <li><strong>Compound-interest results</strong> can be cross-checked against the U.S. SEC's <a href="https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator" rel="noopener">Investor.gov compound interest calculator</a>.</li>
-      <li><strong>Reducing-balance (EMI) conventions</strong> for Indian lending follow the practices of banks regulated by the <a href="https://www.rbi.org.in/" rel="noopener">Reserve Bank of India</a>.</li>
+      <li><strong>Compound-interest concepts and examples</strong> can be cross-checked against the U.S. Federal Deposit Insurance Corporation's <a href="https://www.fdic.gov/consumer-resource-center/chapter-5-compound-interest" rel="noopener">compound-interest learning material</a>.</li>
+      <li><strong>EMI and other reducing-balance results</strong> use the monthly-rate, equal-payment convention stated above. The label does not imply that every Indian or international loan follows this exact accrual, fee or rounding model; the provider's documents control the real product.</li>
     </ul>
     <p>Where a guide or calculator page relies on a specific external rule or definition, that page links its own source in context.</p>
 

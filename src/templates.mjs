@@ -30,11 +30,9 @@ const THEME_INIT = `(function(){try{var p=JSON.parse(localStorage.getItem("fcx:p
 
 // Capture sensitive calculator share state before analytics or ad code can run.
 // New links use a fragment (never sent in an HTTP request); legacy query-string
-// links are retained in memory and removed from the address bar. Standard
-// campaign parameters are separated from calculator data so consented GA4 can
-// attribute legitimate campaigns without receiving financial inputs or raw
-// directory searches.
-export const SHARE_CAPTURE = `(function(){try{var allowed={utm_source:1,utm_medium:1,utm_campaign:1,utm_id:1,utm_term:1,utm_content:1,gclid:1,dclid:1,gbraid:1,wbraid:1,msclkid:1,fbclid:1};var campaign=new URLSearchParams();var legacy=new URLSearchParams();var directorySearch="";if(location.search.length>1){new URLSearchParams(location.search).forEach(function(value,key){var normalized=key.toLowerCase();if(allowed[normalized]){if(value.length<=256)campaign.append(normalized,value)}else if(location.pathname==="/calculators/"&&normalized==="q"){directorySearch=value.slice(0,120)}else{legacy.append(key,value)}})}var campaignRaw=campaign.toString();if(campaignRaw)window.__FCX_ATTRIBUTION_PARAMS=campaignRaw;if(directorySearch)window.__FCX_DIRECTORY_SEARCH=directorySearch;var raw="";var calcHash=location.hash.indexOf("#calc=")===0;if(calcHash){raw=location.hash.slice(6);try{raw=decodeURIComponent(raw)}catch(e){}}else if(legacy.toString()){raw=legacy.toString()}if(raw)window.__FCX_SHARE_PARAMS=raw;if(location.search.length>1||calcHash){history.replaceState(null,"",location.pathname+(calcHash?"":location.hash))}}catch(e){try{history.replaceState(null,"",location.pathname)}catch(e2){}}})();`;
+// links and calculator-directory searches are retained only in memory. Every
+// query string is removed before optional third-party code can load.
+export const SHARE_CAPTURE = `(function(){try{var tracking={utm_source:1,utm_medium:1,utm_campaign:1,utm_id:1,utm_term:1,utm_content:1,gclid:1,dclid:1,gbraid:1,wbraid:1,msclkid:1,fbclid:1};var legacy=new URLSearchParams();var directorySearch="";if(location.search.length>1){new URLSearchParams(location.search).forEach(function(value,key){var normalized=key.toLowerCase();if(location.pathname==="/calculators/"&&normalized==="q"){directorySearch=value.slice(0,120)}else if(!tracking[normalized]){legacy.append(key,value)}})}if(directorySearch)window.__FCX_DIRECTORY_SEARCH=directorySearch;var raw="";var calcHash=location.hash.indexOf("#calc=")===0;if(calcHash){raw=location.hash.slice(6);try{raw=decodeURIComponent(raw)}catch(e){}}else if(legacy.toString()){raw=legacy.toString()}if(raw)window.__FCX_SHARE_PARAMS=raw;if(location.search.length>1||calcHash){history.replaceState(null,"",location.pathname+(calcHash?"":location.hash))}}catch(e){try{history.replaceState(null,"",location.pathname)}catch(e2){}}})();`;
 
 const adsenseClient = () => {
   const id = String(site.adsense?.publisherId || "").trim();
@@ -97,7 +95,7 @@ function consentHtml() {
   return `<aside class="consent-banner" id="analytics-consent" role="dialog" aria-labelledby="consent-title" aria-describedby="consent-copy" hidden>
   <div>
     <h2 id="consent-title">Optional analytics</h2>
-    <p id="consent-copy">Allow optional Google Analytics cookies to help us understand which calculators are useful. Calculator inputs and search terms are excluded; only standard campaign attribution may be reported. <a href="/privacy-policy/">Privacy policy</a>.</p>
+    <p id="consent-copy">Allow optional Google Analytics cookies to help us understand which calculators are useful. Calculator inputs, search terms, URL query strings and fragments are excluded. <a href="/privacy-policy/">Privacy policy</a>.</p>
   </div>
   <div class="consent-actions">
     <button type="button" class="btn btn-ghost btn-sm" data-consent="denied">Decline</button>
@@ -121,7 +119,7 @@ export function base(p) {
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(p.description)}">
   ${p.noindex ? `<meta name="robots" content="noindex, follow">` : ""}
-  <link rel="canonical" href="${url}">
+  ${p.canonical === false ? "" : `<link rel="canonical" href="${url}">`}
   <meta property="og:site_name" content="${esc(site.name)}">
   <meta property="og:type" content="${p.ogType || "website"}">
   <meta property="og:title" content="${esc(title)}">
@@ -145,13 +143,15 @@ export function base(p) {
   <script>${SHARE_CAPTURE}</script>
   <script>${THEME_INIT}</script>
   <link rel="preload" href="/assets/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-latin-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/inter-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css?v=${p.v}">
-  ${site.adsense?.adsEnabled && site.adsense?.certifiedCmp && adClient ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(adClient)}" crossorigin="anonymous"></script>` : ""}
+  ${p.adsAllowed === true && site.adsense?.adsEnabled && site.adsense?.certifiedCmp && adClient ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(adClient)}" crossorigin="anonymous"></script>` : ""}
   ${jsonld}
 </head>
-<body${p.suggestCurrency ? ` data-suggest-currency="${p.suggestCurrency}"` : ""}${site.ga4 ? ` data-ga4="${esc(site.ga4)}"` : ""}>
+<body${p.bodyClass ? ` class="${esc(p.bodyClass)}"` : ""}${p.suggestCurrency ? ` data-suggest-currency="${p.suggestCurrency}"` : ""}${site.ga4 ? ` data-ga4="${esc(site.ga4)}"` : ""}>
 ${header(p.path)}
 <main id="main">
 ${p.content}
@@ -283,14 +283,14 @@ export function calculatorPage(c, all, v) {
       <form id="calc-form" class="calc-form" novalidate autocomplete="off"></form>
       <div class="calc-actions">
         <button type="button" class="btn btn-ghost btn-sm" id="act-reset">Reset</button>
-        <button type="button" class="btn btn-ghost btn-sm" id="act-share">Copy link</button>
-        <button type="button" class="btn btn-ghost btn-sm" id="act-print">Print report</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="act-share" disabled>Copy link</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="act-print" disabled>Print report</button>
       </div>
       ${c.jurisdiction ? `<div class="callout note calc-note"><span class="c-title">Regional note</span><p>${c.jurisdiction}</p></div>` : ""}
       <p class="calc-currency-note">Changing the currency updates number formatting and the displayed symbol only. It does not apply any country-specific tax, lending, insurance or regulatory rules.</p>
     </div>
     <div class="results">
-      <div id="res-invalid" class="result-invalid" hidden></div>
+      <div id="res-invalid" class="result-invalid" role="status" aria-live="polite" hidden></div>
       <div class="result-hero" id="res-hero" aria-live="polite">
         <div class="rh-label"></div>
         <div class="rh-value"></div>
@@ -305,7 +305,7 @@ export function calculatorPage(c, all, v) {
       </div>
       <div class="card scenario-card" id="scenario-card" hidden>
         <h2>Compare two scenarios</h2>
-        <p class="scenario-intro">${c.scenarioHint || "Save your current inputs as Scenario A, change one assumption, then save Scenario B. The comparison table shows exactly what that change is worth."}</p>
+        <p class="scenario-intro">${c.scenarioHint || "Save your current inputs as Scenario A, change one assumption, then save Scenario B. The comparison table shows how that change affects the modeled result."}</p>
         <div class="scenario-slots">
           ${["A", "B"].map((s) => `<div class="scenario-slot" data-slot="${s}">
             <div class="s-name">Scenario ${s}</div>
@@ -327,14 +327,14 @@ export function calculatorPage(c, all, v) {
     <div class="table-tools">
       <div class="segment" id="table-views" hidden></div>
       <span class="spacer"></span>
-      <button type="button" class="btn btn-ghost btn-sm" id="table-csv">Download CSV</button>
-      <button type="button" class="btn btn-ghost btn-sm" id="table-print">Print</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="table-csv" disabled>Download CSV</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="table-print" disabled>Print</button>
     </div>
     <div class="table-wrap"><table class="data" id="table" aria-label="${esc(c.title)} detailed schedule"></table></div>
   </div>
 
   <article class="calc-article prose">
-    <nav aria-label="On this page" class="small" style="margin-bottom:2rem"><strong>On this page:</strong> ${jump.map(([h, t]) => `<a href="${h}">${t}</a>`).join(" · ")}</nav>
+    <nav aria-label="On this page" class="on-page small"><strong>On this page:</strong><ul>${jump.map(([h, t]) => `<li><a href="${h}">${t}</a></li>`).join("")}</ul></nav>
     <section id="how-to"><h2>How to use this calculator</h2>${c.sections.howToHtml}</section>
     <section id="understanding">${c.sections.explanationHtml}</section>
     <section id="formula"><h2>Formula and methodology</h2>${c.sections.formulaHtml}</section>
@@ -358,6 +358,8 @@ export function calculatorPage(c, all, v) {
     jsonld: [ldBreadcrumbs(crumbs), ldOrg(), ldWebApp(c), ldFaq(c.faq)],
     suggestCurrency: c.suggestCurrency,
     scripts: ["/assets/js/finance.js", "/assets/js/charts.js", "/assets/js/engine.js", `/assets/js/calc/${c.slug}.js`],
+    adsAllowed: true,
+    bodyClass: "calc-booting",
     content,
     v,
   });
@@ -399,6 +401,7 @@ export function categoryPage(cat, calcs, guides, v) {
     title: cat.metaTitle,
     description: cat.metaDescription,
     jsonld: [ldBreadcrumbs(crumbs), ldOrg()],
+    adsAllowed: true,
     content,
     v,
   });
@@ -416,7 +419,7 @@ export function homePage(calcs, guides, v) {
     <p class="sub">Free calculators for loans, mortgages, investing, savings and debt — with documented formulas, worked examples, interactive charts, and downloadable tables or schedules where they add value.</p>
     <div class="hero-search">
       <span class="s-icon">${I.search}</span>
-      <input type="search" placeholder="Try “mortgage payment”, “EMI”, “pay off debt”…" aria-label="Search calculators" data-search-input aria-controls="hero-results" role="combobox" aria-expanded="false" autocomplete="off">
+      <input type="search" placeholder="Try “mortgage payment”, “EMI”, “pay off debt”…" aria-label="Search calculators" data-search-input aria-controls="hero-results" role="combobox" aria-expanded="false" aria-autocomplete="list" autocomplete="off">
       <div class="search-results" id="hero-results" hidden></div>
     </div>
     <div class="hero-chips">
@@ -486,6 +489,7 @@ export function homePage(calcs, guides, v) {
     rawTitle: true,
     description: site.description,
     jsonld: [ldOrg(), ldWebsite()],
+    adsAllowed: true,
     content,
     v,
   });
@@ -503,7 +507,7 @@ export function calculatorsIndex(calcs, v) {
   </div>
   <div class="hero-search" id="search" style="margin:0 0 2.5rem">
     <span class="s-icon">${I.search}</span>
-    <input type="search" placeholder="Search by name or goal — “home loan”, “pay debt faster”…" aria-label="Search calculators" data-search-input aria-controls="dir-results" autocomplete="off">
+    <input type="search" placeholder="Search by name or goal — “home loan”, “pay debt faster”…" aria-label="Search calculators" data-search-input aria-controls="dir-results" role="combobox" aria-expanded="false" aria-autocomplete="list" autocomplete="off">
     <div class="search-results" id="dir-results" hidden></div>
   </div>
   ${categories.map((cat) => {
@@ -520,6 +524,7 @@ export function calculatorsIndex(calcs, v) {
     title: "All Financial Calculators — Loans, Mortgages, Investing, Savings",
     description: `Directory of all ${calcs.length} Finance Calculator X tools: loan, EMI, mortgage, affordability, compound interest, SIP, savings, budgeting and debt payoff calculators.`,
     jsonld: [ldBreadcrumbs(crumbs), ldOrg()],
+    adsAllowed: true,
     content,
     v,
   });
@@ -569,6 +574,7 @@ export function guidePage(g, all, calcs, v) {
         mainEntityOfPage: site.origin + `/guides/${g.slug}/`,
       },
     ],
+    adsAllowed: true,
     content,
     v,
   });
@@ -595,6 +601,7 @@ export function guidesIndex(guides, v) {
     title: "Finance Guides — Interest, Loans, Investing & Debt Explained",
     description: "Educational guides behind the calculators: how loan interest and amortization work, APR vs interest rate, compound interest, debt strategies, inflation and more.",
     jsonld: [ldBreadcrumbs(crumbs), ldOrg()],
+    adsAllowed: true,
     content,
     v,
   });
@@ -635,7 +642,7 @@ export function notFound(calcs, v) {
     <p class="sub">The page you're looking for doesn't exist or has moved. Try searching for a calculator instead.</p>
     <div class="hero-search">
       <span class="s-icon">${I.search}</span>
-      <input type="search" placeholder="Search calculators…" aria-label="Search calculators" data-search-input aria-controls="nf-results" autocomplete="off">
+      <input type="search" placeholder="Search calculators…" aria-label="Search calculators" data-search-input aria-controls="nf-results" role="combobox" aria-expanded="false" aria-autocomplete="list" autocomplete="off">
       <div class="search-results" id="nf-results" hidden></div>
     </div>
   </section>
@@ -649,6 +656,8 @@ export function notFound(calcs, v) {
     title: "Page not found",
     description: "The page you're looking for doesn't exist. Browse all Finance Calculator X calculators.",
     noindex: true,
+    canonical: false,
+    adsAllowed: false,
     jsonld: [],
     content,
     v,

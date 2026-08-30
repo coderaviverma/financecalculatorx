@@ -5,7 +5,7 @@ export default {
   metaDescription:
     "How Finance Calculator X handles calculator inputs, local preferences, optional analytics, hosting logs, shared links and any future advertising.",
   lede: "Calculator inputs stay in your browser during normal use. Optional analytics does not load unless you allow it.",
-  lastUpdated: "2026-07-20",
+  lastUpdated: "2026-08-30",
   bodyHtml: `
     <h2>Calculator inputs during normal use</h2>
     <p>Every calculation on Finance Calculator X runs in your web browser. During normal use, the amounts, rates, debt labels, incomes and goals you enter are not submitted to Finance Calculator X, Google Analytics or an advertising service. Saved scenarios stay in this browser unless you deliberately export or share them.</p>
@@ -31,19 +31,20 @@ export default {
 
     <h2>Analytics</h2>
     <p><strong>Google Analytics 4 is optional and does not load unless you select “Allow analytics.”</strong> If you decline or have not yet chosen, the Google tag is not requested and Analytics cookies are not set by this site. You can reopen <em>Privacy choices</em> in the footer and change your choice at any time.</p>
-    <p>After opt-in, GA4 helps us understand aggregate page use and navigation. Before sending a page location, the site removes calculator inputs, shared-link state, directory search terms, fragments and unrecognized query parameters. Standard campaign parameters — such as <code>utm_source</code>, <code>utm_medium</code>, <code>utm_campaign</code> or an advertising click identifier — may be retained so a legitimate newsletter, social post or paid campaign is not misclassified as direct traffic. Values are accepted only from a fixed allowlist and are length-limited. Referrer query strings are always removed.</p>
+    <p>After opt-in, GA4 helps us understand aggregate page use and navigation. Before sending a page location or referrer, the site removes every query string and fragment, including calculator inputs, shared-link state, directory search terms, campaign parameters and advertising click identifiers.</p>
     <p>Custom events contain only coarse interaction labels or counts; they do not contain calculator inputs, saved scenarios, shared-link state or raw search terms. Google may still process information such as an online identifier, device/browser details and approximate location after you consent. Google's handling is described at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">policies.google.com/technologies/partner-sites</a>.</p>
     <p>Withdrawing consent disables future Analytics collection on this browser and removes Google Analytics cookies accessible to the site. It does not retroactively erase data Google already received. You may also use the <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">Google Analytics opt-out add-on</a>.</p>
 
     <h2>Advertising</h2>
-    <p><strong>Advertising is not currently enabled in the site's public configuration.</strong> Finance Calculator X may use Google AdSense in the future to fund the site. The build is configured to refuse an AdSense loader unless a real publisher ID and the required consent-management readiness are both supplied.</p>
-    <p>If AdSense is enabled, Google and its partners may use cookies or similar identifiers to serve and measure ads, including personalized ads only where a valid consent choice and applicable law permit it.</p>
+    <p><strong>Advertising is not currently enabled in the site's public configuration, so this site does not currently request the AdSense ad-serving script or set Google advertising cookies.</strong> Finance Calculator X may use Google AdSense in the future to fund the site. The build is configured to refuse an AdSense loader unless a real publisher ID and the required consent-management readiness are both supplied.</p>
+    <p>If AdSense is enabled, third-party vendors, including Google, may use cookies to serve ads based on a visitor's previous visits to this site or other sites. Google's advertising cookies enable Google and its partners to serve ads based on visits to this site and/or other sites. Depending on the approved ad configuration, Google and other ad-technology providers may place or read cookies, or use web beacons, IP addresses or other identifiers, as a consequence of serving and measuring ads.</p>
     <ul>
       <li>Google's use of advertising cookies is described at <a href="https://policies.google.com/technologies/ads" rel="noopener">policies.google.com/technologies/ads</a>.</li>
-      <li>You can manage ad personalization at <a href="https://adssettings.google.com" rel="noopener">adssettings.google.com</a>, and learn about opting out of third-party cookies at <a href="https://www.aboutads.info" rel="noopener">aboutads.info</a>.</li>
+      <li>Google explains how it uses information from sites and apps that use its services at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">policies.google.com/technologies/partner-sites</a>.</li>
+      <li>You can opt out of personalized advertising or manage ad personalization at <a href="https://adssettings.google.com" rel="noopener">adssettings.google.com</a>. You can also learn about choices for participating third-party vendors at <a href="https://youradchoices.com/" rel="noopener">YourAdChoices</a>.</li>
       <li>Before advertising is enabled for visitors in the EEA, UK or Switzerland, the site operator must configure a Google-certified consent management platform and connect its choices to Google advertising storage.</li>
     </ul>
-    <p>Ads are always visually distinct from calculator controls and results, and advertisers have no influence over calculations or content (see the <a href="/editorial-policy/">editorial policy</a>).</p>
+    <p>If advertising is enabled, site policy requires placements to remain visually distinct from calculator controls and results. Advertisers do not control calculations or editorial content (see the <a href="/editorial-policy/">editorial policy</a>); placement behavior still requires a live review after ads begin serving.</p>
 
     <h2>Email</h2>
     <p>If you <a href="/contact/">email us</a>, we receive your address and message and use them only to respond. We don't add you to lists or share your details.</p>

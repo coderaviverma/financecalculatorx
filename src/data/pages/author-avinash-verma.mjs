@@ -5,7 +5,7 @@ export default {
   metaDescription:
     "Avinash Verma builds and maintains Finance Calculator X: a software developer focused on transparent, tested browser-based financial calculators.",
   lede: "Builder and maintainer of Finance Calculator X.",
-  lastUpdated: "2026-07-22",
+  lastUpdated: "2026-08-30",
   extraJsonld: [
     {
       "@context": "https://schema.org",
@@ -29,9 +29,9 @@ export default {
 
     <h2>How I work on this site</h2>
     <ul>
-      <li>Calculation logic lives in a single tested library, separate from page content, so the numbers in worked examples come from the same code that powers the calculators.</li>
+      <li>Shared formulas live in a tested finance library, while calculator-specific logic lives in one small module per tool. Automated checks compare representative worked examples and edge cases with those implementations.</li>
       <li>Calculator pages carry a last-reviewed date and formula version; guides and policy pages carry a review or update date.</li>
-      <li>Guides cite primary sources — regulators such as the <a href="https://www.consumerfinance.gov/" rel="noopener">CFPB</a>, the <a href="https://www.rbi.org.in/" rel="noopener">RBI</a> and the SEC's <a href="https://www.investor.gov/" rel="noopener">Investor.gov</a> — rather than other calculator sites.</li>
+      <li>Guides use primary or first-party sources where a factual claim needs one, including the <a href="https://www.consumerfinance.gov/" rel="noopener">CFPB</a>, the <a href="https://www.rbi.org.in/" rel="noopener">RBI</a>, the <a href="https://www.fdic.gov/" rel="noopener">FDIC</a> and <a href="https://www.treasurydirect.gov/" rel="noopener">TreasuryDirect</a>, rather than relying on other calculator sites.</li>
       <li>Error reports outrank all other work: the <a href="/corrections-policy/">corrections policy</a> describes how reported discrepancies are reproduced, classified and fixed.</li>
     </ul>
 

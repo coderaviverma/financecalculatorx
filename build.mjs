@@ -4,7 +4,7 @@
    Loads data modules, validates content quality gates, renders pages to dist/. */
 import { readdirSync, mkdirSync, writeFileSync, cpSync, existsSync, readFileSync, rmSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { join, dirname } from "node:path";
+import { join, dirname, relative } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { site, categories } from "./src/data/site.mjs";
 import * as T from "./src/templates.mjs";
@@ -51,6 +51,16 @@ async function loadDir(dir) {
     out.push({ file: f, data: mod.default });
   }
   return out;
+}
+
+function filesUnder(dir) {
+  const files = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) files.push(...filesUnder(path));
+    else files.push(path);
+  }
+  return files;
 }
 
 function checkBanned(where, html) {
@@ -187,6 +197,10 @@ function validateRenderedPage(path, html) {
   }
   if (path === "404.html" && !html.includes('name="robots" content="noindex, follow"'))
     errors.push(`dist/404.html: missing noindex directive`);
+  if (path === "404.html" && html.includes("adsbygoogle.js"))
+    errors.push(`dist/404.html: AdSense loader must never appear on an error page`);
+  if (path === "404.html" && html.includes('rel="canonical"'))
+    errors.push(`dist/404.html: error page must not declare a canonical URL`);
   if (html.includes('id="calc-form"') && !html.includes("__FCX_SHARE_PARAMS"))
     errors.push(`dist/${path}: calculator page lacks early shared-state capture`);
   if (html.includes("googletagmanager.com"))
@@ -277,10 +291,14 @@ async function main() {
   mkdirSync(DIST, { recursive: true });
   cpSync(join(SRC, "assets"), join(DIST, "assets"), { recursive: true });
 
-  // version hash from css+js content
+  // One shared version appears on every CSS/JS URL. Hash every deployed CSS and
+  // JavaScript file so a calculator-only change cannot reuse a seven-day URL.
   const h = createHash("md5");
-  for (const f of ["css/site.css", "js/app.js", "js/engine.js", "js/charts.js", "js/finance.js"])
-    h.update(readFileSync(join(SRC, "assets", f)));
+  const assetRoot = join(SRC, "assets");
+  for (const f of filesUnder(assetRoot).filter((path) => /\.(?:css|js)$/.test(path)).sort()) {
+    h.update(relative(assetRoot, f));
+    h.update(readFileSync(f));
+  }
   const v = h.digest("hex").slice(0, 10);
 
   /* ---- pages ---- */
@@ -320,7 +338,7 @@ async function main() {
   }
   // IndexNow key file (Bing/Yandex/Seznam/Naver instant URL submission)
   out("2c500c5de84a180001add41b8e832a2c.txt", "2c500c5de84a180001add41b8e832a2c\n");
-  out("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n\n/assets/css/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/js/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/img/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/search-index.json\n  Cache-Control: public, max-age=3600, stale-while-revalidate=86400\n\n/assets/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
+  out("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n\n/assets/css/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/js/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/img/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n\n/assets/search-index.json\n  Cache-Control: public, max-age=3600, stale-while-revalidate=86400\n\n/assets/fonts/*\n  Cache-Control: public, max-age=604800, stale-while-revalidate=86400\n`);
   out("llms.txt", `# ${site.name}\n\n> ${site.description}\n\nAll calculators run client-side, document their formulas and assumptions, and include worked examples.\n\n## Calculators\n\n${calcs.map((c) => `- [${c.title}](${site.origin}/${c.slug}/): ${c.cardDescription}`).join("\n")}\n\n## Guides\n\n${guides.map((g) => `- [${g.title}](${site.origin}/guides/${g.slug}/): ${g.cardDescription}`).join("\n")}\n\n## Policies\n\n- [Methodology](${site.origin}/methodology/)\n- [Editorial policy](${site.origin}/editorial-policy/)\n- [Disclaimer](${site.origin}/disclaimer/)\n`);
 
   // favicons at root
