@@ -58,12 +58,12 @@ export default {
         <li><strong>Horizon sets the multiple.</strong> At the assumed 10% annual rate, compounded monthly, the default doubles about every 7 years and reaches 4.45× at 15 years. The calculator does not rank withdrawal, market or liquidity risks.</li>
         <li><strong>Rate sensitivity.</strong> The ±2-point cases span $330,692 to $599,580 at 15 years, a $268,888 range on identical money. They show sensitivity only and do not assign probabilities.</li>
         <li><strong>Entry timing.</strong> All-at-once and staged investing have different exposure paths; each can be represented by a defined schedule. Neither constant-return path is evidence about next month's market.</li>
-        <li><strong>Inflation and fees.</strong> At 3% inflation, the default 4.45× nominal result becomes 2.86× in today's purchasing power. A fee-inclusive scenario requires reducing the entered return by the assumed annual cost.</li>
+        <li><strong>Inflation and fees.</strong> At 3% inflation, the default 4.45× nominal result becomes 2.86× in today's purchasing power. A simplified fee sensitivity can reduce the entered rate by an assumed annual percentage cost; actual fee timing and tax treatment are not modeled.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
         <li>A <strong>constant return</strong> is assumed. A market investment can follow paths far outside the ±2-point sensitivity lines, including losses.</li>
-        <li>Results are <strong>pre-tax and pre-fee</strong>. Fees can be represented by reducing the entered annual return by the assumed annual cost.</li>
+        <li>Results are <strong>pre-tax and pre-fee</strong>. A simplified fee sensitivity can reduce the entered rate by an assumed annual percentage cost; a quoted return may already be net of some fees, and actual fee timing is not modeled.</li>
         <li>No withdrawals or top-ups are modeled. The <a href="/compound-interest-calculator/">Compound Interest Calculator</a> models a lump sum plus ongoing contributions.</li>
         <li>Doubling times assume the entered rate remains constant. Actual rates can vary over time, so the doubling result is not a schedule commitment.</li>
       </ul>`,

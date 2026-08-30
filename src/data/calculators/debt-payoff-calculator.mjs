@@ -5,7 +5,7 @@ export default {
   h1: "Debt Payoff Calculator",
   metaTitle: "Debt Payoff Calculator — Snowball vs Avalanche, With Real Numbers",
   metaDescription:
-    "List your actual debts and see when you'll be debt-free. Compares snowball vs avalanche strategies month by month — payoff dates, interest totals and timeline chart.",
+    "List debts and see a modeled payoff date. Compares snowball and avalanche month by month, including interest totals and a timeline chart.",
   tagline:
     "Compare snowball and avalanche repayment using your balances, rates, minimum payments and available monthly budget.",
   cardDescription: "Multi-debt payoff plan comparing snowball vs avalanche month by month.",

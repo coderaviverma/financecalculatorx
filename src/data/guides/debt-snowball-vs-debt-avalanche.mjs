@@ -45,10 +45,10 @@ export default {
 <p>The relative size of those differences is profile-specific. The <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> reruns minimum-only, avalanche and snowball schedules using the entered balances, rates, minimums and monthly extra.</p>
 
 <h2>How the modeled gap changes with rate spread</h2>
-<p>The difference between the two schedules depends on the full input set: rates, balances, minimums, extra budget and the number of months each balance remains outstanding. Rate spread is one contributor. The case above spans 8% to 27.99% (a 20-point spread) and produces a $683.82 gap. With the same balances and minimums but rates between 9.9% and 12.9%, the model produces <strong>$2,089.53 (avalanche) versus $2,139.27 (snowball), a gap of $49.74</strong> over 27 months. That sensitivity result is specific to the displayed inputs.</p>
+<p>The difference between the two schedules depends on the full input set: rates, balances, minimums, extra budget and the number of months each balance remains outstanding. Rate spread is one contributor. The case above spans 8% to 27.99% (a 20-point spread) and produces a $683.82 gap. With the same balances, minimums and table order but APRs of 12.9%, 11.9%, 10.9% and 9.9%, the model produces <strong>$2,128.81 (avalanche) versus $2,195.58 (snowball), a gap of $66.77</strong> over 27 months. That sensitivity result is specific to the displayed inputs.</p>
 <ul>
 <li><strong>Wide rate spread with large high-rate balances:</strong> the avalanche calculation generally creates a larger modeled interest difference because more expensive balances remain outstanding under the alternative order.</li>
-<li><strong>Clustered rates:</strong> the modeled interest totals can be close, as the 9.9–12.9% sensitivity example shows.</li>
+<li><strong>Clustered rates:</strong> the modeled interest totals can be close, as the disclosed 9.9–12.9% sensitivity example shows.</li>
 <li><strong>A small balance also has the highest rate:</strong> both rules select the same first target, so their schedules initially coincide.</li>
 </ul>
 
