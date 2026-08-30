@@ -5,12 +5,12 @@ export default {
   h1: "Early Loan Payoff Calculator",
   metaTitle: "Early Loan Payoff Calculator — Hit a Target Payoff Date",
   metaDescription:
-    "Pick a target payoff date for your loan and get the exact monthly payment it takes, the extra needed above your current payment, and the interest you save.",
+    "Pick a target payoff date and estimate the monthly payment needed under a fixed-rate model, the extra above your current payment, and modeled interest saved.",
   tagline:
     "Choose a target payoff date and estimate the monthly payment needed, alongside the cost of keeping your current pace.",
-  cardDescription: "The exact monthly payment that retires your loan by a date you choose.",
-  lastReviewed: "2026-07-22",
-  version: "1.0",
+  cardDescription: "The modeled monthly payment that retires your loan by a date you choose.",
+  lastReviewed: "2026-08-30",
+  version: "1.1",
   popular: false,
   featured: false,
   aliases: ["pay off loan early", "target payoff date", "payoff goal"],
@@ -28,17 +28,17 @@ export default {
       <p>The answer is the required monthly payment, the gap between it and what you pay today, and the interest the faster plan avoids. If the required payment comes out below your current one, you're already ahead of the goal, and the result says so instead of flagging an error.</p>`,
     explanationHtml: `
       <h2>Working backwards from a deadline</h2>
-      <p>Most loan tools run forwards: you supply a payment and they tell you when the debt ends. This one inverts the question. You fix the end date (<em>the loan is gone in 36 months</em>) and the calculator solves for the one unknown left, the payment. It's the same annuity equation used to originate a loan, applied to your current balance with your deadline as the term. That inversion is useful because deadlines, not payments, are how payoff goals usually arrive: the car loan should end before the lease on the next one starts, the personal loan before a mortgage application (mortgage lenders typically count its payment when assessing how much you can borrow), the education loan before a planned career break, every loan before retirement ends the paycheck that services it.</p>
+      <p>Most loan tools run forward from a payment to a payoff date. This one fixes a target month and solves for the level payment on the current balance. It is useful for comparing defined deadlines without assuming why a reader chose one or how another lender would assess the debt.</p>
       <p>The price of speed is not linear, and seeing the curve helps you pick a sensible target. For the default loan ($18,000 at 7.5%, currently paid at $380/month and on pace to finish in 57 months), here is what each deadline costs:</p>
-      <table>
+      <div class="table-scroll"><table>
         <thead><tr><th>Target</th><th>Required payment</th><th>Extra vs $380</th><th>Total interest</th></tr></thead>
         <tbody>
           <tr><td>48 months</td><td>$435.22</td><td>+$55.22</td><td>$2,890.57</td></tr>
           <tr><td>36 months</td><td>$559.91</td><td>+$179.91</td><td>$2,156.83</td></tr>
           <tr><td>24 months</td><td>$809.99</td><td>+$429.99</td><td>$1,439.82</td></tr>
         </tbody>
-      </table>
-      <p>Cutting nine months off the natural pace costs about $55 extra; the next twelve cost $125 more; the twelve after that, another $250. Each year removed must squeeze the same principal into fewer payments, so the marginal cost per month saved keeps rising while the interest saved per month shrinks. The right target is where the required payment still fits comfortably in your budget in a bad month, since a deadline you abandon after a year saves less than a slower one you keep.</p>`,
+      </table></div>
+      <p>Cutting nine months off the default pace requires about $55 more per month; the next twelve require another $125; the twelve after that, another $250. Each shorter deadline spreads the same principal across fewer payments. The table quantifies that curve but does not determine which payment is sustainable.</p>`,
     formulaHtml: `
       <p>The payment that retires a balance in exactly <code>n</code> months is the standard annuity payment, applied to today's balance:</p>
       <div class="formula-block"><span class="fx">A = B × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]</span>
@@ -61,14 +61,14 @@ export default {
         <li><strong>How aggressive the target is.</strong> The marginal cost rises as the deadline tightens: on the default loan, the first nine months cut cost ~$6/month each, the last twelve ~$21/month each.</li>
         <li><strong>Where your current payment already stands.</strong> If it's close to the required payment, the goal is nearly free; if it barely covers interest, the required payment will feel like a different loan entirely.</li>
         <li><strong>Rate and balance.</strong> Both scale the required payment roughly proportionally, so rerun the numbers after any rate change or lump-sum payment.</li>
-        <li><strong>Budget durability.</strong> The required payment is a commitment for every month of the target window; a plan you can hold beats a faster one you can't.</li>
+        <li><strong>Payment persistence.</strong> The result assumes the calculated amount is paid every month of the target window.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
         <li>The target plan assumes level payments starting one month from today at a fixed rate; a variable rate changes the required payment as it moves.</li>
         <li>Your lender's contractual minimum still applies; the "required payment" here is your voluntary target, not a modification of the loan.</li>
         <li>Fees, escrow and insurance portions of your payment are outside the math, so compare principal-and-interest amounts only.</li>
-        <li>If your current payment can't amortize the loan, the "interest at current payment" comparison is shown as a dash (it would be infinite), while the target-plan figures remain exact.</li>
+        <li>If your current payment can't amortize the loan, the "interest at current payment" comparison is shown as a dash (the modeled balance does not reach zero), while the target-plan figures remain available.</li>
       </ul>`,
   },
   faq: [
@@ -78,7 +78,7 @@ export default {
     },
     {
       q: "My current payment doesn't even cover the interest. Can I still set a target?",
-      aHtml: `<p>Yes. The required payment depends only on the balance, the rate and the deadline, not on what you pay now. The calculator will tell you the current pace never finishes (interest exceeds the payment, so the balance grows), and the required payment is exactly the fix: it's the smallest level payment that lands the balance on zero at your chosen date.</p>`,
+      aHtml: `<p>Yes. The required payment depends only on the balance, the rate and the deadline, not on what you pay now. The calculator will show that the current modeled pace does not finish when interest exceeds the payment, then calculate the smallest level payment that reaches zero at your chosen date under the stated assumptions.</p>`,
     },
     {
       q: "Is hitting a deadline this way better than refinancing to a shorter term?",
@@ -90,7 +90,7 @@ export default {
     },
     {
       q: "Does the target plan change my official loan term with the lender?",
-      aHtml: `<p>No. You simply pay more than the contractual minimum each month, and the loan ends early on its own once the balance hits zero. Nothing needs the lender's approval, though you should confirm extra amounts post to principal and that no prepayment penalty applies to your loan type.</p>`,
+      aHtml: `<p>The calculator does not modify the contract. It assumes payments above the minimum reduce principal and continue until the modeled balance reaches zero. Whether approval, notice, a charge or special instruction applies depends on the agreement and lender process.</p>`,
     },
   ],
 };

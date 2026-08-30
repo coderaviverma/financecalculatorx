@@ -9,7 +9,7 @@ export default {
   tagline:
     "Project an initial investment and monthly contributions, then view the result before and after an inflation adjustment.",
   cardDescription: "Growth projection with monthly contributions and inflation-adjusted results.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-08-30",
   version: "1.0",
   popular: true,
   featured: true,
@@ -21,7 +21,7 @@ export default {
     howToHtml: `
       <p>Give the calculator what you're starting with, what you'll add monthly, the average annual return you want to model, and your time horizon. The inflation field is what makes this calculator different from a plain growth tool: it converts the headline result into today's purchasing power, so a goal like "enough for a house deposit in 10 years" stays honest.</p>
       <ul>
-        <li><strong>Expected annual return</strong>: an assumption, not a promise. A practical approach is to run the calculation three times (for example 5%, 7% and 9%) and check your plan works at the lowest one. The scenario tool below the results is built for exactly this comparison.</li>
+        <li><strong>Expected annual return</strong>: an assumption, not a promise. The scenario tool can compare, for example, 5%, 7% and 9% without assigning a probability to any of them.</li>
         <li><strong>Expected inflation</strong>: use a planning assumption appropriate to the currency, horizon and goal, then test a higher rate to see how sensitive the real value is.</li>
       </ul>
       <p>The chart shows three lines: the projected balance, the amount you put in yourself, and the balance restated in today's money. The gap between the first and last line is what inflation costs you.</p>`,
@@ -29,7 +29,7 @@ export default {
       <h2>Nominal growth vs real growth</h2>
       <p>Most investment projections show <strong>nominal</strong> values, the number that would appear on your statement. But a statement balance decades from now buys less per unit than money does today. The <strong>real</strong> value answers the question that matters: what is this worth in today's prices?</p>
       <p>The difference is large over long horizons. In the default example ($10,000 up front plus $500/month at 8% for 25 years), the nominal projection is <strong>$548,915</strong>. At 3% inflation, that balance buys what <strong>$262,165</strong> buys today: less than half the headline figure. Neither number is wrong; they answer different questions. Use nominal values to compare against future account statements, and real values to judge whether the plan meets your goal.</p>
-      <p>The connection between the two is the <strong>real rate of return</strong>: approximately the nominal return minus inflation, precisely (1 + nominal) ÷ (1 + inflation) − 1. An 8% return during 3% inflation is a 4.85% real return, and that 4.85% is what genuinely grows your wealth. This is also why keeping long-term money in accounts paying below inflation loses purchasing power even while the balance rises.</p>
+      <p>The connection between the two is the <strong>real rate of return</strong>: approximately nominal return minus inflation, and precisely (1 + nominal) ÷ (1 + inflation) − 1. An 8% return with 3% inflation is a 4.85% real return under those constant assumptions. A nominal rate below inflation produces negative modeled purchasing-power growth.</p>
       <p>One more framing this page enforces: the return you enter is an <em>average</em>. Markets don't deliver their average smoothly; they overshoot and undershoot it year by year. A projection like this is a planning centerline, not a path your balance will actually trace.</p>`,
     formulaHtml: `
       <p>The nominal projection combines lump-sum growth and an ordinary annuity of monthly contributions:</p>
@@ -55,8 +55,8 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>The return assumption dominates everything.</strong> The same inputs at 6% instead of 8% project $412k nominal, a 25% smaller outcome from a 2-point change. Treat the return as the uncertainty, not the answer.</li>
-        <li><strong>Time horizon.</strong> Growth is back-loaded: in the example, the final 5 years add more than the first 12 combined. Delaying the start is the most expensive change you can make.</li>
+        <li><strong>Return assumption.</strong> The same inputs at 6% instead of 8% project $412k nominal, a 25% smaller result from a two-point change.</li>
+        <li><strong>Time horizon.</strong> Growth is back-loaded in the constant-return example: the final 5 years add more than the first 12 combined.</li>
         <li><strong>Contribution level.</strong> Doubling the monthly amount roughly doubles the annuity part of the result — and unlike returns, contributions are fully under your control.</li>
         <li><strong>Inflation.</strong> Doesn't change the statement balance, but changes what it's worth: at 4% instead of 3%, the example's real value drops from $262k to about $206k.</li>
         <li><strong>Fees and taxes</strong> act as a direct reduction of the return: a 1% annual fee turns 8% into 7% with all the compounding consequences above.</li>
@@ -73,7 +73,7 @@ export default {
   faq: [
     {
       q: "What return should I enter?",
-      aHtml: `<p>That's a judgement, not a fact, which is why the field is yours to set. Rather than borrowing a headline number, look up the long-run history of the specific market and asset mix you are considering (equity, bond and cash returns differ by country and by decade) and treat any figure you pick as a scenario, not a forecast. Whatever you choose, test the downside: if the plan only works at 10%, it isn't much of a plan.</p>`,
+      aHtml: `<p>The calculator does not supply an expected return. Enter a documented assumption for the asset or account being modeled and compare it with lower and 0% cases. Historical performance and a constant-rate projection do not establish what a future holding period will deliver.</p>`,
     },
     {
       q: "Why is the 'in today's money' number so much smaller?",
@@ -85,7 +85,7 @@ export default {
     },
     {
       q: "How do fees change the projection?",
-      aHtml: `<p>Subtract them from the return before entering it. A fund charging 1% annually turns an 8% gross return into 7% net — which on the default example costs about $84,000 of the 25-year result. Percentage fees look small on paper and cost a fortune in practice; always model them.</p>`,
+      aHtml: `<p>The tool has no separate fee field, so a net-return scenario can subtract an entered recurring percentage cost from the gross assumption. Changing 8% to 7% lowers the default 25-year projection by about $84,000. Transaction fees and taxes may not be equivalent to a constant annual reduction and need separate treatment.</p>`,
     },
     {
       q: "Can I model retirement withdrawals with this?",

@@ -9,8 +9,8 @@ export default {
   tagline:
     "Test monthly, yearly or one-time extra payments on a fixed-rate loan and compare the revised interest and payoff date.",
   cardDescription: "Interest saved and months cut by monthly, yearly or one-time prepayments.",
-  lastReviewed: "2026-07-22",
-  version: "1.0",
+  lastReviewed: "2026-08-30",
+  version: "1.1",
   popular: false,
   featured: false,
   aliases: ["prepayment", "pay extra on loan", "lump sum payment"],
@@ -21,7 +21,7 @@ export default {
     howToHtml: `
       <p>Set up the loan as it was written (amount, rate and term), then experiment with three kinds of extra payment, alone or combined:</p>
       <ul>
-        <li><strong>Extra per month</strong> adds a fixed top-up to every payment. The steadiest and, dollar for dollar, most effective pattern.</li>
+        <li><strong>Extra per month</strong> adds a fixed amount to every modeled payment.</li>
         <li><strong>Extra per year</strong> models a once-a-year amount such as a bonus or tax refund, applied every twelfth month.</li>
         <li><strong>One-time payment</strong> covers a single lump sum; a month field appears so you can place it anywhere in the schedule and test timing.</li>
       </ul>
@@ -30,7 +30,7 @@ export default {
       <h2>What an extra payment actually buys</h2>
       <p>On the model used here, the scheduled payment covers the period's interest first and the remainder reduces principal. An extra amount then reduces principal immediately, so later interest is calculated on a smaller balance. A real lender may apply excess money to fees, accrued interest or a future instalment instead; confirm the posting rule before using the projected saving.</p>
       <p>Timing and rhythm matter more than most people expect. Consider the default loan here ($250,000 at 6.5% over 30 years, which costs $318,861 in interest if left alone) and two plans that commit the same $1,200 of cash per year. Paid as <strong>$100 every month</strong>, the loan ends 56 months early and saves <strong>$58,860</strong>. Paid as <strong>one $1,200 lump each year</strong>, it ends 54 months early and saves <strong>$56,592</strong>. Identical money, a $2,268 difference, purely because the monthly drip reaches the balance sooner on average, so each dollar spends more months not accruing interest.</p>
-      <p>The same logic makes early lump sums far more powerful than late ones. A one-time $10,000 against this loan in month 12 saves <strong>$49,273</strong> of interest; the same $10,000 in month 180 saves only <strong>$15,380</strong>. Nothing about the loan changed; the later payment simply has fewer remaining months over which to suppress interest. If you're expecting a windfall and intend to prepay, the arithmetic argues for applying it when it arrives rather than holding it for a round-number occasion.</p>`,
+      <p>The same schedule shows a larger modeled effect for an earlier lump sum. A $10,000 extra in month 12 changes interest by <strong>$49,273</strong>; in month 180 it changes interest by <strong>$15,380</strong>. The figures assume identical principal posting and no alternative use of the money.</p>`,
     formulaHtml: `
       <p>With a required payment <code>A</code> and a recurring extra <code>E</code>, the balance evolves month by month as:</p>
       <div class="formula-block"><span class="fx">B<sub>m</sub> = B<sub>m−1</sub> × (1 + r) − (A + E)</span>
@@ -53,20 +53,20 @@ export default {
         <li><strong>When the extra money arrives.</strong> The dominant factor. The same $10,000 saves $49,273 in month 12 of the default loan but $15,380 in month 180, a 3.2× difference on identical cash.</li>
         <li><strong>Frequency at equal cash.</strong> Monthly drips edge out annual lumps ($58,860 vs $56,592 on $1,200/year here) because money reaches principal sooner on average.</li>
         <li><strong>The loan's rate.</strong> A higher rate increases the interest avoided by reducing principal. Compare that modeled saving with the after-tax return and liquidity of any alternative use for the money.</li>
-        <li><strong>How your lender applies extras.</strong> Savings assume the extra posts to principal immediately. If it's held as a credit toward next month's installment, the effect largely evaporates; see the FAQ.</li>
+        <li><strong>How extras are applied.</strong> The model assumes immediate principal reduction. A different contractual allocation produces a different schedule.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
-        <li>Extras are assumed to post to principal on the same day as the regular payment; a lender that holds funds or applies them at cycle end will produce slightly smaller savings.</li>
-        <li>The required payment is held constant. Some lenders offer to recast (re-amortize) after a large lump sum, which lowers the payment instead of shortening the term: different goal, different math.</li>
+        <li>Extras are assumed to post to principal on the regular payment date. Any other posting date or allocation produces a different result.</li>
+        <li>The required payment is held constant. A contractual recast is a different schedule and is not modeled.</li>
         <li>Prepayment penalties are not modeled; whether one applies depends on your loan type, contract and jurisdiction, so check your agreement before relying on the projected saving.</li>
         <li>The rate is assumed fixed for the whole comparison, and both schedules assume no missed payments.</li>
       </ul>`,
   },
   faq: [
     {
-      q: "Do lenders automatically put extra money toward principal?",
-      aHtml: `<p>Not always, and this is the biggest practical gotcha. Some servicers treat an overpayment as an early payment of next month's installment — which mostly prepays interest you'd owe anyway and saves you almost nothing. When you send extra, mark it "apply to principal" (many online portals have this option), and check the next statement to confirm the balance dropped by the full extra amount.</p>`,
+      q: "Does the calculator know how an extra payment will be applied?",
+      aHtml: `<p>No. It assumes the full extra reduces principal in the selected month. Actual allocation can depend on the contract, account status and payment instructions. Compare the next statement or lender-provided schedule with the modeled balance change.</p>`,
     },
     {
       q: "Is $100 a month the same as $1,200 once a year?",
@@ -81,8 +81,8 @@ export default {
       aHtml: `<p>No — with standard amortizing loans the contractual payment stays the same and the term shortens instead. The exception is a formal recast: after a large principal payment, some lenders will re-amortize the remaining balance over the remaining term for a fee, lowering the payment. If your goal is a smaller obligation rather than a faster payoff, ask about recasting.</p>`,
     },
     {
-      q: "I expect a windfall — should I hold it until January or apply it now?",
-      aHtml: `<p>If you have already decided to prepay, the numbers favor applying it when it arrives. Savings depend on how many months the prepaid principal spends off the balance, so every month of delay costs you one month of avoided interest on that amount. The one-time field with its month selector lets you price the delay exactly for your own loan.</p>`,
+      q: "How does delaying a one-time extra change the model?",
+      aHtml: `<p>A later extra affects fewer remaining interest periods, so its modeled interest difference is smaller under the same fixed rate and posting assumption. The month selector quantifies that timing effect without accounting for liquidity, alternative returns, taxes or fees.</p>`,
     },
   ],
 };

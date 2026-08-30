@@ -5,11 +5,11 @@ export default {
   h1: "Mortgage Calculator",
   metaTitle: "Mortgage Calculator — Monthly Payment with Taxes, Insurance & PMI",
   metaDescription:
-    "Estimate your true monthly mortgage payment: principal and interest plus property tax, home insurance, PMI and HOA — with a full amortization schedule.",
+    "Estimate a monthly home-payment scenario: principal and interest plus entered property tax, insurance, PMI and HOA, with an amortization schedule.",
   tagline:
     "Add principal, interest, property tax, insurance, PMI and HOA costs into one monthly home-payment estimate.",
-  cardDescription: "True monthly payment including tax, insurance, PMI and HOA, plus amortization.",
-  lastReviewed: "2026-07-22",
+  cardDescription: "Monthly estimate including entered tax, insurance, PMI and HOA, plus amortization.",
+  lastReviewed: "2026-08-30",
   version: "1.0",
   popular: true,
   featured: true,
@@ -32,7 +32,7 @@ export default {
       <p>A principal-and-interest quote leaves out costs such as property tax, home insurance, mortgage insurance and association dues. Depending on the loan and location, some of those amounts may be collected through an escrow account and some may be paid separately. This calculator places them in one monthly planning figure so they are not lost beside the loan payment.</p>
       <p>The P&amp;I portion follows standard amortization: interest accrues monthly on the remaining balance, so early payments are interest-heavy and the balance falls slowly at first. On a $280,000 loan at 6.5% over 30 years, the first payment of $1,769.79 includes $1,516.67 of interest and only $253.12 of principal. It takes until roughly year 19 before more than half of each payment goes to principal. That lag is why extra payments and shorter terms make such a dramatic difference to total cost.</p>
       <p><strong>PMI (private mortgage insurance)</strong> protects the lender rather than the borrower. This calculator uses your PMI input while the modeled balance is above 80% of the purchase price, then removes it from the estimate. Real cancellation rules depend on the loan type, payment history, property value and jurisdiction, so check the servicer's requirements instead of treating the modeled end month as a promise.</p>
-      <p>Tax and insurance behave differently from the loan itself: they continue after the mortgage is paid off, and they generally rise over time. Treat them as permanent operating costs of the home rather than part of the debt.</p>`,
+      <p>Tax and insurance are separate from loan principal and interest and can continue after payoff. This model holds both entered annual amounts constant; actual bills can rise or fall.</p>`,
     formulaHtml: `
       <p>The principal-and-interest payment uses the standard amortization formula:</p>
       <div class="formula-block"><span class="fx">P&amp;I = L × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]</span>
@@ -57,13 +57,13 @@ export default {
         <li><strong>Rate.</strong> On the $280,000, 30-year example, each 0.5 percentage-point change is roughly $90–95 a month and $33,000–34,000 of modeled lifetime interest.</li>
         <li><strong>Term.</strong> A shorter term raises the required payment and reduces the number of interest-bearing months. Compare that contractual payment with a longer term and a separate voluntary-extra-payment scenario.</li>
         <li><strong>Down payment.</strong> More money down creates a smaller loan. Whether mortgage insurance applies, how it is priced and when it ends depend on the product and lender.</li>
-        <li><strong>Location-driven costs.</strong> In the US, effective property tax rates range from under 0.3% to over 2% of home value per year depending on state and county, and insurance varies with local risk. These often matter more than small rate differences when comparing homes in different areas.</li>
+        <li><strong>Location-driven costs.</strong> US property-tax and insurance amounts vary by property and location. Use the current assessor record and an insurance quote rather than a national percentage range.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
         <li>Models a <strong>fixed-rate, fully amortizing mortgage</strong>. Adjustable-rate (ARM), interest-only and offset products behave differently and are out of scope.</li>
         <li>PMI is approximated as a constant monthly amount that ends when the scheduled balance reaches 80% of the <em>purchase price</em>; lenders may use appraised value, and actual PMI pricing depends on credit score and loan type.</li>
-        <li>Property tax and insurance are entered as flat annual amounts. In reality both tend to rise over time, and reassessments can be significant.</li>
+        <li>Property tax and insurance are entered as flat annual amounts. Actual bills can change after reassessment, renewal or coverage changes.</li>
         <li>Closing costs, points, and maintenance are not included here; the <a href="/rent-vs-buy-calculator/">Rent vs Buy Calculator</a> models the broader cost of ownership.</li>
         <li>All figures are planning estimates. The lender's Loan Estimate and closing disclosure are the authoritative numbers for any real offer.</li>
       </ul>
@@ -71,7 +71,6 @@ export default {
       <ul>
         <li><a href="https://www.consumerfinance.gov/ask-cfpb/when-can-i-remove-private-mortgage-insurance-pmi-from-my-loan-en-202/" rel="noopener">CFPB: When can I remove private mortgage insurance (PMI)?</a> — basis for the 80% request / 78% automatic cancellation convention modeled here.</li>
         <li><a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-mortgage-interest-rate-and-an-apr-en-135/" rel="noopener">CFPB: Interest rate vs APR</a> — why the quoted rate differs from the loan's true annual cost when fees exist.</li>
-        <li><a href="https://taxfoundation.org/data/all/state/property-taxes-by-state-county/" rel="noopener">Tax Foundation: Property Taxes by State and County</a> — source for the range of US effective property tax rates noted above.</li>
       </ul>`,
   },
   faq: [

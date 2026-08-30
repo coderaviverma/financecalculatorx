@@ -9,8 +9,8 @@ export default {
   tagline:
     "Find the payoff date and remaining interest for a current loan, with or without an extra monthly payment.",
   cardDescription: "Months left, payoff date and remaining interest on a loan you're already repaying.",
-  lastReviewed: "2026-07-22",
-  version: "1.0",
+  lastReviewed: "2026-08-30",
+  version: "1.1",
   popular: false,
   featured: false,
   aliases: ["payoff date", "months left on loan", "remaining balance"],
@@ -29,7 +29,7 @@ export default {
       <p>The result is the months remaining, the payoff date, and the interest left to pay, with a full remaining schedule you can export.</p>`,
     explanationHtml: `
       <h2>Reading your loan position off a statement</h2>
-      <p>Three different numbers describe "what you owe", and mixing them up skews the result. The <strong>original loan amount</strong> is history; it no longer matters. The <strong>current principal balance</strong> is what interest is charged on, and it's the number this calculator needs. A <strong>payoff quote</strong> is the amount that would settle the loan on a specific day: the principal balance plus interest accrued since your last payment, sometimes plus a processing charge. A payoff quote is typically a little higher than the statement balance, and it expires: lenders quote it "good through" a date because interest keeps accruing daily.</p>
+      <p>Three figures can describe a loan at different stages. The <strong>original amount</strong> is not used here. The <strong>current principal balance</strong> is the starting balance for the model. A <strong>payoff quote</strong> is a contract-specific settlement amount for a stated date and may include accrued interest, fees or other charges. This calculator does not reproduce that quote.</p>
       <p>Given the balance, the rate and your payment, the time to zero isn't guesswork; it's solved directly. Each month your payment first covers the interest accrued on the balance, and the remainder reduces principal. Because the balance shrinks, next month's interest is smaller and the principal portion grows. The <em>nper</em> formula below inverts this process: instead of asking "what payment clears this balance in n months?", it asks "how many months does this payment need?". The answer is rarely a whole number (47.2 months for the default inputs), which is why the schedule shows 47 full payments plus a smaller final one that clears whatever is left.</p>
       <p>The mathematics gets unforgiving near the minimum. On a $14,000 balance at 8.5%, interest accrues at $99.17 per month — that is the floor. Pay $350 and you're done in 48 months with $2,519.68 of interest. Pay $120, just $20.83 above the floor, and the same loan takes <strong>249 months</strong> (almost 21 years) and $15,767.90 of interest. Pay $105 and it takes <strong>410 months</strong> and $28,997.17 of interest, more than double the balance itself. Close to the floor, almost your entire payment feeds interest and the balance barely moves; every dollar above the floor is what actually retires debt. That asymmetry is why small top-ups matter so much on slow-moving loans.</p>`,
     formulaHtml: `
@@ -54,15 +54,15 @@ export default {
       <ul>
         <li><strong>Distance from the interest floor.</strong> On the default inputs the floor is $99.17/month. Payoff time scales with how far above that floor you pay, not with the payment itself: $350 is 3.5× the floor and clears the loan in 4 years; $120 is 1.2× the floor and takes 21 years.</li>
         <li><strong>The rate on the remaining balance.</strong> A higher rate raises the floor and steals more of each payment. If your rate is variable, the payoff date shifts every time it resets.</li>
-        <li><strong>Extra amounts, however small.</strong> Every extra dollar lands entirely on principal, permanently lowering the base that future interest is charged on.</li>
+        <li><strong>Extra amounts.</strong> The model applies every entered extra directly to principal. Actual allocation follows the contract and payment instructions.</li>
         <li><strong>Payment composition.</strong> If part of what you send covers escrow or fees, only the principal-and-interest portion drives the payoff math, so enter that portion, not the gross amount.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
-        <li>The balance is treated as of today, with the first payment one month out. A payoff quote from your lender will differ slightly because it adds interest accrued day by day up to the settlement date.</li>
+        <li>The balance is treated as of today, with the first payment one month out. An official payoff quote can differ because of its settlement date, accrual convention and charges.</li>
         <li>The rate is assumed fixed until payoff; variable-rate loans will drift from this schedule as their rate changes.</li>
         <li>Late fees, escrow, insurance add-ons and payoff processing charges are not modeled.</li>
-        <li>Lenders that accrue interest daily rather than monthly will show totals a fraction of a percent different.</li>
+        <li>Daily accrual or another day-count convention produces a different schedule.</li>
         <li>This is a planning estimate; request an official payoff quote before sending a settlement payment.</li>
       </ul>`,
   },

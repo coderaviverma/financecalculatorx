@@ -9,7 +9,7 @@ export default {
   tagline:
     "Put today's money and regular contributions on a future date, with beginning- or end-of-period deposits.",
   cardDescription: "Textbook TVM future value with annuity-due timing and compounding options.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-08-30",
   version: "1.0",
   popular: false,
   featured: false,
@@ -21,7 +21,7 @@ export default {
     howToHtml: `
       <p>Fill in whichever pieces your problem has (a present amount, a monthly contribution, or both), then the rate, the horizon, and how often interest compounds:</p>
       <ul>
-        <li><strong>Contribution timing</strong>: "End of month" is the textbook <em>ordinary annuity</em>; "Beginning of month" is an <em>annuity due</em>, where every deposit earns one extra month. Payroll-style saving is usually end-of-period; rent-like flows are beginning.</li>
+        <li><strong>Contribution timing</strong>: "End of month" is an <em>ordinary annuity</em>; "Beginning of month" is an <em>annuity due</em>, where every deposit receives one additional modeled growth period.</li>
         <li><strong>Compounding</strong>: match the account. Many savings accounts compound monthly; use yearly for rates quoted as APY or AER, which already include compounding.</li>
       </ul>
       <p>The results split the future value into what the lump sum becomes and what the contribution stream becomes, the two halves of every TVM problem. The bar chart re-runs your inputs at 5, 10, 15, 20 and 25 years so you can see how the answer scales with time.</p>`,
@@ -50,9 +50,9 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Horizon compounds harder than anything else.</strong> In the default plan, years 20→25 alone add $80,720 — more than the entire value at year 10. When comparing options, always compare them at the same date.</li>
-        <li><strong>The split matters for decisions.</strong> If most of your FV comes from the lump part, the rate you earn dominates; if it comes from contributions, the amount you save dominates. The two metrics on this page tell you which lever you're actually holding.</li>
-        <li><strong>Timing is a free half-percent.</strong> Beginning-of-period contributions raise the annuity part by exactly (1 + i) — about 0.58% at 7% monthly. Free, but small; don't let it decide anything big.</li>
+        <li><strong>Horizon.</strong> In the default constant-return plan, years 20→25 add $80,720, more than the displayed value at year 10. Compare scenarios on the same future date.</li>
+        <li><strong>Lump sum and contributions.</strong> The result reports each component separately so changes to the starting amount and monthly contribution remain visible.</li>
+        <li><strong>Timing.</strong> Beginning-of-period contributions raise the annuity component by exactly (1 + i), about 0.58% at 7% nominal with monthly periods.</li>
         <li><strong>Compounding frequency</strong> shifts results by fractions of a percent at typical rates. If you're quoted an APY, use yearly compounding here to avoid double-counting.</li>
       </ul>`,
     limitationsHtml: `
@@ -74,7 +74,7 @@ export default {
     },
     {
       q: "Can I use this to compare two accounts or offers?",
-      aHtml: `<p>Yes — that's the classic TVM use case. Compute the FV of leaving money where it is, then the FV of moving it (net of any exit fees or taxes, which you can subtract from the present amount), both at the same horizon. The scenario tool below the results holds one version while you compute the other. Whichever future value is higher wins, provided the risk is genuinely comparable.</p>`,
+      aHtml: `<p>The scenario tool can place two cash-flow assumptions on the same future date. Fees, taxes, liquidity and risk need separate inputs or analysis because future value alone does not establish which account or offer is preferable.</p>`,
     },
     {
       q: "Which compounding option should I pick?",

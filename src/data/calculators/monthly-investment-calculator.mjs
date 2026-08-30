@@ -5,15 +5,15 @@ export default {
   h1: "Monthly Investment Calculator",
   metaTitle: "Monthly Investment Calculator — Amount Needed per Month",
   metaDescription:
-    "Work backwards from a goal: enter a target amount, timeline and expected return to get the exact monthly investment required — plus what happens at other returns.",
+    "Work backwards from a goal: enter a target, timeline and return assumption to calculate the monthly contribution required under that scenario.",
   tagline:
     "Start with a target and deadline to estimate the monthly contribution needed to reach it.",
   cardDescription: "Solve for the monthly amount needed to hit a target by a deadline.",
-  lastReviewed: "2026-07-22",
-  version: "1.0",
+  lastReviewed: "2026-08-30",
+  version: "1.1",
   popular: false,
   featured: true,
-  jumpExplainLabel: "Why time beats everything",
+  jumpExplainLabel: "How time changes the result",
   aliases: ["goal planner", "how much to invest", "required monthly saving"],
   keywords: ["monthly investment calculator", "how much to save per month", "savings goal", "required contribution", "goal planning"],
   related: ["savings-calculator", "sip-calculator", "investment-calculator", "future-value-calculator", "down-payment-calculator", "compound-interest-calculator"],
@@ -29,10 +29,10 @@ export default {
       <p>The bar chart shows how the answer moves at 3–11% returns, and the table re-solves the same goal for five different timelines so you can see what an extra few years buys you.</p>`,
     explanationHtml: `
       <h2>Working backwards from the goal</h2>
-      <p>Most planning tools project forward: given savings, they estimate a future balance. Real goals run the other way — you know the car costs $30,000 or the down payment is $100,000, and the question is what it demands from each month's budget. This calculator solves that inverse problem exactly. With the defaults (a <strong>$100,000</strong> target, <strong>10 years</strong>, <strong>7%</strong> expected return and <strong>$5,000</strong> already saved) the answer is <strong>$519.70 per month</strong>.</p>
+      <p>Many planning tools project forward from a contribution. This calculator solves the inverse equation: given a target, time, current balance and constant return assumption, it calculates the monthly contribution that lands on the target. With the defaults (a <strong>$100,000</strong> target, <strong>10 years</strong>, <strong>7%</strong> assumed return and <strong>$5,000</strong> already saved) the modeled answer is <strong>$519.70 per month</strong>.</p>
       <p>Look at where the $100,000 comes from: your monthly contributions total <strong>$62,363.67</strong>, your existing $5,000 keeps working, and investment growth supplies the remaining <strong>$32,636.33</strong>, about a third of the target. The longer the timeline, the more of the goal growth pays for: stretch the same goal to 20 years and contributions fall to $36,768 while growth covers $58,232, more than half.</p>
-      <p><strong>Time is the input that changes everything.</strong> Halving the timeline far more than doubles the monthly bill. This goal needs <strong>$153.20</strong> a month over 20 years but <strong>$519.70</strong> over 10. Cutting the time in half multiplied the requirement by <strong>3.4×</strong>, because you lose both saving months and, disproportionately, the compounding those months would have done. Squeeze it to 5 years and the number jumps again to <strong>$1,297.78</strong>. Starting early isn't a platitude here; it is the arithmetic.</p>
-      <p>The return assumption deserves the same honesty. Between 5% and 9% (an illustrative band; substitute your own assumptions) the required monthly swings from $590.96 to $453.42. Plan on the conservative end; a goal funded at pessimistic assumptions gets finished early when markets cooperate, while the reverse leaves you short at the deadline.</p>`,
+      <p><strong>Time materially changes the result.</strong> This goal needs <strong>$153.20</strong> a month over 20 years but <strong>$519.70</strong> over 10. Halving the modeled timeline multiplies the requirement by <strong>3.4×</strong> because there are fewer contributions and fewer compounding periods. At 5 years, the calculated amount is <strong>$1,297.78</strong>.</p>
+      <p>The return assumption has a separate effect. Between 5% and 9% (an illustrative band, not a forecast) the required monthly contribution changes from $590.96 to $453.42. Running a lower-rate and 0% case shows how much of the target depends on assumed growth.</p>`,
     formulaHtml: `
       <p>The future value of the current savings plus an end-of-month contribution stream is set equal to the target, then solved for the contribution:</p>
       <div class="formula-block"><span class="fx">C = (T − P × (1 + i)<sup>n</sup>) × i ⁄ [(1 + i)<sup>n</sup> − 1]</span>
@@ -53,22 +53,22 @@ export default {
     factorsHtml: `
       <ul>
         <li><strong>Timeline dominates.</strong> The default goal costs $153.20/month over 20 years, $519.70 over 10, $1,297.78 over 5. Each halving of time roughly 2.5–3.4× the monthly requirement.</li>
-        <li><strong>Return assumption.</strong> From 3% to 11%, the requirement falls from $667.33 to $391.96 — but you don't control returns, only contributions and time. Assume less, contribute more.</li>
+        <li><strong>Return assumption.</strong> From 3% to 11%, the modeled requirement falls from $667.33 to $391.96. The chart describes mathematical sensitivity, not the likelihood of either return.</li>
         <li><strong>Head start.</strong> Raising current savings from $5,000 to $15,000 cuts the monthly amount from $519.70 to $403.59; a windfall aimed at a goal buys a permanently lighter month.</li>
-        <li><strong>Goal size is negotiable.</strong> Trimming the target 10% to $90,000 lowers the requirement to $461.92, sometimes the cheapest lever of all.</li>
+        <li><strong>Target amount.</strong> Changing the target by 10% to $90,000 lowers the modeled requirement to $461.92. Whether the real-world target can change is outside the calculation.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
-        <li>The return is a <strong>flat assumption</strong>; real portfolios wobble year to year, and a bad stretch near the deadline matters more than one at the start. De-risk as the goal approaches.</li>
-        <li>Short-horizon goals shouldn't use equity-average returns at all; over two or three years, use a savings or deposit rate and see the <a href="/savings-calculator/">Savings Calculator</a>.</li>
-        <li>Results ignore taxes, fund fees and inflation of the goal itself: a house deposit ten years out will likely cost more than today's figure, so revisit the target periodically.</li>
+        <li>The return is a <strong>flat assumption</strong>; actual account or investment returns can vary, and the order of returns can matter near a fixed deadline.</li>
+        <li>The tool does not select an asset type for a horizon. For a constant deposit-rate scenario, the <a href="/savings-calculator/">Savings Calculator</a> models the balance directly.</li>
+        <li>Results ignore taxes, fees and changes in the goal's price. A long-dated target may therefore require updated inputs over time.</li>
         <li>Contributions are modeled as identical every month; pausing early costs more than pausing late.</li>
       </ul>`,
   },
   faq: [
     {
       q: "What if the required monthly amount doesn't fit my budget?",
-      aHtml: `<p>You have three levers, and all are quantifiable. On the defaults ($519.70/month): extending the deadline from 10 to 12 years drops it to $393.63; trimming the target 10% to $90,000 drops it to $461.92; finding $10,000 more up front (a bonus, a sale) drops it to $403.59. Combine two levers and most "impossible" goals become ordinary line items. What rarely works is assuming a higher return to make the number smaller.</p>`,
+      aHtml: `<p>The calculator can quantify changes to the timeline, target and starting balance. On the defaults, extending the deadline from 10 to 12 years changes the amount to $393.63; changing the target to $90,000 gives $461.92; and increasing current savings by $10,000 gives $403.59. A higher assumed return also lowers the result mathematically, but does not make that return more likely.</p>`,
     },
     {
       q: "What return should I assume for my goal?",
@@ -80,7 +80,7 @@ export default {
     },
     {
       q: "The calculator says I need $0 a month. Is that right?",
-      aHtml: `<p>It means your current savings, growing at the assumed return, already reach the target on schedule. For example, $6,000 earmarked toward a $10,000 goal at 7% projects to $12,057.97 in 10 years, a $2,057.97 surplus with no contributions at all. Verify the return assumption is realistic for the account the money sits in; if it is, you can redirect that monthly budget to the next goal.</p>`,
+      aHtml: `<p>It means the current balance reaches the target under the entered constant return. For example, $6,000 toward a $10,000 goal at an assumed 7% projects to $12,057.97 in 10 years. Test a lower or 0% return as well, because the zero-contribution result depends entirely on the growth assumption.</p>`,
     },
     {
       q: "Should I save monthly or invest a lump sum if I have one?",

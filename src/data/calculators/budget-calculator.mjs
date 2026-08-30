@@ -10,7 +10,7 @@ export default {
     "Split take-home pay between needs, wants, and savings or extra debt payments, using 50/30/20 or percentages that fit your budget.",
   cardDescription: "50/30/20 budget split with adjustable percentages and weekly amounts.",
   scenarioHint: "Save your current split as Scenario A, adjust the percentages (say, needs down to 45% and savings up to 25%), then save Scenario B to see what the shift is worth per month and per year.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-08-30",
   version: "1.0",
   popular: false,
   featured: true,
@@ -29,7 +29,7 @@ export default {
       <p>The three must total 100%, and the calculator tells you the actual sum if they don't. Toggle <em>Show weekly amounts</em> if you budget by the week, and use the breakdown table for monthly, weekly and yearly figures for each bucket.</p>`,
     explanationHtml: `
       <h2>Where the 50/30/20 rule helps — and where it doesn't</h2>
-      <p>The 50/30/20 split (50% of take-home pay to needs, 30% to wants, 20% to savings and extra debt repayment) was popularized by Elizabeth Warren and Amelia Warren Tyagi in their 2005 book <em>All Your Worth</em>. Its appeal is that three broad buckets are easy to remember. On the default <strong>$4,500</strong> take-home, it allocates <strong>$2,250</strong> to needs, <strong>$1,350</strong> to wants, and <strong>$900</strong> a month, or <strong>$10,800</strong> a year, to savings and debt.</p>
+      <p>The 50/30/20 split assigns 50% of take-home pay to needs, 30% to wants and 20% to savings and extra debt repayment. Elizabeth Warren and Amelia Warren Tyagi describe this three-bucket framework in their 2005 book <em>All Your Worth</em>. On the default <strong>$4,500</strong> take-home, it allocates <strong>$2,250</strong>, <strong>$1,350</strong> and <strong>$900</strong> per month respectively.</p>
       <p>Treat that split as a starting point. Housing, childcare, healthcare, income level and location can make 50% for needs unrealistic or unnecessarily high. If your current result is 60/20/20, the calculator is describing the budget you have; it is not grading it. You can then test what a small percentage change would mean in monthly cash.</p>
       <p>The needs-and-wants boundary is personal. Groceries are usually a need, while delivery fees may be easier to cut. A car may be necessary for work, but the cost above a reliable option is more flexible. One useful question is: <em>would I keep this if income dropped for a few months?</em> It will not settle every category, but it makes the trade-off more concrete.</p>
       <p>If you choose a savings target, an automatic transfer can make the planned amount easier to follow. Keep the transfer low enough that it does not force essential spending back onto expensive debt.</p>`,
@@ -42,7 +42,7 @@ export default {
           <li>Weekly = Monthly × 12 ⁄ 52 &nbsp;·&nbsp; Yearly = Monthly × 12</li>
         </ul>
       </div>
-      <p>The savings-rate check divides a six-month cushion of needs by the monthly savings amount: months = (Needs × 6) ⁄ Savings. A useful property falls out. With fixed percentages the answer depends only on the ratio, not the income, so at 50/20 it is always 15 months, whether you earn $3,000 or $8,000. Building the cushion faster requires changing the split, not just earning more.</p>`,
+      <p>The savings-rate check uses an illustrative six-month needs target: months = (Needs × 6) ⁄ Savings. With fixed percentages the result depends on the ratio rather than the income, so at 50/20 it is 15 months whether take-home pay is $3,000 or $8,000. Six months is a selectable planning scenario, not a household-specific recommendation.</p>`,
     exampleHtml: `
       <div class="example-block"><div class="ex-head">Example: $4,500 take-home on the classic split</div><div class="ex-body">
         <p>Needs: 4,500 × 0.50 = <strong>$2,250</strong> · Wants: 4,500 × 0.30 = <strong>$1,350</strong> · Savings & debt: 4,500 × 0.20 = <strong>$900</strong>.</p>
@@ -59,15 +59,15 @@ export default {
     limitationsHtml: `
       <ul>
         <li>The split is a <strong>guideline for take-home pay</strong>. It says nothing about whether your income itself covers a reasonable cost of living in your area.</li>
-        <li>Irregular income (freelance, commission) needs a smoothing step first: budget from a conservative baseline month, not your best one.</li>
-        <li>The buckets don't rank what's <em>inside</em> them — a maxed-out savings bucket aimed at low-priority goals while card debt compounds is still a bad budget; see the <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> for ordering debts.</li>
+        <li>Irregular income is not smoothed automatically. Compare multiple income inputs or use an average based on the period being modeled.</li>
+        <li>The buckets do not rank items within them. The <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> separately compares entered debt orders.</li>
         <li>Employer retirement contributions deducted before take-home pay don't appear here, so your true savings rate may be higher than the bucket shows.</li>
       </ul>`,
   },
   faq: [
     {
       q: "Where does the 50/30/20 rule come from?",
-      aHtml: `<p>From <em>All Your Worth: The Ultimate Lifetime Money Plan</em> (2005) by Elizabeth Warren, then a Harvard bankruptcy-law professor, and her daughter Amelia Warren Tyagi. Their argument was that people fail at 40-line budgets but can hold a three-way balance in their heads, and that keeping must-pay costs near half of take-home pay is what makes a budget survivable through bad months.</p>`,
+      aHtml: `<p>Elizabeth Warren and Amelia Warren Tyagi present the three-bucket framework in <em>All Your Worth: The Ultimate Lifetime Money Plan</em> (2005). This calculator implements the percentages as editable inputs and does not adopt the book's split as evidence that it fits every income, household or location.</p>`,
     },
     {
       q: "Is a gym membership a need or a want?",
@@ -75,11 +75,11 @@ export default {
     },
     {
       q: "My rent alone is 40% of my income. Is the rule useless for me?",
-      aHtml: `<p>No, and it's telling you something real: your housing market (or your current home) is expensive relative to your income, so the slack has to come from somewhere. Practical adjustments are a 60/20/20 or even 65/20/15 split while protecting some savings rate, since dropping savings to zero leaves you one repair bill away from card debt. Revisit the split when income rises or the lease is renegotiated.</p>`,
+      aHtml: `<p>The rule remains a comparison point, not a grade. Entering a 60/20/20 or 65/20/15 split shows the corresponding dollar amounts without asserting that either is preferable. The calculator cannot evaluate local housing availability, future income, cash reserves or the feasibility of changing a fixed cost.</p>`,
     },
     {
       q: "Does the 20% include my employer retirement plan?",
-      aHtml: `<p>If contributions come out before your pay lands, your take-home figure already excludes them, so the 20% here is savings on top of that, and your true overall rate is higher. That's fine, and arguably ideal for high earners. Just be consistent: either budget from gross pay and count everything, or from take-home pay and treat payroll savings as a bonus.</p>`,
+      aHtml: `<p>If payroll contributions are deducted before the entered take-home pay, they are outside this calculator's 20% bucket. To calculate a combined savings rate, add those contributions separately and use a consistent income denominator. The page does not assess whether a particular rate is sufficient or ideal.</p>`,
     },
     {
       q: "What should the savings & debt bucket actually pay for, in what order?",

@@ -1,13 +1,13 @@
 export default {
   slug: "how-to-compare-loan-offers",
   title: "How to Compare Loan Offers",
-  metaTitle: "How to Compare Loan Offers the Right Way",
+  metaTitle: "How to Compare Loan Offers on the Same Basis",
   metaDescription:
     "A step-by-step process for comparing loans: normalize quotes, weigh rate against fees with a computed case study, find the break-even, read the fine print.",
   description:
     "Two loan offers rarely differ on one number alone. A repeatable process: normalize the quotes, weigh rate against fees, find the break-even, read the fine print.",
   cardDescription: "A repeatable process for choosing between loans: normalize, compute totals, break-even, fine print.",
-  lastReviewed: "2026-07-29",
+  lastReviewed: "2026-08-30",
   published: "2026-07-12",
   categories: ["loans", "personal"],
   aliases: [],
@@ -20,24 +20,24 @@ export default {
 <p>A comparison is only valid if the offers describe the same loan. Before any math:</p>
 <ul>
 <li><strong>Same amount, same purpose.</strong> Quotes for $18,000 and $20,000 are not comparable, because rates and fees both shift with size.</li>
-<li><strong>Same day, or close to it.</strong> Rates move. A quote from three weeks ago is a memory, not an offer. Gather quotes within the same few days.</li>
-<li><strong>Written, not verbal.</strong> Get the formal disclosure: a Loan Estimate for US mortgages, a key-facts statement where offered, or at minimum the full fee schedule in writing. Phone quotes often omit costs that only appear in the written disclosure.</li>
+<li><strong>Quote date.</strong> Offers from different dates may reflect changed rates or terms, so record the date and expiration shown on each one.</li>
+<li><strong>Disclosure format.</strong> Use the formal written fields available for the product, such as a Loan Estimate for a US mortgage, rather than comparing an itemized offer with an unitemized headline.</li>
 <li><strong>Same term where possible.</strong> As shown below, differing terms can make a worse loan look better on every easy metric. If a lender only offers 48 months against another's 60, note it, because that difference needs special handling.</li>
 </ul>
-<p>A practical note on shopping itself: in the US, credit-scoring models generally treat multiple inquiries for the same loan type within a short window (commonly 14–45 days, depending on the model) as a single rate-shopping event — see the <a href="https://www.consumerfinance.gov/ask-cfpb/what-exactly-happens-when-a-mortgage-lender-checks-my-credit-en-2005/" rel="noopener">CFPB's note on shopping around for a mortgage</a> — so check the rules in your own market. Compressing your quote-gathering into a couple of weeks protects both comparability and your credit score. The <a href="https://www.consumerfinance.gov/consumer-tools/auto-loans/" rel="noopener">CFPB's auto-loan shopping tools</a> walk through the same discipline for vehicle financing.</p>
+<p>For US mortgages, the <a href="https://www.consumerfinance.gov/ask-cfpb/what-exactly-happens-when-a-mortgage-lender-checks-my-credit-en-2005/" rel="noopener">CFPB explains how rate-shopping inquiries may be treated by scoring models</a> and why the applicable window can vary. That source is product- and country-specific; it should not be generalized to every loan or scoring system. The <a href="https://www.consumerfinance.gov/consumer-tools/auto-loans/" rel="noopener">CFPB's auto-loan tools</a> provide a separate US vehicle-finance worksheet.</p>
 
-<h2>Step 2: The four numbers that decide it</h2>
-<p>Everything on a loan disclosure reduces to four decision-relevant numbers:</p>
+<h2>Step 2: Four core fields, plus the disclosures around them</h2>
+<p>Four fields drive this calculator comparison, while insurance, variable-rate terms, late charges and other conditions remain in the disclosure:</p>
 <ul>
 <li><strong>Interest rate</strong>: the engine of the cost, but never sufficient alone.</li>
-<li><strong>Term</strong>: same rate over more months means more total interest; a longer term is a cost dressed as a comfort.</li>
-<li><strong>Mandatory fees</strong>: origination, processing, documentation, and any "optional" product that is priced into the quoted rate. A fee is interest you pay on day one.</li>
-<li><strong>Prepayment terms</strong>: whether you can pay early without penalty. This decides how much flexibility you keep, and it changes which offer wins if you might clear the loan ahead of schedule.</li>
+<li><strong>Term</strong>: at the same amount and rate, more scheduled months generally increase total interest while lowering the payment.</li>
+<li><strong>Included fees</strong>: origination, processing, documentation and other charges identified by the applicable disclosure. A fee is a separate borrowing cost, not literally interest.</li>
+<li><strong>Prepayment terms</strong>: any charge or restriction triggered by early payoff changes cash flows when the modeled holding period is shorter than the term.</li>
 </ul>
-<p>And the numbers that should <em>not</em> decide it: cashback and gift-card sweeteners (price them in dollars and compare that one-off amount with the computed cost difference between offers over the full term before letting them decide), teaser first-month rates, "pre-approved just for you" urgency, and the monthly payment in isolation, which a longer term can lower even while the total cost rises. How the rate itself turns into cost is covered in <a href="/guides/how-loan-interest-works/">how loan interest works</a>.</p>
+<p>Promotional credits, temporary rates and other incentives can be entered as cash flows rather than treated as a separate measure of value. A monthly payment alone cannot identify total cost because changing the term also changes the number of payments. How the rate turns into scheduled interest is covered in <a href="/guides/how-loan-interest-works/">how loan interest works</a>.</p>
 
 <h2>Step 3: Use APR, and know its blind spot</h2>
-<p>The annual percentage rate exists precisely for this comparison: it folds mandatory fees into the rate, expressing the loan's cost as if the fees were interest (the <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-an-interest-rate-and-the-annual-percentage-rate-apr-in-an-auto-loan-en-733/" rel="noopener">CFPB spells out the difference</a> between a loan's rate and its APR). Two same-term offers can be ranked by APR alone, which is why many jurisdictions require its disclosure. Advertisements often feature the interest rate more prominently, so look for the APR in the formal disclosure rather than the headline. The mechanics live in our guide to <a href="/guides/apr-vs-interest-rate/">APR vs interest rate</a>.</p>
+<p>APR expresses borrowing cost under the charges and conventions required by the applicable disclosure rule. The <a href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-an-interest-rate-and-the-annual-percentage-rate-apr-in-an-auto-loan-en-733/" rel="noopener">CFPB explains the distinction for US auto loans</a>. APRs are most directly comparable when amount, term, timing and disclosure rules align; confirm the itemized fees rather than assuming every charge is included. The mechanics live in <a href="/guides/apr-vs-interest-rate/">APR vs interest rate</a>.</p>
 <p>APR has two blind spots worth respecting. First, <strong>it cannot rank loans of different terms.</strong> A 36-month loan and a 60-month loan at identical APRs cost very different total interest, because one rents the money longer; APR measures price per year, not total cost. (A $20,000 loan at 7.9% over 36 months incurs $2,529 of interest; the 60-month offers below incur $4,000–4,900, yet the 36-month loan's <em>payment</em> is far higher. Different terms are a budget decision first, a price comparison second.) Second, <strong>APR assumes you keep the loan to maturity.</strong> Pay it off early and the fee you paid up front was spread over fewer months than APR assumed, which can flip the ranking. That is what break-even analysis is for.</p>
 
 <h2>Step 4: A computed case study</h2>
@@ -62,8 +62,8 @@ export default {
 
 <p>This is the general pattern with fee-versus-rate trade-offs: <strong>low fees favor short holding periods; low rates favor long ones</strong>. The honest comparison therefore needs your realistic horizon, not just the contractual term. Run your own offers through the <a href="/loan-comparison-calculator/">loan comparison calculator</a> to get totals and the break-even point computed for your numbers, or model a single offer's full schedule with the <a href="/loan-calculator/">loan calculator</a>.</p>
 
-<h2>Step 5: Negotiate, because quotes are opening bids</h2>
-<p>If a lender accepts negotiation, a written competing offer gives you specific terms to discuss. Ask for the response in the same form—amount, rate, term, fees and total payment—so a lower rate is not offset by a new charge. Not every lender or product is negotiable, and a verbal counter-offer is not a substitute for the revised disclosure.</p>
+<h2>Step 5: Record any revised offer on the same fields</h2>
+<p>If a lender provides revised terms, enter the new amount, rate, term, fees and total payment as a separate offer. Comparing a written revision with the earlier disclosure prevents one changed field from obscuring another. The guide makes no assumption that a particular lender or product permits negotiation.</p>
 
 <h2>Step 6: The fine-print checklist</h2>
 <div class="callout warn"><span class="c-title">Read for these before signing</span>
@@ -85,7 +85,7 @@ export default {
 <li>Compute each offer's monthly payment and <strong>total cost including fees</strong>; rank same-term offers by APR and confirm with totals.</li>
 <li>Estimate your realistic horizon; compute the break-even month for any fee-versus-rate trade-off and check which offer wins <em>your</em> horizon.</li>
 <li>If negotiation is available, ask whether another lender can improve the all-in terms and request any revision in writing.</li>
-<li>Run the winner through the fine-print checklist; walk away from anything that only became visible at signing.</li>
+<li>Compare the preferred modeled result with the final disclosure and note any field that changed before signing.</li>
 </ol>
 <p>Keep the written offers and compare the same fields in the same order. Total cost over your expected holding period is often more informative than the most prominent number in an advertisement. Before accepting an offer, confirm the figures against the lender's final disclosure and contract.</p>
 `,

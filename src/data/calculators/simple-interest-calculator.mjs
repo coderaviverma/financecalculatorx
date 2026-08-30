@@ -9,7 +9,7 @@ export default {
   tagline:
     "Calculate non-compounding interest and compare it with monthly compounding over the same period.",
   cardDescription: "Flat interest via I = P × r × t, with a side-by-side compound comparison.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-08-30",
   version: "1.0",
   popular: false,
   featured: false,
@@ -30,7 +30,7 @@ export default {
       <p>Simple interest applies the rate to the original principal rather than adding earned interest to the base. It can model a payout deposit, the coupon cash flow on a fixed-rate bond, or another agreement that explicitly uses simple interest. Legal and financial products use different conventions, so confirm the contract or governing rule before choosing this model.</p>
       <p>The structural difference is linear versus exponential growth. At 6%, $10,000 earns $600 each year under simple interest. Reinvested monthly at the same stated rate, the three-year interest is $1,966.81 rather than $1,800. At ten years the ending balances are $16,000 and $18,193.97; at twenty years, $22,000 and $33,102.04. The gap widens as the compounding periods accumulate.</p>
       <p>A useful way to think about it: simple interest is what you get when interest is <em>paid out</em>, compound is what you get when it's <em>reinvested</em>. The money doesn't care about the label — a bond investor who takes each coupon and immediately reinvests it at the same rate has manufactured compound interest out of a simple-interest instrument. The gap this calculator shows is therefore not a defect of the product; it's the value of the reinvestment job that's been left to you.</p>
-      <p>One caution on language: people often call flat-fee personal loans "simple interest loans," but almost no amortizing loan is simple interest in this sense; each payment is split against an interest charge computed on the <em>declining</em> balance. If you're pricing a loan, use the <a href="/loan-interest-calculator/">Loan Interest Calculator</a> instead; this page is for money that earns, not money you owe.</p>`,
+      <p>“Simple interest” can also appear in lending documents with a different meaning, such as interest accrued on a current balance without compounding. An amortizing loan with changing balances does not follow the single <code>I = P × r × t</code> calculation on this page; use the <a href="/loan-interest-calculator/">Loan Interest Calculator</a> for the monthly reducing-balance model.</p>`,
     formulaHtml: `
       <p>The entire model is one multiplication:</p>
       <div class="formula-block"><span class="fx">I = P × r × t</span>
@@ -58,7 +58,7 @@ export default {
     limitationsHtml: `
       <ul>
         <li>The comparison column assumes <strong>monthly</strong> compounding; products that compound daily or yearly will land slightly above or below it. The flagship <a href="/compound-interest-calculator/">Compound Interest Calculator</a> lets you set the frequency exactly.</li>
-        <li>Results are gross of tax; payout interest is typically taxable as income in the year received, which can change the payout-vs-reinvest decision.</li>
+        <li>Results are gross of tax. Applicable treatment depends on the instrument, account, taxpayer and jurisdiction.</li>
         <li>A constant rate is assumed for the whole term; floating-rate notes and step-up deposits need a period-by-period calculation.</li>
         <li>This page models interest you <em>earn</em>. Amortizing loans, even ones marketed with "simple interest" language, follow declining-balance math instead.</li>
       </ul>`,
@@ -78,7 +78,7 @@ export default {
     },
     {
       q: "Do bonds really pay simple interest?",
-      aHtml: `<p>The coupon itself is simple: a 5% annual coupon on $10,000 face value pays $500 a year regardless of price moves, and the payment never compounds inside the bond. Your realized return can still compound if you reinvest coupons — which is why quoted yield-to-maturity figures assume reinvestment. The distinction between the instrument's payments and your reinvestment of them is the core idea on this page.</p>`,
+      aHtml: `<p>A fixed 5% annual coupon on $10,000 face value pays $500 per year while the contractual coupon remains unchanged. The bond's market price, default risk, redemption amount, taxes and reinvestment rate can all affect realized return. This calculator models only a constant payout based on principal, not a complete bond valuation or yield-to-maturity calculation.</p>`,
     },
     {
       q: "When does the difference from compounding become material?",

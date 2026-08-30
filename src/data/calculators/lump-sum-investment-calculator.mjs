@@ -9,7 +9,7 @@ export default {
   tagline:
     "Model a one-time investment, including its projected growth, estimated doubling time and inflation-adjusted value.",
   cardDescription: "One-time investment growth with doubling time and ±2% rate context.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-08-30",
   version: "1.0",
   popular: false,
   featured: false,
@@ -21,16 +21,16 @@ export default {
     howToHtml: `
       <p>A single deposit drives this tool: set the one-time amount, the annual return you want to assume, and the holding period. Two options refine the result:</p>
       <ul>
-        <li><strong>Compounding</strong>: monthly suits funds and many accounts; yearly suits products quoted as annual effective rates.</li>
-        <li><strong>Expected inflation</strong>: optional. Set it and the fourth metric switches from exact doubling time to the maturity value in today's purchasing power.</li>
+        <li><strong>Compounding</strong>: monthly and yearly apply the selected compounding interval; the scenario or product disclosure defines which interval belongs in the model.</li>
+        <li><strong>Expected inflation</strong>: optional. Set it and the fourth metric switches from modeled doubling time to the maturity value in today's purchasing power.</li>
       </ul>
-      <p>The chart deliberately draws three lines: your rate, plus dashed lines two points lower and higher. A single smooth curve looks like a promise; the band is a more truthful picture of a return assumption. The table tracks value, yearly growth and the running multiple; watch how the "growth that year" column accelerates even though the rate never changes. The <a href="/investment-calculator/">Investment Calculator</a> can also model a one-time amount (with contributions set to zero), but use this page when the money goes in exactly once and you want the doubling time and the ±2% assumption band it draws around your rate.</p>`,
+      <p>The chart draws the entered rate and dashed lines two points lower and higher. They are sensitivity cases, not confidence bounds or forecasts. The table tracks modeled value, yearly growth and the running multiple. The <a href="/investment-calculator/">Investment Calculator</a> can also model a one-time amount with contributions set to zero; this page additionally reports modeled doubling time and the ±2-point sensitivity band.</p>`,
     explanationHtml: `
       <h2>Deploying a lump sum</h2>
-      <p>A lump sum might come from a bonus, inheritance, maturing deposit, property sale or vested stock. This calculator does not decide whether it should be invested; it shows what one deposit becomes under a return and horizon you choose. At an assumed 10% compounded monthly, $100,000 becomes about <strong>$445,392 in 15 years, a 4.45× multiple</strong> ($417,725, or 4.18×, with yearly compounding).</p>
-      <p>The multiple's intuition is doubling. Money at 10% compounded monthly doubles roughly every 7 years, so a 15-year horizon fits a little over two doublings, and 2 × 2 × a bit ≈ 4.45 falls right out. This is also why the year-by-year table looks back-loaded: the default investment gains about $64,500 over its first five years but $174,700 over its last five, at the same unchanging rate, because each doubling operates on a bigger base. Cutting a 15-year plan to 10 doesn't cost a third of the outcome; it costs $174,700 of the ending value.</p>
+      <p>A lump sum might come from a bonus, inheritance, maturing deposit, property sale or vested stock. This calculator does not decide whether it should be invested; it shows what one deposit becomes under a return and horizon you choose. At an assumed 10% annual return compounded monthly, $100,000 becomes about <strong>$445,392 in 15 years, a 4.45× multiple</strong> ($417,725, or 4.18×, with yearly compounding).</p>
+      <p>The multiple's intuition is doubling. Money at 10% annual return compounded monthly doubles roughly every 7 years, so a 15-year horizon fits a little over two doublings. The default investment gains about $64,500 over its first five years and $174,700 over its last five at the same constant rate because later growth starts from a larger modeled balance. In this example, changing the horizon from 15 to 10 years reduces ending value by about $174,700.</p>
       <p>A market investment made all at once is fully exposed to the next move in prices. A staged purchase exposes the money gradually but leaves part of it waiting, so its result depends on both the market path and the return earned before each purchase. The <a href="/sip-calculator/">SIP Calculator</a> models regular contributions, and the <a href="/guides/lump-sum-vs-monthly-investing/">lump sum vs monthly investing guide</a> explains the trade-off without assuming one path will occur.</p>
-      <p>Finally, mind inflation on long holds. At 3% inflation, the default's $445,392 buys what <strong>$285,880</strong> buys today — still a strong real outcome, but a third smaller than the nominal headline. For a windfall meant to fund something specific years from now, the real figure is the one to plan with.</p>`,
+      <p>At an assumed 3% inflation rate, the default $445,392 nominal result has modeled present purchasing power of <strong>$285,880</strong>. That result depends on both constant assumptions and is not a forecast or recommendation.</p>`,
     formulaHtml: `
       <p>One deposit and no additions make this the purest compounding case:</p>
       <div class="formula-block"><span class="fx">FV = P × (1 + r ⁄ m)<sup>m·t</sup></span>
@@ -46,48 +46,48 @@ export default {
           <li>the Rule of 72 approximates it as 72 ⁄ rate</li>
         </ul>
       </div>
-      <p>How good is the Rule of 72? Against exact annual-compounding doubling times computed by this library: at 6% it says 12.0 years (exact 11.90), at 8% both say 9.0 (exact 9.01), at 10% it says 7.2 (exact 7.27), at 12% it says 6.0 (exact 6.12). Tight through the single digits, drifting slightly optimistic above 10%.</p>`,
+      <p>Against exact annual-compounding doubling times computed by this library, the Rule of 72 gives 12.0 years at 6% (exact 11.90), 9.0 at 8% (exact 9.01), 7.2 at 10% (exact 7.27), and 6.0 at 12% (exact 6.12). The displayed errors are small through single digits, and the shortcut becomes slightly more optimistic above 10% in these examples.</p>`,
     exampleHtml: `
       <div class="example-block"><div class="ex-head">Example: a $100,000 windfall at 10% for 15 years</div><div class="ex-body">
         <p>Monthly rate = 0.10 ⁄ 12 = 0.008333; periods = 180. Growth factor: (1.008333)<sup>180</sup> = 4.45392.</p>
-        <p>FV = 100,000 × 4.45392 = <strong>$445,392</strong>, with $345,392 of growth on money touched exactly once.</p>
-        <p>Milestones from the table: $164,531 at year 5, $270,704 at year 10, $445,392 at year 15; each five-year block adds more than the one before. And the assumption band matters: the same windfall at 8% ends at $330,692, at 12% it ends at $599,580. The two dashed lines on the chart are that sentence, drawn.</p>
+        <p>FV = 100,000 × 4.45392 = <strong>$445,392</strong>, including $345,392 of modeled growth.</p>
+        <p>Milestones from the table are $164,531 at year 5, $270,704 at year 10 and $445,392 at year 15. The sensitivity band shows $330,692 at 8% and $599,580 at 12%; the chart plots those three scenario results.</p>
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Horizon sets the multiple.</strong> At 10% monthly the default doubles about every 7 years: 4.45× at 15 years came from the time, not from cleverness. The biggest risk to a lump sum plan is usually withdrawing it early.</li>
-        <li><strong>The rate assumption is a band.</strong> ±2 points around 10% spans $330,692 to $599,580 at 15 years, a $268,888 range on identical money. Compare several return assumptions and check whether the outcome would still be acceptable under the lower one.</li>
-        <li><strong>Entry timing.</strong> All-at-once and staged investing have different exposure paths. Compare them over a defined schedule and avoid treating the constant-return output as evidence about next month's market.</li>
-        <li><strong>Inflation and fees</strong> both compound against you: 3% inflation converts the default's 4.45× nominal into 2.86× real, and every 1% of annual fees costs multiples of itself over 15 years.</li>
+        <li><strong>Horizon sets the multiple.</strong> At the assumed 10% annual rate, compounded monthly, the default doubles about every 7 years and reaches 4.45× at 15 years. The calculator does not rank withdrawal, market or liquidity risks.</li>
+        <li><strong>Rate sensitivity.</strong> The ±2-point cases span $330,692 to $599,580 at 15 years, a $268,888 range on identical money. They show sensitivity only and do not assign probabilities.</li>
+        <li><strong>Entry timing.</strong> All-at-once and staged investing have different exposure paths; each can be represented by a defined schedule. Neither constant-return path is evidence about next month's market.</li>
+        <li><strong>Inflation and fees.</strong> At 3% inflation, the default 4.45× nominal result becomes 2.86× in today's purchasing power. A fee-inclusive scenario requires reducing the entered return by the assumed annual cost.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
-        <li>A <strong>constant return</strong> is assumed; real markets deliver the average through wild detours, and a lump sum feels every one of them from day one. The ±2% band understates how wide real outcomes can range.</li>
-        <li>Results are <strong>pre-tax and pre-fee</strong>; net your expected costs out of the return before entering it.</li>
-        <li>No withdrawals or top-ups are modeled — for a lump sum <em>plus</em> ongoing contributions, use the <a href="/compound-interest-calculator/">Compound Interest Calculator</a>.</li>
-        <li>Doubling times assume the entered rate holds indefinitely, which no rate does. Treat them as intuition-builders, not schedule commitments.</li>
+        <li>A <strong>constant return</strong> is assumed. A market investment can follow paths far outside the ±2-point sensitivity lines, including losses.</li>
+        <li>Results are <strong>pre-tax and pre-fee</strong>. Fees can be represented by reducing the entered annual return by the assumed annual cost.</li>
+        <li>No withdrawals or top-ups are modeled. The <a href="/compound-interest-calculator/">Compound Interest Calculator</a> models a lump sum plus ongoing contributions.</li>
+        <li>Doubling times assume the entered rate remains constant. Actual rates can vary over time, so the doubling result is not a schedule commitment.</li>
       </ul>`,
   },
   faq: [
     {
       q: "Should I invest a windfall all at once or spread it out?",
-      aHtml: `<p>This calculator cannot answer that from a constant return. Investing at once creates full market exposure immediately; staging reduces early exposure and keeps some money uninvested for longer. Compare a defined staged schedule, your need for the cash, transaction costs and how you would respond to an early loss. The <a href="/guides/lump-sum-vs-monthly-investing/">companion guide</a> shows both modeled paths.</p>`,
+      aHtml: `<p>This calculator cannot answer that from a constant return. Investing at once creates full market exposure immediately; a defined staged schedule produces a different exposure path and leaves some money uninvested for longer. Liquidity needs, transaction costs and responses to early losses are outside the calculation. The <a href="/guides/lump-sum-vs-monthly-investing/">companion guide</a> shows both modeled paths.</p>`,
     },
     {
       q: "How accurate is the Rule of 72?",
-      aHtml: `<p>Very, in the range that matters. Library-computed exact doubling times with annual compounding: 11.90 years at 6% (rule says 12.0), 9.01 at 8% (rule: 9.0), 7.27 at 10% (rule: 7.2), 6.12 at 12% (rule: 6.0). With monthly compounding money doubles slightly faster — 6.96 years at 10%. For mental math on any investment pitch, 72 ÷ rate is reliable to within a few months.</p>`,
+      aHtml: `<p>In the displayed 6–12% annual-compounding examples, the shortcut is close: 11.90 years at 6% versus 12.0, 9.01 at 8% versus 9.0, 7.27 at 10% versus 7.2, and 6.12 at 12% versus 6.0. Accuracy varies outside that range and the estimate still assumes the rate remains constant.</p>`,
     },
     {
       q: "What does the growth multiple actually tell me?",
-      aHtml: `<p>It's the ending value per unit invested — a horizon-and-rate summary that's easier to compare than either input alone. 4.45× means every $1,000 of the windfall became $4,454. Multiples also expose long-horizon stakes clearly: the difference between 8% and 10% for 15 years reads as "just two points" but is 3.31× versus 4.45×, about a third more money from the same deposit.</p>`,
+      aHtml: `<p>It is the ending value per unit invested under the entered horizon and rate. A 4.45× result means every $1,000 becomes a modeled $4,454. In the 15-year sensitivity examples, 8% produces 3.31× and 10% produces 4.45×, so the latter modeled ending value is about one-third larger from the same deposit.</p>`,
     },
     {
       q: "Why show the result at rate ±2% instead of just my rate?",
-      aHtml: `<p>Because a single projected curve manufactures false confidence. Expected returns are estimates with wide error bars, and 15-year outcomes at 8%, 10% and 12% span $330,692 to $599,580 on the default input. Seeing the band tells you what your plan risks and what it might deliver — if the goal only works on the top line, the plan needs more money or more time, not more optimism.</p>`,
+      aHtml: `<p>The three lines expose sensitivity to the assumed rate: 15-year results at 8%, 10% and 12% span $330,692 to $599,580 on the default input. They are not confidence bounds and do not describe the probability or full range of market outcomes.</p>`,
     },
     {
       q: "Does this calculator work for fixed deposits and bonds too?",
-      aHtml: `<p>Yes, with the right settings: use the deposit's rate with its actual compounding frequency (yearly or quarterly for many FDs; use yearly if you're given an effective annual yield). For bonds where coupons are paid out rather than reinvested, growth is linear, not compound — the <a href="/simple-interest-calculator/">Simple Interest Calculator</a> models that case and shows the reinvestment gap explicitly.</p>`,
+      aHtml: `<p>The model can represent a fixed deposit when the entered annual rate and compounding frequency match its disclosure. A bond whose coupons are paid rather than reinvested has different cash flows; the <a href="/simple-interest-calculator/">Simple Interest Calculator</a> models a non-reinvested linear case.</p>`,
     },
   ],
 };

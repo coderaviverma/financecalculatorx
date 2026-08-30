@@ -9,7 +9,7 @@ export default {
   tagline:
     "Create a dated mortgage schedule and review each payment's principal, interest, balance and estimated payoff date.",
   cardDescription: "Dated month-by-month schedule with the principal/interest crossover point.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-08-30",
   version: "1.0",
   popular: false,
   featured: false,
@@ -21,7 +21,7 @@ export default {
     howToHtml: `
       <p>Set the loan amount, rate and term, then pick the month and year of your first payment. The whole schedule is dated from there, so any row answers "what will I owe in March 2031?" directly.</p>
       <ul>
-        <li><strong>First payment month/year</strong> comes from your closing disclosure; in US practice it's commonly the first day of the second month after closing.</li>
+        <li><strong>First payment month/year</strong> comes from the closing disclosure or payment schedule. The calculator does not infer it from the closing date.</li>
         <li><strong>Extra monthly payment</strong> is optional. Adding one redraws the entire schedule, moves the crossover earlier and pulls in the final payment date.</li>
         <li><strong>Annual vs monthly views</strong>: the annual view shows each 12-payment year with its date range; switch to monthly to find a specific payment, or export the CSV for your records.</li>
       </ul>
@@ -54,7 +54,7 @@ export default {
       <ul>
         <li><strong>Rate sets the crossover.</strong> Higher rates push the crossover later because more of each fixed payment is consumed by interest. At the default 6.25% it lands 19 years in; at lower rates it arrives years earlier on the same term.</li>
         <li><strong>Extra payments compound through the schedule.</strong> Every prepaid dollar removes its own future interest, so the $200/month example saves $99,019, far more than 200 × 282. Earlier extras matter most, while the balance is largest.</li>
-        <li><strong>Start date is bookkeeping, not economics.</strong> Shifting the first payment month relabels the dates without changing any amount, but it matters for tax-year interest totals and for timing a future recast.</li>
+        <li><strong>Start date labels the schedule.</strong> Shifting the first payment month changes calendar rows without changing amounts under this model.</li>
         <li><strong>Term length dominates total interest.</strong> The same loan on a 20-year schedule crosses over at payment #108 instead of #228 and pays about 38% less lifetime interest, at a higher required payment.</li>
       </ul>`,
     limitationsHtml: `
@@ -80,11 +80,11 @@ export default {
     },
     {
       q: "Where do property tax and insurance appear in the schedule?",
-      aHtml: `<p>They don't — and that's correct. Escrowed tax and insurance are pass-through costs the servicer collects with your payment, but they never touch the loan balance, so no amortization schedule includes them. When comparing this schedule to your statement, compare against the principal-and-interest portion only.</p>`,
+      aHtml: `<p>They are excluded because this schedule models only principal and interest. A statement may display tax, insurance or other escrow items beside the loan payment, but those cash flows are outside this balance calculation.</p>`,
     },
     {
       q: "Can I use this for a loan that's already a few years old?",
-      aHtml: `<p>Yes: enter your current balance as the loan amount, the remaining years as the term, and the next payment date as the start. The schedule from your original closing and this one will match from that point forward, because amortization has no memory beyond the current balance.</p>`,
+      aHtml: `<p>Enter the current principal balance, fixed rate, remaining term and next payment month. It will match the original schedule from that point only if the same accrual convention, payment amount, timing, fees and rate still apply.</p>`,
     },
   ],
 };

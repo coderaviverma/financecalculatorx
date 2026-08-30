@@ -5,11 +5,11 @@ export default {
   h1: "Loan Calculator",
   metaTitle: "Loan Calculator — Monthly Payment, Total Interest & Schedule",
   metaDescription:
-    "Calculate any loan's monthly payment, total interest and full amortization schedule. Add extra payments to see interest saved and a faster payoff date.",
+    "Calculate a fixed-rate, equal-monthly-payment loan's payment, interest and amortization schedule, with an optional principal-extra scenario.",
   tagline:
     "Check a fixed-rate loan's monthly payment and total interest, then see how extra payments change the schedule.",
-  cardDescription: "Monthly payment, total interest and full amortization for any fixed-rate loan.",
-  lastReviewed: "2026-07-22",
+  cardDescription: "Monthly payment, interest and amortization for a fixed-rate equal-payment loan.",
+  lastReviewed: "2026-08-30",
   version: "1.0",
   popular: true,
   featured: true,
@@ -22,7 +22,7 @@ export default {
       <ul>
         <li><strong>Loan amount</strong> is the principal you receive, before any fees are deducted.</li>
         <li><strong>Interest rate</strong> is the annual nominal rate. If your lender charges origination fees, the true cost (APR) is higher than the nominal rate — by how much depends on the fee; the <a href="/loan-comparison-calculator/">Loan Comparison Calculator</a> handles fees explicitly.</li>
-        <li><strong>Term</strong> switches between years and months with the toggle. Typical term ranges vary by lender and market: car loans are often in the 36–72 month range and personal loans 12–84 months, but use the term from your own offer.</li>
+        <li><strong>Term</strong> switches between years and months with the toggle. Enter the number of payments from the written offer.</li>
         <li><strong>Extra monthly payment</strong> is optional. Anything you add is applied directly to principal, and the schedule, payoff date and interest figures update to show the effect.</li>
       </ul>
       <p>Use <em>Copy link</em> to share a calculation (the link reproduces your exact inputs), and the schedule can be exported to CSV or printed as a report.</p>`,
@@ -31,7 +31,7 @@ export default {
       <p>Many fixed-rate personal, car, education and home loans are <strong>amortizing loans</strong>: you repay them in scheduled installments, and each installment is split between interest and principal. The split is not fixed. In the monthly reducing-balance model used here, interest is charged on the balance you still owe, so in month one, when the balance is highest, the interest share is at its peak. As the balance falls, the interest portion of each payment shrinks and the principal portion grows until the final modeled payment clears the balance.</p>
       <p>This is why the early years of a loan feel unproductive: on a 5-year, ${"$"}20,000 loan at 7.5%, about ${"$"}125 of the first ${"$"}400.76 payment is interest. By the final year, interest is only a few dollars per payment. The amortization table below the calculator shows this crossover explicitly for your numbers.</p>
       <p>A longer term lowers the required payment but adds more months of interest. An extra principal payment has a larger modeled effect earlier in the schedule because the reduced balance affects more future periods. Compare both the payment and the total interest before choosing a term.</p>
-      <p>The calculator assumes a reducing balance with the annual rate divided into monthly periods. This is a common fixed-payment convention, but lenders may instead use daily accrual, different day-count rules, fees or payment-rounding methods. If you've seen "flat rate" loans advertised (interest charged on the original balance for the whole term), compare the total repayment or legally disclosed APR rather than comparing the headline percentages directly.</p>`,
+      <p>The calculator assumes a reducing balance with the annual rate divided into monthly periods. An actual contract may use daily accrual, a different day-count rule, fees or another rounding method. A flat-rate quote follows different arithmetic, so compare its disclosed total repayment or regulated annual cost rather than entering the headline percentage here.</p>`,
     formulaHtml: `
       <p>The monthly payment on a fixed-rate amortizing loan is:</p>
       <div class="formula-block"><span class="fx">M = P × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]</span>
@@ -42,7 +42,7 @@ export default {
           <li><code>n</code> number of monthly payments</li>
         </ul>
       </div>
-      <p>Each month the schedule is computed as: interest = balance × <code>r</code>; principal = payment − interest; new balance = balance − principal − any extra payment. When the rate is 0%, the payment is simply <code>P ÷ n</code>. Figures are rounded to the cent for display, and the final payment is adjusted by a few cents where needed so the balance closes at exactly zero. Payments are assumed to be made at the end of each month, a common lender convention.</p>`,
+      <p>Each month the schedule is computed as: interest = balance × <code>r</code>; principal = payment − interest; new balance = balance − principal − any extra payment. When the rate is 0%, the payment is <code>P ÷ n</code>. Figures are rounded to cents for display, the last payment is adjusted to close the balance, and payments are assumed at month-end.</p>`,
     exampleHtml: `
       <div class="example-block"><div class="ex-head">Example: $20,000 over 5 years at 7.5%</div><div class="ex-body">
         <p>Monthly rate <code>r</code> = 0.075 ÷ 12 = 0.00625, term <code>n</code> = 60 payments.</p>
@@ -60,7 +60,7 @@ export default {
     limitationsHtml: `
       <ul>
         <li>Results assume a <strong>fixed rate for the whole term</strong> and equal monthly payments. Variable-rate loans will deviate as their rate changes.</li>
-        <li>Interest is compounded <strong>monthly on the reducing balance</strong>. A few lenders use daily accrual, which produces totals a fraction of a percent different.</li>
+        <li>Interest is compounded <strong>monthly on the reducing balance</strong>. Daily accrual or another day-count method produces a different schedule.</li>
         <li>Fees, insurance add-ons, taxes and late-payment charges are <strong>not included</strong>.</li>
         <li>The payoff date assumes the first payment is one month from today and no payments are missed.</li>
         <li>Figures are estimates for planning and education. Your lender's official quote and amortization statement govern the actual loan.</li>
@@ -77,7 +77,7 @@ export default {
     },
     {
       q: "Does this work for car and education loans?",
-      aHtml: `<p>Yes — any fixed-rate loan repaid in equal monthly installments follows this math. For car loans, remember the loan often covers taxes and add-ons, not just the vehicle price. For education loans that defer payments while studying, interest that accrues during the deferment is often capitalized (added to the balance) when repayment begins — rules differ by loan program and jurisdiction, so check your terms and enter the balance at the point repayment begins.</p>`,
+      aHtml: `<p>It can model a car or education loan only when the contract uses a fixed rate, equal monthly payments and the stated monthly reducing-balance convention. Taxes, add-ons, deferment, capitalization and program-specific rules are excluded. Enter the balance at the start of the repayment schedule being modeled.</p>`,
     },
     {
       q: "Is the interest rate here the same as APR?",

@@ -3,11 +3,11 @@ export default {
   title: "How Inflation Affects Your Savings",
   metaTitle: "How Inflation Affects Savings — Real Returns",
   metaDescription:
-    "Why a growing balance can still lose purchasing power: the real-return formula, computed examples at 3% inflation, and what savers can actually do about it.",
+    "Why a growing balance can still lose purchasing power: the real-return formula, computed examples at 3% inflation, and scenarios at different rates.",
   description:
-    "Inflation reprices every dollar you save. Here is the math of purchasing power, the real-return formula, and what savers can do about it.",
+    "Inflation changes the purchasing power of a future balance. Here is the real-return formula and the effect of alternative rate assumptions.",
   cardDescription: "The arithmetic of purchasing power: real returns, computed examples, and honest options for savers.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-08-30",
   published: "2026-07-12",
   categories: ["savings", "investment"],
   aliases: [],
@@ -46,31 +46,31 @@ export default {
 <p>Over a decade, $10,000 in that example grows to $10,513 on paper. Deflated, it is worth <strong>$7,822</strong> in today's money. The account added $513 while purchasing power fell by roughly $2,178 overall. Run your own rate and horizon through the <a href="/savings-calculator/">savings calculator</a> and compare it with an inflation assumption relevant to your currency and goal.</p>
 
 <div class="callout warn"><span class="c-title">The illusion is strongest when inflation is highest</span>
-<p>High-inflation periods often come with rising deposit rates, so balances grow faster and savers feel richer precisely when they are losing ground fastest. A 6% deposit rate during 8% inflation is a −1.85% real return, worse than 2% interest during 3% inflation. Always judge the pair, never the rate alone.</p>
+<p>A higher nominal deposit rate can still produce a negative real return. A 6% deposit rate during 8% inflation is a −1.85% real return, while 2% interest during 3% inflation is −0.97%. Comparing both the nominal rate and inflation assumption reveals the modeled purchasing-power change.</p>
 </div>
 
-<h2>Set goals in real terms</h2>
-<p>Every long-horizon target (retirement, a child's education, a future house) should be framed in today's money and then inflated, not the other way around. The reason is the size of the adjustment. A $1,000,000 retirement balance 30 years from now is worth, in today's purchasing power:</p>
+<h2>Expressing a goal in today's money</h2>
+<p>A long-horizon target can be shown both as a future nominal amount and as estimated purchasing power today. The adjustment can be large: a $1,000,000 balance 30 years from now is worth, in today's purchasing power:</p>
 <ul>
 <li><strong>$552,071</strong> if inflation averages 2%</li>
 <li><strong>$411,987</strong> if inflation averages 3%</li>
 <li><strong>$308,319</strong> if inflation averages 4%</li>
 </ul>
-<p>The same headline number spans nearly a factor of two in real value depending on one assumption. Lowballing inflation breaks retirement math in the least visible way possible: assume 2% in a world that delivers 3%, and a plan that looked fully funded arrives about 25% short in buying power, with no single year in which anything visibly went wrong. When you project savings with the <a href="/investment-calculator/">investment calculator</a>, use its inflation field and read the "in today's money" result as the real answer; the nominal figure is only useful for comparing against future statements.</p>
-<p>The same discipline applies to costs. Something that costs $10,000 today costs about <strong>$18,061</strong> in 20 years at 3% inflation. And in some periods and markets, categories such as education and healthcare have risen faster than the broad price index, so category-specific goals deserve category-specific rates.</p>
+<p>The same headline number spans nearly a factor of two in real value depending on the inflation assumption. If a model uses 2% but the realized average is 3%, the resulting purchasing power is about 25% below that projection. The <a href="/investment-calculator/">investment calculator</a> reports both nominal balance and an inflation-adjusted scenario so the assumption remains visible.</p>
+<p>The calculation also applies to a specific future cost. Something priced at $10,000 today becomes about <strong>$18,061</strong> after 20 years under a constant 3% increase. A broad inflation index may not match a particular education, healthcare or housing cost, so the result is only as relevant as the rate chosen for that goal.</p>
 
-<h2>What savers can do about it</h2>
-<p>You cannot know the future inflation path, but you can make the assumption visible and test more than one rate.</p>
+<h2>Variables to compare</h2>
+<p>The future inflation path is unknown, but the model can make each assumption visible and compare more than one case.</p>
 <ul>
-<li><strong>Shop the rate.</strong> Rate dispersion is real and documented: the FDIC's <a href="https://www.fdic.gov/national-rates-and-rate-caps" rel="noopener">national deposit-rate data</a> (July 2026) put the average US savings rate at 0.38%, while competitive accounts within <a href="https://www.fdic.gov/resources/deposit-insurance" rel="noopener">deposit-insurance limits</a> have paid several points more; similar spreads appear in other markets, so check current rates when you compare. On the ten-year example above, that spread is the difference between losing $2,178 of purchasing power and roughly breaking even — a large modelled difference for the effort of comparing rates, though account terms, access restrictions and rate changes after opening all affect the realized outcome.</li>
-<li><strong>Match the instrument to the horizon.</strong> Money needed within a year or two belongs in cash-like instruments regardless of real return; its job is to be there, a point our guide on <a href="/guides/how-much-emergency-fund/">emergency funds</a> makes in detail. Money not needed for five or ten years is where negative real returns compound into real damage.</li>
-<li><strong>For long horizons, accept some volatility.</strong> Assets with higher expected returns, broad equity funds being the standard example, have historically outpaced inflation over long periods. The caveat: they do it erratically, with drawdowns of 20% or more along the way and no guarantee over any particular decade. Cash and investments serve different purposes: cash offers stability and access, investments offer higher expected long-run returns with real drawdown risk, and the right mix depends on your horizon and capacity for loss. Products advertising unusually high returns with little or no risk deserve careful examination of their guarantees, fees and issuer risk before any money moves.</li>
-<li><strong>Consider inflation-linked instruments.</strong> Several governments issue bonds whose principal or interest tracks an inflation index (such as <a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/treasury-inflation-protected-securities-tips" rel="noopener">TIPS</a> in the US). Yields are modest, but they are one of the few direct hedges available to ordinary savers. Availability and tax treatment vary by country.</li>
-<li><strong>Re-check assumptions periodically.</strong> Inflation is not constant; it varies year to year and regime to regime. A plan reviewed annually with updated figures degrades gracefully; one set once in nominal terms degrades silently.</li>
+<li><strong>Deposit-rate scenario.</strong> The FDIC's <a href="https://www.fdic.gov/national-rates-and-rate-caps" rel="noopener">national deposit-rate data</a> listed the US national savings rate as 0.38% on August 17, 2026. That is a national data point, not a quote for a particular account. Compare it with the disclosed rate, fees, access terms and <a href="https://www.fdic.gov/resources/deposit-insurance/" rel="noopener">deposit-insurance status</a> of any account being modeled.</li>
+<li><strong>Horizon and access.</strong> A short fixed horizon and a long flexible horizon expose money to different liquidity and loss constraints. The <a href="/guides/how-much-emergency-fund/">emergency-fund guide</a> shows how access time and principal volatility affect a cash-runway example.</li>
+<li><strong>Volatility scenario.</strong> A constant positive return cannot represent market losses or their timing. For any investment case, include a lower-return or loss scenario and keep it separate from the deposit-rate case; this guide does not select an asset allocation.</li>
+<li><strong>Inflation-linked instruments.</strong> The US Treasury explains how <a href="https://www.treasurydirect.gov/marketable-securities/tips/" rel="noopener">Treasury Inflation-Protected Securities (TIPS)</a> adjust principal using the Consumer Price Index. Market value, yield, tax and access characteristics still differ from a savings account, and other countries have different instruments.</li>
+<li><strong>Review date.</strong> Inflation and account rates change. Updating both inputs at the same time prevents a current nominal rate from being compared with an obsolete inflation assumption.</li>
 </ul>
 
 <div class="callout note"><span class="c-title">A useful rule of thumb</span>
-<p>Divide 72 by the inflation rate to estimate how many years prices take to double: at 3%, roughly 24 years (the exact factor is 2.03×). If your money's horizon is longer than that doubling time, inflation is not a footnote to your plan; it is roughly half of it.</p>
+<p>Dividing 72 by an annual inflation rate gives a rough doubling-time estimate. At 3%, the shortcut gives 24 years; the exact price factor after 24 years is about 2.03×. It is an approximation for understanding compounding, not a forecast of future inflation.</p>
 </div>
 
 <p>Keep both versions of a long-term target: the amount that may appear on a future statement and its estimated value in today's money. Revisit the inflation assumption as the goal gets closer, especially when its main cost—such as housing, education or healthcare—has moved differently from a broad consumer-price index.</p>

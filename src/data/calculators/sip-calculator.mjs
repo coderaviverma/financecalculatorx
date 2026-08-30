@@ -10,7 +10,7 @@ export default {
     "Model a monthly SIP with optional annual step-ups and a lump sum, separating contributions from projected growth.",
   cardDescription: "SIP maturity value with annual step-up and invested-vs-gains breakdown.",
   scenarioHint: "Save your SIP as Scenario A, then change the monthly amount, expected return or step-up percentage and save Scenario B to see the difference at maturity.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-08-30",
   version: "1.0",
   popular: true,
   featured: true,
@@ -23,15 +23,15 @@ export default {
     howToHtml: `
       <p>Start with your monthly SIP amount, the annual return you want to assume, and how long you'll stay invested. Two optional fields change the picture meaningfully:</p>
       <ul>
-        <li><strong>Annual step-up</strong>: raises the SIP by a fixed percentage every year, the way most fund houses' step-up/top-up facilities work. Matching it to your own expected salary growth keeps your investing rate roughly constant as a share of income: for example, a 7% step-up turns a ₹10,000 SIP into ₹10,700 a month in year two.</li>
+        <li><strong>Annual step-up</strong>: raises the modeled monthly contribution by a fixed percentage each year. For example, 7% changes ₹10,000 to ₹10,700 in year two. This is a cash-flow assumption, not a fund feature or salary forecast.</li>
         <li><strong>Initial lump sum</strong>: money invested on day one alongside the SIP, useful when you're deploying a bonus and starting a SIP at the same time.</li>
       </ul>
       <p>The chart stacks what you invested against what compounding added, and the table tracks both year by year. The fourth metric always shows the step-up counterfactual (with a 10% step-up if you left it at zero, without one if you set it), so the comparison is one glance away.</p>`,
     explanationHtml: `
       <h2>How a SIP works</h2>
       <p>A SIP, short for systematic investment plan, is a standing instruction to buy mutual fund units for a set amount on a recurring date. The number of units changes with the fund's NAV. A lower NAV buys more units and a higher NAV buys fewer, but this averaging does not guarantee a profit or a better return than investing earlier. Its practical feature is regularity: the purchase happens on schedule without requiring a fresh timing decision each month.</p>
-      <p>The default projection shows the shape of the outcome: ₹10,000 a month for 15 years at an assumed 12% grows to about <strong>₹49.96 lakh</strong>, of which ₹18 lakh is your money and ₹31.96 lakh is growth, a 2.78× multiple on what you put in. Stretch the same SIP to 20 years and it reaches roughly ₹98.93 lakh: the last five years contribute nearly as much as the first fifteen, which is the compounding argument for starting early and not interrupting.</p>
-      <p><strong>Step-up SIPs</strong> are the practical upgrade most plans miss. A SIP that stays at ₹10,000 for 15 years shrinks year after year relative to a growing salary. Adding a 10% annual step-up to the default plan lifts the maturity value from ₹49.96 lakh to about <strong>₹85.98 lakh</strong>, a ₹36 lakh improvement, of which ₹20.13 lakh is extra money you invested and the rest is growth on it. You invest more in total (₹38.13 lakh vs ₹18 lakh), but the increases arrive gradually, in step with income.</p>
+      <p>The default projection shows the shape of the constant-return model: ₹10,000 a month for 15 years at an assumed 12% becomes about <strong>₹49.96 lakh</strong>, of which ₹18 lakh is contributions and ₹31.96 lakh is modeled growth. At 20 years it becomes roughly ₹98.93 lakh because the calculation adds both more contributions and more growth periods.</p>
+      <p><strong>A step-up changes both deposits and modeled growth.</strong> Adding a 10% annual increase lifts the default maturity value from ₹49.96 lakh to about <strong>₹85.98 lakh</strong>. Contributions also rise from ₹18 lakh to ₹38.13 lakh, so the ₹36 lakh difference is not attributable to compounding alone. Whether later contribution amounts are feasible is outside the model.</p>
       <p>One distinction worth knowing before you compare this projection with a fund factsheet: this calculator assumes a constant return every year, while real SIP returns are reported as <strong>XIRR</strong>, the internal rate of return across your actual dated purchases, which can differ noticeably from the fund's headline point-to-point return. Both are legitimate numbers; they're just answers to different questions.</p>`,
     formulaHtml: `
       <p>A level SIP with end-of-month installments is a future-value annuity:</p>
@@ -53,13 +53,13 @@ export default {
       <ul>
         <li><strong>Duration.</strong> The flat default SIP reaches ₹23 lakh in 10 years, ₹49.96 lakh in 15, and ₹98.93 lakh in 20 under the same 12% assumption. A longer horizon adds both contributions and compounding periods.</li>
         <li><strong>Return assumption.</strong> At 10% instead of 12%, the default lands at ₹41.45 lakh; at 14%, ₹60.58 lakh. Run more than one rate and treat each result as a scenario.</li>
-        <li><strong>Step-up percentage.</strong> Linking it to real salary growth keeps the plan sustainable; setting 10% when raises run 5% eventually forces a downgrade, which breaks the discipline that makes SIPs work.</li>
-        <li><strong>Expense ratios</strong> come straight out of returns — a fund charging 1.5% more than another needs to outperform by that much every year just to tie.</li>
+        <li><strong>Step-up percentage.</strong> The field increases future contributions mechanically. Compare the later rupee amounts with a separate cash-flow budget rather than assuming income grows at the same rate.</li>
+        <li><strong>Fees.</strong> Expense ratios and other recurring costs reduce net returns. Enter a net return if the projection is intended to reflect them.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
         <li>Real equity-fund returns are <strong>volatile</strong>, not a smooth 12% — actual SIP outcomes depend on the sequence of good and bad years, and reported fund returns use XIRR over actual dates. This projection is a planning centerline.</li>
-        <li>Results are <strong>pre-tax</strong>. Indian mutual fund taxation (LTCG/STCG rates, holding-period rules) has changed several times; check the current rules before assuming a net figure.</li>
+        <li>Results are <strong>pre-tax</strong>. Applicable treatment depends on the investment, transaction date, holding period and current Indian tax rules.</li>
         <li>Installments are modeled on time every month; skipped or paused months reduce the outcome below the projection.</li>
         <li>No exit loads, expense ratios, or advisory fees are modeled — net them out of the return you enter.</li>
       </ul>`,
@@ -75,7 +75,7 @@ export default {
     },
     {
       q: "Does rupee-cost averaging increase my returns?",
-      aHtml: `<p>Not reliably, and it's healthier to know that upfront. Averaging lowers your cost per unit relative to the average NAV, but in a generally rising market, money invested later simply buys less. What averaging genuinely does is reduce the impact of any single badly-timed purchase and make investing automatic. The discipline is the product; the averaging is a side effect.</p>`,
+      aHtml: `<p>No guaranteed increase follows from averaging. Equal rupee purchases buy more units at a lower NAV and fewer at a higher NAV, so the result depends on the sequence of prices and the ending value. This calculator replaces that sequence with one constant return and therefore cannot measure the timing benefit or cost.</p>`,
     },
     {
       q: "What is XIRR and why does my fund app show a different return?",
@@ -83,7 +83,7 @@ export default {
     },
     {
       q: "How are SIP gains taxed?",
-      aHtml: `<p>Each installment is a separate purchase with its own holding period, so units sold are matched first-in-first-out and taxed by how long that specific installment was held. Rates and thresholds for equity LTCG/STCG have been revised repeatedly in recent years, so check the current rules (or a tax adviser) before netting the projection. This calculator deliberately shows pre-tax figures.</p>`,
+      aHtml: `<p>This calculator does not implement tax-lot matching, holding-period classifications, rates or thresholds. Those depend on the investment type, sale date and current Indian tax rules. The projection is deliberately pre-tax, so use an authoritative current source for an after-tax calculation.</p>`,
     },
     {
       q: "Should I pause my SIP when markets fall?",

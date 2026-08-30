@@ -3,11 +3,11 @@ export default {
   title: "Rent vs Buy: What Costs Should You Compare?",
   metaTitle: "Rent vs Buy — Which Costs Actually Compare?",
   metaDescription:
-    "Rent versus mortgage payment is the wrong comparison. A checklist: transaction costs, down-payment opportunity cost, carry costs, rent growth and horizon.",
+    "A payment-only rent-versus-buy comparison omits transaction costs, down-payment opportunity cost, carrying costs, equity and the holding period.",
   description:
     "Comparing rent to a mortgage payment misses most of the real costs on both sides. A checklist of what belongs in a fair comparison — and what decides it.",
-  cardDescription: "The complete cost checklist for an honest rent-vs-buy comparison, on both sides of the ledger.",
-  lastReviewed: "2026-07-22",
+  cardDescription: "Cost categories to place on both sides of a rent-vs-buy scenario.",
+  lastReviewed: "2026-08-30",
   published: "2026-07-12",
   categories: ["mortgage", "personal"],
   aliases: [],
@@ -20,7 +20,7 @@ export default {
 <p>A mortgage payment and a rent payment buy different things. Rent buys housing, complete. A mortgage payment buys housing <em>plus</em> a slice of an asset. Part of it is interest (a true cost) and part is principal (money moved into home equity, not spent). So the mortgage payment overstates the cost of owning in one way, while leaving out three categories that understate it far more.</p>
 
 <h3>1. Transaction costs: the toll booths at both ends</h3>
-<p>Buying a home typically costs around <strong>2–5% of the price in closing costs</strong> (loan fees, title, taxes, inspections; the mix varies by country and state, and the <a href="https://www.consumerfinance.gov/owning-a-home/process/close/" rel="noopener">CFPB's closing checklist</a> itemizes what you pay at signing), and selling later has commonly cost on the order of <strong>5–6%</strong> in agent commissions and seller costs in the US market, though commissions are negotiable and fee structures have been changing — use a locally realistic figure. On a $400,000 home that is roughly $8,000–$20,000 on the way in and about $24,000 on the way out, call it $32,000 round-trip at the modest end. None of it builds equity; it is pure cost, and it happens whether you own the home for two years or twenty. That fixed toll is the mathematical reason short ownership rarely pays.</p>
+<p>The CFPB says US closing costs are typically <strong>2–5% of the purchase price</strong>; its <a href="https://www.consumerfinance.gov/owning-a-home/prepare/determine-your-down-payment/" rel="noopener">down-payment planning page</a> explains the range, while actual amounts appear on transaction disclosures. Selling costs have no universal percentage and can include commissions, legal or transfer charges, taxes and preparation costs. Enter a locally supported estimate. Because both entry and exit costs occur regardless of the holding period, they weigh more per year in a short scenario.</p>
 
 <h3>2. The down payment has an opportunity cost</h3>
 <p>Money locked in a house is money not invested elsewhere, and the growth it would have earned is a real cost of buying: invisible, but computable.</p>
@@ -31,32 +31,32 @@ export default {
 <p>The same logic applies to the closing costs and to any months where owning costs more out of pocket than renting: a disciplined renter can invest those differences too. "Disciplined" is doing real work in that sentence; more on that below.</p>
 
 <h3>3. Owning has carry costs that never amortize</h3>
-<p>The loan eventually ends; these don't. Property tax (commonly 0.3–2%+ of value per year depending on location), homeowner's insurance, and maintenance and repairs all continue, plus HOA or society dues where they apply. For maintenance, a standard planning figure is <strong>about 1% of the home's value per year</strong>, roughly $4,000 annually on a $400,000 home, lumpy in practice. Together these can add substantially to the principal-and-interest payment; the exact share depends on location and property. The <a href="/mortgage-calculator/">mortgage calculator</a> assembles the full monthly figure including tax and insurance, which is the number that belongs in the comparison, not the bare loan payment.</p>
+<p>Property tax, homeowner's insurance, maintenance, repairs and any HOA or society dues continue outside principal and interest. Their amounts depend on location, property and coverage rather than a universal percentage. Use actual tax records, insurance quotes, association documents and a property-specific maintenance estimate. The <a href="/mortgage-calculator/">mortgage calculator</a> can assemble entered tax and insurance amounts with principal and interest.</p>
 
 <h2>What the rent side hides</h2>
 <p>Renting's costs are simpler but not smaller; they are just deferred.</p>
-<p><strong>Rent grows, and growth compounds.</strong> A fixed mortgage payment is flat for decades (taxes and insurance rise, but the P&amp;I core doesn't). Rent gets repriced every year. At 3.5% annual increases, a $1,900 rent becomes <strong>$2,180 by year 5</strong> and <strong>$2,590 by year 10</strong>. Over the decade, the renter pays about <strong>$267,476</strong> in total, which is $39,476 more than the $228,000 that "rent times 120 months" suggests. Naive comparisons freeze rent at today's figure and silently flatter renting by exactly that compounding.</p>
-<p><strong>Moving churn.</strong> Renters tend to move more often than owners (<a href="https://www.census.gov/data/tables/time-series/demo/geographic-mobility/historic.html" rel="noopener">US Census mobility data</a> consistently show higher moving rates for renters), sometimes by choice, sometimes because a lease isn't renewed. Each move costs money directly (movers, deposits, overlap days, fees) and indirectly (time, commute changes). It rarely appears in spreadsheets and reliably appears in life.</p>
+<p><strong>Rent-growth assumptions compound.</strong> A fixed-rate mortgage's principal-and-interest payment is level in this model, while tax, insurance and rent can change. At an illustrative constant 3.5% rent increase, $1,900 becomes <strong>$2,180 by year 5</strong> and <strong>$2,590 by year 10</strong>. Cumulative rent is about <strong>$267,476</strong>, versus $228,000 under a 0% growth assumption. Neither path is a forecast; compare multiple rates.</p>
+<p><strong>Moving costs.</strong> <a href="https://www.census.gov/data/tables/time-series/demo/geographic-mobility/historic.html" rel="noopener">US Census mobility tables</a> can provide population-level context, but they do not predict one household's moves. Include movers, nonrefundable fees and overlap days only when the scenario assumes a move, and use the applicable lease terms for deposits.</p>
 <p><strong>No equity, by design.</strong> Every rent payment is fully consumed. That is not a moral failing (the renter is buying flexibility with that money), but at the end of ten years the renter's housing spending has purchased zero assets, while a comparable owner has both forced principal repayment and any price appreciation. Whether the owner comes out ahead <em>after</em> all the costs above is exactly what a proper model has to determine; it is not a foregone conclusion in either direction.</p>
 
 <h2>Equity: forced savings, with a catch</h2>
-<p>The principal portion of each mortgage payment is a transfer to yourself, an automatic savings plan enforced by the lender, which for many households is the only savings plan that ever survives contact with a checking account. This behavioral feature is real and counts in buying's favor: the renter who was supposed to invest the monthly difference often doesn't.</p>
-<p>The catch is liquidity. Home equity is wealth you cannot spend without either borrowing against it (at interest, with fees) or selling the house (5–6% cost, plus finding somewhere to live). A portfolio can be sold in minutes at negligible cost; equity cannot. Treat home equity as real but slow wealth: excellent for net worth, poor for emergencies, which is why owners still need a proper cash buffer (see <a href="/guides/how-much-emergency-fund/">how much emergency fund you need</a>).</p>
+<p>The principal portion of a scheduled mortgage payment reduces the loan balance and therefore increases equity, all else equal. The renter-side model credits investment growth only if the assumed upfront cash remains invested. This is a modeling assumption about cash flows, not a claim about how owners or renters generally behave.</p>
+<p>Home equity and an investment account also differ in access, fees, price risk and tax treatment. Equity generally requires a sale or borrowing transaction to convert to cash, while an investment may require a market sale and can be worth less when sold. Enter transaction costs explicitly and keep emergency-cash needs outside the housing-equity total.</p>
 
-<h2>Horizon is the master variable</h2>
-<p>Almost every input above scales with time in a way that favors longer stays: transaction costs are fixed and amortize over more years, equity building accelerates as the loan matures (see <a href="/guides/how-loan-amortization-works/">how loan amortization works</a>), and rent growth compounds against the renter. Spread that $32,000 round-trip toll over 3 years and it is roughly <strong>$889 per month</strong> of pure cost; over 10 years it is about <strong>$267 per month</strong>. Same house, same toll; the stay length alone moves the answer.</p>
+<h2>Why the holding period matters</h2>
+<p>Transaction costs occur at entry and the assumed sale, loan amortization changes equity over time, and the rent-growth assumption compounds each year. For an illustrative $32,000 total transaction-cost input, dividing by 3 years gives about <strong>$889 per month</strong>; over 10 years it is about <strong>$267 per month</strong>. That arithmetic explains why changing only the holding period can change a result, without asserting that longer ownership always costs less.</p>
 <p>A short expected stay gives the buyer fewer years over which to spread transaction costs. That often pushes the model toward renting, but the result still depends on local costs, rent changes, sale price and the time you spend in the home. Run more than one holding period if your moving date is uncertain.</p>
 
 <h2>The fair-comparison checklist</h2>
 <div class="table-scroll"><table>
 <thead><tr><th>Cost category</th><th>Buying side</th><th>Renting side</th></tr></thead>
 <tbody>
-<tr><td>Upfront</td><td>Down payment + closing costs (~2–5%)</td><td>Deposit (refundable)</td></tr>
+<tr><td>Upfront</td><td>Down payment + entered closing costs (US CFPB planning range: 2–5%)</td><td>Deposit and nonrefundable fees from the lease</td></tr>
 <tr><td>Monthly housing</td><td>Full payment incl. tax, insurance, PMI, HOA</td><td>Rent + renter's insurance</td></tr>
-<tr><td>Ongoing upkeep</td><td>Maintenance ~1%/year of value</td><td>Included in rent</td></tr>
-<tr><td>Growth over time</td><td>P&amp;I fixed; tax/insurance rise</td><td>Rent rises (compounding)</td></tr>
+<tr><td>Ongoing upkeep</td><td>Property-specific maintenance and repairs</td><td>Tenant-paid upkeep, if any, under the lease</td></tr>
+<tr><td>Growth over time</td><td>P&amp;I level in the fixed-rate model; other costs entered separately</td><td>Entered rent-growth assumption</td></tr>
 <tr><td>Opportunity cost</td><td>Foregone returns on down payment + closing costs</td><td>None (money stays invested)</td></tr>
-<tr><td>Exit</td><td>Selling costs ~5–6% of value</td><td>None</td></tr>
+<tr><td>Exit</td><td>Entered selling costs</td><td>Moving costs or nonrefundable charges, if assumed</td></tr>
 <tr><td>Asset at the end</td><td>Equity (illiquid) + appreciation, if any</td><td>Investment portfolio, if the difference was invested</td></tr>
 </tbody>
 </table></div>

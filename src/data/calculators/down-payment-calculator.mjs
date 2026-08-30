@@ -5,13 +5,13 @@ export default {
   h1: "Down Payment Calculator",
   metaTitle: "Down Payment Calculator — Savings Plan for Your Home",
   metaDescription:
-    "Size your down payment, add estimated closing costs, and get a month-by-month savings runway to your target — plus the PMI threshold at 20%.",
+    "Size a down payment, add estimated closing costs, and model a monthly savings runway, including an illustrative US conventional-loan PMI marker.",
   tagline:
     "Work out the down payment and closing-cost cash you may need, then see how long your current saving pace could take.",
   cardDescription: "Cash needed at closing and the savings timeline to reach it, at any down payment percent.",
   scenarioHint: "Save your plan as Scenario A, then try a different down-payment percentage or monthly saving amount and save Scenario B — the comparison shows the change in cash needed and time to ready.",
-  lastReviewed: "2026-07-22",
-  version: "1.0",
+  lastReviewed: "2026-08-30",
+  version: "1.1",
   popular: false,
   featured: false,
   aliases: ["house deposit", "down payment savings", "20 percent down"],
@@ -24,13 +24,13 @@ export default {
       <ul>
         <li><strong>Current savings</strong>: what you've already set aside for the purchase.</li>
         <li><strong>Monthly saving amount</strong>: what you can add each month from here on.</li>
-        <li><strong>Interest on savings</strong>: the rate your money earns while parked (a high-yield savings account, for instance). It shortens the runway more than you'd think over multi-year horizons.</li>
+        <li><strong>Interest on savings</strong>: a constant rate assumption for the account holding the funds. The result shows how that assumption changes the runway.</li>
       </ul>
-      <p>The options table compares the standard down payment tiers from 3% to 25% at your price, marking where PMI applies, so you can weigh a faster purchase against a cheaper loan.</p>`,
+      <p>The options table compares illustrative down-payment tiers from 3% to 25% at your price and marks where PMI may apply under the page's US conventional-loan convention.</p>`,
     explanationHtml: `
       <h2>How much down is actually required</h2>
-      <p>The 20% figure is a threshold, not a requirement. Conventional loans commonly go to 3–5% down, FHA to 3.5% (at qualifying credit scores), and VA/USDA to zero for eligible borrowers. What 20% buys you is freedom from <strong>private mortgage insurance</strong> and a smaller, cheaper loan, so the real decision is not "can I reach 20%?" but "what does each tier cost me in time, cash and monthly expense?"</p>
-      <p>On the default <strong>$350,000</strong> home, 20% down is <strong>$70,000</strong>. Add roughly <strong>$10,500</strong> of closing costs (estimated at 3% of the price: lender fees, title, escrow, prepaid taxes) and the true cash target is <strong>$80,500</strong>. Starting from $20,000 in savings and adding $800/month at 4% interest, that target is about <strong>63 months</strong> away, or five and a quarter years. Without the 4% interest working alongside you it would take 76 months; the yield trims 13 months off the runway.</p>
+      <p>For US mortgages, 20% is not a universal minimum down payment. Program rules and eligibility differ, and some conventional and government-backed options permit lower percentages. On many conventional loans, 20% down avoids borrower-paid <strong>private mortgage insurance</strong>; this calculator uses that threshold only as a marker and does not determine program eligibility.</p>
+      <p>On the default <strong>$350,000</strong> home, 20% down is <strong>$70,000</strong>. Add roughly <strong>$10,500</strong> of closing costs (estimated at 3% of the price: lender fees, title, escrow, prepaid taxes) and the modeled cash target is <strong>$80,500</strong>. Starting from $20,000 in savings and adding $800/month at 4% interest, that target is about <strong>63 months</strong> away, or five and a quarter years. Without the 4% interest assumption it would take 76 months; the modeled yield trims 13 months off the runway.</p>
       <p>Compare the tiers: 5% down needs <strong>$28,000</strong> of modeled cash (about 10 months away on the same plan) but leaves a $332,500 loan and may involve mortgage insurance. Waiting for 20% takes roughly four additional years under these inputs, while prices, rates and rents may change during that time. Use the table to compare the timing and loan size rather than treating one percentage as the right answer for everyone.</p>
       <p>For a down payment needed on a fixed date, consider how much short-term loss you could tolerate. This calculator models steady interest, not market volatility, so use a rate that matches the savings or deposit product you plan to hold.</p>`,
     formulaHtml: `
@@ -48,20 +48,20 @@ export default {
       <div class="example-block"><div class="ex-head">Example: $350,000 home, 20% down, saving $800/month at 4%</div><div class="ex-body">
         <p>Down payment = 350,000 × 20% = <strong>$70,000</strong>. Closing costs ≈ 350,000 × 3% = <strong>$10,500</strong>. Total cash target = <strong>$80,500</strong>.</p>
         <p>Starting from $20,000: each month the balance grows by 4%/12 and $800 is added. The balance first reaches $80,500 in month <strong>63</strong>, about 5 years 3 months, landing around October 2031 from a July 2026 start.</p>
-        <p>The resulting mortgage is $280,000 with no PMI. At 10% down instead, the target drops to $45,500 (29 months away), but the $315,000 loan would carry PMI until 20% equity builds.</p>
+        <p>The resulting loan is $280,000. At 10% down instead, the target drops to $45,500 (29 months away) and the loan rises to $315,000. A US conventional loan at that percentage may include PMI, which this calculator does not price.</p>
       </div></div>`,
     factorsHtml: `
       <ul>
         <li><strong>The percentage.</strong> Each 5% of a $350,000 price is $17,500 of cash: on an $800/month plan, roughly 16–19 months of saving per tier, slightly less at each step as interest compounds. The slider makes this trade visible immediately.</li>
-        <li><strong>Closing costs.</strong> In the US, typically 2–5% of the price; this tool assumes 3%. They're due in cash at the same moment as the down payment, which is why targets that ignore them get missed.</li>
+        <li><strong>Closing costs.</strong> The CFPB describes US closing costs as typically 2–5% of the purchase price; this tool uses an editable 3% planning assumption. Actual cash due comes from the transaction's disclosures.</li>
         <li><strong>Savings yield.</strong> At 4% on multi-year horizons the interest contribution is material: 13 months faster on the default plan versus earning nothing.</li>
-        <li><strong>PMI at under 20%.</strong> Not a reason to panic: PMI commonly runs roughly 0.3–1.5% of the loan per year depending on credit and loan-to-value, and can be removed on request at 20% equity (terminating automatically at 22%). Sometimes buying sooner with PMI beats renting for four more years, and the <a href="/rent-vs-buy-calculator/">rent vs buy calculator</a> quantifies that.</li>
+        <li><strong>PMI at under 20%.</strong> This page marks where PMI may apply to a US conventional loan but does not estimate its premium. The CFPB source below explains federal request and automatic-termination rules for covered loans; actual premiums and eligibility come from the loan offer.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
         <li>Closing costs are a flat 3% planning assumption. Actual costs vary by location, lender, property and loan type; replace the estimate with the itemized figure supplied for your transaction.</li>
-        <li>The home price is held constant over your saving runway. In rising markets the target moves as you approach it, so consider re-running with an inflated price for long horizons.</li>
-        <li>Savings interest is treated as untaxed; in a taxable account your effective rate is somewhat lower.</li>
+        <li>The home price is held constant over the saving runway. A future purchase price may be higher or lower.</li>
+        <li>Savings interest is treated as untaxed; applicable taxes vary by account and jurisdiction.</li>
         <li>Program-specific minimums (FHA 3.5%, VA 0%) and first-time-buyer assistance are not modeled; the tiers table uses conventional-loan conventions.</li>
         <li>PMI cost itself isn't computed here; the <a href="/mortgage-calculator/">mortgage calculator</a> prices it into the monthly payment.</li>
       </ul>
@@ -70,22 +70,22 @@ export default {
         <li><a href="https://www.consumerfinance.gov/owning-a-home/loan-options/" rel="noopener">CFPB: Loan options</a> — official overview of conventional, FHA, VA and USDA programs and their down-payment characteristics.</li>
         <li><a href="https://www.consumerfinance.gov/ask-cfpb/what-kind-of-down-payment-do-i-need-how-does-the-amount-of-down-payment-i-make-affect-the-terms-of-my-mortgage-loan-en-120/" rel="noopener">CFPB: What kind of down payment do I need?</a> — how the down-payment amount affects loan terms and program minimums.</li>
         <li><a href="https://www.va.gov/housing-assistance/home-loans/" rel="noopener">VA: Home loan programs</a> — eligibility for zero-down VA-backed loans.</li>
-        <li><a href="https://www.consumerfinance.gov/ask-cfpb/what-fees-or-charges-are-paid-when-closing-on-a-mortgage-and-who-pays-them-en-1845/" rel="noopener">CFPB: What fees are paid when closing on a mortgage?</a> — basis for the US closing-cost range used in this tool.</li>
+        <li><a href="https://www.consumerfinance.gov/owning-a-home/prepare/determine-your-down-payment/" rel="noopener">CFPB: Determine your down payment</a> — primary source for the US 2–5% closing-cost planning range used here.</li>
         <li><a href="https://www.consumerfinance.gov/ask-cfpb/when-can-i-remove-private-mortgage-insurance-pmi-from-my-loan-en-202/" rel="noopener">CFPB: When can I remove PMI?</a> — the request-at-20%-equity and automatic-termination rules referenced on this page.</li>
       </ul>`,
   },
   faq: [
     {
       q: "Do I really need 20% down to buy a house?",
-      aHtml: `<p>No. Conventional programs accept 3–5% down, FHA takes 3.5%, and VA/USDA lend at 0% to eligible borrowers. 20% is the point where PMI no longer applies on a conventional loan, and lower loan-to-value can also improve pricing. The table on this page shows the cash and loan consequences of each tier at your price, so you can decide with numbers rather than folklore.</p>`,
+      aHtml: `<p>No. US loan programs have different minimums and eligibility conditions, as the CFPB and VA sources on this page explain. For many conventional loans, 20% down avoids borrower-paid PMI. The table compares cash and loan amounts at several percentages but does not determine which program or pricing is available to a borrower.</p>`,
     },
     {
       q: "What closing costs should I expect on top of the down payment?",
-      aHtml: `<p>Lender origination, appraisal, title insurance, escrow deposits and prepaid taxes/insurance in the US run typically 2–5% of the purchase price, due in cash at closing. This calculator assumes 3% ($10,500 on the default price). Sellers sometimes credit part of it in negotiation, and some lenders offer credits in exchange for a higher rate.</p>`,
+      aHtml: `<p>The CFPB says US closing costs typically total 2–5% of the purchase price and can include origination, appraisal, title, prepaid tax and insurance items. This calculator uses 3% ($10,500 on the default price) as an editable estimate. Use the itemized Loan Estimate and Closing Disclosure for an actual transaction.</p>`,
     },
     {
-      q: "Where should down payment savings live while I save?",
-      aHtml: `<p>Savers with a fixed 2–5 year target commonly hold principal-stable vehicles such as high-yield savings, money-market funds and short CDs, because an equity drawdown of 20% in the year of purchase would set a fixed-date plan back years. This calculator models steady interest, which matches those vehicles rather than market volatility, so use a rate from the product you would hold.</p>`,
+      q: "What kind of return does the savings field model?",
+      aHtml: `<p>It models a constant monthly-compounded rate with no losses, taxes, fees, rate changes or withdrawal restrictions. That resembles a simplified deposit projection rather than a volatile investment path. Enter a rate from the account being modeled and use 0% as a no-growth comparison.</p>`,
     },
     {
       q: "Is it better to buy sooner with 5% down or wait until I have 20%?",

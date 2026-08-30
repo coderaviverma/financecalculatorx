@@ -9,7 +9,7 @@ export default {
   tagline:
     "Compare monthly, biweekly and weekly schedules by payment amount, number of payments and total interest.",
   cardDescription: "Payment per period at monthly, biweekly or weekly frequency, with an interest comparison.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-08-30",
   version: "1.0",
   popular: false,
   featured: false,
@@ -21,16 +21,16 @@ export default {
     howToHtml: `
       <p>Use this page when the question is how paying monthly, biweekly or weekly changes a loan's payment and interest; for a single monthly payment with a full amortization schedule, use the <a href="/loan-calculator/">Loan Calculator</a> instead. Set the amount, rate and term in years, then choose how often you want to pay. The calculator prices the loan at that frequency and, in the chart and table, prices it at the other two frequencies as well so you can see the difference side by side.</p>
       <ul>
-        <li><strong>Monthly</strong>: 12 payments a year, a common schedule for consumer installment loans.</li>
-        <li><strong>Biweekly</strong>: 26 payments a year, one every two weeks. Popular where salaries are paid fortnightly.</li>
-        <li><strong>Weekly</strong>: 52 payments a year, offered by some small-business and auto lenders.</li>
+        <li><strong>Monthly</strong>: 12 modeled payments a year.</li>
+        <li><strong>Biweekly</strong>: 26 modeled payments a year, one every two weeks.</li>
+        <li><strong>Weekly</strong>: 52 modeled payments a year.</li>
       </ul>
       <p>The "equivalent monthly cost" metric converts any frequency back to a per-calendar-month figure, which keeps budgeting comparisons honest: a $228.18 biweekly payment looks small but still costs about $494 per calendar month.</p>`,
     explanationHtml: `
       <h2>What changing the payment frequency really does</h2>
       <p>Splitting a loan into smaller, more frequent payments changes its cost through one mechanism only: <strong>principal starts falling sooner within each month</strong>. When you pay weekly, the balance drops a little every seven days instead of sitting untouched for thirty, so slightly less interest accrues between payments. The effect is real but modest. On this calculator's default loan of $25,000 at 7% over five years, the totals are: monthly, 60 payments of $495.03 with <strong>$4,701.80</strong> interest; biweekly, 130 payments of $228.18 with <strong>$4,662.99</strong>; weekly, 260 payments of $114.02 with <strong>$4,646.34</strong>. Going from monthly to weekly saves $55.46 over five years, about 92 cents a month.</p>
       <p>So why do "biweekly programs" have a reputation for slashing loan costs? Because the well-known trick is not a frequency change at all; it is an <strong>extra payment in disguise</strong>. "True biweekly" means paying <em>half your monthly payment</em> every two weeks. Since the year has 26 fortnights, you make the equivalent of 13 monthly payments a year instead of 12. On the default loan, half-payments of $247.51 every two weeks would clear it in about 4½ years and cut interest to roughly $4,216 — a saving of $486, nine times what the pure frequency effect delivers. This calculator prices each frequency at its exact required payment, so the comparison isolates frequency alone; use the extra payment calculator to model the 13-payments-a-year strategy.</p>
-      <p>The best practical reason to match payment frequency to your payroll is <strong>cash-flow smoothing</strong>, not interest savings. If you are paid every two weeks, a biweekly debit lands right after each paycheck and never collides with a month where three other bills cluster. Missed-payment fees — and the credit-score damage a missed payment can cause — can easily cost more than the few dollars a frequency switch saves or loses.</p>`,
+      <p>Payment frequency can also be viewed as a cash-flow timing choice. A biweekly or weekly schedule creates smaller, more frequent required amounts, while monthly creates one larger amount. The calculator does not model payroll dates, late payments, fees or credit-reporting consequences.</p>`,
     formulaHtml: `
       <p>The payment per period generalizes the monthly formula to any frequency <code>f</code>:</p>
       <div class="formula-block"><span class="fx">A = P × (i/f) × (1 + i/f)<sup>n</sup> ÷ [(1 + i/f)<sup>n</sup> − 1]</span>
@@ -51,17 +51,17 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Payroll alignment.</strong> Matching debits to paydays is the strongest argument for non-monthly schedules, because it prevents the timing crunches that cause missed payments.</li>
+        <li><strong>Cash-flow timing.</strong> The schedules divide the annual payment stream differently. Whether a frequency aligns with income dates is a budgeting question outside the loan formula.</li>
         <li><strong>Rate and term.</strong> These dominate cost at every frequency. A 1-point rate change on the default loan moves interest by roughly $700; switching monthly→weekly moves it by $55.</li>
         <li><strong>"True biweekly" vs priced biweekly.</strong> Paying half the monthly amount 26 times a year is a ~8% overpayment, not a frequency effect. It shortens the loan by months, not days.</li>
-        <li><strong>Lender handling.</strong> Some servicers hold partial payments until a full installment accumulates, which erases the frequency benefit entirely. Confirm payments post to principal immediately.</li>
+        <li><strong>Contract handling.</strong> The model assumes each scheduled amount reduces the balance at that frequency. An actual loan may use different accrual or posting rules, so compare the result with its disclosure and schedule.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
         <li>Uses the <strong>nominal-rate ÷ frequency</strong> convention throughout. A lender that fixes the effective annual rate instead would show near-identical interest at all frequencies.</li>
         <li>"Biweekly" here means every two weeks (26/yr). <strong>Semi-monthly</strong> (24/yr, e.g. the 1st and 15th) is a different schedule this tool does not model.</li>
         <li>Terms are whole years; frequencies other than 12, 26 and 52 (daily, quarterly) are not offered.</li>
-        <li>No fees, insurance or payment-processing charges are included; some lenders charge per-transaction fees that can exceed the interest saved by frequent payment.</li>
+        <li>No fees, insurance or payment-processing charges are included. Add any quoted charges to a separate all-in cost comparison.</li>
       </ul>`,
   },
   faq: [
@@ -74,12 +74,12 @@ export default {
       aHtml: `<p>Biweekly means every 14 days, or 26 payments per year. Semi-monthly means twice per calendar month, or 24 payments per year. The two-payment difference is exactly why "true biweekly" plans (half the monthly payment every two weeks) sneak in one extra monthly payment per year. If your lender offers "twice a month", you get the cash-flow smoothing but not the extra-payment effect.</p>`,
     },
     {
-      q: "Is a biweekly mortgage program worth signing up for?",
-      aHtml: `<p>The arithmetic behind it (26 half-payments equal 13 full payments a year) genuinely shortens a loan. But you rarely need a paid program to get it: many servicers let you add one-twelfth of your payment as a monthly extra, which has the same effect with no enrollment fee. Watch for programs that charge setup or per-debit fees, and for servicers that hold half-payments in suspense instead of applying them.</p>`,
+      q: "What does a biweekly payment program change?",
+      aHtml: `<p>A plan that collects half a monthly payment every two weeks collects the equivalent of 13 monthly payments each year, so it combines a timing change with an annual overpayment. Program fees and posting rules are not modeled. Compare the written schedule with a scenario that adds one-twelfth of the monthly payment as an extra each month.</p>`,
     },
     {
-      q: "Which frequency should I choose if I'm paid fortnightly?",
-      aHtml: `<p>Many borrowers paid fortnightly choose biweekly: a fixed debit two or three days after each paycheck makes the loan effectively self-paying and removes the mid-month scramble. The interest difference against monthly is trivially small (under $40 on the default loan), so decide on cash-flow convenience, then use any surplus as a deliberate extra payment, which is where real savings live.</p>`,
+      q: "How does fortnightly income affect this comparison?",
+      aHtml: `<p>A biweekly schedule has 26 required amounts and can be compared directly with 26 income periods. In the default calculation its interest difference from monthly is under $40 over the full term. Payroll timing, account balances and automatic-debit rules are not inputs, so the tool shows loan arithmetic rather than selecting a frequency.</p>`,
     },
   ],
 };

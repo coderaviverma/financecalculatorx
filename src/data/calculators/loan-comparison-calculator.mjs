@@ -9,8 +9,8 @@ export default {
   tagline:
     "Compare two loan offers on the same amount, including their rates, terms, payments and upfront fees.",
   cardDescription: "Two loan offers compared on payment, total cost, fees and effective APR.",
-  lastReviewed: "2026-07-22",
-  version: "1.0",
+  lastReviewed: "2026-08-30",
+  version: "1.1",
   popular: false,
   featured: true,
   aliases: ["compare loans", "which loan is cheaper", "loan offer comparison"],
@@ -29,7 +29,7 @@ export default {
     explanationHtml: `
       <h2>How to put two loan offers on equal footing</h2>
       <p>Loan offers may lead with different numbers: a lower rate, a smaller payment or no upfront fee. Start by putting both offers on the <strong>same amount</strong>, which this calculator does by design. Then compare the modeled <strong>total cost</strong> and <strong>effective APR</strong> alongside the payment. A longer term may lower the monthly amount while increasing the total interest.</p>
-      <p>Fees versus rate is the classic trap, and the defaults here show why it needs actual arithmetic. Offer A: 8.9% over 60 months with no fees costs $414.20 a month, $4,851.83 of interest. Offer B: 7.4% with a $500 fee costs $399.81 a month, $3,988.56 of interest, $4,488.56 all-in. B wins by <strong>$363.27</strong> despite the fee, and its effective APR (8.47%) prices the fee into a single comparable number. But the win is conditional: B starts $500 behind on day one and claws it back at $14.39 a month, drawing level only at <strong>month 35</strong>. Repay or refinance before then and the "more expensive" no-fee offer would have been the cheaper choice. A fee is, in effect, prepaid interest, worth paying only if you keep the loan past break-even.</p>
+      <p>The defaults illustrate a fee-versus-rate trade-off. Offer A at 8.9% for 60 months and no fee costs $414.20 monthly and $4,851.83 in interest. Offer B at 7.4% with a $500 fee costs $399.81 monthly and $4,488.56 in modeled interest plus fees. B is $363.27 lower over the full schedule, while cumulative outlay first becomes lower at <strong>month 35</strong>. A fee is a borrowing cost rather than literally prepaid interest, and the result changes with the assumed exit month.</p>
       <p>This tool assumes each entered rate holds for the whole term, so it is not suitable for a teaser or variable-rate offer without additional modeling. Ask each lender for the amount financed, rate type, term, mandatory fees, prepayment terms and applicable cost disclosure in writing. Use those documents to confirm the inputs and any final choice.</p>`,
     formulaHtml: `
       <p>Each offer is amortized normally; the comparison adds two derived figures. Total cost and effective APR are:</p>
@@ -50,10 +50,10 @@ export default {
     factorsHtml: `
       <ul>
         <li><strong>Fee size against the rate gap.</strong> A fee is recovered at the pace of the monthly payment difference; a big fee with a thin rate advantage may never break even inside the term.</li>
-        <li><strong>How long you'll really keep the loan.</strong> Planning to sell the car, repay from a bonus, or refinance shifts the verdict toward the low-fee offer regardless of headline rates.</li>
+        <li><strong>Holding period.</strong> A sale, payoff or refinance before the contract term changes how much of the monthly payment difference is realized.</li>
         <li><strong>Term equality.</strong> When terms differ, the longer offer's total cost accrues over more months — check both the totals and how long each payment stays in your budget.</li>
-        <li><strong>Rate permanence.</strong> Teaser or variable rates invalidate a fixed-rate comparison; enter the reverting rate, not the promotional one.</li>
-        <li><strong>Prepayment terms.</strong> An offer that permits free early repayment is worth more than the same numbers with a penalty attached.</li>
+        <li><strong>Rate permanence.</strong> Teaser or variable rates require period-by-period modeling that this calculator does not perform.</li>
+        <li><strong>Prepayment terms.</strong> Any contractual charge triggered by early repayment must be added to an early-exit comparison.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
@@ -75,7 +75,7 @@ export default {
     },
     {
       q: "Which fees should I type in, and which should I ignore?",
-      aHtml: `<p>Include every charge you must pay to get the loan: origination, processing, documentation, mandatory broker fees. Exclude genuinely optional extras, but be skeptical: if declining the "optional" insurance changes the offered rate, it isn't optional and belongs in the fee box for that offer.</p>`,
+      aHtml: `<p>Enter charges shown as required for the modeled offer, such as disclosed origination, processing, documentation or broker fees. Optional products and fee treatment depend on the offer and disclosure. The calculator's effective APR includes only the single total entered here.</p>`,
     },
     {
       q: "I might repay the loan early. How does that change the comparison?",
