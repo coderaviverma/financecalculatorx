@@ -1,7 +1,7 @@
 export default {
   slug: "lump-sum-vs-monthly-investing",
   title: "Lump Sum vs Monthly Investing",
-  metaTitle: "Lump Sum vs Monthly Investing — Which Wins?",
+  metaTitle: "Lump Sum vs Monthly Investing: How to Decide",
   metaDescription:
     "Compare immediate and staged investment schedules under the same return assumption, including entry timing, expected-value differences and limitations.",
   description:
