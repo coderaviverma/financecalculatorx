@@ -60,13 +60,17 @@ export default {
 <p>A staged plan can drift into indefinite delay if each purchase requires a new decision. Setting dates and amounts in advance makes the modeled strategy easier to compare with what you actually do.</p>
 </div>
 
-<h2>Scenarios the two calculators represent</h2>
-<ul>
-<li><strong>Money becomes available monthly:</strong> the SIP model enters each contribution when it arrives; it is not a delayed-deployment test of a day-one lump sum.</li>
-<li><strong>All money is available on day one:</strong> the lump-sum model gives every dollar the full assumed growth period.</li>
-<li><strong>Available money is staged over fixed dates:</strong> the intermediate table quantifies the expected-value difference under 8%, while FINRA's explanation describes the timing-risk trade-off.</li>
-<li><strong>Money has another use:</strong> debt costs, cash-access needs, taxes and fees are outside this return-only comparison. The <a href="/guides/how-much-emergency-fund/">emergency-fund guide</a> provides a separate cash-runway model.</li>
-</ul>
+<h2>Match the calculation to the cash-flow question</h2>
+<p>The phrase “monthly investing” can describe different cash-flow patterns. The key distinction is whether the rest of the money already exists on day one; that determines what the comparison can measure.</p>
+<div class="table-scroll"><table>
+<thead><tr><th>Cash-flow pattern</th><th>Question the model can answer</th><th>Relevant calculation</th></tr></thead>
+<tbody>
+<tr><td>One amount is available now</td><td>How does investing it immediately compare with putting predetermined portions to work later?</td><td>This guide’s lump-sum versus staged example; the <a href="/lump-sum-investment-calculator/">Lump Sum Investment Calculator</a> models the all-now path.</td></tr>
+<tr><td>New money arrives each month</td><td>What does a recurring contribution stream become when each installment has its own holding period?</td><td>The <a href="/sip-calculator/">SIP Calculator</a> models regular contributions as they arrive.</td></tr>
+<tr><td>Money is available now and more arrives later</td><td>How do a starting balance and a monthly contribution stream combine under one return and inflation assumption?</td><td>The <a href="/investment-calculator/">Investment Calculator</a> accepts both inputs.</td></tr>
+<tr><td>Part of the balance may be needed before the horizon</td><td>How does the amount held outside the investment model affect the entered starting balance?</td><td>The <a href="/guides/how-much-emergency-fund/">emergency-fund guide</a> models cash-runway scenarios separately.</td></tr>
+</tbody></table></div>
+<p>This classification does not choose a schedule. It keeps a day-one balance from being compared with income that has not yet arrived, because those inputs answer different questions.</p>
 <p>One caveat that applies to every row of every table here: the 8% used throughout is an assumption, not a promise. Real markets deliver their average lumpily, with negative years along the way, and no allocation schedule changes that. Run your own figures at a return you consider conservative with the <a href="/investment-calculator/">investment calculator</a>, and treat the lump-vs-monthly gap as an expected value, not a guarantee.</p>
 
 <h2>The bottom line</h2>
