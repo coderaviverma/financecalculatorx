@@ -264,10 +264,11 @@
           }
         } else if (["currency", "percent", "number", "term"].includes(def.type)) {
           const v = state.values[def.id];
-          if (!isFinite(v)) msg = def.optional ? "" : "Enter a number.";
+          const empty = !wrap.querySelector("input[type=text]").value.trim();
+          if (!isFinite(v)) msg = def.optional && empty ? "" : "Enter a number.";
           else if (def.min != null && v < def.min) msg = `Must be at least ${FCX.fmt.num(def.min)}${def.type === "term" ? " months" : ""}.`;
           else if (def.max != null && v > def.max) msg = `Must be ${FCX.fmt.num(def.max)}${def.type === "term" ? " months" : ""} or less.`;
-          if (!isFinite(v) && def.optional) state.values[def.id] = def.emptyValue != null ? def.emptyValue : 0;
+          if (!isFinite(v) && def.optional && empty) state.values[def.id] = def.emptyValue != null ? def.emptyValue : 0;
         }
         const input = wrap.querySelector("input[type=text]");
         wrap.classList.toggle("invalid", !!msg);

@@ -9,7 +9,7 @@ export default {
   tagline:
     "See how a starting balance and regular contributions grow, and separate what you deposit from the interest earned over time.",
   cardDescription: "Growth of a lump sum plus contributions, with any compounding frequency.",
-  lastReviewed: "2026-07-22",
+  lastReviewed: "2026-09-24",
   version: "1.0",
   popular: true,
   featured: true,
@@ -23,7 +23,7 @@ export default {
       <ul>
         <li><strong>Starting amount</strong>: money invested today (a lump sum, an existing balance).</li>
         <li><strong>Regular contribution</strong>: added at the end of each period; switch between monthly, quarterly and yearly.</li>
-        <li><strong>Compounding frequency</strong>: how often earned interest is credited and starts earning itself. Savings accounts commonly compound daily or monthly; bonds and some deposits yearly or half-yearly.</li>
+        <li><strong>Compounding frequency</strong>: how often earned interest is credited and starts earning itself. Select the convention stated in the product documents; the calculator does not infer it from an account or product label.</li>
       </ul>
       <p>The chart stacks your starting amount, your contributions and the interest earned, so you can see the moment compounding overtakes your own deposits. The year-by-year table breaks down every year and exports to CSV. To compare two rates or contribution levels, save Scenario A, change the input, and save Scenario B.</p>`,
     explanationHtml: `
@@ -59,15 +59,15 @@ export default {
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Time is the dominant variable.</strong> Growth compounds on itself, so doubling the time far more than doubles the interest. $200/month at 7% earns ≈ $19k interest over 10 years, but ≈ $86k over 20 (with a $10k start).</li>
+        <li><strong>Time changes the growth period.</strong> Growth compounds on itself, so doubling the time far more than doubles the interest. $200/month at 7% earns ≈ $19k interest over 10 years, but ≈ $86k over 20 (with a $10k start).</li>
         <li><strong>Rate.</strong> Small rate differences compound into large outcome differences: 6% vs 8% on the default example is roughly $128k vs $164k after 20 years.</li>
         <li><strong>Contribution timing and regularity.</strong> Contributions made earlier compound longer. Skipping early years costs more than the same gap later.</li>
-        <li><strong>Compounding frequency.</strong> Worth checking but rarely decisive: daily vs monthly on typical savings rates changes the outcome by well under 1%. Fees and taxes usually matter more.</li>
+        <li><strong>Compounding frequency.</strong> Changing the frequency while holding the nominal rate fixed changes the effective yield. Enter an effective annual yield with Yearly compounding to avoid counting compounding twice.</li>
       </ul>`,
     limitationsHtml: `
       <ul>
         <li>The rate is applied <strong>uniformly for the whole period</strong>. Real savings rates change and investment returns vary year to year — the smooth curve here is a planning approximation, not a prediction.</li>
-        <li>Results are <strong>before tax and fees</strong>. Interest is typically taxable outside sheltered accounts, and investment products carry costs that reduce the effective rate.</li>
+        <li>Results are <strong>before tax and fees</strong>. Applicable tax and fee treatment depends on the product, account and jurisdiction; neither is supplied by this model.</li>
         <li>Inflation is not deducted — for purchasing-power results, use the <a href="/investment-calculator/">Investment Calculator</a>, which has an inflation adjustment built in.</li>
         <li>Contributions are modeled as perfectly regular and end-of-period.</li>
       </ul>`,
@@ -75,11 +75,11 @@ export default {
   faq: [
     {
       q: "What's the difference between APY/AER and the nominal rate?",
-      aHtml: `<p>The nominal rate (APR-style) ignores compounding frequency; APY/AER states the true yearly growth including it. 7% nominal compounded monthly equals 7.229% APY. Savings products are usually advertised with a compounded yearly figure (APY in the US, AER in the UK), so if you enter one of those, set compounding to yearly — entering an APY with monthly compounding would double-count the effect.</p>`,
+      aHtml: `<p>The nominal rate (APR-style) ignores compounding frequency; APY/AER states the true yearly growth including it. 7% nominal compounded monthly equals 7.229% APY. If the product quote gives an effective annual yield, set compounding to yearly — entering an APY with monthly compounding would double-count the effect.</p>`,
     },
     {
       q: "How often do real accounts compound?",
-      aHtml: `<p>Compounding conventions vary by product and country: many savings accounts compound daily or monthly and credit interest monthly, while fixed deposits and CDs often compound quarterly or at maturity. Bonds typically pay simple coupons rather than compounding, unless you reinvest them. When in doubt, the account's terms state the frequency — or just use the advertised APY with yearly compounding, which is exact by construction.</p>`,
+      aHtml: `<p>The account documents determine compounding, interest-crediting dates and any conditions on the quoted yield. This model offers selectable frequencies and converts them into a rate per contribution period. Using an effective annual yield with Yearly compounding matches that annual growth assumption; it does not reproduce every account's daily balance or withdrawal rules.</p>`,
     },
     {
       q: "Does the Rule of 72 actually work?",
@@ -91,7 +91,7 @@ export default {
     },
     {
       q: "Is compound interest good or bad for me?",
-      aHtml: `<p>Both, depending on which side you're on. It grows savings and investments, but it's also why credit-card balances balloon — card interest typically accrues daily, and card APRs are generally far higher than savings rates; your own statement shows the actual figure. The same math that builds $86k of growth in the default example is what makes minimum-payment debt so expensive; the <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> shows the borrowing side of it.</p>`,
+      aHtml: `<p>Compounding describes how a balance changes when accrued interest stays in the balance. This calculator models accumulation at the entered constant rate. Borrowing also involves payments and product-specific interest rules; the <a href="/debt-payoff-calculator/">Debt Payoff Calculator</a> models balances, monthly interest and an explicit repayment budget instead.</p>`,
     },
   ],
 };

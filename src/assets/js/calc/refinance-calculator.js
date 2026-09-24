@@ -1,4 +1,4 @@
-/* Refinance Calculator — payment change, honest break-even, lifetime cost incl. fees. */
+/* Refinance Calculator — payment recovery, same-date exit cost and lifetime cost. */
 FCX.define({
   slug: "refinance-calculator",
   inputs: [
@@ -15,6 +15,7 @@ FCX.define({
       hint: "Matching your remaining time avoids resetting the clock; a longer term lowers the payment but can raise lifetime cost.",
     },
     { id: "closing", label: "Closing costs", type: "currency", default: 5000, min: 0, max: 10000000, optional: true, hint: "Enter the fees used in this scenario. Actual fee structures and so-called no-cost offers vary by lender and jurisdiction." },
+    { id: "horizon", label: "Compare a sale or payoff after", type: "number", default: 60, min: 0, max: 480, integer: true, affixPost: "months", hint: "Includes the balance still owed on both loans at the same date. Fees are paid in cash; financed fees and settlement charges are excluded." },
   ],
   compute(v, F) {
     const FIN = F.fin;
@@ -23,9 +24,14 @@ FCX.define({
     const nw = FIN.amortize(v.balance, v.newRate, v.newTerm, {});
     if (!nw) return { invalid: "The new loan never amortizes at these values. Check the new rate and term." };
     const closing = v.closing || 0;
-    const save = old.payment - nw.payment; // positive → payment falls
-    const breakEven = save > 0 ? Math.ceil(closing / save) : null;
+    const save = FIN.pmt(v.balance, v.currentRate, v.remaining) - FIN.pmt(v.balance, v.newRate, v.newTerm); // positive → payment falls
+    const candidate = save > 0 ? Math.ceil(closing / save) : null;
+    const breakEven = closing === 0 ? 0 : candidate != null && candidate <= Math.min(old.months, nw.months) ? candidate : null;
     const lifetime = old.totalPaid - (nw.totalPaid + closing); // positive → refi saves money overall
+    const horizon = v.horizon == null ? 60 : v.horizon;
+    const exitOld = FIN.loanAtMonth(v.balance, v.currentRate, v.remaining, horizon);
+    const exitNew = FIN.loanAtMonth(v.balance, v.newRate, v.newTerm, horizon);
+    const exitSaving = exitOld.interest - exitNew.interest - closing;
     const reset = v.newTerm > v.remaining;
     const sgn = (x, f) => (x > 0 ? "+" : x < 0 ? "−" : "") + f(Math.abs(x));
 
@@ -44,13 +50,10 @@ FCX.define({
     ];
 
     let explain = `<p>Refinancing <strong>${F.money0(v.balance)}</strong> from <strong>${F.pct(v.currentRate)}</strong> (${F.dur(v.remaining)} left) into a <strong>${F.dur(v.newTerm)}</strong> loan at <strong>${F.pct(v.newRate)}</strong> changes the payment from <strong>${F.money(old.payment)}</strong> to <strong>${F.money(nw.payment)}</strong> — ${save > 0 ? `<strong>${F.money(save)}</strong> less` : save < 0 ? `<strong>${F.money(-save)}</strong> more` : "no change"} per month.</p>`;
-    if (save > 0) {
-      explain += `<p>The <strong>${F.money0(closing)}</strong> of closing costs is recovered by the monthly saving in about <strong>${breakEven === 0 ? "no time" : F.dur(breakEven)}</strong>. Over the full schedules, the refinance ${lifetime >= 0 ? `saves <strong>${F.money0(lifetime)}</strong>` : `costs <strong>${F.money0(-lifetime)}</strong> more`} including fees.</p>`;
-    } else {
-      explain += `<p>The payment rises, so closing costs are not recovered from monthly savings — there is no payment break-even. ${lifetime > 0 ? `The shorter schedule still ${reset ? "changes" : "cuts"} modeled lifetime cost by <strong>${F.money0(lifetime)}</strong> including fees.` : `Modeled lifetime cost also rises by <strong>${F.money0(-lifetime)}</strong> including fees.`}</p>`;
-    }
+    explain += `<p>${closing === 0 ? "There are no upfront fees to recover." : breakEven != null ? `Monthly payment savings recover the <strong>${F.money0(closing)}</strong> cash fee in <strong>${F.dur(breakEven)}</strong>. This payment-only measure excludes the difference in remaining balances.` : save > 0 ? "Payment savings do not recover the cash fee while both loans are still making scheduled payments." : `The payment ${save < 0 ? "rises" : "is unchanged"}, so there is no fee recovery from a lower monthly payment.`} Over the full schedules, the refinance ${Math.abs(lifetime) < 0.005 ? "has the same modeled cost" : lifetime > 0 ? `saves <strong>${F.money0(lifetime)}</strong>` : `costs <strong>${F.money0(-lifetime)}</strong> more`} including fees.</p>`;
+    explain += `<p><strong>Exit after month ${horizon}:</strong> comparing payments made, remaining principal and cash closing costs, refinancing ${Math.abs(exitSaving) < 0.005 ? "has the same modeled exit cost" : exitSaving > 0 ? `costs <strong>${F.money(Math.abs(exitSaving))}</strong> less` : `costs <strong>${F.money(Math.abs(exitSaving))}</strong> more`}. This assumes payoff immediately after the scheduled payment, no settlement charges and no interest between payment dates.</p>`;
     if (reset) {
-      explain += `<p><strong>Term reset:</strong> the new ${F.dur(v.newTerm)} term is longer than the ${F.dur(v.remaining)} remaining term. Stretching the balance over more payments ${lifetime < 0 ? `raises modeled lifetime cost by <strong>${F.money0(-lifetime)}</strong> despite the lower rate` : `keeps modeled lifetime cost lower here because of the entered rate gap`}; the total-cost row captures that difference.</p>`;
+      explain += `<p><strong>Term reset:</strong> the new ${F.dur(v.newTerm)} term is longer than the ${F.dur(v.remaining)} remaining term. The modeled lifetime difference includes these extra payments; the exit comparison also accounts for principal still owed at your selected date.</p>`;
     }
 
     return {
@@ -61,9 +64,9 @@ FCX.define({
       },
       metrics: [
         {
-          label: "Break-even on closing costs",
+          label: "Payment-only break-even",
           value: breakEven == null ? "None" : breakEven === 0 ? "Immediate" : F.dur(breakEven),
-          hint: breakEven == null ? "the payment doesn't fall, so fees are never recouped monthly" : `${F.money0(closing)} fees ÷ ${F.money(save)} monthly saving`,
+          hint: closing === 0 ? "No cash fees to recover; this does not imply the refinance costs less" : breakEven == null ? "No recovery from lower payments while both schedules are active" : `${F.money0(closing)} fees ÷ ${F.money(save)} monthly saving; excludes remaining balances`,
         },
         {
           label: "Lifetime difference (incl. fees)",
@@ -72,6 +75,7 @@ FCX.define({
         },
         { label: "Total interest — current loan", value: F.money0(old.totalInterest) },
         { label: "Total interest — new loan", value: F.money0(nw.totalInterest), hint: closing > 0 ? "plus " + F.money0(closing) + " closing costs" : "" },
+        { label: `Exit cost difference at month ${horizon}`, value: F.money(Math.abs(exitSaving)), hint: Math.abs(exitSaving) < 0.005 ? "Same modeled exit cost" : exitSaving > 0 ? "Refinancing costs less at this exit date" : "Keeping the current loan costs less at this exit date" },
       ],
       explain,
       chart: {
@@ -106,14 +110,26 @@ FCX.define({
             ],
             rows: cmpRows,
           },
+          {
+            id: "exit", label: `Exit at month ${horizon}`,
+            columns: [{ key: "m", label: "Metric", align: "left" }, { key: "cur", label: "Current loan" }, { key: "nw", label: "New loan" }],
+            rows: [
+              ["Payments already made", exitOld.paid, exitNew.paid],
+              ["Remaining principal to settle", exitOld.balance, exitNew.balance],
+              ["Cash closing costs", 0, closing],
+              ["Total exit outlay", exitOld.paid + exitOld.balance, exitNew.paid + exitNew.balance + closing],
+              ["Borrowing cost (interest + fees)", exitOld.interest, exitNew.interest + closing],
+            ].map(([m, cur, nw]) => ({ m, cur: F.money(cur), nw: F.money(nw), _csv_m: m, _csv_cur: cur, _csv_nw: nw })),
+          },
         ],
       },
       scenario: {
-        summary: `${F.money0(v.balance)} · ${F.pct(v.currentRate)} → ${F.pct(v.newRate)} · ${F.dur(v.remaining)} → ${F.dur(v.newTerm)} · ${F.money0(closing)} fees`,
+        summary: `${F.money0(v.balance)} · ${F.pct(v.currentRate)} → ${F.pct(v.newRate)} · ${F.dur(v.remaining)} → ${F.dur(v.newTerm)} · ${F.money0(closing)} fees · exit month ${horizon}`,
         metrics: [
           { label: "Monthly saving", raw: save, fmt: "money", betterWhen: "higher" },
           { label: "Lifetime saving (incl. fees)", raw: lifetime, fmt: "money0", betterWhen: "higher" },
           { label: "Break-even", raw: breakEven, fmt: "dur", betterWhen: "lower" },
+          { label: "Saving at selected exit", raw: exitSaving, fmt: "money", betterWhen: "higher" },
         ],
       },
     };

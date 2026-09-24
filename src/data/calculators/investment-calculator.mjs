@@ -9,8 +9,8 @@ export default {
   tagline:
     "Project an initial investment and monthly contributions, then view the result before and after an inflation adjustment.",
   cardDescription: "Growth projection with monthly contributions and inflation-adjusted results.",
-  lastReviewed: "2026-08-30",
-  version: "1.0",
+  lastReviewed: "2026-09-24",
+  version: "1.1",
   popular: true,
   featured: true,
   jumpExplainLabel: "Nominal vs real",
@@ -29,7 +29,7 @@ export default {
       <h2>Nominal growth vs real growth</h2>
       <p>Most investment projections show <strong>nominal</strong> values, the number that would appear on your statement. But a statement balance decades from now buys less per unit than money does today. The <strong>real</strong> value answers the question that matters: what is this worth in today's prices?</p>
       <p>The difference is large over long horizons. In the default example ($10,000 up front plus $500/month at 8% for 25 years), the nominal projection is <strong>$548,915</strong>. At 3% inflation, that balance buys what <strong>$262,165</strong> buys today: less than half the headline figure. Neither number is wrong; they answer different questions. Use nominal values to compare against future account statements, and real values to judge whether the plan meets your goal.</p>
-      <p>The connection between the two is the <strong>real rate of return</strong>: approximately nominal return minus inflation, and precisely (1 + nominal) ÷ (1 + inflation) − 1. An 8% return with 3% inflation is a 4.85% real return under those constant assumptions. A nominal rate below inflation produces negative modeled purchasing-power growth.</p>
+      <p>The <strong>real annual return</strong> uses the effective annual growth rate from the same monthly compounding as the balance projection: (1 + r/12)<sup>12</sup> ÷ (1 + inflation) − 1. The default 8% nominal rate compounds to 8.300% effective annual growth; with 3% inflation, the real annual rate is <strong>5.15%</strong>. An 8% effective annual return would instead imply 4.85%, but that is a different rate convention. The rate display was corrected on 24 September 2026; projected balances use the same monthly-compounding model as before.</p>
       <p>One more framing this page enforces: the return you enter is an <em>average</em>. Markets don't deliver their average smoothly; they overshoot and undershoot it year by year. A projection like this is a planning centerline, not a path your balance will actually trace.</p>`,
     formulaHtml: `
       <p>The nominal projection combines lump-sum growth and an ordinary annuity of monthly contributions:</p>
@@ -51,7 +51,7 @@ export default {
         <p>Monthly rate i = 0.08 ÷ 12 = 0.006667; n = 300 months.</p>
         <p>Lump sum part: 10,000 × (1.006667)<sup>300</sup> ≈ $73,402. Contribution part: 500 × [(1.006667)<sup>300</sup> − 1] ÷ 0.006667 ≈ $475,513.</p>
         <p>Nominal total ≈ <strong>$548,915</strong>, of which $160,000 is money you put in and <strong>$388,915 is growth</strong>.</p>
-        <p>Real value: 548,915 ÷ (1.03)<sup>25</sup> = 548,915 ÷ 2.0938 ≈ <strong>$262,165 in today's money</strong>. Inflation consumed more than the entire amount you contributed, which is exactly why long-horizon planning should use real numbers.</p>
+        <p>Real value: 548,915 ÷ (1.03)<sup>25</sup> = 548,915 ÷ 2.0938 ≈ <strong>$262,165 in today's money</strong>. The real balance discounts the final value into today's purchasing power. It does not subtract inflation as a cash fee or compare all contributions as though they were made today.</p>
       </div></div>`,
     factorsHtml: `
       <ul>
@@ -77,11 +77,11 @@ export default {
     },
     {
       q: "Why is the 'in today's money' number so much smaller?",
-      aHtml: `<p>Because inflation compounds too. At 3% a year, prices roughly double every 24 years, so a 25-year projection is haircut by half. The real-value line isn't pessimism — it's the same number expressed in units that mean something to you now. If the real value meets your goal, the plan works regardless of what prices do to the nominal figure.</p>`,
+      aHtml: `<p>Because the price-level assumption compounds too. At 3% annual inflation, dividing the default 25-year balance by 1.03<sup>25</sup> changes $548,915 into about $262,165 in today's purchasing power. That result depends on both the constant return and inflation assumptions; it does not establish whether a real plan will meet a future goal.</p>`,
     },
     {
       q: "Should I invest a lump sum immediately or spread it monthly?",
-      aHtml: `<p>At any positive assumed return, money invested earlier compounds longer, so this model always scores an immediate lump sum higher than drip-feeding it, though a real market can fall right after you invest. Spreading purchases (dollar-cost averaging) reduces the regret of investing right before a fall and suits money that arrives monthly anyway. See the <a href="/lump-sum-investment-calculator/">Lump Sum Calculator</a> and our guide on <a href="/guides/lump-sum-vs-monthly-investing/">lump sum vs monthly investing</a> to compare both with your numbers.</p>`,
+      aHtml: `<p>At any positive assumed return, money invested earlier compounds longer, so this model always scores an immediate lump sum higher than drip-feeding it, though a real market can fall right after you invest. Money available today and money received monthly are different cash-flow scenarios. The constant-return model does not estimate regret, market timing or the probability of a loss. See the <a href="/lump-sum-investment-calculator/">Lump Sum Calculator</a> and our guide on <a href="/guides/lump-sum-vs-monthly-investing/">lump sum vs monthly investing</a> to compare both with your numbers.</p>`,
     },
     {
       q: "How do fees change the projection?",

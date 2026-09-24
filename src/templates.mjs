@@ -433,7 +433,7 @@ export function homePage(calcs, guides, v) {
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>Most used calculators</h2><a class="more" href="/calculators/">All calculators ${I.arrow}</a></div>
+    <div class="section-head"><h2>Featured calculators</h2><a class="more" href="/calculators/">All calculators ${I.arrow}</a></div>
     <div class="grid grid-4">${pop.map((c) => toolCard(c, true)).join("")}</div>
   </section>
 

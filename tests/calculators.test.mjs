@@ -69,6 +69,11 @@ test("investment-calculator: nominal + real values", () => {
   close(scnRaw(r, "invested"), 160000, 0.01);
   assert.equal(r.chart.cfg.series.length, 3);
   assert.equal(r.table.views[0].rows.length, 25);
+  // Real return must use the same monthly compounding as the balance itself.
+  close(n(metric(r, "real annual")), ((1 + 0.08/12)**12 / 1.03 - 1)*100, 0.005);
+  const oneYear = cfg.compute({ ...defaults(cfg), initial: 10000, monthly: 0, years: 1 }, F);
+  close(scnRaw(oneYear, "today"), 10000 * (1 + 0.08/12)**12 / 1.03, 0.01);
+  close(n(metric(oneYear, "real annual")), (scnRaw(oneYear, "today")/10000 - 1)*100, 0.005);
 });
 
 test("debt-payoff-calculator: avalanche vs snowball reference", () => {

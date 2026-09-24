@@ -16,18 +16,18 @@
     const i = annualPct / 100;
     if (i === 0) return 0;
     if (cf === pf) return i / cf;
-    return Math.pow(1 + i / cf, cf / pf) - 1;
+    return Math.expm1(Math.log1p(i / cf) * cf / pf);
   }
   const monthlyRate = (annualPct) => annualPct / 100 / 12;
 
   // effective annual rate from nominal compounded m times/year
   function ear(annualPct, m) {
     const i = annualPct / 100;
-    return (Math.pow(1 + i / m, m) - 1) * 100;
+    return Math.expm1(m * Math.log1p(i / m)) * 100;
   }
   // nominal APR from effective annual rate
   function nominalFromEar(earPct, m) {
-    return (Math.pow(1 + earPct / 100, 1 / m) - 1) * m * 100;
+    return Math.expm1(Math.log1p(earPct / 100) / m) * m * 100;
   }
 
   /* ---- level-payment loans ---- */
@@ -35,8 +35,7 @@
   function pmtPeriodic(P, r, n) {
     if (n <= 0) return NaN;
     if (r === 0) return P / n;
-    const f = Math.pow(1 + r, n);
-    return (P * r * f) / (f - 1);
+    return P * r / -Math.expm1(-n * Math.log1p(r));
   }
   // monthly payment for an annual rate over `months`
   function pmt(P, annualPct, months) {
@@ -49,7 +48,7 @@
     if (A <= 0 || P <= 0) return null;
     if (r === 0) return P / A;
     if (A <= P * r) return null;
-    return -Math.log(1 - (r * P) / A) / Math.log(1 + r);
+    return -Math.log1p(-(r * P) / A) / Math.log1p(r);
   }
   function nper(P, annualPct, monthlyPayment) {
     return nperPeriodic(P, monthlyRate(annualPct), monthlyPayment);
@@ -59,7 +58,23 @@
   function principalFromPayment(monthlyPayment, annualPct, months) {
     const r = monthlyRate(annualPct);
     if (r === 0) return monthlyPayment * months;
-    return (monthlyPayment * (1 - Math.pow(1 + r, -months))) / r;
+    return monthlyPayment * -Math.expm1(-months * Math.log1p(r)) / r;
+  }
+
+  // Cash flows immediately after a scheduled payment, with no settlement fees.
+  // Keep full precision so a display-rounded schedule cannot shift a crossover.
+  function loanAtMonth(P, annualPct, termMonths, exitMonth) {
+    const payment = pmt(P, annualPct, termMonths), r = monthlyRate(annualPct);
+    let balance = P, paid = 0, interest = 0;
+    for (let m = 0; m < Math.min(termMonths, Math.max(0, Math.floor(exitMonth))); m++) {
+      const accrued = balance * r;
+      const actual = Math.min(payment, balance + accrued);
+      interest += accrued;
+      paid += actual;
+      balance = Math.max(0, balance + accrued - actual);
+    }
+    if (exitMonth >= termMonths) balance = 0;
+    return { balance, paid, interest };
   }
 
   // Nominal APR whose payment stream has the requested net proceeds as its PV.
@@ -200,7 +215,7 @@
     const need = target - fromPrincipal;
     if (need <= 0) return 0;
     if (rp === 0) return need / n;
-    return (need * rp) / (Math.pow(1 + rp, n) - 1);
+    return (need * rp) / Math.expm1(n * Math.log1p(rp));
   }
   // years to reach target with contributions (simulation; returns null > 100y)
   function yearsToGoal(target, principal, contributionMonthly, annualPct, compFreq) {
@@ -270,7 +285,7 @@
       for (const d of ds) if (d.bal <= 0.005 && !d.payoffMonth) d.payoffMonth = m;
       timeline.push({ m, balance: r2(ds.reduce((s, d) => s + Math.max(d.bal, 0), 0)), interest: r2(monthInterest), paid: r2(monthPaid) });
     }
-    if (m >= cap) return { error: "cap" };
+    if (ds.some((d) => d.bal > 0.005)) return { error: "cap" };
     return {
       months: m,
       totalInterest: r2(totalInterest),
@@ -330,7 +345,7 @@
   const api = {
     r2, periodicRate, monthlyRate, ear, nominalFromEar,
     pmt, pmtPeriodic, nper, nperPeriodic, principalFromPayment, aprFromProceeds,
-    amortize, annualize,
+    amortize, annualize, loanAtMonth,
     grow, fvLump, pvLump, pvAnnuity, simpleInterest,
     contributionForGoal, yearsToGoal, cagr, inflationAdjust,
     debtPlan, affordability, rentVsBuy,

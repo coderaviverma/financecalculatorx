@@ -5,6 +5,36 @@ import { loadFinance } from "./harness.mjs";
 const FIN = loadFinance();
 const close = (a, b, tol = 0.02) => assert.ok(Math.abs(a - b) <= tol, `expected ${a} ≈ ${b} (±${tol})`);
 
+test("loan formulas remain continuous near zero interest", () => {
+  for (const rate of [0, 1e-14, 1e-10, 1e-8]) {
+    close(FIN.pmt(20000, rate, 60), 20000 / 60, 0.000001);
+    close(FIN.principalFromPayment(20000 / 60, rate, 60), 20000, 0.0001);
+    close(FIN.nper(20000, rate, 20000 / 60), 60, 0.000001);
+    const schedule = FIN.amortize(20000, rate, 60, {});
+    assert.equal(schedule.months, 60);
+    close(schedule.totalPaid, 20000);
+    close(FIN.contributionForGoal(100000, 5000, rate, 10, 12), 95000/120, 0.00001);
+    close(FIN.ear(rate, 12), rate, 0.00000001);
+    close(FIN.nominalFromEar(rate, 12), rate, 0.00000001);
+  }
+});
+
+test("same-date loan exit outlay reconciles with independent balance formulas", () => {
+  for (const [P, rate, term] of [[20000,8.9,60], [20000,7.4,60], [260000,6.25,300], [1000,0,12], [50000,12,36]]) {
+    const r = rate / 1200;
+    const payment = r === 0 ? P / term : P * r / (1 - (1+r) ** -term);
+    for (const exit of [0,1,23,24,60,term,term+12]) {
+      const m = Math.min(exit,term);
+      const balance = m === term ? 0 : r === 0 ? P - payment*m : P*(1+r)**m - payment*((1+r)**m-1)/r;
+      const actual = FIN.loanAtMonth(P, rate, term, exit);
+      close(actual.balance, balance, 0.00001);
+      close(actual.paid, payment*m, 0.00001);
+      close(actual.interest, payment*m + balance - P, 0.00001);
+      close(actual.paid + actual.balance, P + actual.interest, 0.00001);
+    }
+  }
+});
+
 test("pmt matches known reference values", () => {
   // The methodology page publishes this check as "within a one-cent tolerance".
   close(FIN.pmt(250000, 6.5, 360), 1580.17, 0.01);
@@ -162,6 +192,10 @@ test("debtPlan flags impossible minimum payments", () => {
   assert.equal(rescued.months, 10);
   close(rescued.totalInterest, 53.78, 0.01);
   close(rescued.totalPaid, 1053.78, 0.01);
+  const atLimit = FIN.debtPlan([{ name: "Boundary", balance: 1200, apr: 0, minPayment: 1 }], 0, "avalanche");
+  assert.equal(atLimit.months, 1200);
+  assert.equal(atLimit.totalPaid, 1200);
+  assert.equal(FIN.debtPlan([{ name: "Beyond", balance: 1201, apr: 0, minPayment: 1 }], 0, "avalanche").error, "cap");
 });
 
 test("affordability respects DTI caps", () => {

@@ -172,12 +172,26 @@ test("loan-comparison-calculator: totals, effective APR and break-even vs closed
   assert.ok(r.explain.includes("cumulative interest savings"));
 
   // effective APR of B (fees deducted from proceeds) ≈ 8.47% in the comparison table
-  assert.equal(r.table.views.length, 1);
+  assert.equal(r.table.views.length, 2);
   const aprRow = r.table.views[0].rows.find((row) => row.m.toLowerCase().includes("apr"));
   assert.ok(aprRow && aprRow.b.includes("8.47"));
   assert.equal(r.chart.cfg.type, "bars");
   assert.equal(r.chart.cfg.series.length, 2);
   assert.ok(!r.scenario);
+
+  // A fraction of a cent at month 24 must not move fee recovery a month early.
+  const nearTie = cfg.compute({ ...defaults(cfg), feesB: 517.54 }, F);
+  assert.match(nearTie.explain, /month 25/);
+  const exit24 = r.table.views.find(view => view.id === "exit").rows;
+  close(exit24.find(row => row.m === "Total exit outlay")._csv_a, 22984.989598609, 0.00001);
+  close(exit24.find(row => row.m === "Total exit outlay")._csv_b, 22967.451852979, 0.00001);
+  const at23 = cfg.compute({ ...defaults(cfg), exitMonth: 23 }, F);
+  assert.match(metric(at23, "early-payoff"), /0.20/);
+  assert.match(at23.metrics.find(m => m.label.includes("Early-payoff")).hint, /Offer A/);
+  const at0 = cfg.compute({ ...defaults(cfg), exitMonth: 0 }, F);
+  close(n(metric(at0, "early-payoff")), 500);
+  const afterTerm = cfg.compute({ ...defaults(cfg), exitMonth: 120 }, F);
+  close(n(metric(afterTerm, "early-payoff")), costA - costB);
 
   // Adaptive APR bracket: $99 deducted from a $100, three-month, zero-rate
   // loan leaves $1 net proceeds and implies 39,999.01157587% nominal APR.

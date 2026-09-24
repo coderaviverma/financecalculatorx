@@ -9,7 +9,7 @@ export default {
   tagline:
     "Calculate non-compounding interest and compare it with monthly compounding over the same period.",
   cardDescription: "Flat interest via I = P × r × t, with a side-by-side compound comparison.",
-  lastReviewed: "2026-08-30",
+  lastReviewed: "2026-09-24",
   version: "1.0",
   popular: false,
   featured: false,
@@ -45,12 +45,12 @@ export default {
     exampleHtml: `
       <div class="example-block"><div class="ex-head">Example: $10,000 at 6% for 3 years</div><div class="ex-body">
         <p>I = 10,000 × 0.06 × 3 = <strong>$1,800</strong>, for a total of <strong>$11,800</strong>. That's $600 per year, or $50 per month, the same every month, first to last.</p>
-        <p>Compounded monthly instead, the balance would reach $11,966.81, some $166.81 more over the three years. Small. But run the same comparison out to 20 years: simple interest delivers $12,000 while monthly compounding delivers $23,102.04 — a gap of $11,102.04, more than the original interest itself.</p>
+        <p>Compounded monthly instead, the balance would reach $11,966.81, some $166.81 more over the three years. Small. But run the same comparison out to 20 years: simple interest earns $12,000 while monthly compounding earns $23,102.04 — a gap of $11,102.04, more than the original interest itself.</p>
         <p>Doubling time makes the point sharply: at 6% simple, money doubles in 100 ÷ 6 ≈ 16.7 years. Compounded monthly, it doubles in about 11.6.</p>
       </div></div>`,
     factorsHtml: `
       <ul>
-        <li><strong>Time is where the two models diverge.</strong> Under three years or so, the simple-vs-compound gap at typical rates is small change; past ten years it dominates. Match the model to the product's actual mechanics before comparing offers.</li>
+        <li><strong>Time is where the two models diverge.</strong> At the example's 6% rate on $10,000, monthly compounding adds $166.81 over simple interest after three years, and $11,102.04 after twenty. The gap depends on the entered rate and time.</li>
         <li><strong>What happens to the payouts.</strong> If coupon or payout interest lands in an account earning something, your true outcome sits between the two lines on the chart. If it gets spent, the simple line is your reality.</li>
         <li><strong>Rate quotes are comparable only within a model.</strong> A 6.2% simple payout deposit and a 6% compounding one can rank either way depending on the term — compute both, don't eyeball.</li>
         <li><strong>Day-count conventions.</strong> Legal and banking contexts count days differently (365, 360, actual). For multi-year horizons the difference is minor; for short windows it can matter.</li>

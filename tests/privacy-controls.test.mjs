@@ -9,6 +9,33 @@ import { site } from "../src/data/site.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const source = (path) => readFileSync(join(root, path), "utf8");
+
+test("optional numeric fields accept blanks but reject non-numeric text", () => {
+  const engine = source("src/assets/js/engine.js");
+  const validation = engine.slice(engine.indexOf("    function validate()"), engine.indexOf("    function applyShowIf()"));
+  const check = (raw, optional, value = NaN) => {
+    const input = { value: raw, setAttribute() {} };
+    const error = { textContent: "", hidden: true };
+    const wrap = { hidden: false, classList: { toggle() {} }, querySelector: s => s === ".field-error" ? error : input };
+    const state = { values: { amount: value } };
+    const result = runInNewContext(`${validation}\nvalidate()`, {
+      cfg: { inputs: [{ id: "amount", label: "Amount", type: "currency", optional, min: 0 }] },
+      fieldEls: { amount: wrap }, state, FCX: { fmt: { num: String } },
+    });
+    return { ok: result.ok, error: error.textContent, value: state.values.amount };
+  };
+  for (const text of ["invalid", "12abc", "Infinity", "--"]) {
+    const r = check(text, true);
+    assert.equal(r.ok, false);
+    assert.equal(r.error, "Enter a number.");
+    assert.ok(Number.isNaN(r.value));
+  }
+  assert.equal(check("", true).ok, true);
+  assert.equal(check("  ", true).value, 0);
+  assert.equal(check("", false).ok, false);
+  assert.equal(check("0", true, 0).ok, true);
+  assert.equal(check("-1", true, -1).ok, false);
+});
 const runShareCapture = (href) => {
   const url = new URL(href);
   const captured = {};

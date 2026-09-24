@@ -7,7 +7,7 @@ export default {
   description:
     "Two loan offers rarely differ on one number alone. A repeatable process: normalize the quotes, weigh rate against fees, find the break-even, read the fine print.",
   cardDescription: "A repeatable process for choosing between loans: normalize, compute totals, break-even, fine print.",
-  lastReviewed: "2026-08-30",
+  lastReviewed: "2026-09-24",
   published: "2026-07-12",
   categories: ["loans", "personal"],
   aliases: [],
@@ -45,7 +45,8 @@ export default {
 <p><strong>Offer A:</strong> payment $414.20/month; total paid $24,852; total interest $4,852. APR = 8.9% (no fees).</p>
 <p><strong>Offer B:</strong> payment $399.81/month; total paid $23,989 plus the $500 fee = <strong>$24,489</strong>; total interest $3,989. Folding the fee in, the APR is about <strong>8.5%</strong>.</p>
 <p><strong>Verdict held to term:</strong> B wins by $363 despite the fee, because the rate advantage of $14.39/month outlasts the $500 head start A gets.</p>
-<p><strong>Break-even:</strong> B's fee is repaid by its lower payments after 500 ÷ 14.39 ≈ <strong>35 months</strong>. Clear the loan before month 35 (a payoff, a refinance, selling the car) and A was actually the cheaper loan.</p>
+<p><strong>Early-payoff comparison:</strong> after payment 23, payments already made plus remaining principal and upfront fees total $22,885.91 for A and $22,886.11 for B. After payment 24, those totals are $22,984.99 and $22,967.45, so B is lower by $17.54. The first crossover is <strong>month 24</strong>, assuming no settlement charges. Dividing the fee by the monthly payment difference omits the different balances still owed.</p>
+<p><strong>Model boundary:</strong> compare <code>payments already made + remaining principal + upfront fees + settlement charges</code> at the same exit date. This example settles immediately after a scheduled payment and excludes settlement penalties and interest between payment dates. Those costs can change the result. Early-payoff case corrected on 24 September 2026.</p>
 </div></div>
 
 <div class="table-scroll"><table>
@@ -56,11 +57,12 @@ export default {
 <tr><td>Monthly payment</td><td>$414.20</td><td>$399.81</td></tr>
 <tr><td>Total cost (incl. fee)</td><td>$24,852</td><td>$24,489</td></tr>
 <tr><td>APR</td><td>8.9%</td><td>≈8.5%</td></tr>
-<tr><td>Cheaper if you exit before…</td><td>month 35</td><td>wins from month 35 on</td></tr>
+<tr><td>Exit outlay after payment 23, no settlement charges</td><td>$22,885.91</td><td>$22,886.11</td></tr>
+<tr><td>Exit outlay after payment 24, no settlement charges</td><td>$22,984.99</td><td>$22,967.45</td></tr>
 </tbody>
 </table></div>
 
-<p>This is the general pattern with fee-versus-rate trade-offs: <strong>low fees favor short holding periods; low rates favor long ones</strong>. The honest comparison therefore needs your realistic horizon, not just the contractual term. Run your own offers through the <a href="/loan-comparison-calculator/">loan comparison calculator</a> to get totals and the break-even point computed for your numbers, or model a single offer's full schedule with the <a href="/loan-calculator/">loan calculator</a>.</p>
+<p>The default example changes order between payments 23 and 24 because interest savings then exceed the upfront fee difference. Other inputs can produce another crossover or none; unequal terms can change the later comparison. The <a href="/loan-comparison-calculator/">loan comparison calculator</a> reports full-term costs and the first fee-recovery month when applicable. A single offer's remaining balance and paid interest are shown in the <a href="/loan-calculator/">loan calculator</a> schedule.</p>
 
 <h2>Step 5: Record any revised offer on the same fields</h2>
 <p>If a lender provides revised terms, enter the new amount, rate, term, fees and total payment as a separate offer. Comparing a written revision with the earlier disclosure prevents one changed field from obscuring another. The guide makes no assumption that a particular lender or product permits negotiation.</p>

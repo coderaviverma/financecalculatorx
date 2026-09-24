@@ -9,7 +9,7 @@ export default {
   tagline:
     "Start with a target and deadline to estimate the monthly contribution needed to reach it.",
   cardDescription: "Solve for the monthly amount needed to hit a target by a deadline.",
-  lastReviewed: "2026-08-30",
+  lastReviewed: "2026-09-24",
   version: "1.1",
   popular: false,
   featured: true,
@@ -48,7 +48,7 @@ export default {
       <div class="example-block"><div class="ex-head">Example: $100,000 in 10 years at 7%, starting with $5,000</div><div class="ex-body">
         <p>Monthly rate i = 0.07 ⁄ 12 = 0.005833, n = 120 months. The $5,000 head start grows to 5,000 × (1.005833)<sup>120</sup> = <strong>$10,048.31</strong> on its own, leaving $89,951.69 for contributions to cover.</p>
         <p>C = 89,951.69 × 0.005833 ⁄ [(1.005833)<sup>120</sup> − 1] = <strong>$519.70 per month</strong>.</p>
-        <p>Check it forward: $5,000 growing at 7% with $519.70 added monthly lands on $100,000.00 at month 120, to the cent. Of the final amount, $62,363.67 is contributions and $32,636.33 (including the growth on the head start) comes from returns.</p>
+        <p>The unrounded contribution is about $519.6973. Keeping that precision reaches $100,000.00 in the model; depositing the displayed $519.70 instead reaches $100,000.48 at month 120. Of the final amount, $62,363.67 is contributions and $32,636.33 (including the growth on the head start) comes from returns.</p>
       </div></div>`,
     factorsHtml: `
       <ul>

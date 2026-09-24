@@ -9,7 +9,7 @@ export default {
   tagline:
     "Put today's money and regular contributions on a future date, with beginning- or end-of-period deposits.",
   cardDescription: "Textbook TVM future value with annuity-due timing and compounding options.",
-  lastReviewed: "2026-08-30",
+  lastReviewed: "2026-09-24",
   version: "1.0",
   popular: false,
   featured: false,
@@ -53,7 +53,7 @@ export default {
         <li><strong>Horizon.</strong> In the default constant-return plan, years 20→25 add $80,720, more than the displayed value at year 10. Compare scenarios on the same future date.</li>
         <li><strong>Lump sum and contributions.</strong> The result reports each component separately so changes to the starting amount and monthly contribution remain visible.</li>
         <li><strong>Timing.</strong> Beginning-of-period contributions raise the annuity component by exactly (1 + i), about 0.58% at 7% nominal with monthly periods.</li>
-        <li><strong>Compounding frequency</strong> shifts results by fractions of a percent at typical rates. If you're quoted an APY, use yearly compounding here to avoid double-counting.</li>
+        <li><strong>Compounding frequency</strong> changes the effective annual yield for a given nominal rate; the size of the effect depends on the rate and horizon. If you're quoted an APY, use yearly compounding here to avoid double-counting.</li>
       </ul>`,
     limitationsHtml: `
       <ul>

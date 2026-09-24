@@ -10,8 +10,8 @@ export default {
     "Compare snowball and avalanche repayment using your balances, rates, minimum payments and available monthly budget.",
   cardDescription: "Multi-debt payoff plan comparing snowball vs avalanche month by month.",
   scenarioHint: "Save your plan as Scenario A, then change the extra monthly amount or switch strategy and save Scenario B — the table shows the difference in debt-free date and total interest.",
-  lastReviewed: "2026-08-30",
-  version: "1.1",
+  lastReviewed: "2026-09-24",
+  version: "1.2",
   popular: true,
   featured: true,
   jumpExplainLabel: "Snowball vs avalanche",
@@ -26,7 +26,7 @@ export default {
         <li><strong>Rolling minimums.</strong> When a debt is cleared, its minimum payment automatically joins your extra budget (that's the "snowball" effect, and the calculator applies it to both strategies).</li>
         <li>The <strong>Payoff order</strong> table shows the month and date each debt is cleared; the <strong>Monthly timeline</strong> view tracks total balance, interest accrued and amount paid every month, and exports to CSV.</li>
       </ul>
-      <p>If an entered minimum does not cover modeled monthly interest, the calculator flags the schedule as non-amortizing under those inputs.</p>`,
+      <p>The simulation considers the full payment budget, including extra payments and minimums released by cleared debts. A single debt whose entire payment cannot cover interest is rejected immediately; other unfinished schedules are rejected at the 1,200-month limit.</p>`,
     explanationHtml: `
       <h2>How snowball and avalanche differ</h2>
       <p>Both strategies pay every minimum every month, and both throw all spare budget at one target debt at a time. The only difference is targeting: <strong>avalanche</strong> attacks the highest interest rate first, <strong>snowball</strong> attacks the smallest balance first.</p>
@@ -42,7 +42,8 @@ export default {
         <li>The extra budget, plus the minimums of any already-cleared debts, goes entirely to the target: highest APR (avalanche) or smallest starting balance (snowball).</li>
         <li>When the target dies, the next debt in order becomes the target.</li>
       </ol>
-      <p>The simulation runs until every balance reaches zero, capping at 100 years. Interest totals are the sum of all monthly accruals, rounded to the cent. Both strategies are simulated on every calculation, so the comparison is internally consistent with the stated inputs and assumptions; a minimums-only baseline is computed the same way.</p>`,
+      <p>The simulation runs until every balance reaches zero, capping at 100 years. Interest totals are the sum of all monthly accruals, rounded to the cent. Both strategies are simulated on every calculation, so the comparison is internally consistent with the stated inputs and assumptions; a minimums-only baseline is computed the same way.</p>
+      <p><strong>September 24, 2026 correction:</strong> a schedule that clears exactly in month 1,200 now returns its completed result. Previously it was incorrectly classified as exceeding the simulation limit.</p>`,
     exampleHtml: `
       <div class="example-block"><div class="ex-head">Example: three debts, $25,000 total, $300/month extra</div><div class="ex-body">
         <p>Credit card $8,000 at 22.9% (min $200) · Car loan $12,000 at 9.5% (min $280) · Personal loan $5,000 at 14% (min $150). Total minimums $630, so the monthly debt budget is $930.</p>

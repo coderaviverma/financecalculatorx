@@ -10,7 +10,7 @@ export default {
     "Calculate total and annualized return after including the costs attached to an investment.",
   cardDescription: "Total and annualized return on a completed or current investment.",
   scenarioHint: "Save one investment's numbers as Scenario A, enter a second investment (or the same one with fees included), then save Scenario B to compare total and annualized returns side by side.",
-  lastReviewed: "2026-08-30",
+  lastReviewed: "2026-09-24",
   version: "1.0",
   popular: false,
   featured: false,
@@ -78,7 +78,7 @@ export default {
     },
     {
       q: "Why is annualized return not just ROI divided by years?",
-      aHtml: `<p>Because growth compounds: an investment earning 11.87% yearly gains more dollars in year three than in year one, so the per-year rate that produces 40% in total is lower than 40 ÷ 3 = 13.33%. The division shortcut always overstates multi-year performance, and the error grows with time and volatility; geometric averaging is the version your account balance obeys.</p>`,
+      aHtml: `<p>Because growth compounds: an investment earning 11.87% yearly gains more dollars in year three than in year one, so the per-year rate that produces 40% in total is lower than 40 ÷ 3 = 13.33%. For this positive three-year example, dividing overstates CAGR. With a 20% loss over three years, dividing gives −6.67% while CAGR is −7.17%. The formula links the starting and ending values; it cannot describe the intervening volatility.</p>`,
     },
     {
       q: "Which costs should I include?",
@@ -86,7 +86,7 @@ export default {
     },
     {
       q: "When should I not annualize a return?",
-      aHtml: `<p>For holdings under a year. Annualizing a short window assumes the pace continues — a 20% gain in 6 months becomes "44% annualized", a number describing a year that never happened. Quote sub-year results as the raw ROI with the period attached ("20% in 6 months"), and only annualize once at least a full year has passed.</p>`,
+      aHtml: `<p>For a period shorter than a year, an annualized result is an extrapolation: a 20% gain over six months becomes 44% annualized. Both figures are mathematically defined, but the annualized number does not show a year of observed performance or imply the gain can be repeated. This tool displays the entered holding period alongside the result.</p>`,
     },
     {
       q: "Is a negative ROI calculated the same way?",

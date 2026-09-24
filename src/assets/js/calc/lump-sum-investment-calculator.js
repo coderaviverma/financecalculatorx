@@ -17,7 +17,7 @@ FCX.define({
     const growth = fv - v.amount;
     const multiple = fv / v.amount;
     const rule72 = v.rate > 0 ? 72 / v.rate : null;
-    const exactDouble = v.rate > 0 ? Math.log(2) / (m * Math.log(1 + v.rate / 100 / m)) : null;
+    const exactDouble = v.rate > 0 ? Math.log(2) / (m * Math.log1p(v.rate / 100 / m)) : null;
     const real = FIN.inflationAdjust(fv, infl, v.years);
 
     const xs = [], main = [], lo = [], hi = [], rows = [];

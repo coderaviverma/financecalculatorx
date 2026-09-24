@@ -4,7 +4,7 @@ FCX.define({
   inputs: [
     { id: "initial", label: "Initial investment", type: "currency", default: 10000, min: 0, max: 1000000000, optional: true },
     { id: "monthly", label: "Monthly contribution", type: "currency", default: 500, min: 0, max: 100000000, optional: true },
-    { id: "rate", label: "Expected annual return", type: "percent", default: 8, min: 0, max: 30, slider: { min: 0, max: 15, step: 0.1 }, hint: "A before-inflation scenario rate; actual returns can be lower or negative." },
+    { id: "rate", label: "Annual return assumption", type: "percent", default: 8, min: 0, max: 30, slider: { min: 0, max: 15, step: 0.1 }, hint: "Nominal annual rate, compounded monthly. Actual returns can vary or be negative; this tool models constant non-negative rates." },
     { id: "years", label: "Investment horizon", type: "number", default: 25, min: 1, max: 60, integer: true, affixPost: "years" },
     { id: "inflation", label: "Expected inflation", type: "percent", default: 3, min: 0, max: 20, optional: true, hint: "Used to show results in today's purchasing power." },
   ],
@@ -14,7 +14,8 @@ FCX.define({
     const g = FIN.grow({ principal: v.initial || 0, contribution: v.monthly || 0, annualPct: v.rate, years: v.years });
     const invested = (v.initial || 0) + g.totalContrib;
     const real = FIN.inflationAdjust(g.fv, v.inflation || 0, v.years);
-    const realRate = ((1 + v.rate / 100) / (1 + (v.inflation || 0) / 100) - 1) * 100;
+    const effectiveRate = FIN.ear(v.rate, 12);
+    const realRate = ((1 + effectiveRate / 100) / (1 + (v.inflation || 0) / 100) - 1) * 100;
 
     const cols = [
       { key: "y", label: "Year", align: "left" }, { key: "inv", label: "Total invested" }, { key: "gr", label: "Total growth" },
@@ -34,7 +35,7 @@ FCX.define({
         { label: "Total invested", value: F.money0(invested) },
         { label: "Investment growth", value: F.money0(g.interest), hint: F.num(g.fv / Math.max(invested, 1), 1) + "× your money in" },
         { label: "In today's money", value: F.money0(real), hint: "adjusted for " + F.pct(v.inflation || 0, 1) + " inflation" },
-        { label: "Real annual return", value: F.pct(realRate, 2), hint: "return after inflation" },
+        { label: "Real annual return", value: F.pct(realRate, 2), hint: `${F.pct(effectiveRate, 3)} effective annual growth, adjusted for inflation` },
       ],
       explain: `<p>Investing <strong>${F.money0(v.initial || 0)}</strong> now${v.monthly > 0 ? ` plus <strong>${F.money0(v.monthly)}</strong> a month` : ""} at an average <strong>${F.pct(v.rate)}</strong> return projects to about <strong>${F.money0(g.fv)}</strong> in ${v.years} years — <strong>${F.money0(invested)}</strong> of deposits and <strong>${F.money0(g.interest)}</strong> of growth.</p><p>Because prices rise too, that future balance would buy what <strong>${F.money0(real)}</strong> buys today at ${F.pct(v.inflation || 0, 1)} inflation. Planning with the inflation-adjusted number keeps goals honest.</p>`,
       chart: {

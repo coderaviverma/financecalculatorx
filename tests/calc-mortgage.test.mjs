@@ -213,4 +213,29 @@ test("refinance-calculator: break-even = fees/savings, term reset, higher-rate e
   close(scnRaw(worse, "monthly saving"), oldPmt - pmtRef(260000, 7.75, 300), 0.01); // −84.55
   assert.equal(scnRaw(worse, "break-even"), null);
   assert.equal(metric(worse, "break-even"), "None");
+
+  // No payment-only fee recovery can be promised beyond the original schedule.
+  const tooLate = cfg.compute({ ...defaults(cfg), closing: 1000000 }, F);
+  assert.equal(scnRaw(tooLate, "break-even"), null);
+  assert.match(tooLate.explain, /do not recover/);
+  const equal = cfg.compute({ ...defaults(cfg), newRate: 7.25 }, F);
+  assert.match(equal.explain, /payment is unchanged/);
+  assert.doesNotMatch(equal.explain, /payment rises/);
+  const free = cfg.compute({ ...defaults(cfg), closing: 0, newRate: 7.75 }, F);
+  assert.equal(scnRaw(free, "break-even"), 0);
+  assert.match(free.explain, /no upfront fees/);
+  const immediate = cfg.compute({ ...defaults(cfg), horizon: 0 }, F);
+  close(scnRaw(immediate, "selected exit"), -5000);
+  // Independent outstanding-balance identity at month 60, without using FIN.
+  const balanceAt = (rate, term, m) => {
+    const i = rate / 1200;
+    return 260000 * (1+i)**m - pmtRef(260000, rate, term) * ((1+i)**m-1)/i;
+  };
+  const expectedExitSaving = 60*(oldPmt-newPmt) + balanceAt(7.25,300,60) - balanceAt(6.25,300,60) - 5000;
+  close(scnRaw(r, "selected exit"), expectedExitSaving, 0.00001);
+  const finished = cfg.compute({ ...defaults(cfg), horizon: 480 }, F);
+  close(scnRaw(finished, "selected exit"), scnRaw(finished, "lifetime"));
+  const exitTable = r.table.views.find(v => v.id === "exit");
+  const outlay = exitTable.rows.find(row => row.m === "Total exit outlay");
+  close(outlay._csv_cur - outlay._csv_nw, expectedExitSaving, 0.00001);
 });

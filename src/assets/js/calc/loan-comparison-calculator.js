@@ -10,6 +10,7 @@ FCX.define({
     { id: "rateB", label: "Offer B — interest rate", type: "percent", default: 7.4, min: 0, max: 40, slider: { min: 0, max: 25, step: 0.05 } },
     { id: "termB", label: "Offer B — term", type: "term", default: 60, min: 3, max: 600 },
     { id: "feesB", label: "Offer B — upfront fees", type: "currency", default: 500, min: 0, max: 10000000, optional: true },
+    { id: "exitMonth", label: "Compare early payoff after", type: "number", default: 24, min: 0, max: 600, integer: true, affixPost: "months", hint: "Both offers are settled just after this payment. Enter 0 for an immediate exit. Settlement charges are excluded." },
   ],
   compute(v, F) {
     const FIN = F.fin;
@@ -31,16 +32,34 @@ FCX.define({
     const winner = Math.abs(diff) < 0.005 ? null : diff > 0 ? "B" : "A";
     const payDiff = A.payment - B.payment;
     const payWinner = Math.abs(payDiff) < 0.005 ? null : payDiff > 0 ? "B" : "A";
+    const exitMonth = v.exitMonth == null ? 24 : v.exitMonth;
+    const exitA = FIN.loanAtMonth(v.amount, v.rateA, v.termA, exitMonth);
+    const exitB = FIN.loanAtMonth(v.amount, v.rateB, v.termB, exitMonth);
+    const exitCostA = exitA.interest + feesA, exitCostB = exitB.interest + feesB;
+    const exitDiff = exitCostA - exitCostB;
+    const exitRow = (label, a, b) => ({ m: label, a: F.money(a), b: F.money(b), d: sd(a - b, F.money), _csv_m: label, _csv_a: a, _csv_b: b, _csv_d: a - b });
 
     // Break-even for an early payoff: principal repaid is not a borrowing cost,
     // so compare upfront fees plus cumulative interest rather than raw payments.
     let breakEven = null;
     if (winner && (winner === "A" ? feesA > feesB : feesB > feesA)) {
       let cumA = feesA, cumB = feesB;
+      let balanceA = v.amount, balanceB = v.amount;
+      const paymentA = FIN.pmt(v.amount, v.rateA, v.termA);
+      const paymentB = FIN.pmt(v.amount, v.rateB, v.termB);
       const maxM = Math.max(A.months, B.months);
       for (let m = 1; m <= maxM && breakEven === null; m++) {
-        cumA += A.rows[m - 1] ? A.rows[m - 1].interest : 0;
-        cumB += B.rows[m - 1] ? B.rows[m - 1].interest : 0;
+        // Carry full precision: summing displayed cents can move the crossover.
+        if (m <= A.months) {
+          const interest = balanceA * v.rateA / 1200;
+          cumA += interest;
+          balanceA = Math.max(0, balanceA + interest - paymentA);
+        }
+        if (m <= B.months) {
+          const interest = balanceB * v.rateB / 1200;
+          cumB += interest;
+          balanceB = Math.max(0, balanceB + interest - paymentB);
+        }
         if ((winner === "B" ? cumB : cumA) < (winner === "B" ? cumA : cumB)) breakEven = m;
       }
     }
@@ -70,14 +89,15 @@ FCX.define({
         { label: "Monthly payment — Offer B", value: F.money(B.payment), hint: `${F.pct(v.rateB)} · ${F.dur(v.termB)}` },
         { label: "Total cost — Offer A", value: F.money(costA), hint: `${F.money(A.totalInterest)} interest + ${F.money0(feesA)} fees` },
         { label: "Total cost — Offer B", value: F.money(costB), hint: `${F.money(B.totalInterest)} interest + ${F.money0(feesB)} fees` },
+        { label: `Early-payoff cost difference at month ${exitMonth}`, value: F.money(Math.abs(exitDiff)), hint: Math.abs(exitDiff) < 0.005 ? "Both offers have the same modeled exit cost" : `Offer ${exitDiff > 0 ? "B" : "A"} has lower interest plus fees at this exit date` },
       ],
       explain:
         `<p>On <strong>${F.money0(v.amount)}</strong>, Offer A (${F.pct(v.rateA)}, ${F.dur(v.termA)}${feesA ? ", " + F.money0(feesA) + " fees" : ""}) costs <strong>${F.money(A.payment)}</strong>/month and <strong>${F.money(costA)}</strong> in interest and fees combined. Offer B (${F.pct(v.rateB)}, ${F.dur(v.termB)}${feesB ? ", " + F.money0(feesB) + " fees" : ""}) costs <strong>${F.money(B.payment)}</strong>/month and <strong>${F.money(costB)}</strong> all-in. Counting fees against the money you actually receive, the effective APR is <strong>${F.pct(aprA, 2)}</strong> for A and <strong>${F.pct(aprB, 2)}</strong> for B.</p>` +
         `<p>${winner ? `<strong>Offer ${winner}</strong> is the cheaper loan overall, by <strong>${F.money(Math.abs(diff))}</strong>.` : `The two offers cost the same overall at these inputs.`}` +
         (winner && payWinner && payWinner !== winner ? ` Note the split verdict: Offer ${payWinner} has the lower monthly payment while Offer ${winner} costs less in total — a lower payment stretched over more months is not a cheaper loan.` : "") +
         (v.termA !== v.termB ? ` The terms differ (${F.dur(v.termA)} vs ${F.dur(v.termB)}), so the totals cover different lengths of time — weigh the total cost against how long each offer keeps a payment in your budget.` : "") +
-        (breakEven ? ` Offer ${winner} starts behind because of its higher upfront fees; its cumulative interest savings first recover that gap in <strong>month ${breakEven}</strong> (${F.dateFromNow(breakEven)}). Under this no-penalty early-payoff model, exiting before then leaves the other offer with the lower fee-plus-interest cost.` : "") +
-        `</p>`,
+        (breakEven ? ` Offer ${winner} starts behind because of its higher upfront fees; its cumulative interest savings first recover that gap in <strong>month ${breakEven}</strong> (${F.dateFromNow(breakEven)}). This is the first modeled crossover, not a promise that the same offer stays cheaper at every later exit date.` : "") +
+        `</p><p>Early-payoff cost includes payments already made, remaining principal and upfront fees. The model excludes settlement charges, prepayment penalties and interest between payment dates. Compare both offers at the same exit date.</p>`,
       chart: {
         title: "Offer A vs Offer B",
         note: "Monthly payment is shown on the same money scale as the totals, so its bars are small — hover for exact values.",
@@ -97,7 +117,16 @@ FCX.define({
       table: {
         title: "Side-by-side comparison",
         csvName: "loan-comparison",
-        views: [{ id: "compare", label: "Comparison", columns: cols, rows }],
+        views: [
+          { id: "compare", label: "Full term", columns: cols, rows },
+          { id: "exit", label: `Exit at month ${exitMonth}`, columns: cols, rows: [
+            exitRow("Payments already made", exitA.paid, exitB.paid),
+            exitRow("Remaining principal to settle", exitA.balance, exitB.balance),
+            exitRow("Upfront fees", feesA, feesB),
+            exitRow("Total exit outlay", exitA.paid + exitA.balance + feesA, exitB.paid + exitB.balance + feesB),
+            exitRow("Borrowing cost (interest + fees)", exitCostA, exitCostB),
+          ] },
+        ],
       },
     };
   },

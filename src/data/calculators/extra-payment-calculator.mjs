@@ -9,7 +9,7 @@ export default {
   tagline:
     "Test monthly, yearly or one-time extra payments on a fixed-rate loan and compare the revised interest and payoff date.",
   cardDescription: "Interest saved and months cut by monthly, yearly or one-time prepayments.",
-  lastReviewed: "2026-08-30",
+  lastReviewed: "2026-09-24",
   version: "1.1",
   popular: false,
   featured: false,
@@ -46,7 +46,7 @@ export default {
       <div class="example-block"><div class="ex-head">Example: $100/month extra on $250,000 at 6.5% over 30 years</div><div class="ex-body">
         <p>The required payment is <strong>$1,580.17</strong>; left untouched, the loan costs <strong>$318,861.22</strong> in interest over 360 months.</p>
         <p>With $100 extra each month, the balance reaches zero in <strong>304 months</strong>: 25 years 4 months, or 4 years 8 months early.</p>
-        <p>Total interest falls to <strong>$260,001.34</strong>, a saving of <strong>$58,859.88</strong>. Roughly $49 is avoided for every $100 prepaid, and the earlier dollars do most of that work.</p>
+        <p>Total interest falls to <strong>$260,001.34</strong>, a saving of <strong>$58,859.88</strong>. The schedule applies $30,300 of extra payments before the smaller final installment. That is about $194.26 of modeled interest avoided per $100 of extra principal paid, spread over the remaining term; it is not an annual investment return.</p>
       </div></div>`,
     factorsHtml: `
       <ul>

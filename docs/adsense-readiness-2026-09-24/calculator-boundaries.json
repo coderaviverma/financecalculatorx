@@ -1,0 +1,2310 @@
+{
+  "summary": {
+    "calculators": 30,
+    "cases": 430,
+    "failures": [],
+    "rejected": 27
+  },
+  "report": [
+    {
+      "slug": "budget-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$900.00"
+        },
+        {
+          "name": "income:min",
+          "status": "pass",
+          "primary": "$0.20"
+        },
+        {
+          "name": "income:max",
+          "status": "pass",
+          "primary": "$20,000,000.00"
+        },
+        {
+          "name": "needsPct:min",
+          "status": "rejected",
+          "detail": "Your three percentages add up to 50% — adjust them to total 100%."
+        },
+        {
+          "name": "needsPct:max",
+          "status": "rejected",
+          "detail": "Your three percentages add up to 150% — adjust them to total 100%."
+        },
+        {
+          "name": "needsPct:near-zero",
+          "status": "rejected",
+          "detail": "Your three percentages add up to 50% — adjust them to total 100%."
+        },
+        {
+          "name": "wantsPct:min",
+          "status": "rejected",
+          "detail": "Your three percentages add up to 70% — adjust them to total 100%."
+        },
+        {
+          "name": "wantsPct:max",
+          "status": "rejected",
+          "detail": "Your three percentages add up to 170% — adjust them to total 100%."
+        },
+        {
+          "name": "wantsPct:near-zero",
+          "status": "rejected",
+          "detail": "Your three percentages add up to 70% — adjust them to total 100%."
+        },
+        {
+          "name": "savePct:min",
+          "status": "rejected",
+          "detail": "Your three percentages add up to 80% — adjust them to total 100%."
+        },
+        {
+          "name": "savePct:max",
+          "status": "rejected",
+          "detail": "Your three percentages add up to 180% — adjust them to total 100%."
+        },
+        {
+          "name": "savePct:near-zero",
+          "status": "rejected",
+          "detail": "Your three percentages add up to 80% — adjust them to total 100%."
+        }
+      ]
+    },
+    {
+      "slug": "compound-interest-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$144,572.72"
+        },
+        {
+          "name": "principal:min",
+          "status": "pass",
+          "primary": "$104,185.33"
+        },
+        {
+          "name": "principal:max",
+          "status": "pass",
+          "primary": "$4,038,843,034.31"
+        },
+        {
+          "name": "contribution:min",
+          "status": "pass",
+          "primary": "$40,387.39"
+        },
+        {
+          "name": "contribution:max",
+          "status": "pass",
+          "primary": "$52,092,706,369.94"
+        },
+        {
+          "name": "contribFreq:12",
+          "status": "pass",
+          "primary": "$144,572.72"
+        },
+        {
+          "name": "contribFreq:4",
+          "status": "pass",
+          "primary": "$74,914.04"
+        },
+        {
+          "name": "contribFreq:1",
+          "status": "pass",
+          "primary": "$48,794.46"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$58,000.00"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$266,169,294.86"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$58,000.00"
+        },
+        {
+          "name": "years:min",
+          "status": "pass",
+          "primary": "$13,201.42"
+        },
+        {
+          "name": "years:max",
+          "status": "pass",
+          "primary": "$11,748,466.41"
+        },
+        {
+          "name": "compFreq:365",
+          "status": "pass",
+          "primary": "$144,982.48"
+        },
+        {
+          "name": "compFreq:12",
+          "status": "pass",
+          "primary": "$144,572.72"
+        },
+        {
+          "name": "compFreq:4",
+          "status": "pass",
+          "primary": "$143,739.17"
+        },
+        {
+          "name": "compFreq:2",
+          "status": "pass",
+          "primary": "$142,522.66"
+        },
+        {
+          "name": "compFreq:1",
+          "status": "pass",
+          "primary": "$140,204.12"
+        }
+      ]
+    },
+    {
+      "slug": "debt-payoff-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "2 yr 9 mo"
+        },
+        {
+          "name": "extra:min",
+          "status": "pass",
+          "primary": "4 yr 9 mo"
+        },
+        {
+          "name": "extra:max",
+          "status": "pass",
+          "primary": "1 month"
+        },
+        {
+          "name": "method:avalanche",
+          "status": "pass",
+          "primary": "2 yr 9 mo"
+        },
+        {
+          "name": "method:snowball",
+          "status": "pass",
+          "primary": "2 yr 9 mo"
+        }
+      ]
+    },
+    {
+      "slug": "down-payment-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$70,000"
+        },
+        {
+          "name": "price:min",
+          "status": "pass",
+          "primary": "$200"
+        },
+        {
+          "name": "price:max",
+          "status": "pass",
+          "primary": "$200,000,000"
+        },
+        {
+          "name": "pct:min",
+          "status": "pass",
+          "primary": "$0"
+        },
+        {
+          "name": "pct:max",
+          "status": "pass",
+          "primary": "$350,000"
+        },
+        {
+          "name": "pct:near-zero",
+          "status": "pass",
+          "primary": "$0"
+        },
+        {
+          "name": "closingPct:min",
+          "status": "pass",
+          "primary": "$70,000"
+        },
+        {
+          "name": "closingPct:max",
+          "status": "pass",
+          "primary": "$70,000"
+        },
+        {
+          "name": "closingPct:near-zero",
+          "status": "pass",
+          "primary": "$70,000"
+        },
+        {
+          "name": "savings:min",
+          "status": "pass",
+          "primary": "$70,000"
+        },
+        {
+          "name": "savings:max",
+          "status": "pass",
+          "primary": "$70,000"
+        },
+        {
+          "name": "saveMonthly:min",
+          "status": "pass",
+          "primary": "$70,000"
+        },
+        {
+          "name": "saveMonthly:max",
+          "status": "pass",
+          "primary": "$70,000"
+        },
+        {
+          "name": "saveRate:min",
+          "status": "pass",
+          "primary": "$70,000"
+        },
+        {
+          "name": "saveRate:max",
+          "status": "pass",
+          "primary": "$70,000"
+        },
+        {
+          "name": "saveRate:near-zero",
+          "status": "pass",
+          "primary": "$70,000"
+        }
+      ]
+    },
+    {
+      "slug": "early-loan-payoff-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$559.91"
+        },
+        {
+          "name": "balance:min",
+          "status": "pass",
+          "primary": "$0.03"
+        },
+        {
+          "name": "balance:max",
+          "status": "pass",
+          "primary": "$3,110,621.82"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$500.00"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$865.98"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$500.00"
+        },
+        {
+          "name": "payment:min",
+          "status": "pass",
+          "primary": "$559.91"
+        },
+        {
+          "name": "payment:max",
+          "status": "pass",
+          "primary": "$559.91"
+        },
+        {
+          "name": "target:min",
+          "status": "pass",
+          "primary": "$18,112.50"
+        },
+        {
+          "name": "target:max",
+          "status": "pass",
+          "primary": "$115.24"
+        }
+      ]
+    },
+    {
+      "slug": "emi-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$21,695.58"
+        },
+        {
+          "name": "amount:min",
+          "status": "pass",
+          "primary": "$8.68"
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$8,678,232.33"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$10,416.67"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$62,667.23"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$10,416.67"
+        },
+        {
+          "name": "term:min",
+          "status": "pass",
+          "primary": "$427,057.29"
+        },
+        {
+          "name": "term:max",
+          "status": "pass",
+          "primary": "$18,327.35"
+        },
+        {
+          "name": "prepay:min",
+          "status": "pass",
+          "primary": "$21,695.58"
+        },
+        {
+          "name": "prepay:max",
+          "status": "pass",
+          "primary": "$21,695.58"
+        },
+        {
+          "name": "prepayMonth:min",
+          "status": "pass",
+          "primary": "$21,695.58"
+        },
+        {
+          "name": "prepayMonth:max",
+          "status": "pass",
+          "primary": "$21,695.58"
+        }
+      ]
+    },
+    {
+      "slug": "extra-payment-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$58,859.88"
+        },
+        {
+          "name": "amount:min",
+          "status": "pass",
+          "primary": "$63.50"
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$74,617.80"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$1,859,551.24"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "term:min",
+          "status": "pass",
+          "primary": "$8.18"
+        },
+        {
+          "name": "term:max",
+          "status": "pass",
+          "primary": "$209,911.69"
+        },
+        {
+          "name": "extraMonthly:min",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "extraMonthly:max",
+          "status": "pass",
+          "primary": "$317,507.05"
+        },
+        {
+          "name": "extraYearly:min",
+          "status": "pass",
+          "primary": "$58,859.88"
+        },
+        {
+          "name": "extraYearly:max",
+          "status": "pass",
+          "primary": "$302,729.90"
+        },
+        {
+          "name": "extraOnce:min",
+          "status": "pass",
+          "primary": "$58,859.88"
+        },
+        {
+          "name": "extraOnce:max",
+          "status": "pass",
+          "primary": "$302,729.90"
+        },
+        {
+          "name": "onceMonth:min",
+          "status": "pass",
+          "primary": "$58,859.88"
+        },
+        {
+          "name": "onceMonth:max",
+          "status": "pass",
+          "primary": "$58,859.88"
+        }
+      ]
+    },
+    {
+      "slug": "future-value-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$93,485.31"
+        },
+        {
+          "name": "present:min",
+          "status": "pass",
+          "primary": "$79,240.57"
+        },
+        {
+          "name": "present:max",
+          "status": "pass",
+          "primary": "$2,849,025,971.45"
+        },
+        {
+          "name": "contribution:min",
+          "status": "pass",
+          "primary": "$14,244.73"
+        },
+        {
+          "name": "contribution:max",
+          "status": "pass",
+          "primary": "$31,696,243,916.87"
+        },
+        {
+          "name": "timing:end",
+          "status": "pass",
+          "primary": "$93,485.31"
+        },
+        {
+          "name": "timing:begin",
+          "status": "pass",
+          "primary": "$93,947.54"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$50,000.00"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$17,077,259.50"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$50,000.00"
+        },
+        {
+          "name": "years:min",
+          "status": "pass",
+          "primary": "$8,459.60"
+        },
+        {
+          "name": "years:max",
+          "status": "pass",
+          "primary": "$3,109,853.28"
+        },
+        {
+          "name": "compFreq:12",
+          "status": "pass",
+          "primary": "$93,485.31"
+        },
+        {
+          "name": "compFreq:4",
+          "status": "pass",
+          "primary": "$93,121.68"
+        },
+        {
+          "name": "compFreq:1",
+          "status": "pass",
+          "primary": "$91,571.35"
+        }
+      ]
+    },
+    {
+      "slug": "house-affordability-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$339,018"
+        },
+        {
+          "name": "income:min",
+          "status": "rejected",
+          "detail": "At these modeled ratios, existing debts and housing costs use the full allowance, leaving no amount for principal and interest. Adjust an input or the ratio scenario."
+        },
+        {
+          "name": "income:max",
+          "status": "pass",
+          "primary": "$3,691,570,415"
+        },
+        {
+          "name": "debts:min",
+          "status": "pass",
+          "primary": "$339,018"
+        },
+        {
+          "name": "debts:max",
+          "status": "rejected",
+          "detail": "At these modeled ratios, existing debts and housing costs use the full allowance, leaving no amount for principal and interest. Adjust an input or the ratio scenario."
+        },
+        {
+          "name": "down:min",
+          "status": "pass",
+          "primary": "$299,018"
+        },
+        {
+          "name": "down:max",
+          "status": "pass",
+          "primary": "$1,000,299,018"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$720,400"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$130,666"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$720,400"
+        },
+        {
+          "name": "term:15",
+          "status": "pass",
+          "primary": "$256,965"
+        },
+        {
+          "name": "term:30",
+          "status": "pass",
+          "primary": "$339,018"
+        },
+        {
+          "name": "taxIns:min",
+          "status": "pass",
+          "primary": "$394,392"
+        },
+        {
+          "name": "taxIns:max",
+          "status": "rejected",
+          "detail": "At these modeled ratios, existing debts and housing costs use the full allowance, leaving no amount for principal and interest. Adjust an input or the ratio scenario."
+        },
+        {
+          "name": "standard:25/33",
+          "status": "pass",
+          "primary": "$301,048"
+        },
+        {
+          "name": "standard:28/36",
+          "status": "pass",
+          "primary": "$339,018"
+        },
+        {
+          "name": "standard:31/43",
+          "status": "pass",
+          "primary": "$376,989"
+        }
+      ]
+    },
+    {
+      "slug": "investment-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$548,915"
+        },
+        {
+          "name": "initial:min",
+          "status": "pass",
+          "primary": "$475,513"
+        },
+        {
+          "name": "initial:max",
+          "status": "pass",
+          "primary": "$7,340,651,477"
+        },
+        {
+          "name": "monthly:min",
+          "status": "pass",
+          "primary": "$73,402"
+        },
+        {
+          "name": "monthly:max",
+          "status": "pass",
+          "primary": "$95,102,712,858"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$160,000"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$49,443,048"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$160,000"
+        },
+        {
+          "name": "years:min",
+          "status": "pass",
+          "primary": "$17,055"
+        },
+        {
+          "name": "years:max",
+          "status": "pass",
+          "primary": "$10,090,166"
+        },
+        {
+          "name": "inflation:min",
+          "status": "pass",
+          "primary": "$548,915"
+        },
+        {
+          "name": "inflation:max",
+          "status": "pass",
+          "primary": "$548,915"
+        },
+        {
+          "name": "inflation:near-zero",
+          "status": "pass",
+          "primary": "$548,915"
+        }
+      ]
+    },
+    {
+      "slug": "loan-amortization-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "amount:min",
+          "status": "pass",
+          "primary": "$0.72"
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$7,164,310.58"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$833.33"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$5,013.38"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$833.33"
+        },
+        {
+          "name": "term:min",
+          "status": "pass",
+          "primary": "$33,919.09"
+        },
+        {
+          "name": "term:max",
+          "status": "pass",
+          "primary": "$1,052.81"
+        },
+        {
+          "name": "startMonth:1",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:2",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:3",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:4",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:5",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:6",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:7",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:8",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:9",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:10",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:11",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startMonth:12",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startYear:min",
+          "status": "pass",
+          "primary": "$1,432.86"
+        },
+        {
+          "name": "startYear:max",
+          "status": "pass",
+          "primary": "$1,432.86"
+        }
+      ]
+    },
+    {
+      "slug": "loan-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$400.76"
+        },
+        {
+          "name": "amount:min",
+          "status": "pass",
+          "primary": "$1.00"
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$2,003,794.86"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$333.33"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$775.03"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$333.33"
+        },
+        {
+          "name": "term:min",
+          "status": "pass",
+          "primary": "$6,750.17"
+        },
+        {
+          "name": "term:max",
+          "status": "pass",
+          "primary": "$128.05"
+        },
+        {
+          "name": "extra:min",
+          "status": "pass",
+          "primary": "$400.76"
+        },
+        {
+          "name": "extra:max",
+          "status": "pass",
+          "primary": "$20,400.76"
+        }
+      ]
+    },
+    {
+      "slug": "loan-comparison-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$363.27"
+        },
+        {
+          "name": "amount:min",
+          "status": "rejected",
+          "detail": "Fees can't equal or exceed the loan amount — check the fee inputs."
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$4,315,857.52"
+        },
+        {
+          "name": "rateA:min",
+          "status": "pass",
+          "primary": "$4,488.56"
+        },
+        {
+          "name": "rateA:max",
+          "status": "pass",
+          "primary": "$22,013.41"
+        },
+        {
+          "name": "rateA:near-zero",
+          "status": "pass",
+          "primary": "$4,488.56"
+        },
+        {
+          "name": "termA:min",
+          "status": "pass",
+          "primary": "$4,191.16"
+        },
+        {
+          "name": "termA:max",
+          "status": "pass",
+          "primary": "$65,580.74"
+        },
+        {
+          "name": "feesA:min",
+          "status": "pass",
+          "primary": "$363.27"
+        },
+        {
+          "name": "feesA:max",
+          "status": "rejected",
+          "detail": "Fees can't equal or exceed the loan amount — check the fee inputs."
+        },
+        {
+          "name": "rateB:min",
+          "status": "pass",
+          "primary": "$4,351.83"
+        },
+        {
+          "name": "rateB:max",
+          "status": "pass",
+          "primary": "$22,150.14"
+        },
+        {
+          "name": "rateB:near-zero",
+          "status": "pass",
+          "primary": "$4,351.83"
+        },
+        {
+          "name": "termB:min",
+          "status": "pass",
+          "primary": "$4,104.66"
+        },
+        {
+          "name": "termB:max",
+          "status": "pass",
+          "primary": "$51,546.08"
+        },
+        {
+          "name": "feesB:min",
+          "status": "pass",
+          "primary": "$863.27"
+        },
+        {
+          "name": "feesB:max",
+          "status": "rejected",
+          "detail": "Fees can't equal or exceed the loan amount — check the fee inputs."
+        },
+        {
+          "name": "exitMonth:min",
+          "status": "pass",
+          "primary": "$363.27"
+        },
+        {
+          "name": "exitMonth:max",
+          "status": "pass",
+          "primary": "$363.27"
+        }
+      ]
+    },
+    {
+      "slug": "loan-interest-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$7,871.80"
+        },
+        {
+          "name": "amount:min",
+          "status": "pass",
+          "primary": "$26.24"
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$26,239,332.41"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$49,499.89"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "term:min",
+          "status": "pass",
+          "primary": "$703.88"
+        },
+        {
+          "name": "term:max",
+          "status": "pass",
+          "primary": "$92,269.37"
+        }
+      ]
+    },
+    {
+      "slug": "loan-payment-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$495.03"
+        },
+        {
+          "name": "amount:min",
+          "status": "pass",
+          "primary": "$1.98"
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$1,980,119.85"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$416.67"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$968.79"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$416.67"
+        },
+        {
+          "name": "years:min",
+          "status": "pass",
+          "primary": "$2,163.17"
+        },
+        {
+          "name": "years:max",
+          "status": "pass",
+          "primary": "$155.36"
+        },
+        {
+          "name": "freq:12",
+          "status": "pass",
+          "primary": "$495.03"
+        },
+        {
+          "name": "freq:26",
+          "status": "pass",
+          "primary": "$228.18"
+        },
+        {
+          "name": "freq:52",
+          "status": "pass",
+          "primary": "$114.02"
+        }
+      ]
+    },
+    {
+      "slug": "loan-payoff-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "4 years"
+        },
+        {
+          "name": "balance:min",
+          "status": "pass",
+          "primary": "1 month"
+        },
+        {
+          "name": "balance:max",
+          "status": "rejected",
+          "detail": "At 8.5%, interest on $100,000,000 accrues at $708,333.33 per month, so a $350.00 payment never reduces the balance. The payment must be above $708,333.33 — the more above it, the faster the loan ends."
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "3 yr 4 mo"
+        },
+        {
+          "name": "rate:max",
+          "status": "rejected",
+          "detail": "At 40%, interest on $14,000 accrues at $466.67 per month, so a $350.00 payment never reduces the balance. The payment must be above $466.67 — the more above it, the faster the loan ends."
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "3 yr 4 mo"
+        },
+        {
+          "name": "payment:min",
+          "status": "rejected",
+          "detail": "At 8.5%, interest on $14,000 accrues at $99.17 per month, so a $1.00 payment never reduces the balance. The payment must be above $99.17 — the more above it, the faster the loan ends."
+        },
+        {
+          "name": "payment:max",
+          "status": "pass",
+          "primary": "1 month"
+        },
+        {
+          "name": "extra:min",
+          "status": "pass",
+          "primary": "4 years"
+        },
+        {
+          "name": "extra:max",
+          "status": "pass",
+          "primary": "1 month"
+        }
+      ]
+    },
+    {
+      "slug": "lump-sum-investment-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$445,392"
+        },
+        {
+          "name": "amount:min",
+          "status": "rejected",
+          "detail": "Enter the amount you're investing."
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$4,453,919,552"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$100,000"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$8,517,179"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$100,000"
+        },
+        {
+          "name": "years:min",
+          "status": "pass",
+          "primary": "$110,471"
+        },
+        {
+          "name": "years:max",
+          "status": "pass",
+          "primary": "$39,352,241"
+        },
+        {
+          "name": "compFreq:12",
+          "status": "pass",
+          "primary": "$445,392"
+        },
+        {
+          "name": "compFreq:1",
+          "status": "pass",
+          "primary": "$417,725"
+        },
+        {
+          "name": "inflation:min",
+          "status": "pass",
+          "primary": "$445,392"
+        },
+        {
+          "name": "inflation:max",
+          "status": "pass",
+          "primary": "$445,392"
+        },
+        {
+          "name": "inflation:near-zero",
+          "status": "pass",
+          "primary": "$445,392"
+        }
+      ]
+    },
+    {
+      "slug": "monthly-investment-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$519.70"
+        },
+        {
+          "name": "target:min",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "target:max",
+          "status": "pass",
+          "primary": "$5,777,456.53"
+        },
+        {
+          "name": "years:min",
+          "status": "pass",
+          "primary": "$7,636.71"
+        },
+        {
+          "name": "years:max",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$791.67"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$4.37"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$791.67"
+        },
+        {
+          "name": "principal:min",
+          "status": "pass",
+          "primary": "$577.75"
+        },
+        {
+          "name": "principal:max",
+          "status": "pass",
+          "primary": "$0.00"
+        }
+      ]
+    },
+    {
+      "slug": "mortgage-amortization-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "amount:min",
+          "status": "pass",
+          "primary": "$6.16"
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$6,157,172.00"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$888.89"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$6,670.65"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$888.89"
+        },
+        {
+          "name": "term:min",
+          "status": "pass",
+          "primary": "$27,578.04"
+        },
+        {
+          "name": "term:max",
+          "status": "pass",
+          "primary": "$1,816.77"
+        },
+        {
+          "name": "startMonth:1",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:2",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:3",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:4",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:5",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:6",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:7",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:8",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:9",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:10",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:11",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startMonth:12",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startYear:min",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "startYear:max",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "extra:min",
+          "status": "pass",
+          "primary": "$1,970.30"
+        },
+        {
+          "name": "extra:max",
+          "status": "pass",
+          "primary": "$10,001,970.30"
+        }
+      ]
+    },
+    {
+      "slug": "mortgage-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$2,194.79"
+        },
+        {
+          "name": "price:min",
+          "status": "rejected",
+          "detail": "The down payment covers the full price — there is no loan left to calculate."
+        },
+        {
+          "name": "price:max",
+          "status": "pass",
+          "primary": "$6,737,300.29"
+        },
+        {
+          "name": "down:min",
+          "status": "pass",
+          "primary": "$2,783.07"
+        },
+        {
+          "name": "down:max",
+          "status": "rejected",
+          "detail": "The down payment covers the full price — there is no loan left to calculate."
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$1,202.78"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$6,261.82"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$1,202.78"
+        },
+        {
+          "name": "term:min",
+          "status": "pass",
+          "primary": "$24,588.00"
+        },
+        {
+          "name": "term:max",
+          "status": "pass",
+          "primary": "$2,064.28"
+        },
+        {
+          "name": "tax:min",
+          "status": "pass",
+          "primary": "$1,894.79"
+        },
+        {
+          "name": "tax:max",
+          "status": "pass",
+          "primary": "$835,228.12"
+        },
+        {
+          "name": "insurance:min",
+          "status": "pass",
+          "primary": "$2,069.79"
+        },
+        {
+          "name": "insurance:max",
+          "status": "pass",
+          "primary": "$835,403.12"
+        },
+        {
+          "name": "pmiRate:min",
+          "status": "pass",
+          "primary": "$2,194.79"
+        },
+        {
+          "name": "pmiRate:max",
+          "status": "pass",
+          "primary": "$2,194.79"
+        },
+        {
+          "name": "pmiRate:near-zero",
+          "status": "pass",
+          "primary": "$2,194.79"
+        },
+        {
+          "name": "hoa:min",
+          "status": "pass",
+          "primary": "$2,194.79"
+        },
+        {
+          "name": "hoa:max",
+          "status": "pass",
+          "primary": "$102,194.79"
+        }
+      ]
+    },
+    {
+      "slug": "mortgage-payment-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$1,896.20"
+        },
+        {
+          "name": "amount:min",
+          "status": "pass",
+          "primary": "$6.32"
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$6,320,680.23"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$833.33"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$6,253.74"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$833.33"
+        },
+        {
+          "name": "term:180",
+          "status": "pass",
+          "primary": "$2,613.32"
+        },
+        {
+          "name": "term:240",
+          "status": "pass",
+          "primary": "$2,236.72"
+        },
+        {
+          "name": "term:360",
+          "status": "pass",
+          "primary": "$1,896.20"
+        }
+      ]
+    },
+    {
+      "slug": "mortgage-payoff-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$43,095.20"
+        },
+        {
+          "name": "balance:min",
+          "status": "pass",
+          "primary": "$79.83"
+        },
+        {
+          "name": "balance:max",
+          "status": "pass",
+          "primary": "$56,445.17"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$525,678.33"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "remaining:min",
+          "status": "pass",
+          "primary": "$15.10"
+        },
+        {
+          "name": "remaining:max",
+          "status": "pass",
+          "primary": "$159,211.53"
+        },
+        {
+          "name": "extra:min",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "extra:max",
+          "status": "pass",
+          "primary": "$191,595.97"
+        },
+        {
+          "name": "lump:min",
+          "status": "pass",
+          "primary": "$43,095.20"
+        },
+        {
+          "name": "lump:max",
+          "status": "pass",
+          "primary": "$191,595.97"
+        },
+        {
+          "name": "lumpMonth:min",
+          "status": "pass",
+          "primary": "$43,095.20"
+        },
+        {
+          "name": "lumpMonth:max",
+          "status": "pass",
+          "primary": "$43,095.20"
+        }
+      ]
+    },
+    {
+      "slug": "personal-loan-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$391.34"
+        },
+        {
+          "name": "amount:min",
+          "status": "pass",
+          "primary": "$2.61"
+        },
+        {
+          "name": "amount:max",
+          "status": "pass",
+          "primary": "$260,890.09"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$312.50"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$630.70"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$312.50"
+        },
+        {
+          "name": "term:min",
+          "status": "pass",
+          "primary": "$2,584.52"
+        },
+        {
+          "name": "term:max",
+          "status": "pass",
+          "primary": "$210.89"
+        },
+        {
+          "name": "feePct:min",
+          "status": "pass",
+          "primary": "$391.34"
+        },
+        {
+          "name": "feePct:max",
+          "status": "pass",
+          "primary": "$391.34"
+        },
+        {
+          "name": "feePct:near-zero",
+          "status": "pass",
+          "primary": "$391.34"
+        }
+      ]
+    },
+    {
+      "slug": "present-value-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$54,963.27"
+        },
+        {
+          "name": "mode:lump",
+          "status": "pass",
+          "primary": "$54,963.27"
+        },
+        {
+          "name": "mode:stream",
+          "status": "pass",
+          "primary": "$90,073.45"
+        },
+        {
+          "name": "future:min",
+          "status": "rejected",
+          "detail": "Enter a future amount."
+        },
+        {
+          "name": "future:max",
+          "status": "pass",
+          "primary": "$549,632,733.36"
+        },
+        {
+          "name": "years:min",
+          "status": "pass",
+          "primary": "$97,051.81"
+        },
+        {
+          "name": "years:max",
+          "status": "pass",
+          "primary": "$832.88"
+        },
+        {
+          "name": "payment:min",
+          "status": "pass",
+          "primary": "$54,963.27"
+        },
+        {
+          "name": "payment:max",
+          "status": "pass",
+          "primary": "$54,963.27"
+        },
+        {
+          "name": "months:min",
+          "status": "pass",
+          "primary": "$54,963.27"
+        },
+        {
+          "name": "months:max",
+          "status": "pass",
+          "primary": "$54,963.27"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$100,000.00"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$745.67"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$100,000.00"
+        },
+        {
+          "name": "compFreq:12",
+          "status": "pass",
+          "primary": "$54,963.27"
+        },
+        {
+          "name": "compFreq:1",
+          "status": "pass",
+          "primary": "$55,839.48"
+        }
+      ]
+    },
+    {
+      "slug": "refinance-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "−$164.16"
+        },
+        {
+          "name": "balance:min",
+          "status": "pass",
+          "primary": "−$0.63"
+        },
+        {
+          "name": "balance:max",
+          "status": "pass",
+          "primary": "−$631,374.86"
+        },
+        {
+          "name": "currentRate:min",
+          "status": "pass",
+          "primary": "+$848.47"
+        },
+        {
+          "name": "currentRate:max",
+          "status": "pass",
+          "primary": "−$3,712.70"
+        },
+        {
+          "name": "currentRate:near-zero",
+          "status": "pass",
+          "primary": "+$848.47"
+        },
+        {
+          "name": "remaining:min",
+          "status": "pass",
+          "primary": "−$42,539.11"
+        },
+        {
+          "name": "remaining:max",
+          "status": "pass",
+          "primary": "+$51.99"
+        },
+        {
+          "name": "newRate:min",
+          "status": "pass",
+          "primary": "−$1,012.63"
+        },
+        {
+          "name": "newRate:max",
+          "status": "pass",
+          "primary": "+$3,548.54"
+        },
+        {
+          "name": "newRate:near-zero",
+          "status": "pass",
+          "primary": "−$1,012.63"
+        },
+        {
+          "name": "newTerm:120",
+          "status": "pass",
+          "primary": "+$1,039.98"
+        },
+        {
+          "name": "newTerm:180",
+          "status": "pass",
+          "primary": "+$350.00"
+        },
+        {
+          "name": "newTerm:240",
+          "status": "pass",
+          "primary": "+$21.11"
+        },
+        {
+          "name": "newTerm:300",
+          "status": "pass",
+          "primary": "−$164.16"
+        },
+        {
+          "name": "newTerm:360",
+          "status": "pass",
+          "primary": "−$278.44"
+        },
+        {
+          "name": "closing:min",
+          "status": "pass",
+          "primary": "−$164.16"
+        },
+        {
+          "name": "closing:max",
+          "status": "pass",
+          "primary": "−$164.16"
+        },
+        {
+          "name": "horizon:min",
+          "status": "pass",
+          "primary": "−$164.16"
+        },
+        {
+          "name": "horizon:max",
+          "status": "pass",
+          "primary": "−$164.16"
+        }
+      ]
+    },
+    {
+      "slug": "rent-vs-buy-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$1,112"
+        },
+        {
+          "name": "price:min",
+          "status": "rejected",
+          "detail": "The down payment covers the whole price — compare a cash purchase separately."
+        },
+        {
+          "name": "price:max",
+          "status": "pass",
+          "primary": "$588,750,611"
+        },
+        {
+          "name": "down:min",
+          "status": "pass",
+          "primary": "$15,881"
+        },
+        {
+          "name": "down:max",
+          "status": "rejected",
+          "detail": "The down payment covers the whole price — compare a cash purchase separately."
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$195,110"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$603,288"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$195,110"
+        },
+        {
+          "name": "rent:min",
+          "status": "pass",
+          "primary": "$266,223"
+        },
+        {
+          "name": "rent:max",
+          "status": "pass",
+          "primary": "$1,407,500,816"
+        },
+        {
+          "name": "horizon:min",
+          "status": "pass",
+          "primary": "$36,549"
+        },
+        {
+          "name": "horizon:max",
+          "status": "pass",
+          "primary": "$479,000"
+        },
+        {
+          "name": "rentGrowth:min",
+          "status": "pass",
+          "primary": "$38,364"
+        },
+        {
+          "name": "rentGrowth:max",
+          "status": "pass",
+          "primary": "$325,494"
+        },
+        {
+          "name": "rentGrowth:near-zero",
+          "status": "pass",
+          "primary": "$38,364"
+        },
+        {
+          "name": "appreciation:min",
+          "status": "pass",
+          "primary": "$135,280"
+        },
+        {
+          "name": "appreciation:max",
+          "status": "pass",
+          "primary": "$1,639,149"
+        },
+        {
+          "name": "appreciation:near-zero",
+          "status": "pass",
+          "primary": "$135,280"
+        },
+        {
+          "name": "taxPct:min",
+          "status": "pass",
+          "primary": "$54,537"
+        },
+        {
+          "name": "taxPct:max",
+          "status": "pass",
+          "primary": "$431,143"
+        },
+        {
+          "name": "taxPct:near-zero",
+          "status": "pass",
+          "primary": "$54,537"
+        },
+        {
+          "name": "insurance:min",
+          "status": "pass",
+          "primary": "$17,112"
+        },
+        {
+          "name": "insurance:max",
+          "status": "pass",
+          "primary": "$9,982,888"
+        },
+        {
+          "name": "maintenancePct:min",
+          "status": "pass",
+          "primary": "$49,680"
+        },
+        {
+          "name": "maintenancePct:max",
+          "status": "pass",
+          "primary": "$436,000"
+        },
+        {
+          "name": "maintenancePct:near-zero",
+          "status": "pass",
+          "primary": "$49,680"
+        },
+        {
+          "name": "closingPct:min",
+          "status": "pass",
+          "primary": "$22,602"
+        },
+        {
+          "name": "closingPct:max",
+          "status": "pass",
+          "primary": "$49,032"
+        },
+        {
+          "name": "closingPct:near-zero",
+          "status": "pass",
+          "primary": "$22,602"
+        },
+        {
+          "name": "sellingPct:min",
+          "status": "pass",
+          "primary": "$34,967"
+        },
+        {
+          "name": "sellingPct:max",
+          "status": "pass",
+          "primary": "$49,669"
+        },
+        {
+          "name": "sellingPct:near-zero",
+          "status": "pass",
+          "primary": "$34,967"
+        },
+        {
+          "name": "investReturn:min",
+          "status": "pass",
+          "primary": "$73,870"
+        },
+        {
+          "name": "investReturn:max",
+          "status": "pass",
+          "primary": "$403,770"
+        },
+        {
+          "name": "investReturn:near-zero",
+          "status": "pass",
+          "primary": "$73,870"
+        }
+      ]
+    },
+    {
+      "slug": "roi-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "40%"
+        },
+        {
+          "name": "invested:min",
+          "status": "rejected",
+          "detail": "Enter the amount you invested."
+        },
+        {
+          "name": "invested:max",
+          "status": "pass",
+          "primary": "-100%"
+        },
+        {
+          "name": "received:min",
+          "status": "pass",
+          "primary": "-100%"
+        },
+        {
+          "name": "received:max",
+          "status": "pass",
+          "primary": "9,999,900%"
+        },
+        {
+          "name": "period:min",
+          "status": "pass",
+          "primary": "40%"
+        },
+        {
+          "name": "period:max",
+          "status": "pass",
+          "primary": "40%"
+        },
+        {
+          "name": "costs:min",
+          "status": "pass",
+          "primary": "40%"
+        },
+        {
+          "name": "costs:max",
+          "status": "pass",
+          "primary": "-100%"
+        }
+      ]
+    },
+    {
+      "slug": "savings-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$67,129.48"
+        },
+        {
+          "name": "balance:min",
+          "status": "pass",
+          "primary": "$59,525.25"
+        },
+        {
+          "name": "balance:max",
+          "status": "pass",
+          "primary": "$1,520,905,451.55"
+        },
+        {
+          "name": "deposit:min",
+          "status": "pass",
+          "primary": "$7,604.23"
+        },
+        {
+          "name": "deposit:max",
+          "status": "pass",
+          "primary": "$14,881,319,784.13"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$53,000.00"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$186,779.39"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$53,000.00"
+        },
+        {
+          "name": "compFreq:365",
+          "status": "pass",
+          "primary": "$67,157.28"
+        },
+        {
+          "name": "compFreq:12",
+          "status": "pass",
+          "primary": "$67,129.48"
+        },
+        {
+          "name": "compFreq:1",
+          "status": "pass",
+          "primary": "$66,822.82"
+        },
+        {
+          "name": "years:min",
+          "status": "pass",
+          "primary": "$10,107.58"
+        },
+        {
+          "name": "years:max",
+          "status": "pass",
+          "primary": "$1,361,759.80"
+        },
+        {
+          "name": "goal:min",
+          "status": "pass",
+          "primary": "$67,129.48"
+        },
+        {
+          "name": "goal:max",
+          "status": "pass",
+          "primary": "$67,129.48"
+        }
+      ]
+    },
+    {
+      "slug": "simple-interest-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$1,800.00"
+        },
+        {
+          "name": "principal:min",
+          "status": "rejected",
+          "detail": "Enter a principal amount."
+        },
+        {
+          "name": "principal:max",
+          "status": "pass",
+          "primary": "$180,000,000.00"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$15,000.00"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$0.00"
+        },
+        {
+          "name": "time:min",
+          "status": "pass",
+          "primary": "$60.00"
+        },
+        {
+          "name": "time:max",
+          "status": "pass",
+          "primary": "$60,000.00"
+        }
+      ]
+    },
+    {
+      "slug": "sip-calculator",
+      "cases": [
+        {
+          "name": "default",
+          "status": "pass",
+          "primary": "$4,995,802"
+        },
+        {
+          "name": "sip:min",
+          "status": "rejected",
+          "detail": "Enter a monthly SIP amount."
+        },
+        {
+          "name": "sip:max",
+          "status": "pass",
+          "primary": "$49,958,019,754"
+        },
+        {
+          "name": "rate:min",
+          "status": "pass",
+          "primary": "$1,800,000"
+        },
+        {
+          "name": "rate:max",
+          "status": "pass",
+          "primary": "$33,668,716"
+        },
+        {
+          "name": "rate:near-zero",
+          "status": "pass",
+          "primary": "$1,800,000"
+        },
+        {
+          "name": "years:min",
+          "status": "pass",
+          "primary": "$126,825"
+        },
+        {
+          "name": "years:max",
+          "status": "pass",
+          "primary": "$390,583,397"
+        },
+        {
+          "name": "stepUp:min",
+          "status": "pass",
+          "primary": "$4,995,802"
+        },
+        {
+          "name": "stepUp:max",
+          "status": "pass",
+          "primary": "$146,782,321"
+        },
+        {
+          "name": "stepUp:near-zero",
+          "status": "pass",
+          "primary": "$4,995,802"
+        },
+        {
+          "name": "lump:min",
+          "status": "pass",
+          "primary": "$4,995,802"
+        },
+        {
+          "name": "lump:max",
+          "status": "pass",
+          "primary": "$6,000,797,777"
+        }
+      ]
+    }
+  ]
+}
