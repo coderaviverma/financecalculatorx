@@ -389,11 +389,23 @@
     let scn = { A: null, B: null };
     try { scn = Object.assign(scn, JSON.parse(localStorage.getItem(scnKey) || "{}")); } catch {}
 
+    // Recompute saved scenario display data from its raw inputs. Currency is a
+    // display preference, so persisted summaries must not keep an old symbol
+    // while the comparison table and current result use the new one.
+    function currentScenario(saved) {
+      if (!saved) return null;
+      try {
+        const result = cfg.compute(saved.values || {}, F);
+        if (result && !result.invalid && result.scenario) return result.scenario;
+      } catch {}
+      return saved;
+    }
+
     function renderScenarioSlots() {
       if (!scnCard || cfg.scenario === false) { if (scnCard) scnCard.hidden = true; return; }
       scnCard.hidden = false;
       ["A", "B"].forEach((slot) => {
-        const s = scn[slot], box = $(`[data-slot="${slot}"]`, scnCard);
+        const saved = scn[slot], s = currentScenario(saved), box = $(`[data-slot="${slot}"]`, scnCard);
         box.classList.toggle("filled", !!s);
         $(".s-desc", box).textContent = s ? s.summary : "Not saved yet";
         $("[data-save]", box).textContent = s ? "Update" : `Save current as ${slot}`;
@@ -401,9 +413,10 @@
         $("[data-clear]", box).hidden = !s;
       });
       const cmp = $("#scenario-compare");
-      if (scn.A && scn.B) {
-        const rows = scn.A.metrics.map((ma, i) => {
-          const mb = scn.B.metrics[i];
+      const scenarioA = currentScenario(scn.A), scenarioB = currentScenario(scn.B);
+      if (scenarioA && scenarioB) {
+        const rows = scenarioA.metrics.map((ma, i) => {
+          const mb = scenarioB.metrics[i];
           if (!mb || mb.label !== ma.label) return "";
           const diff = (mb.raw != null && ma.raw != null) ? mb.raw - ma.raw : null;
           const fmtV = (m) => fmtScn(m.raw, m.fmt);

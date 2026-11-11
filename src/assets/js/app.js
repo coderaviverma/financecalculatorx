@@ -250,7 +250,10 @@
     document.querySelectorAll("[data-menu-theme] button[data-v]").forEach((b) => b.setAttribute("aria-checked", String(prefs.theme === b.dataset.v)));
     document.querySelectorAll("[data-menu-currency] button[data-v]").forEach((b) => b.setAttribute("aria-checked", String(FCX.fmt.cur() === b.dataset.v)));
     const curBtn = document.getElementById("btn-currency-label");
-    if (curBtn) curBtn.textContent = FCX.fmt.cur();
+    if (curBtn) {
+      curBtn.textContent = FCX.fmt.cur();
+      curBtn.closest("button")?.setAttribute("aria-label", `${FCX.fmt.cur()} — choose currency`);
+    }
   }
 
   function closeMenus(except, restoreFocus) {

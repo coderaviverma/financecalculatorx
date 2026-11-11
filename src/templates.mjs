@@ -51,7 +51,7 @@ function header(path) {
     <div class="header-actions">
       <button class="icon-btn search-btn" type="button" data-goto-search aria-label="Search calculators">${I.search}<span class="label">Search</span><span class="kbd">/</span></button>
       <div class="menu-wrap">
-        <button class="icon-btn" type="button" data-opens="menu-currency" aria-expanded="false" aria-haspopup="true" aria-label="Choose currency"><span id="btn-currency-label">USD</span></button>
+        <button class="icon-btn" type="button" data-opens="menu-currency" aria-expanded="false" aria-haspopup="true" aria-label="USD — choose currency"><span id="btn-currency-label">USD</span></button>
         <div class="menu" id="menu-currency" data-menu-currency>
           <div class="menu-title">Display currency</div>
           ${["USD", "EUR", "GBP", "INR", "AUD", "CAD", "SGD", "JPY"].map((c) => `<button type="button" role="menuitemradio" data-v="${c}" aria-checked="false"><span class="sym">${{ USD: "$", EUR: "€", GBP: "£", INR: "₹", AUD: "A$", CAD: "C$", SGD: "S$", JPY: "¥" }[c]}</span>${{ USD: "US Dollar", EUR: "Euro", GBP: "British Pound", INR: "Indian Rupee", AUD: "Australian Dollar", CAD: "Canadian Dollar", SGD: "Singapore Dollar", JPY: "Japanese Yen" }[c]}</button>`).join("")}

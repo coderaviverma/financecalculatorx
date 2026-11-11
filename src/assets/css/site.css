@@ -389,7 +389,7 @@ body.calc-booting #related {
 .field.invalid .control input { border-color: var(--danger); }
 .field.invalid .control input:focus-visible { box-shadow: 0 0 0 3.5px color-mix(in srgb, var(--danger) 20%, transparent); }
 .control .affix {
-  display: flex; align-items: center; padding: 0 .8rem; font-size: .92rem; font-weight: 600; color: var(--ink-3);
+  display: flex; align-items: center; padding: 0 .8rem; font-size: .92rem; font-weight: 600; color: var(--ink-2);
   background: var(--surface-2); border: 1px solid var(--line-strong); white-space: nowrap;
 }
 .control .affix.pre { border-right: 0; border-radius: 10px 0 0 10px; }
@@ -440,6 +440,7 @@ body.calc-booting #related {
 
 /* ---------- Results ---------- */
 .results { display: grid; gap: 1.4rem; min-width: 0; }
+.results > * { min-width: 0; max-width: 100%; }
 .result-hero { padding: 1.5rem 1.5rem 1.35rem; border-radius: var(--r-lg); background: linear-gradient(160deg, var(--brand-softer), var(--surface) 70%); border: 1px solid var(--line); }
 .result-hero .rh-label { font-size: .85rem; font-weight: 600; color: var(--ink-2); text-transform: uppercase; letter-spacing: .06em; }
 .result-hero .rh-value { font-family: var(--font-display); font-size: clamp(2rem, 1.5rem + 2.4vw, 3rem); font-weight: 600; letter-spacing: -.02em; color: var(--brand-ink); line-height: 1.1; margin: .2rem 0 .1rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
@@ -498,6 +499,8 @@ table.data tfoot td { border-top: 2px solid var(--line-strong); font-weight: 700
 .scenario-slot .s-desc { font-size: .8rem; color: var(--ink-2); margin: .25rem 0 .6rem; min-height: 1.1em; overflow-wrap: anywhere; }
 .scenario-slot .s-actions { display: flex; gap: .4rem; flex-wrap: wrap; }
 table.compare { width: 100%; border-collapse: collapse; font-size: .9rem; }
+#scenario-compare { max-width: 100%; overflow-x: auto; }
+@media (max-width: 560px) { table.compare { min-width: 320px; } }
 table.compare th, table.compare td { padding: .55rem .7rem; text-align: right; font-variant-numeric: tabular-nums; border-top: 1px solid var(--line); }
 table.compare th:first-child, table.compare td:first-child { text-align: left; font-weight: 500; color: var(--ink-2); }
 table.compare thead th { border-top: 0; color: var(--ink-3); font-size: .76rem; text-transform: uppercase; letter-spacing: .05em; }
